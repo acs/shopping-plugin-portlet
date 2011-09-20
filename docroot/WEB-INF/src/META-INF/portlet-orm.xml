@@ -1,0 +1,284 @@
+<?xml version="1.0"?>
+
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.0" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_1_0.xsd">
+	<persistence-unit-metadata>
+		<xml-mapping-metadata-complete/>
+		<persistence-unit-defaults>
+			<access>PROPERTY</access>
+		</persistence-unit-defaults>
+	</persistence-unit-metadata>
+	<mapped-superclass class="com.liferay.portlet.shopping.model.impl.ShoppingCartModelImpl">
+		<attributes>
+			<id name="cartId" />
+			<basic name="groupId" />
+			<basic name="companyId" />
+			<basic name="userId" />
+			<basic name="userName" />
+			<basic name="createDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="modifiedDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="itemIds" />
+			<basic name="couponCodes" />
+			<basic name="altShipping" />
+			<basic name="insure" />
+			<transient name="primaryKey" />
+			<transient name="primaryKeyObj" />
+			<transient name="userUuid" />
+		</attributes>
+	</mapped-superclass>
+	<mapped-superclass class="com.liferay.portlet.shopping.model.impl.ShoppingCategoryModelImpl">
+		<attributes>
+			<id name="categoryId" />
+			<basic name="groupId" />
+			<basic name="companyId" />
+			<basic name="userId" />
+			<basic name="userName" />
+			<basic name="createDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="modifiedDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="parentCategoryId" />
+			<basic name="name" />
+			<basic name="description" />
+			<transient name="primaryKey" />
+			<transient name="primaryKeyObj" />
+			<transient name="userUuid" />
+		</attributes>
+	</mapped-superclass>
+	<mapped-superclass class="com.liferay.portlet.shopping.model.impl.ShoppingCouponModelImpl">
+		<attributes>
+			<id name="couponId" />
+			<basic name="groupId" />
+			<basic name="companyId" />
+			<basic name="userId" />
+			<basic name="userName" />
+			<basic name="createDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="modifiedDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="code">
+				<column name="CODE_" />
+			</basic>
+			<basic name="name" />
+			<basic name="description" />
+			<basic name="startDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="endDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="active">
+				<column name="ACTIVE_" />
+			</basic>
+			<basic name="limitCategories" />
+			<basic name="limitSkus" />
+			<basic name="minOrder" />
+			<basic name="discount" />
+			<basic name="discountType" />
+			<transient name="primaryKey" />
+			<transient name="primaryKeyObj" />
+			<transient name="userUuid" />
+		</attributes>
+	</mapped-superclass>
+	<mapped-superclass class="com.liferay.portlet.shopping.model.impl.ShoppingItemModelImpl">
+		<attributes>
+			<id name="itemId" />
+			<basic name="groupId" />
+			<basic name="companyId" />
+			<basic name="userId" />
+			<basic name="userName" />
+			<basic name="createDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="modifiedDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="categoryId" />
+			<basic name="sku" />
+			<basic name="name" />
+			<basic name="description" />
+			<basic name="properties" />
+			<basic name="fields">
+				<column name="FIELDS_" />
+			</basic>
+			<basic name="fieldsQuantities" />
+			<basic name="minQuantity" />
+			<basic name="maxQuantity" />
+			<basic name="price" />
+			<basic name="discount" />
+			<basic name="taxable" />
+			<basic name="shipping" />
+			<basic name="useShippingFormula" />
+			<basic name="requiresShipping" />
+			<basic name="stockQuantity" />
+			<basic name="featured">
+				<column name="FEATURED_" />
+			</basic>
+			<basic name="sale">
+				<column name="SALE_" />
+			</basic>
+			<basic name="smallImage" />
+			<basic name="smallImageId" />
+			<basic name="smallImageURL" />
+			<basic name="mediumImage" />
+			<basic name="mediumImageId" />
+			<basic name="mediumImageURL" />
+			<basic name="largeImage" />
+			<basic name="largeImageId" />
+			<basic name="largeImageURL" />
+			<transient name="primaryKey" />
+			<transient name="primaryKeyObj" />
+			<transient name="userUuid" />
+		</attributes>
+	</mapped-superclass>
+	<mapped-superclass class="com.liferay.portlet.shopping.model.impl.ShoppingItemFieldModelImpl">
+		<attributes>
+			<id name="itemFieldId" />
+			<basic name="itemId" />
+			<basic name="name" />
+			<basic name="values">
+				<column name="VALUES_" />
+			</basic>
+			<basic name="description" />
+			<transient name="primaryKey" />
+			<transient name="primaryKeyObj" />
+		</attributes>
+	</mapped-superclass>
+	<mapped-superclass class="com.liferay.portlet.shopping.model.impl.ShoppingItemPriceModelImpl">
+		<attributes>
+			<id name="itemPriceId" />
+			<basic name="itemId" />
+			<basic name="minQuantity" />
+			<basic name="maxQuantity" />
+			<basic name="price" />
+			<basic name="discount" />
+			<basic name="taxable" />
+			<basic name="shipping" />
+			<basic name="useShippingFormula" />
+			<basic name="status" />
+			<transient name="primaryKey" />
+			<transient name="primaryKeyObj" />
+		</attributes>
+	</mapped-superclass>
+	<mapped-superclass class="com.liferay.portlet.shopping.model.impl.ShoppingOrderModelImpl">
+		<attributes>
+			<id name="orderId" />
+			<basic name="groupId" />
+			<basic name="companyId" />
+			<basic name="userId" />
+			<basic name="userName" />
+			<basic name="createDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="modifiedDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="number">
+				<column name="NUMBER_" />
+			</basic>
+			<basic name="tax" />
+			<basic name="shipping" />
+			<basic name="altShipping" />
+			<basic name="requiresShipping" />
+			<basic name="insure" />
+			<basic name="insurance" />
+			<basic name="couponCodes" />
+			<basic name="couponDiscount" />
+			<basic name="billingFirstName" />
+			<basic name="billingLastName" />
+			<basic name="billingEmailAddress" />
+			<basic name="billingCompany" />
+			<basic name="billingStreet" />
+			<basic name="billingCity" />
+			<basic name="billingState" />
+			<basic name="billingZip" />
+			<basic name="billingCountry" />
+			<basic name="billingPhone" />
+			<basic name="shipToBilling" />
+			<basic name="shippingFirstName" />
+			<basic name="shippingLastName" />
+			<basic name="shippingEmailAddress" />
+			<basic name="shippingCompany" />
+			<basic name="shippingStreet" />
+			<basic name="shippingCity" />
+			<basic name="shippingState" />
+			<basic name="shippingZip" />
+			<basic name="shippingCountry" />
+			<basic name="shippingPhone" />
+			<basic name="ccName" />
+			<basic name="ccType" />
+			<basic name="ccNumber" />
+			<basic name="ccExpMonth" />
+			<basic name="ccExpYear" />
+			<basic name="ccVerNumber" />
+			<basic name="comments" />
+			<basic name="ppTxnId" />
+			<basic name="ppPaymentStatus" />
+			<basic name="ppPaymentGross" />
+			<basic name="ppReceiverEmail" />
+			<basic name="ppPayerEmail" />
+			<basic name="sendOrderEmail" />
+			<basic name="sendShippingEmail" />
+			<transient name="primaryKey" />
+			<transient name="primaryKeyObj" />
+			<transient name="userUuid" />
+		</attributes>
+	</mapped-superclass>
+	<mapped-superclass class="com.liferay.portlet.shopping.model.impl.ShoppingOrderItemModelImpl">
+		<attributes>
+			<id name="orderItemId" />
+			<basic name="orderId" />
+			<basic name="itemId" />
+			<basic name="sku" />
+			<basic name="name" />
+			<basic name="description" />
+			<basic name="properties" />
+			<basic name="price" />
+			<basic name="quantity" />
+			<basic name="shippedDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<transient name="primaryKey" />
+			<transient name="primaryKeyObj" />
+		</attributes>
+	</mapped-superclass>
+	<entity class="com.liferay.portlet.shopping.model.impl.ShoppingCartImpl" name="ShoppingCart">
+		<table name="Shopping_ShoppingCart" />
+		<attributes />
+	</entity>
+	<entity class="com.liferay.portlet.shopping.model.impl.ShoppingCategoryImpl" name="ShoppingCategory">
+		<table name="Shopping_ShoppingCategory" />
+		<attributes />
+	</entity>
+	<entity class="com.liferay.portlet.shopping.model.impl.ShoppingCouponImpl" name="ShoppingCoupon">
+		<table name="Shopping_ShoppingCoupon" />
+		<attributes />
+	</entity>
+	<entity class="com.liferay.portlet.shopping.model.impl.ShoppingItemImpl" name="ShoppingItem">
+		<table name="Shopping_ShoppingItem" />
+		<attributes />
+	</entity>
+	<entity class="com.liferay.portlet.shopping.model.impl.ShoppingItemFieldImpl" name="ShoppingItemField">
+		<table name="Shopping_ShoppingItemField" />
+		<attributes />
+	</entity>
+	<entity class="com.liferay.portlet.shopping.model.impl.ShoppingItemPriceImpl" name="ShoppingItemPrice">
+		<table name="Shopping_ShoppingItemPrice" />
+		<attributes />
+	</entity>
+	<entity class="com.liferay.portlet.shopping.model.impl.ShoppingOrderImpl" name="ShoppingOrder">
+		<table name="Shopping_ShoppingOrder" />
+		<attributes />
+	</entity>
+	<entity class="com.liferay.portlet.shopping.model.impl.ShoppingOrderItemImpl" name="ShoppingOrderItem">
+		<table name="Shopping_ShoppingOrderItem" />
+		<attributes />
+	</entity>
+</entity-mappings>

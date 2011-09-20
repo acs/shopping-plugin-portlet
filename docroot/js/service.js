@@ -1,0 +1,1 @@
+Liferay.Service.register("Liferay.Service.Shopping", "com.liferay.portlet.shopping.service", "shopping-plugin-portlet");
