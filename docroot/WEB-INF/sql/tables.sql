@@ -6,7 +6,7 @@ create table Shopping_ShoppingCart (
 	userName VARCHAR(75) null,
 	createDate DATE null,
 	modifiedDate DATE null,
-	itemIds STRING null,
+	itemIds VARCHAR(75) null,
 	couponCodes VARCHAR(75) null,
 	altShipping INTEGER,
 	insure BOOLEAN
@@ -22,7 +22,7 @@ create table Shopping_ShoppingCategory (
 	modifiedDate DATE null,
 	parentCategoryId LONG,
 	name VARCHAR(75) null,
-	description STRING null
+	description VARCHAR(75) null
 );
 
 create table Shopping_ShoppingCoupon (
@@ -35,12 +35,12 @@ create table Shopping_ShoppingCoupon (
 	modifiedDate DATE null,
 	code_ VARCHAR(75) null,
 	name VARCHAR(75) null,
-	description STRING null,
+	description VARCHAR(75) null,
 	startDate DATE null,
 	endDate DATE null,
 	active_ BOOLEAN,
-	limitCategories STRING null,
-	limitSkus STRING null,
+	limitCategories VARCHAR(75) null,
+	limitSkus VARCHAR(75) null,
 	minOrder DOUBLE,
 	discount DOUBLE,
 	discountType VARCHAR(75) null
@@ -56,11 +56,11 @@ create table Shopping_ShoppingItem (
 	modifiedDate DATE null,
 	categoryId LONG,
 	sku VARCHAR(75) null,
-	name VARCHAR(200) null,
-	description STRING null,
-	properties STRING null,
+	name VARCHAR(75) null,
+	description VARCHAR(75) null,
+	properties VARCHAR(75) null,
 	fields_ BOOLEAN,
-	fieldsQuantities STRING null,
+	fieldsQuantities VARCHAR(75) null,
 	minQuantity INTEGER,
 	maxQuantity INTEGER,
 	price DOUBLE,
@@ -74,21 +74,21 @@ create table Shopping_ShoppingItem (
 	sale_ BOOLEAN,
 	smallImage BOOLEAN,
 	smallImageId LONG,
-	smallImageURL STRING null,
+	smallImageURL VARCHAR(75) null,
 	mediumImage BOOLEAN,
 	mediumImageId LONG,
-	mediumImageURL STRING null,
+	mediumImageURL VARCHAR(75) null,
 	largeImage BOOLEAN,
 	largeImageId LONG,
-	largeImageURL STRING null
+	largeImageURL VARCHAR(75) null
 );
 
 create table Shopping_ShoppingItemField (
 	itemFieldId LONG not null primary key,
 	itemId LONG,
 	name VARCHAR(75) null,
-	values_ STRING null,
-	description STRING null
+	values_ VARCHAR(75) null,
+	description VARCHAR(75) null
 );
 
 create table Shopping_ShoppingItemPrice (
@@ -148,7 +148,7 @@ create table Shopping_ShoppingOrder (
 	ccExpMonth INTEGER,
 	ccExpYear INTEGER,
 	ccVerNumber VARCHAR(75) null,
-	comments STRING null,
+	comments VARCHAR(75) null,
 	ppTxnId VARCHAR(75) null,
 	ppPaymentStatus VARCHAR(75) null,
 	ppPaymentGross DOUBLE,
@@ -163,9 +163,9 @@ create table Shopping_ShoppingOrderItem (
 	orderId LONG,
 	itemId VARCHAR(75) null,
 	sku VARCHAR(75) null,
-	name VARCHAR(200) null,
-	description STRING null,
-	properties STRING null,
+	name VARCHAR(75) null,
+	description VARCHAR(75) null,
+	properties VARCHAR(75) null,
 	price DOUBLE,
 	quantity INTEGER,
 	shippedDate DATE null

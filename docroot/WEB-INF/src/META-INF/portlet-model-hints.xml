@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 
 <model-hints>
-	<model name="com.liferay.portlet.shopping.model.ShoppingCart">
+	<model name="com.liferay.shopping.model.ShoppingCart">
 		<field name="cartId" type="long" />
 		<field name="groupId" type="long" />
 		<field name="companyId" type="long" />
@@ -9,14 +9,12 @@
 		<field name="userName" type="String" />
 		<field name="createDate" type="Date" />
 		<field name="modifiedDate" type="Date" />
-		<field name="itemIds" type="String">
-			<hint-collection name="TEXTAREA" />
-		</field>
+		<field name="itemIds" type="String" />
 		<field name="couponCodes" type="String" />
 		<field name="altShipping" type="int" />
 		<field name="insure" type="boolean" />
 	</model>
-	<model name="com.liferay.portlet.shopping.model.ShoppingCategory">
+	<model name="com.liferay.shopping.model.ShoppingCategory">
 		<field name="categoryId" type="long" />
 		<field name="groupId" type="long" />
 		<field name="companyId" type="long" />
@@ -26,14 +24,10 @@
 		<field name="modifiedDate" type="Date" />
 		<field name="parentCategoryId" type="long" />
 		<field name="name" type="String" />
-		<field name="description" type="String">
-			<hint-collection name="TEXTAREA" />
-		</field>
+		<field name="description" type="String" />
 	</model>
-	<model name="com.liferay.portlet.shopping.model.ShoppingCoupon">
-		<field name="couponId" type="long">
-			<hint name="upper-case">true</hint>
-		</field>
+	<model name="com.liferay.shopping.model.ShoppingCoupon">
+		<field name="couponId" type="long" />
 		<field name="groupId" type="long" />
 		<field name="companyId" type="long" />
 		<field name="userId" type="long" />
@@ -42,25 +36,17 @@
 		<field name="modifiedDate" type="Date" />
 		<field name="code" type="String" />
 		<field name="name" type="String" />
-		<field name="description" type="String">
-			<hint-collection name="TEXTAREA" />
-		</field>
+		<field name="description" type="String" />
 		<field name="startDate" type="Date" />
-		<field name="endDate" type="Date">
-			<hint name="default-month-delta">1</hint>
-		</field>
+		<field name="endDate" type="Date" />
 		<field name="active" type="boolean" />
-		<field name="limitCategories" type="String">
-			<hint-collection name="TEXTAREA" />
-		</field>
-		<field name="limitSkus" type="String">
-			<hint-collection name="TEXTAREA" />
-		</field>
+		<field name="limitCategories" type="String" />
+		<field name="limitSkus" type="String" />
 		<field name="minOrder" type="double" />
 		<field name="discount" type="double" />
 		<field name="discountType" type="String" />
 	</model>
-	<model name="com.liferay.portlet.shopping.model.ShoppingItem">
+	<model name="com.liferay.shopping.model.ShoppingItem">
 		<field name="itemId" type="long" />
 		<field name="groupId" type="long" />
 		<field name="companyId" type="long" />
@@ -70,19 +56,11 @@
 		<field name="modifiedDate" type="Date" />
 		<field name="categoryId" type="long" />
 		<field name="sku" type="String" />
-		<field name="name" type="String">
-			<hint name="max-length">200</hint>
-		</field>
-		<field name="description" type="String">
-			<hint-collection name="TEXTAREA" />
-		</field>
-		<field name="properties" type="String">
-			<hint-collection name="TEXTAREA" />
-		</field>
+		<field name="name" type="String" />
+		<field name="description" type="String" />
+		<field name="properties" type="String" />
 		<field name="fields" type="boolean" />
-		<field name="fieldsQuantities" type="String">
-			<hint-collection name="TEXTAREA" />
-		</field>
+		<field name="fieldsQuantities" type="String" />
 		<field name="minQuantity" type="int" />
 		<field name="maxQuantity" type="int" />
 		<field name="price" type="double" />
@@ -91,48 +69,27 @@
 		<field name="shipping" type="double" />
 		<field name="useShippingFormula" type="boolean" />
 		<field name="requiresShipping" type="boolean" />
-		<field name="stockQuantity" type="int">
-			<hint name="display-width">20</hint>
-		</field>
+		<field name="stockQuantity" type="int" />
 		<field name="featured" type="boolean" />
 		<field name="sale" type="boolean" />
 		<field name="smallImage" type="boolean" />
 		<field name="smallImageId" type="long" />
-		<field name="smallImageURL" type="String">
-			<hint-collection name="URL" />
-		</field>
+		<field name="smallImageURL" type="String" />
 		<field name="mediumImage" type="boolean" />
 		<field name="mediumImageId" type="long" />
-		<field name="mediumImageURL" type="String">
-			<hint-collection name="URL" />
-		</field>
+		<field name="mediumImageURL" type="String" />
 		<field name="largeImage" type="boolean" />
 		<field name="largeImageId" type="long" />
-		<field name="largeImageURL" type="String">
-			<hint-collection name="URL" />
-		</field>
+		<field name="largeImageURL" type="String" />
 	</model>
-	<model name="com.liferay.portlet.shopping.model.ShoppingItemField">
+	<model name="com.liferay.shopping.model.ShoppingItemField">
 		<field name="itemFieldId" type="long" />
 		<field name="itemId" type="long" />
-		<field name="name" type="String">
-			<hint name="display-width">100</hint>
-		</field>
-		<field name="values" type="String">
-			<hint-collection name="TEXTAREA" />
-			<hint name="display-height">15</hint>
-			<hint name="display-width">100</hint>
-		</field>
-		<field name="description" type="String">
-			<hint-collection name="TEXTAREA" />
-			<hint name="display-height">15</hint>
-			<hint name="display-width">150</hint>
-		</field>
+		<field name="name" type="String" />
+		<field name="values" type="String" />
+		<field name="description" type="String" />
 	</model>
-	<model name="com.liferay.portlet.shopping.model.ShoppingItemPrice">
-		<default-hints>
-			<hint name="display-width">50</hint>
-		</default-hints>
+	<model name="com.liferay.shopping.model.ShoppingItemPrice">
 		<field name="itemPriceId" type="long" />
 		<field name="itemId" type="long" />
 		<field name="minQuantity" type="int" />
@@ -144,10 +101,7 @@
 		<field name="useShippingFormula" type="boolean" />
 		<field name="status" type="int" />
 	</model>
-	<model name="com.liferay.portlet.shopping.model.ShoppingOrder">
-		<default-hints>
-			<hint name="display-width">150</hint>
-		</default-hints>
+	<model name="com.liferay.shopping.model.ShoppingOrder">
 		<field name="orderId" type="long" />
 		<field name="groupId" type="long" />
 		<field name="companyId" type="long" />
@@ -190,12 +144,8 @@
 		<field name="ccNumber" type="String" />
 		<field name="ccExpMonth" type="int" />
 		<field name="ccExpYear" type="int" />
-		<field name="ccVerNumber" type="String">
-			<hint name="display-width">30</hint>
-		</field>
-		<field name="comments" type="String">
-			<hint-collection name="TEXTAREA" />
-		</field>
+		<field name="ccVerNumber" type="String" />
+		<field name="comments" type="String" />
 		<field name="ppTxnId" type="String" />
 		<field name="ppPaymentStatus" type="String" />
 		<field name="ppPaymentGross" type="double" />
@@ -204,20 +154,14 @@
 		<field name="sendOrderEmail" type="boolean" />
 		<field name="sendShippingEmail" type="boolean" />
 	</model>
-	<model name="com.liferay.portlet.shopping.model.ShoppingOrderItem">
+	<model name="com.liferay.shopping.model.ShoppingOrderItem">
 		<field name="orderItemId" type="long" />
 		<field name="orderId" type="long" />
 		<field name="itemId" type="String" />
 		<field name="sku" type="String" />
-		<field name="name" type="String">
-			<hint name="max-length">200</hint>
-		</field>
-		<field name="description" type="String">
-			<hint-collection name="TEXTAREA" />
-		</field>
-		<field name="properties" type="String">
-			<hint-collection name="TEXTAREA" />
-		</field>
+		<field name="name" type="String" />
+		<field name="description" type="String" />
+		<field name="properties" type="String" />
 		<field name="price" type="double" />
 		<field name="quantity" type="int" />
 		<field name="shippedDate" type="Date" />

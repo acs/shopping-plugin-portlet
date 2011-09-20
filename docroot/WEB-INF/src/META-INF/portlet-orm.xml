@@ -7,7 +7,7 @@
 			<access>PROPERTY</access>
 		</persistence-unit-defaults>
 	</persistence-unit-metadata>
-	<mapped-superclass class="com.liferay.portlet.shopping.model.impl.ShoppingCartModelImpl">
+	<mapped-superclass class="com.liferay.shopping.model.impl.ShoppingCartModelImpl">
 		<attributes>
 			<id name="cartId" />
 			<basic name="groupId" />
@@ -29,7 +29,7 @@
 			<transient name="userUuid" />
 		</attributes>
 	</mapped-superclass>
-	<mapped-superclass class="com.liferay.portlet.shopping.model.impl.ShoppingCategoryModelImpl">
+	<mapped-superclass class="com.liferay.shopping.model.impl.ShoppingCategoryModelImpl">
 		<attributes>
 			<id name="categoryId" />
 			<basic name="groupId" />
@@ -50,7 +50,7 @@
 			<transient name="userUuid" />
 		</attributes>
 	</mapped-superclass>
-	<mapped-superclass class="com.liferay.portlet.shopping.model.impl.ShoppingCouponModelImpl">
+	<mapped-superclass class="com.liferay.shopping.model.impl.ShoppingCouponModelImpl">
 		<attributes>
 			<id name="couponId" />
 			<basic name="groupId" />
@@ -87,7 +87,7 @@
 			<transient name="userUuid" />
 		</attributes>
 	</mapped-superclass>
-	<mapped-superclass class="com.liferay.portlet.shopping.model.impl.ShoppingItemModelImpl">
+	<mapped-superclass class="com.liferay.shopping.model.impl.ShoppingItemModelImpl">
 		<attributes>
 			<id name="itemId" />
 			<basic name="groupId" />
@@ -138,7 +138,7 @@
 			<transient name="userUuid" />
 		</attributes>
 	</mapped-superclass>
-	<mapped-superclass class="com.liferay.portlet.shopping.model.impl.ShoppingItemFieldModelImpl">
+	<mapped-superclass class="com.liferay.shopping.model.impl.ShoppingItemFieldModelImpl">
 		<attributes>
 			<id name="itemFieldId" />
 			<basic name="itemId" />
@@ -151,7 +151,7 @@
 			<transient name="primaryKeyObj" />
 		</attributes>
 	</mapped-superclass>
-	<mapped-superclass class="com.liferay.portlet.shopping.model.impl.ShoppingItemPriceModelImpl">
+	<mapped-superclass class="com.liferay.shopping.model.impl.ShoppingItemPriceModelImpl">
 		<attributes>
 			<id name="itemPriceId" />
 			<basic name="itemId" />
@@ -167,7 +167,7 @@
 			<transient name="primaryKeyObj" />
 		</attributes>
 	</mapped-superclass>
-	<mapped-superclass class="com.liferay.portlet.shopping.model.impl.ShoppingOrderModelImpl">
+	<mapped-superclass class="com.liferay.shopping.model.impl.ShoppingOrderModelImpl">
 		<attributes>
 			<id name="orderId" />
 			<basic name="groupId" />
@@ -231,7 +231,7 @@
 			<transient name="userUuid" />
 		</attributes>
 	</mapped-superclass>
-	<mapped-superclass class="com.liferay.portlet.shopping.model.impl.ShoppingOrderItemModelImpl">
+	<mapped-superclass class="com.liferay.shopping.model.impl.ShoppingOrderItemModelImpl">
 		<attributes>
 			<id name="orderItemId" />
 			<basic name="orderId" />
@@ -249,35 +249,35 @@
 			<transient name="primaryKeyObj" />
 		</attributes>
 	</mapped-superclass>
-	<entity class="com.liferay.portlet.shopping.model.impl.ShoppingCartImpl" name="ShoppingCart">
+	<entity class="com.liferay.shopping.model.impl.ShoppingCartImpl" name="ShoppingCart">
 		<table name="Shopping_ShoppingCart" />
 		<attributes />
 	</entity>
-	<entity class="com.liferay.portlet.shopping.model.impl.ShoppingCategoryImpl" name="ShoppingCategory">
+	<entity class="com.liferay.shopping.model.impl.ShoppingCategoryImpl" name="ShoppingCategory">
 		<table name="Shopping_ShoppingCategory" />
 		<attributes />
 	</entity>
-	<entity class="com.liferay.portlet.shopping.model.impl.ShoppingCouponImpl" name="ShoppingCoupon">
+	<entity class="com.liferay.shopping.model.impl.ShoppingCouponImpl" name="ShoppingCoupon">
 		<table name="Shopping_ShoppingCoupon" />
 		<attributes />
 	</entity>
-	<entity class="com.liferay.portlet.shopping.model.impl.ShoppingItemImpl" name="ShoppingItem">
+	<entity class="com.liferay.shopping.model.impl.ShoppingItemImpl" name="ShoppingItem">
 		<table name="Shopping_ShoppingItem" />
 		<attributes />
 	</entity>
-	<entity class="com.liferay.portlet.shopping.model.impl.ShoppingItemFieldImpl" name="ShoppingItemField">
+	<entity class="com.liferay.shopping.model.impl.ShoppingItemFieldImpl" name="ShoppingItemField">
 		<table name="Shopping_ShoppingItemField" />
 		<attributes />
 	</entity>
-	<entity class="com.liferay.portlet.shopping.model.impl.ShoppingItemPriceImpl" name="ShoppingItemPrice">
+	<entity class="com.liferay.shopping.model.impl.ShoppingItemPriceImpl" name="ShoppingItemPrice">
 		<table name="Shopping_ShoppingItemPrice" />
 		<attributes />
 	</entity>
-	<entity class="com.liferay.portlet.shopping.model.impl.ShoppingOrderImpl" name="ShoppingOrder">
+	<entity class="com.liferay.shopping.model.impl.ShoppingOrderImpl" name="ShoppingOrder">
 		<table name="Shopping_ShoppingOrder" />
 		<attributes />
 	</entity>
-	<entity class="com.liferay.portlet.shopping.model.impl.ShoppingOrderItemImpl" name="ShoppingOrderItem">
+	<entity class="com.liferay.shopping.model.impl.ShoppingOrderItemImpl" name="ShoppingOrderItem">
 		<table name="Shopping_ShoppingOrderItem" />
 		<attributes />
 	</entity>
