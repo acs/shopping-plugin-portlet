@@ -52,15 +52,11 @@
 <%@ page import="com.liferay.shopping.CouponCodeException" %>
 <%@ page import="com.liferay.shopping.CouponDateException" %>
 <%@ page import="com.liferay.shopping.CouponDescriptionException" %>
-<%--
 <%@ page import="com.liferay.shopping.CouponDiscountException" %>
---%>
 <%@ page import="com.liferay.shopping.CouponEndDateException" %>
 <%@ page import="com.liferay.shopping.CouponLimitCategoriesException" %>
 <%@ page import="com.liferay.shopping.CouponLimitSKUsException" %>
-<%--
 <%@ page import="com.liferay.shopping.CouponMinimumOrderException" %>
---%>
 <%@ page import="com.liferay.shopping.CouponNameException" %>
 <%@ page import="com.liferay.shopping.CouponStartDateException" %>
 <%@ page import="com.liferay.shopping.DuplicateCouponCodeException" %>
@@ -87,36 +83,24 @@
 <%@ page import="com.liferay.shopping.ShippingStreetException" %>
 <%@ page import="com.liferay.shopping.ShippingZipException" %>
 <%@ page import="com.liferay.shopping.model.ShoppingCart" %>
-<%--
 <%@ page import="com.liferay.shopping.model.ShoppingCartItem" %>
---%>
 <%@ page import="com.liferay.shopping.model.ShoppingCategory" %>
-<%--
 <%@ page import="com.liferay.shopping.model.ShoppingCategoryConstants" %>
---%>
 <%@ page import="com.liferay.shopping.model.ShoppingCoupon" %>
-<%--
 <%@ page import="com.liferay.shopping.model.ShoppingCouponConstants" %>
---%>
 <%@ page import="com.liferay.shopping.model.ShoppingItem" %>
 <%@ page import="com.liferay.shopping.model.ShoppingItemField" %>
 <%@ page import="com.liferay.shopping.model.ShoppingItemPrice" %>
-<%--
 <%@ page import="com.liferay.shopping.model.ShoppingItemPriceConstants" %>
---%>
 <%@ page import="com.liferay.shopping.model.ShoppingOrder" %>
-<%--
 <%@ page import="com.liferay.shopping.model.ShoppingOrderConstants" %>
---%>
 <%@ page import="com.liferay.shopping.model.ShoppingOrderItem" %>
-<%--
 <%@ page import="com.liferay.shopping.search.CouponDisplayTerms" %>
 <%@ page import="com.liferay.shopping.search.CouponSearch" %>
 <%@ page import="com.liferay.shopping.search.CouponSearchTerms" %>
 <%@ page import="com.liferay.shopping.search.OrderDisplayTerms" %>
 <%@ page import="com.liferay.shopping.search.OrderSearch" %>
 <%@ page import="com.liferay.shopping.search.OrderSearchTerms" %>
---%>
 <%@ page import="com.liferay.shopping.service.ShoppingCartLocalServiceUtil" %>
 <%@ page import="com.liferay.shopping.service.ShoppingCategoryServiceUtil" %>
 <%@ page import="com.liferay.shopping.service.ShoppingCouponLocalServiceUtil" %>
@@ -127,14 +111,13 @@
 <%@ page import="com.liferay.shopping.service.ShoppingItemServiceUtil" %>
 <%@ page import="com.liferay.shopping.service.ShoppingOrderItemLocalServiceUtil" %>
 <%@ page import="com.liferay.shopping.service.ShoppingOrderLocalServiceUtil" %>
-<%--
 <%@ page import="com.liferay.shopping.service.permission.ShoppingCategoryPermission" %>
 <%@ page import="com.liferay.shopping.service.permission.ShoppingItemPermission" %>
 <%@ page import="com.liferay.shopping.service.permission.ShoppingOrderPermission" %>
 <%@ page import="com.liferay.shopping.service.permission.ShoppingPermission" %>
---%>
 <%@ page import="com.liferay.shopping.util.ShoppingPreferences" %>
 <%@ page import="com.liferay.shopping.util.ShoppingUtil" %>
+<%--
 <%
 PortalPreferences portalPreferences = PortletPreferencesFactoryUtil.getPortalPreferences(request);
 ShoppingPreferences shoppingPrefs = ShoppingPreferences.getInstance(company.getCompanyId(), scopeGroupId);
