@@ -26,8 +26,8 @@ long categoryId = BeanParamUtil.getLong(category, request, "categoryId");
 long parentCategoryId = BeanParamUtil.getLong(category, request, "parentCategoryId", ShoppingCategoryConstants.DEFAULT_PARENT_CATEGORY_ID);
 %>
 
-<portlet:actionURL var="editCategoryURL">
-	<portlet:param name="struts_action" value="/shopping/edit_category" />
+<portlet:actionURL var="editCategoryURL" name="addCategory">
+<%-- <portlet:param name="struts_action" value="/shopping/edit_category" /> --%>
 </portlet:actionURL>
 
 <aui:form action="<%= editCategoryURL %>" method="post" name="fm" onSubmit='<%= "event.preventDefault(); " + renderResponse.getNamespace() + "saveCategory();" %>'>

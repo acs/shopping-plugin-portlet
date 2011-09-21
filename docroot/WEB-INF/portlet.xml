@@ -9,7 +9,8 @@
 	<portlet>
 		<portlet-name>shopping-plugin</portlet-name>
 		<display-name>Shopping Portlet Plugin</display-name>
-		<portlet-class>com.liferay.util.bridges.mvc.MVCPortlet</portlet-class>
+		<!-- <portlet-class>com.liferay.util.bridges.mvc.MVCPortlet</portlet-class> -->
+		<portlet-class>com.liferay.shopping.ShoppingPortlet</portlet-class>
 		<init-param>
 			<name>view-jsp</name>
 			<value>/view.jsp</value>
