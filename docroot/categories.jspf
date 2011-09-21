@@ -91,15 +91,7 @@ portletURL.setParameter("categoryId", String.valueOf(categoryId));
 			ShoppingCategoryServiceUtil.getSubcategoryIds(subcategoryIds, scopeGroupId, curCategory.getCategoryId());
 
 			int categoriesCount = subcategoryIds.size() - 1;
-			//int itemsCount = ShoppingItemServiceUtil.getCategoriesItemsCount(scopeGroupId, subcategoryIds);
-            %>
-            <ul>
-            <li>scopeGroupId: <%= scopeGroupId %>
-            <li>subcategoryIds: <%= subcategoryIds %>
-            </ul>
-            <%
-			// int itemsCount = ShoppingItemServiceUtil.getCategoriesItemsCount(scopeGroupId, subcategoryIds);
-			int itemsCount = 0;
+			int itemsCount = ShoppingItemServiceUtil.getCategoriesItemsCount(scopeGroupId, subcategoryIds);
 
 			row.addText(String.valueOf(categoriesCount), rowURL);
 			row.addText(String.valueOf(itemsCount), rowURL);

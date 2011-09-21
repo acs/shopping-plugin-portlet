@@ -14,6 +14,9 @@
 
 package com.liferay.shopping.service.persistence;
 
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+
 import com.liferay.portal.kernel.dao.orm.QueryPos;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.dao.orm.SQLQuery;
@@ -486,6 +489,7 @@ public class ShoppingItemFinderImpl
 			return 0;
 		}
 		catch (Exception e) {
+            _log.error(e);
 			throw new SystemException(e);
 		}
 		finally {
@@ -510,5 +514,8 @@ public class ShoppingItemFinderImpl
 
 		return sb.toString();
 	}
+
+    private static Log _log = LogFactoryUtil.getLog(ShoppingItemFinderImpl.class);
+
 
 }
