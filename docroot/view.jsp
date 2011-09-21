@@ -20,9 +20,11 @@
 String tabs1 = ParamUtil.getString(request, "tabs1", "categories");
 %>
 
-<%--
-<liferay-util:include page="/tabs1.jsp" />
+<liferay-util:include page="/tabs.jsp" servletContext="<%= application %>" />
 
+<%@ include file="/coupons.jspf" %>
+
+<%--
 <c:choose>
 	<c:when test='<%= tabs1.equals("categories") %>'>
 		<%@ include file="/categories.jspf" %>
