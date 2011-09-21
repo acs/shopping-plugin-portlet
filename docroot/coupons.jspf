@@ -42,16 +42,26 @@ portletURL.setParameter("tabs1", tabs1);
 
 	<%
 	CouponSearchTerms searchTerms = (CouponSearchTerms)searchContainer.getSearchTerms();
+%>
+    <ul>	
+	<li>scopeGroupId <%= scopeGroupId %>
+	<li>company.getCompanyId <%= company.getCompanyId() %>
+	<li>searchTerms.getCode <%= searchTerms.getCode()  %>
+	<li>searchTerms.isActive <%= searchTerms.isActive()  %>
+	<li>searchTerms.getDiscountType <%= searchTerms.getDiscountType()  %>
+	<li>searchTerms.isAndOperator <%= searchTerms.isAndOperator() %>
+    </ul>
+<%
 
-	// int total = ShoppingCouponLocalServiceUtil.searchCount(scopeGroupId, company.getCompanyId(), searchTerms.getCode(), searchTerms.isActive(), searchTerms.getDiscountType(), searchTerms.isAndOperator());
+	 // int total = ShoppingCouponLocalServiceUtil.searchCount(scopeGroupId, company.getCompanyId(), searchTerms.getCode(), searchTerms.isActive(), searchTerms.getDiscountType(), searchTerms.isAndOperator());
 
-    int total = 0;
+     int total = 0;
 
 	searchContainer.setTotal(total);
 
 	// List results = ShoppingCouponServiceUtil.search(scopeGroupId, company.getCompanyId(), searchTerms.getCode(), searchTerms.isActive(), searchTerms.getDiscountType(), searchTerms.isAndOperator(), searchContainer.getStart(), searchContainer.getEnd());
 
-    List results = new ArrayList();
+        List results = new ArrayList();
 
 	searchContainer.setResults(results);
 	%>
