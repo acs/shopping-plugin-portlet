@@ -160,6 +160,22 @@ public class ShoppingCartClp extends BaseModelImpl<ShoppingCart>
 		_insure = insure;
 	}
 
+	public void addItemId(long itemId, java.lang.String fields) {
+		throw new UnsupportedOperationException();
+	}
+
+	public com.liferay.shopping.model.ShoppingCoupon getCoupon() {
+		throw new UnsupportedOperationException();
+	}
+
+	public java.util.Map<com.liferay.shopping.model.ShoppingCartItem, java.lang.Integer> getItems() {
+		throw new UnsupportedOperationException();
+	}
+
+	public int getItemsSize() {
+		throw new UnsupportedOperationException();
+	}
+
 	public void persist() throws SystemException {
 		ShoppingCartLocalServiceUtil.updateShoppingCart(this);
 	}

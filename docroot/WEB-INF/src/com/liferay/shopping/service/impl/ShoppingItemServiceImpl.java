@@ -14,26 +14,134 @@
 
 package com.liferay.shopping.service.impl;
 
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.util.OrderByComparator;
+import com.liferay.portal.security.permission.ActionKeys;
+import com.liferay.portal.service.ServiceContext;
+import com.liferay.shopping.model.ShoppingItem;
+import com.liferay.shopping.model.ShoppingItemField;
+import com.liferay.shopping.model.ShoppingItemPrice;
 import com.liferay.shopping.service.base.ShoppingItemServiceBaseImpl;
+import com.liferay.shopping.service.permission.ShoppingCategoryPermission;
+import com.liferay.shopping.service.permission.ShoppingItemPermission;
+
+import java.io.File;
+
+import java.util.List;
 
 /**
- * The implementation of the shopping item remote service.
- *
- * <p>
- * All custom service methods should be put in this class. Whenever methods are added, rerun ServiceBuilder to copy their definitions into the {@link com.liferay.shopping.service.ShoppingItemService} interface.
- *
- * <p>
- * This is a remote service. Methods of this service are expected to have security checks based on the propagated JAAS credentials because this service can be accessed remotely.
- * </p>
- *
  * @author Brian Wing Shun Chan
- * @see com.liferay.shopping.service.base.ShoppingItemServiceBaseImpl
- * @see com.liferay.shopping.service.ShoppingItemServiceUtil
  */
 public class ShoppingItemServiceImpl extends ShoppingItemServiceBaseImpl {
-	/*
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never reference this interface directly. Always use {@link com.liferay.shopping.service.ShoppingItemServiceUtil} to access the shopping item remote service.
-	 */
+
+	/* public void addBookItems(long groupId, long categoryId, String[] isbns)
+		throws PortalException, SystemException {
+
+		ShoppingCategoryPermission.check(
+			getPermissionChecker(), groupId, categoryId, ActionKeys.ADD_ITEM);
+
+		shoppingItemLocalService.addBookItems(
+			getUserId(), groupId, categoryId, isbns);
+	} */
+
+	public ShoppingItem addItem(
+			long groupId, long categoryId, String sku, String name,
+			String description, String properties, String fieldsQuantities,
+			boolean requiresShipping, int stockQuantity, boolean featured,
+			Boolean sale, boolean smallImage, String smallImageURL,
+			File smallFile, boolean mediumImage, String mediumImageURL,
+			File mediumFile, boolean largeImage, String largeImageURL,
+			File largeFile, List<ShoppingItemField> itemFields,
+			List<ShoppingItemPrice> itemPrices, ServiceContext serviceContext)
+		throws PortalException, SystemException, Exception {
+
+		ShoppingCategoryPermission.check(
+			getPermissionChecker(), groupId, categoryId, ActionKeys.ADD_ITEM);
+
+		return shoppingItemLocalService.addItem(
+			getUserId(), groupId, categoryId, sku, name, description,
+			properties, fieldsQuantities, requiresShipping, stockQuantity,
+			featured, sale, smallImage, smallImageURL, smallFile, mediumImage,
+			mediumImageURL, mediumFile, largeImage, largeImageURL, largeFile,
+			itemFields, itemPrices, serviceContext);
+	}
+
+	public void deleteItem(long itemId)
+		throws PortalException, SystemException {
+
+		ShoppingItemPermission.check(
+			getPermissionChecker(), itemId, ActionKeys.DELETE);
+
+		shoppingItemLocalService.deleteItem(itemId);
+	}
+
+	public int getCategoriesItemsCount(long groupId, List<Long> categoryIds)
+		throws SystemException {
+
+		return shoppingItemFinder.filterCountByG_C(groupId, categoryIds);
+	}
+
+	public ShoppingItem getItem(long itemId)
+		throws PortalException, SystemException {
+
+		ShoppingItemPermission.check(
+			getPermissionChecker(), itemId, ActionKeys.VIEW);
+
+		return shoppingItemLocalService.getItem(itemId);
+	}
+
+	public List<ShoppingItem> getItems(long groupId, long categoryId)
+		throws SystemException {
+
+		return shoppingItemPersistence.findByG_C(groupId, categoryId);
+	}
+
+	public List<ShoppingItem> getItems(
+			long groupId, long categoryId, int start, int end,
+			OrderByComparator obc)
+		throws SystemException {
+
+		return shoppingItemPersistence.findByG_C(
+			groupId, categoryId, start, end, obc);
+	}
+
+	public int getItemsCount(long groupId, long categoryId)
+		throws SystemException {
+
+		return shoppingItemPersistence.countByG_C(groupId, categoryId);
+	}
+
+	public ShoppingItem[] getItemsPrevAndNext(
+			long itemId, OrderByComparator obc)
+		throws PortalException, SystemException {
+
+		ShoppingItem item = shoppingItemPersistence.findByPrimaryKey(itemId);
+
+		return shoppingItemPersistence.findByG_C_PrevAndNext(
+			item.getItemId(), item.getGroupId(), item.getCategoryId(), obc);
+	}
+
+	public ShoppingItem updateItem(
+			long itemId, long groupId, long categoryId, String sku, String name,
+			String description, String properties, String fieldsQuantities,
+			boolean requiresShipping, int stockQuantity, boolean featured,
+			Boolean sale, boolean smallImage, String smallImageURL,
+			File smallFile, boolean mediumImage, String mediumImageURL,
+			File mediumFile, boolean largeImage, String largeImageURL,
+			File largeFile, List<ShoppingItemField> itemFields,
+			List<ShoppingItemPrice> itemPrices, ServiceContext serviceContext)
+		throws PortalException, SystemException, Exception {
+
+		ShoppingItemPermission.check(
+			getPermissionChecker(), itemId, ActionKeys.UPDATE);
+
+		return shoppingItemLocalService.updateItem(
+			getUserId(), itemId, groupId, categoryId, sku, name, description,
+			properties, fieldsQuantities, requiresShipping, stockQuantity,
+			featured, sale, smallImage, smallImageURL, smallFile, mediumImage,
+			mediumImageURL, mediumFile, largeImage, largeImageURL, largeFile,
+			itemFields, itemPrices, serviceContext);
+	}
+
 }

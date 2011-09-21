@@ -14,27 +14,51 @@
 
 package com.liferay.shopping.service.impl;
 
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.shopping.model.ShoppingItem;
+import com.liferay.shopping.model.ShoppingItemPrice;
+import com.liferay.shopping.model.ShoppingItemPriceConstants;
 import com.liferay.shopping.service.base.ShoppingItemPriceLocalServiceBaseImpl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
- * The implementation of the shopping item price local service.
- *
- * <p>
- * All custom service methods should be put in this class. Whenever methods are added, rerun ServiceBuilder to copy their definitions into the {@link com.liferay.shopping.service.ShoppingItemPriceLocalService} interface.
- *
- * <p>
- * This is a local service. Methods of this service will not have security checks based on the propagated JAAS credentials because this service can only be accessed from within the same VM.
- * </p>
- *
  * @author Brian Wing Shun Chan
- * @see com.liferay.shopping.service.base.ShoppingItemPriceLocalServiceBaseImpl
- * @see com.liferay.shopping.service.ShoppingItemPriceLocalServiceUtil
  */
 public class ShoppingItemPriceLocalServiceImpl
 	extends ShoppingItemPriceLocalServiceBaseImpl {
-	/*
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never reference this interface directly. Always use {@link com.liferay.shopping.service.ShoppingItemPriceLocalServiceUtil} to access the shopping item price local service.
-	 */
+
+	public List<ShoppingItemPrice> getItemPrices(long itemId)
+		throws PortalException, SystemException {
+
+		ShoppingItem item = shoppingItemPersistence.findByPrimaryKey(itemId);
+
+		List<ShoppingItemPrice> itemPrices =
+			shoppingItemPricePersistence.findByItemId(itemId);
+
+		if (itemPrices.isEmpty()) {
+			itemPrices = new ArrayList<ShoppingItemPrice>();
+
+			ShoppingItemPrice itemPrice = shoppingItemPricePersistence.create(
+				0);
+
+			itemPrice.setItemId(itemId);
+			itemPrice.setMinQuantity(item.getMinQuantity());
+			itemPrice.setMaxQuantity(item.getMaxQuantity());
+			itemPrice.setPrice(item.getPrice());
+			itemPrice.setDiscount(item.getDiscount());
+			itemPrice.setTaxable(item.isTaxable());
+			itemPrice.setShipping(item.getShipping());
+			itemPrice.setUseShippingFormula(item.isUseShippingFormula());
+			itemPrice.setStatus(
+				ShoppingItemPriceConstants.STATUS_ACTIVE_DEFAULT);
+
+			itemPrices.add(itemPrice);
+		}
+
+		return itemPrices;
+	}
+
 }

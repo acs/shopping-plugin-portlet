@@ -228,4 +228,145 @@ public interface ShoppingItemLocalService extends PersistedModelLocalService {
 	* @param beanIdentifier the Spring bean ID for this bean
 	*/
 	public void setBeanIdentifier(java.lang.String beanIdentifier);
+
+	public com.liferay.shopping.model.ShoppingItem addItem(long userId,
+		long groupId, long categoryId, java.lang.String sku,
+		java.lang.String name, java.lang.String description,
+		java.lang.String properties, java.lang.String fieldsQuantities,
+		boolean requiresShipping, int stockQuantity, boolean featured,
+		java.lang.Boolean sale, boolean smallImage,
+		java.lang.String smallImageURL, java.io.File smallImageFile,
+		boolean mediumImage, java.lang.String mediumImageURL,
+		java.io.File mediumImageFile, boolean largeImage,
+		java.lang.String largeImageURL, java.io.File largeImageFile,
+		java.util.List<com.liferay.shopping.model.ShoppingItemField> itemFields,
+		java.util.List<com.liferay.shopping.model.ShoppingItemPrice> itemPrices,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException,
+			java.lang.Exception;
+
+	public void addItemResources(long itemId, boolean addGroupPermissions,
+		boolean addGuestPermissions)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
+
+	public void addItemResources(long itemId,
+		java.lang.String[] groupPermissions, java.lang.String[] guestPermissions)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
+
+	public void addItemResources(com.liferay.shopping.model.ShoppingItem item,
+		boolean addGroupPermissions, boolean addGuestPermissions)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
+
+	public void addItemResources(com.liferay.shopping.model.ShoppingItem item,
+		java.lang.String[] groupPermissions, java.lang.String[] guestPermissions)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
+
+	public void deleteItem(long itemId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
+
+	public void deleteItem(com.liferay.shopping.model.ShoppingItem item)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
+
+	public void deleteItems(long groupId, long categoryId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getCategoriesItemsCount(long groupId,
+		java.util.List<java.lang.Long> categoryIds)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public java.util.List<com.liferay.shopping.model.ShoppingItem> getFeaturedItems(
+		long groupId, long categoryId, int numOfItems)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public com.liferay.shopping.model.ShoppingItem getItem(long itemId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public com.liferay.shopping.model.ShoppingItem getItem(long companyId,
+		java.lang.String sku)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public com.liferay.shopping.model.ShoppingItem getItemByLargeImageId(
+		long largeImageId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public com.liferay.shopping.model.ShoppingItem getItemByMediumImageId(
+		long mediumImageId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public com.liferay.shopping.model.ShoppingItem getItemBySmallImageId(
+		long smallImageId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public java.util.List<com.liferay.shopping.model.ShoppingItem> getItems(
+		long groupId, long categoryId)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public java.util.List<com.liferay.shopping.model.ShoppingItem> getItems(
+		long groupId, long categoryId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator obc)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getItemsCount(long groupId, long categoryId)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public com.liferay.shopping.model.ShoppingItem[] getItemsPrevAndNext(
+		long itemId, com.liferay.portal.kernel.util.OrderByComparator obc)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public java.util.List<com.liferay.shopping.model.ShoppingItem> getSaleItems(
+		long groupId, long categoryId, int numOfItems)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public java.util.List<com.liferay.shopping.model.ShoppingItem> search(
+		long groupId, long[] categoryIds, java.lang.String keywords, int start,
+		int end) throws com.liferay.portal.kernel.exception.SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int searchCount(long groupId, long[] categoryIds,
+		java.lang.String keywords)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	public com.liferay.shopping.model.ShoppingItem updateItem(long userId,
+		long itemId, long groupId, long categoryId, java.lang.String sku,
+		java.lang.String name, java.lang.String description,
+		java.lang.String properties, java.lang.String fieldsQuantities,
+		boolean requiresShipping, int stockQuantity, boolean featured,
+		java.lang.Boolean sale, boolean smallImage,
+		java.lang.String smallImageURL, java.io.File smallImageFile,
+		boolean mediumImage, java.lang.String mediumImageURL,
+		java.io.File mediumImageFile, boolean largeImage,
+		java.lang.String largeImageURL, java.io.File largeImageFile,
+		java.util.List<com.liferay.shopping.model.ShoppingItemField> itemFields,
+		java.util.List<com.liferay.shopping.model.ShoppingItemPrice> itemPrices,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException,
+			java.lang.Exception;
 }

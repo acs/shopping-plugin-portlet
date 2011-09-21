@@ -249,6 +249,12 @@ public class ShoppingOrderItemLocalServiceWrapper
 		_shoppingOrderItemLocalService.setBeanIdentifier(beanIdentifier);
 	}
 
+	public java.util.List<com.liferay.shopping.model.ShoppingOrderItem> getOrderItems(
+		long orderId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _shoppingOrderItemLocalService.getOrderItems(orderId);
+	}
+
 	public ShoppingOrderItemLocalService getWrappedShoppingOrderItemLocalService() {
 		return _shoppingOrderItemLocalService;
 	}

@@ -83,6 +83,48 @@ public class ShoppingCouponLocalServiceClp implements ShoppingCouponLocalService
 
 		_setBeanIdentifierMethodKey15 = new MethodKey(_classLoaderProxy.getClassName(),
 				"setBeanIdentifier", java.lang.String.class);
+
+		_addCouponMethodKey16 = new MethodKey(_classLoaderProxy.getClassName(),
+				"addCoupon", long.class, java.lang.String.class, boolean.class,
+				java.lang.String.class, java.lang.String.class, int.class,
+				int.class, int.class, int.class, int.class, int.class,
+				int.class, int.class, int.class, int.class, boolean.class,
+				boolean.class, java.lang.String.class, java.lang.String.class,
+				double.class, double.class, java.lang.String.class,
+				com.liferay.portal.service.ServiceContext.class);
+
+		_deleteCouponMethodKey17 = new MethodKey(_classLoaderProxy.getClassName(),
+				"deleteCoupon", long.class);
+
+		_deleteCouponMethodKey18 = new MethodKey(_classLoaderProxy.getClassName(),
+				"deleteCoupon", com.liferay.shopping.model.ShoppingCoupon.class);
+
+		_deleteCouponsMethodKey19 = new MethodKey(_classLoaderProxy.getClassName(),
+				"deleteCoupons", long.class);
+
+		_getCouponMethodKey20 = new MethodKey(_classLoaderProxy.getClassName(),
+				"getCoupon", long.class);
+
+		_getCouponMethodKey21 = new MethodKey(_classLoaderProxy.getClassName(),
+				"getCoupon", java.lang.String.class);
+
+		_searchMethodKey22 = new MethodKey(_classLoaderProxy.getClassName(),
+				"search", long.class, long.class, java.lang.String.class,
+				boolean.class, java.lang.String.class, boolean.class,
+				int.class, int.class);
+
+		_searchCountMethodKey23 = new MethodKey(_classLoaderProxy.getClassName(),
+				"searchCount", long.class, long.class, java.lang.String.class,
+				boolean.class, java.lang.String.class, boolean.class);
+
+		_updateCouponMethodKey24 = new MethodKey(_classLoaderProxy.getClassName(),
+				"updateCoupon", long.class, long.class, java.lang.String.class,
+				java.lang.String.class, int.class, int.class, int.class,
+				int.class, int.class, int.class, int.class, int.class,
+				int.class, int.class, boolean.class, boolean.class,
+				java.lang.String.class, java.lang.String.class, double.class,
+				double.class, java.lang.String.class,
+				com.liferay.portal.service.ServiceContext.class);
 	}
 
 	public com.liferay.shopping.model.ShoppingCoupon addShoppingCoupon(
@@ -521,6 +563,302 @@ public class ShoppingCouponLocalServiceClp implements ShoppingCouponLocalService
 		}
 	}
 
+	public com.liferay.shopping.model.ShoppingCoupon addCoupon(long userId,
+		java.lang.String code, boolean autoCode, java.lang.String name,
+		java.lang.String description, int startDateMonth, int startDateDay,
+		int startDateYear, int startDateHour, int startDateMinute,
+		int endDateMonth, int endDateDay, int endDateYear, int endDateHour,
+		int endDateMinute, boolean neverExpire, boolean active,
+		java.lang.String limitCategories, java.lang.String limitSkus,
+		double minOrder, double discount, java.lang.String discountType,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		MethodHandler methodHandler = new MethodHandler(_addCouponMethodKey16,
+				userId, ClpSerializer.translateInput(code), autoCode,
+				ClpSerializer.translateInput(name),
+				ClpSerializer.translateInput(description), startDateMonth,
+				startDateDay, startDateYear, startDateHour, startDateMinute,
+				endDateMonth, endDateDay, endDateYear, endDateHour,
+				endDateMinute, neverExpire, active,
+				ClpSerializer.translateInput(limitCategories),
+				ClpSerializer.translateInput(limitSkus), minOrder, discount,
+				ClpSerializer.translateInput(discountType),
+				ClpSerializer.translateInput(serviceContext));
+
+		try {
+			returnObj = _classLoaderProxy.invoke(methodHandler);
+		}
+		catch (Throwable t) {
+			if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+				throw (com.liferay.portal.kernel.exception.PortalException)t;
+			}
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (com.liferay.shopping.model.ShoppingCoupon)ClpSerializer.translateOutput(returnObj);
+	}
+
+	public void deleteCoupon(long couponId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		MethodHandler methodHandler = new MethodHandler(_deleteCouponMethodKey17,
+				couponId);
+
+		try {
+			_classLoaderProxy.invoke(methodHandler);
+		}
+		catch (Throwable t) {
+			if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+				throw (com.liferay.portal.kernel.exception.PortalException)t;
+			}
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+	}
+
+	public void deleteCoupon(com.liferay.shopping.model.ShoppingCoupon coupon)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		MethodHandler methodHandler = new MethodHandler(_deleteCouponMethodKey18,
+				ClpSerializer.translateInput(coupon));
+
+		try {
+			_classLoaderProxy.invoke(methodHandler);
+		}
+		catch (Throwable t) {
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+	}
+
+	public void deleteCoupons(long groupId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		MethodHandler methodHandler = new MethodHandler(_deleteCouponsMethodKey19,
+				groupId);
+
+		try {
+			_classLoaderProxy.invoke(methodHandler);
+		}
+		catch (Throwable t) {
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+	}
+
+	public com.liferay.shopping.model.ShoppingCoupon getCoupon(long couponId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		MethodHandler methodHandler = new MethodHandler(_getCouponMethodKey20,
+				couponId);
+
+		try {
+			returnObj = _classLoaderProxy.invoke(methodHandler);
+		}
+		catch (Throwable t) {
+			if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+				throw (com.liferay.portal.kernel.exception.PortalException)t;
+			}
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (com.liferay.shopping.model.ShoppingCoupon)ClpSerializer.translateOutput(returnObj);
+	}
+
+	public com.liferay.shopping.model.ShoppingCoupon getCoupon(
+		java.lang.String code)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		MethodHandler methodHandler = new MethodHandler(_getCouponMethodKey21,
+				ClpSerializer.translateInput(code));
+
+		try {
+			returnObj = _classLoaderProxy.invoke(methodHandler);
+		}
+		catch (Throwable t) {
+			if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+				throw (com.liferay.portal.kernel.exception.PortalException)t;
+			}
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (com.liferay.shopping.model.ShoppingCoupon)ClpSerializer.translateOutput(returnObj);
+	}
+
+	public java.util.List<com.liferay.shopping.model.ShoppingCoupon> search(
+		long groupId, long companyId, java.lang.String code, boolean active,
+		java.lang.String discountType, boolean andOperator, int start, int end)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		MethodHandler methodHandler = new MethodHandler(_searchMethodKey22,
+				groupId, companyId, ClpSerializer.translateInput(code), active,
+				ClpSerializer.translateInput(discountType), andOperator, start,
+				end);
+
+		try {
+			returnObj = _classLoaderProxy.invoke(methodHandler);
+		}
+		catch (Throwable t) {
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (java.util.List<com.liferay.shopping.model.ShoppingCoupon>)ClpSerializer.translateOutput(returnObj);
+	}
+
+	public int searchCount(long groupId, long companyId, java.lang.String code,
+		boolean active, java.lang.String discountType, boolean andOperator)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		MethodHandler methodHandler = new MethodHandler(_searchCountMethodKey23,
+				groupId, companyId, ClpSerializer.translateInput(code), active,
+				ClpSerializer.translateInput(discountType), andOperator);
+
+		try {
+			returnObj = _classLoaderProxy.invoke(methodHandler);
+		}
+		catch (Throwable t) {
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return ((Integer)returnObj).intValue();
+	}
+
+	public com.liferay.shopping.model.ShoppingCoupon updateCoupon(long userId,
+		long couponId, java.lang.String name, java.lang.String description,
+		int startDateMonth, int startDateDay, int startDateYear,
+		int startDateHour, int startDateMinute, int endDateMonth,
+		int endDateDay, int endDateYear, int endDateHour, int endDateMinute,
+		boolean neverExpire, boolean active, java.lang.String limitCategories,
+		java.lang.String limitSkus, double minOrder, double discount,
+		java.lang.String discountType,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		MethodHandler methodHandler = new MethodHandler(_updateCouponMethodKey24,
+				userId, couponId, ClpSerializer.translateInput(name),
+				ClpSerializer.translateInput(description), startDateMonth,
+				startDateDay, startDateYear, startDateHour, startDateMinute,
+				endDateMonth, endDateDay, endDateYear, endDateHour,
+				endDateMinute, neverExpire, active,
+				ClpSerializer.translateInput(limitCategories),
+				ClpSerializer.translateInput(limitSkus), minOrder, discount,
+				ClpSerializer.translateInput(discountType),
+				ClpSerializer.translateInput(serviceContext));
+
+		try {
+			returnObj = _classLoaderProxy.invoke(methodHandler);
+		}
+		catch (Throwable t) {
+			if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+				throw (com.liferay.portal.kernel.exception.PortalException)t;
+			}
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (com.liferay.shopping.model.ShoppingCoupon)ClpSerializer.translateOutput(returnObj);
+	}
+
 	public ClassLoaderProxy getClassLoaderProxy() {
 		return _classLoaderProxy;
 	}
@@ -542,4 +880,13 @@ public class ShoppingCouponLocalServiceClp implements ShoppingCouponLocalService
 	private MethodKey _updateShoppingCouponMethodKey13;
 	private MethodKey _getBeanIdentifierMethodKey14;
 	private MethodKey _setBeanIdentifierMethodKey15;
+	private MethodKey _addCouponMethodKey16;
+	private MethodKey _deleteCouponMethodKey17;
+	private MethodKey _deleteCouponMethodKey18;
+	private MethodKey _deleteCouponsMethodKey19;
+	private MethodKey _getCouponMethodKey20;
+	private MethodKey _getCouponMethodKey21;
+	private MethodKey _searchMethodKey22;
+	private MethodKey _searchCountMethodKey23;
+	private MethodKey _updateCouponMethodKey24;
 }

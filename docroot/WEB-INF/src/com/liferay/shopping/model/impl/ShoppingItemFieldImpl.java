@@ -14,21 +14,33 @@
 
 package com.liferay.shopping.model.impl;
 
+import com.liferay.portal.kernel.util.StringUtil;
+
 /**
- * The extended model implementation for the ShoppingItemField service. Represents a row in the &quot;Shopping_ShoppingItemField&quot; database table, with each column mapped to a property of this class.
- *
- * <p>
- * Helper methods and all application logic should be put in this class. Whenever methods are added, rerun ServiceBuilder to copy their definitions into the {@link com.liferay.shopping.model.ShoppingItemField} interface.
- * </p>
- *
  * @author Brian Wing Shun Chan
  */
 public class ShoppingItemFieldImpl extends ShoppingItemFieldBaseImpl {
-	/*
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never reference this class directly. All methods that expect a shopping item field model instance should use the {@link com.liferay.shopping.model.ShoppingItemField} interface instead.
-	 */
+
 	public ShoppingItemFieldImpl() {
 	}
+
+	public String[] getValuesArray() {
+		return _valuesArray;
+	}
+
+	//@Override
+	//public void setValues(String values) {
+	//	_valuesArray = StringUtil.split(values);
+
+	//	super.setValues(values);
+	//}
+
+	public void setValuesArray(String[] valuesArray) {
+		_valuesArray = valuesArray;
+
+		super.setValues(StringUtil.merge(valuesArray));
+	}
+
+	private String[] _valuesArray;
+
 }

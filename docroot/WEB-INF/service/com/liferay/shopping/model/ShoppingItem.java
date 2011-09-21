@@ -31,4 +31,14 @@ public interface ShoppingItem extends ShoppingItemModel, PersistedModel {
 	 *
 	 * Never modify this interface directly. Add methods to {@link com.liferay.shopping.model.impl.ShoppingItemImpl} and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
+	public com.liferay.shopping.model.ShoppingCategory getCategory();
+
+	public java.lang.String[] getFieldsQuantitiesArray();
+
+	public java.util.List<com.liferay.shopping.model.ShoppingItemPrice> getItemPrices()
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
+
+	public void setFieldsQuantitiesArray(
+		java.lang.String[] fieldsQuantitiesArray);
 }

@@ -148,6 +148,10 @@ public class ShoppingCategoryClp extends BaseModelImpl<ShoppingCategory>
 		_description = description;
 	}
 
+	public boolean isRoot() {
+		throw new UnsupportedOperationException();
+	}
+
 	public void persist() throws SystemException {
 		ShoppingCategoryLocalServiceUtil.updateShoppingCategory(this);
 	}

@@ -844,6 +844,25 @@ public class ShoppingItemWrapper implements ShoppingItem {
 		_shoppingItem.persist();
 	}
 
+	public com.liferay.shopping.model.ShoppingCategory getCategory() {
+		return _shoppingItem.getCategory();
+	}
+
+	public java.lang.String[] getFieldsQuantitiesArray() {
+		return _shoppingItem.getFieldsQuantitiesArray();
+	}
+
+	public java.util.List<com.liferay.shopping.model.ShoppingItemPrice> getItemPrices()
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _shoppingItem.getItemPrices();
+	}
+
+	public void setFieldsQuantitiesArray(
+		java.lang.String[] fieldsQuantitiesArray) {
+		_shoppingItem.setFieldsQuantitiesArray(fieldsQuantitiesArray);
+	}
+
 	public ShoppingItem getWrappedShoppingItem() {
 		return _shoppingItem;
 	}

@@ -414,9 +414,11 @@
 		<exception>CouponCode</exception>
 		<exception>CouponDate</exception>
 		<exception>CouponDescription</exception>
+		<exception>CouponDiscount</exception>
 		<exception>CouponEndDate</exception>
-		<exception>CouponLimitCategories</exception>
-		<exception>CouponLimitSKUs</exception>
+		<!-- <exception>CouponLimitCategories</exception> -->
+		<!-- <exception>CouponLimitSKUs</exception> -->
+		<exception>CouponMinimumOrder</exception>
 		<exception>CouponName</exception>
 		<exception>CouponStartDate</exception>
 		<exception>DuplicateCouponCode</exception>

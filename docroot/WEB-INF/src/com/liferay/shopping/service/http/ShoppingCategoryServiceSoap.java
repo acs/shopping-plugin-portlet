@@ -14,6 +14,14 @@
 
 package com.liferay.shopping.service.http;
 
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.util.ListUtil;
+
+import com.liferay.shopping.service.ShoppingCategoryServiceUtil;
+
+import java.rmi.RemoteException;
+
 /**
  * <p>
  * This class provides a SOAP utility for the
@@ -58,4 +66,128 @@ package com.liferay.shopping.service.http;
  * @generated
  */
 public class ShoppingCategoryServiceSoap {
+	public static com.liferay.shopping.model.ShoppingCategorySoap addCategory(
+		long parentCategoryId, java.lang.String name,
+		java.lang.String description,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws RemoteException {
+		try {
+			com.liferay.shopping.model.ShoppingCategory returnValue = ShoppingCategoryServiceUtil.addCategory(parentCategoryId,
+					name, description, serviceContext);
+
+			return com.liferay.shopping.model.ShoppingCategorySoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static void deleteCategory(long categoryId)
+		throws RemoteException {
+		try {
+			ShoppingCategoryServiceUtil.deleteCategory(categoryId);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static com.liferay.shopping.model.ShoppingCategory[] getCategories(
+		long groupId) throws RemoteException {
+		try {
+			java.util.List<com.liferay.shopping.model.ShoppingCategory> returnValue =
+				ShoppingCategoryServiceUtil.getCategories(groupId);
+
+			return returnValue.toArray(new com.liferay.shopping.model.ShoppingCategory[returnValue.size()]);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static com.liferay.shopping.model.ShoppingCategory[] getCategories(
+		long groupId, long parentCategoryId, int start, int end)
+		throws RemoteException {
+		try {
+			java.util.List<com.liferay.shopping.model.ShoppingCategory> returnValue =
+				ShoppingCategoryServiceUtil.getCategories(groupId,
+					parentCategoryId, start, end);
+
+			return returnValue.toArray(new com.liferay.shopping.model.ShoppingCategory[returnValue.size()]);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static int getCategoriesCount(long groupId, long parentCategoryId)
+		throws RemoteException {
+		try {
+			int returnValue = ShoppingCategoryServiceUtil.getCategoriesCount(groupId,
+					parentCategoryId);
+
+			return returnValue;
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static com.liferay.shopping.model.ShoppingCategorySoap getCategory(
+		long categoryId) throws RemoteException {
+		try {
+			com.liferay.shopping.model.ShoppingCategory returnValue = ShoppingCategoryServiceUtil.getCategory(categoryId);
+
+			return com.liferay.shopping.model.ShoppingCategorySoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static void getSubcategoryIds(Long[] categoryIds, long groupId,
+		long categoryId) throws RemoteException {
+		try {
+			ShoppingCategoryServiceUtil.getSubcategoryIds(ListUtil.toList(
+					categoryIds), groupId, categoryId);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static com.liferay.shopping.model.ShoppingCategorySoap updateCategory(
+		long categoryId, long parentCategoryId, java.lang.String name,
+		java.lang.String description, boolean mergeWithParentCategory,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws RemoteException {
+		try {
+			com.liferay.shopping.model.ShoppingCategory returnValue = ShoppingCategoryServiceUtil.updateCategory(categoryId,
+					parentCategoryId, name, description,
+					mergeWithParentCategory, serviceContext);
+
+			return com.liferay.shopping.model.ShoppingCategorySoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	private static Log _log = LogFactoryUtil.getLog(ShoppingCategoryServiceSoap.class);
 }

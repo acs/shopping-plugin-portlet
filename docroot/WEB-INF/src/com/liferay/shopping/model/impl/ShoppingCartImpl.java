@@ -14,21 +14,55 @@
 
 package com.liferay.shopping.model.impl;
 
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.util.StringPool;
+import com.liferay.portal.kernel.util.StringUtil;
+import com.liferay.portal.kernel.util.Validator;
+import com.liferay.shopping.NoSuchCouponException;
+import com.liferay.shopping.model.ShoppingCartItem;
+import com.liferay.shopping.model.ShoppingCoupon;
+import com.liferay.shopping.service.ShoppingCartLocalServiceUtil;
+import com.liferay.shopping.service.ShoppingCouponLocalServiceUtil;
+
+import java.util.Map;
+
 /**
- * The extended model implementation for the ShoppingCart service. Represents a row in the &quot;Shopping_ShoppingCart&quot; database table, with each column mapped to a property of this class.
- *
- * <p>
- * Helper methods and all application logic should be put in this class. Whenever methods are added, rerun ServiceBuilder to copy their definitions into the {@link com.liferay.shopping.model.ShoppingCart} interface.
- * </p>
- *
  * @author Brian Wing Shun Chan
  */
 public class ShoppingCartImpl extends ShoppingCartBaseImpl {
-	/*
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never reference this class directly. All methods that expect a shopping cart model instance should use the {@link com.liferay.shopping.model.ShoppingCart} interface instead.
-	 */
+
 	public ShoppingCartImpl() {
 	}
+
+	public void addItemId(long itemId, String fields) {
+		setItemIds(StringUtil.add(
+			getItemIds(), itemId + fields, StringPool.COMMA, true));
+	}
+
+	public ShoppingCoupon getCoupon() throws PortalException, SystemException {
+		ShoppingCoupon coupon = null;
+
+		if (Validator.isNotNull(getCouponCodes())) {
+			String code = StringUtil.split(getCouponCodes())[0];
+
+			try {
+				coupon = ShoppingCouponLocalServiceUtil.getCoupon(code);
+			}
+			catch (NoSuchCouponException nsce) {
+			}
+		}
+
+		return coupon;
+	}
+
+	public Map<ShoppingCartItem, Integer> getItems() throws SystemException {
+		return ShoppingCartLocalServiceUtil.getItems(
+			getGroupId(), getItemIds());
+	}
+
+	public int getItemsSize() {
+		return StringUtil.split(getItemIds()).length;
+	}
+
 }

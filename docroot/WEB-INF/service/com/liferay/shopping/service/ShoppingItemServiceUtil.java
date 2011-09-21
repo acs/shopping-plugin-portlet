@@ -38,6 +38,97 @@ public class ShoppingItemServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to {@link com.liferay.shopping.service.impl.ShoppingItemServiceImpl} and rerun ServiceBuilder to regenerate this class.
 	 */
+	public static com.liferay.shopping.model.ShoppingItem addItem(
+		long groupId, long categoryId, java.lang.String sku,
+		java.lang.String name, java.lang.String description,
+		java.lang.String properties, java.lang.String fieldsQuantities,
+		boolean requiresShipping, int stockQuantity, boolean featured,
+		java.lang.Boolean sale, boolean smallImage,
+		java.lang.String smallImageURL, java.io.File smallFile,
+		boolean mediumImage, java.lang.String mediumImageURL,
+		java.io.File mediumFile, boolean largeImage,
+		java.lang.String largeImageURL, java.io.File largeFile,
+		java.util.List<com.liferay.shopping.model.ShoppingItemField> itemFields,
+		java.util.List<com.liferay.shopping.model.ShoppingItemPrice> itemPrices,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException,
+			java.lang.Exception {
+		return getService()
+				   .addItem(groupId, categoryId, sku, name, description,
+			properties, fieldsQuantities, requiresShipping, stockQuantity,
+			featured, sale, smallImage, smallImageURL, smallFile, mediumImage,
+			mediumImageURL, mediumFile, largeImage, largeImageURL, largeFile,
+			itemFields, itemPrices, serviceContext);
+	}
+
+	public static void deleteItem(long itemId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		getService().deleteItem(itemId);
+	}
+
+	public static int getCategoriesItemsCount(long groupId,
+		java.util.List<java.lang.Long> categoryIds)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getCategoriesItemsCount(groupId, categoryIds);
+	}
+
+	public static com.liferay.shopping.model.ShoppingItem getItem(long itemId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService().getItem(itemId);
+	}
+
+	public static java.util.List<com.liferay.shopping.model.ShoppingItem> getItems(
+		long groupId, long categoryId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getItems(groupId, categoryId);
+	}
+
+	public static java.util.List<com.liferay.shopping.model.ShoppingItem> getItems(
+		long groupId, long categoryId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator obc)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getItems(groupId, categoryId, start, end, obc);
+	}
+
+	public static int getItemsCount(long groupId, long categoryId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getItemsCount(groupId, categoryId);
+	}
+
+	public static com.liferay.shopping.model.ShoppingItem[] getItemsPrevAndNext(
+		long itemId, com.liferay.portal.kernel.util.OrderByComparator obc)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService().getItemsPrevAndNext(itemId, obc);
+	}
+
+	public static com.liferay.shopping.model.ShoppingItem updateItem(
+		long itemId, long groupId, long categoryId, java.lang.String sku,
+		java.lang.String name, java.lang.String description,
+		java.lang.String properties, java.lang.String fieldsQuantities,
+		boolean requiresShipping, int stockQuantity, boolean featured,
+		java.lang.Boolean sale, boolean smallImage,
+		java.lang.String smallImageURL, java.io.File smallFile,
+		boolean mediumImage, java.lang.String mediumImageURL,
+		java.io.File mediumFile, boolean largeImage,
+		java.lang.String largeImageURL, java.io.File largeFile,
+		java.util.List<com.liferay.shopping.model.ShoppingItemField> itemFields,
+		java.util.List<com.liferay.shopping.model.ShoppingItemPrice> itemPrices,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException,
+			java.lang.Exception {
+		return getService()
+				   .updateItem(itemId, groupId, categoryId, sku, name,
+			description, properties, fieldsQuantities, requiresShipping,
+			stockQuantity, featured, sale, smallImage, smallImageURL,
+			smallFile, mediumImage, mediumImageURL, mediumFile, largeImage,
+			largeImageURL, largeFile, itemFields, itemPrices, serviceContext);
+	}
+
 	public static void clearService() {
 		_service = null;
 	}

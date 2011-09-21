@@ -14,26 +14,110 @@
 
 package com.liferay.shopping.service.impl;
 
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.security.permission.ActionKeys;
+import com.liferay.portal.service.ServiceContext;
+import com.liferay.shopping.model.ShoppingCategory;
 import com.liferay.shopping.service.base.ShoppingCategoryServiceBaseImpl;
+import com.liferay.shopping.service.permission.ShoppingCategoryPermission;
+
+import java.util.List;
 
 /**
- * The implementation of the shopping category remote service.
- *
- * <p>
- * All custom service methods should be put in this class. Whenever methods are added, rerun ServiceBuilder to copy their definitions into the {@link com.liferay.shopping.service.ShoppingCategoryService} interface.
- *
- * <p>
- * This is a remote service. Methods of this service are expected to have security checks based on the propagated JAAS credentials because this service can be accessed remotely.
- * </p>
- *
  * @author Brian Wing Shun Chan
- * @see com.liferay.shopping.service.base.ShoppingCategoryServiceBaseImpl
- * @see com.liferay.shopping.service.ShoppingCategoryServiceUtil
  */
-public class ShoppingCategoryServiceImpl extends ShoppingCategoryServiceBaseImpl {
-	/*
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never reference this interface directly. Always use {@link com.liferay.shopping.service.ShoppingCategoryServiceUtil} to access the shopping category remote service.
-	 */
+public class ShoppingCategoryServiceImpl
+	extends ShoppingCategoryServiceBaseImpl {
+
+	public ShoppingCategory addCategory(
+			long parentCategoryId, String name, String description,
+			ServiceContext serviceContext)
+		throws PortalException, SystemException {
+
+		ShoppingCategoryPermission.check(
+			getPermissionChecker(), serviceContext.getScopeGroupId(),
+			parentCategoryId, ActionKeys.ADD_CATEGORY);
+
+		return shoppingCategoryLocalService.addCategory(
+			getUserId(), parentCategoryId, name, description, serviceContext);
+	}
+
+	public void deleteCategory(long categoryId)
+		throws PortalException, SystemException {
+
+		ShoppingCategory category = shoppingCategoryLocalService.getCategory(
+			categoryId);
+
+		ShoppingCategoryPermission.check(
+			getPermissionChecker(), category, ActionKeys.DELETE);
+
+		shoppingCategoryLocalService.deleteCategory(categoryId);
+	}
+
+	public List<ShoppingCategory> getCategories(long groupId)
+		throws SystemException {
+
+		return shoppingCategoryPersistence.findByGroupId(groupId);
+	}
+
+	public List<ShoppingCategory> getCategories(
+			long groupId, long parentCategoryId, int start, int end)
+		throws SystemException {
+
+		return shoppingCategoryPersistence.findByG_P(
+			groupId, parentCategoryId, start, end);
+	}
+
+	public int getCategoriesCount(long groupId, long parentCategoryId)
+		throws SystemException {
+
+		return shoppingCategoryPersistence.countByG_P(
+			groupId, parentCategoryId);
+	}
+
+	public ShoppingCategory getCategory(long categoryId)
+		throws PortalException, SystemException {
+
+		ShoppingCategory category = shoppingCategoryLocalService.getCategory(
+			categoryId);
+
+		ShoppingCategoryPermission.check(
+			getPermissionChecker(), category, ActionKeys.VIEW);
+
+		return category;
+	}
+
+	public void getSubcategoryIds(
+			List<Long> categoryIds, long groupId, long categoryId)
+		throws SystemException {
+
+		List<ShoppingCategory> categories =
+			shoppingCategoryPersistence.findByG_P(groupId, categoryId);
+
+		for (ShoppingCategory category : categories) {
+			categoryIds.add(category.getCategoryId());
+
+			getSubcategoryIds(
+				categoryIds, category.getGroupId(), category.getCategoryId());
+		}
+	}
+
+	public ShoppingCategory updateCategory(
+			long categoryId, long parentCategoryId, String name,
+			String description, boolean mergeWithParentCategory,
+			ServiceContext serviceContext)
+		throws PortalException, SystemException {
+
+		ShoppingCategory category = shoppingCategoryLocalService.getCategory(
+			categoryId);
+
+		ShoppingCategoryPermission.check(
+			getPermissionChecker(), category, ActionKeys.UPDATE);
+
+		return shoppingCategoryLocalService.updateCategory(
+			categoryId, parentCategoryId, name, description,
+			mergeWithParentCategory, serviceContext);
+	}
+
 }

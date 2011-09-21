@@ -85,6 +85,9 @@ public class ShoppingItemFieldLocalServiceClp
 
 		_setBeanIdentifierMethodKey15 = new MethodKey(_classLoaderProxy.getClassName(),
 				"setBeanIdentifier", java.lang.String.class);
+
+		_getItemFieldsMethodKey16 = new MethodKey(_classLoaderProxy.getClassName(),
+				"getItemFields", long.class);
 	}
 
 	public com.liferay.shopping.model.ShoppingItemField addShoppingItemField(
@@ -524,6 +527,33 @@ public class ShoppingItemFieldLocalServiceClp
 		}
 	}
 
+	public java.util.List<com.liferay.shopping.model.ShoppingItemField> getItemFields(
+		long itemId) throws com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		MethodHandler methodHandler = new MethodHandler(_getItemFieldsMethodKey16,
+				itemId);
+
+		try {
+			returnObj = _classLoaderProxy.invoke(methodHandler);
+		}
+		catch (Throwable t) {
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (java.util.List<com.liferay.shopping.model.ShoppingItemField>)ClpSerializer.translateOutput(returnObj);
+	}
+
 	public ClassLoaderProxy getClassLoaderProxy() {
 		return _classLoaderProxy;
 	}
@@ -545,4 +575,5 @@ public class ShoppingItemFieldLocalServiceClp
 	private MethodKey _updateShoppingItemFieldMethodKey13;
 	private MethodKey _getBeanIdentifierMethodKey14;
 	private MethodKey _setBeanIdentifierMethodKey15;
+	private MethodKey _getItemFieldsMethodKey16;
 }

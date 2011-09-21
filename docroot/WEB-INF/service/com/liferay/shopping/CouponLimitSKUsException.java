@@ -16,6 +16,8 @@ package com.liferay.shopping;
 
 import com.liferay.portal.kernel.exception.PortalException;
 
+import java.util.List;
+
 /**
  * @author Brian Wing Shun Chan
  */
@@ -36,5 +38,15 @@ public class CouponLimitSKUsException extends PortalException {
 	public CouponLimitSKUsException(Throwable cause) {
 		super(cause);
 	}
+
+	public List<String> getSkus() {
+		return _skus;
+	}
+
+	public void setSkus(List<String> skus) {
+		_skus = skus;
+	}
+
+	private List<String> _skus;
 
 }

@@ -14,21 +14,48 @@
 
 package com.liferay.shopping.model.impl;
 
+import com.liferay.portal.kernel.util.CalendarUtil;
+
+import java.util.Date;
+
 /**
- * The extended model implementation for the ShoppingCoupon service. Represents a row in the &quot;Shopping_ShoppingCoupon&quot; database table, with each column mapped to a property of this class.
- *
- * <p>
- * Helper methods and all application logic should be put in this class. Whenever methods are added, rerun ServiceBuilder to copy their definitions into the {@link com.liferay.shopping.model.ShoppingCoupon} interface.
- * </p>
- *
  * @author Brian Wing Shun Chan
  */
 public class ShoppingCouponImpl extends ShoppingCouponBaseImpl {
-	/*
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never reference this class directly. All methods that expect a shopping coupon model instance should use the {@link com.liferay.shopping.model.ShoppingCoupon} interface instead.
-	 */
+
 	public ShoppingCouponImpl() {
 	}
+
+	public boolean hasValidDateRange() {
+		if (hasValidStartDate() && hasValidEndDate()) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	public boolean hasValidEndDate() {
+		if (getEndDate() != null) {
+			Date now = new Date();
+
+			if (now.after(getEndDate())) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	public boolean hasValidStartDate() {
+		Date now = new Date();
+
+		if (CalendarUtil.beforeByDay(now, getStartDate())) {
+			return false;
+		}
+		else {
+			return true;
+		}
+	}
+
 }

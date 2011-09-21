@@ -256,6 +256,12 @@ public class ShoppingOrderItemLocalServiceUtil {
 		getService().setBeanIdentifier(beanIdentifier);
 	}
 
+	public static java.util.List<com.liferay.shopping.model.ShoppingOrderItem> getOrderItems(
+		long orderId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getOrderItems(orderId);
+	}
+
 	public static void clearService() {
 		_service = null;
 	}

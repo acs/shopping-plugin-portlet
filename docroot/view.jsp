@@ -1,4 +1,4 @@
-<%
+<%--
 /**
  * Copyright (c) 2000-2011 Liferay, Inc. All rights reserved.
  *
@@ -12,10 +12,26 @@
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
  */
+--%>
+
+<%@ include file="/init.jsp" %>
+
+<%
+String tabs1 = ParamUtil.getString(request, "tabs1", "categories");
 %>
 
-<%@ taglib uri="http://java.sun.com/portlet_2_0" prefix="portlet" %>
+<%--
+<liferay-util:include page="/tabs1.jsp" />
 
-<portlet:defineObjects />
-
-This is the <b>Shopping Portlet Plugin</b> portlet.
+<c:choose>
+	<c:when test='<%= tabs1.equals("categories") %>'>
+		<%@ include file="/categories.jspf" %>
+	</c:when>
+	<c:when test='<%= tabs1.equals("orders") && !user.isDefaultUser() %>'>
+		<%@ include file="/orders.jspf" %>
+	</c:when>
+	<c:when test='<%= tabs1.equals("coupons") %>'>
+		<%@ include file="/coupons.jspf" %>
+	</c:when>
+</c:choose>
+--%>

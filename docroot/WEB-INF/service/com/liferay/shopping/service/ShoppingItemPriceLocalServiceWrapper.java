@@ -249,6 +249,13 @@ public class ShoppingItemPriceLocalServiceWrapper
 		_shoppingItemPriceLocalService.setBeanIdentifier(beanIdentifier);
 	}
 
+	public java.util.List<com.liferay.shopping.model.ShoppingItemPrice> getItemPrices(
+		long itemId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _shoppingItemPriceLocalService.getItemPrices(itemId);
+	}
+
 	public ShoppingItemPriceLocalService getWrappedShoppingItemPriceLocalService() {
 		return _shoppingItemPriceLocalService;
 	}

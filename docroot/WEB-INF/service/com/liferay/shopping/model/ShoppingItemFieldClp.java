@@ -97,6 +97,14 @@ public class ShoppingItemFieldClp extends BaseModelImpl<ShoppingItemField>
 		_description = description;
 	}
 
+	public java.lang.String[] getValuesArray() {
+		throw new UnsupportedOperationException();
+	}
+
+	public void setValuesArray(java.lang.String[] valuesArray) {
+		throw new UnsupportedOperationException();
+	}
+
 	public void persist() throws SystemException {
 		ShoppingItemFieldLocalServiceUtil.updateShoppingItemField(this);
 	}

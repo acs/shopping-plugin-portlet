@@ -31,4 +31,5 @@ public interface ShoppingCategory extends ShoppingCategoryModel, PersistedModel 
 	 *
 	 * Never modify this interface directly. Add methods to {@link com.liferay.shopping.model.impl.ShoppingCategoryImpl} and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
+	public boolean isRoot();
 }

@@ -14,21 +14,25 @@
 
 package com.liferay.shopping.model.impl;
 
+import com.liferay.shopping.model.ShoppingCategoryConstants;
+
 /**
- * The extended model implementation for the ShoppingCategory service. Represents a row in the &quot;Shopping_ShoppingCategory&quot; database table, with each column mapped to a property of this class.
- *
- * <p>
- * Helper methods and all application logic should be put in this class. Whenever methods are added, rerun ServiceBuilder to copy their definitions into the {@link com.liferay.shopping.model.ShoppingCategory} interface.
- * </p>
- *
  * @author Brian Wing Shun Chan
  */
 public class ShoppingCategoryImpl extends ShoppingCategoryBaseImpl {
-	/*
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never reference this class directly. All methods that expect a shopping category model instance should use the {@link com.liferay.shopping.model.ShoppingCategory} interface instead.
-	 */
+
 	public ShoppingCategoryImpl() {
 	}
+
+	public boolean isRoot() {
+		if (getParentCategoryId() ==
+				ShoppingCategoryConstants.DEFAULT_PARENT_CATEGORY_ID) {
+
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
 }

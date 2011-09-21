@@ -332,6 +332,10 @@ public class ShoppingCategoryWrapper implements ShoppingCategory {
 		_shoppingCategory.persist();
 	}
 
+	public boolean isRoot() {
+		return _shoppingCategory.isRoot();
+	}
+
 	public ShoppingCategory getWrappedShoppingCategory() {
 		return _shoppingCategory;
 	}

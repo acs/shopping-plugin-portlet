@@ -18,6 +18,7 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.jsonwebservice.JSONWebService;
 import com.liferay.portal.kernel.transaction.Isolation;
+import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
 
 /**
@@ -42,4 +43,72 @@ public interface ShoppingItemService {
 	 *
 	 * Never modify or reference this interface directly. Always use {@link ShoppingItemServiceUtil} to access the shopping item remote service. Add custom service methods to {@link com.liferay.shopping.service.impl.ShoppingItemServiceImpl} and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
+	public com.liferay.shopping.model.ShoppingItem addItem(long groupId,
+		long categoryId, java.lang.String sku, java.lang.String name,
+		java.lang.String description, java.lang.String properties,
+		java.lang.String fieldsQuantities, boolean requiresShipping,
+		int stockQuantity, boolean featured, java.lang.Boolean sale,
+		boolean smallImage, java.lang.String smallImageURL,
+		java.io.File smallFile, boolean mediumImage,
+		java.lang.String mediumImageURL, java.io.File mediumFile,
+		boolean largeImage, java.lang.String largeImageURL,
+		java.io.File largeFile,
+		java.util.List<com.liferay.shopping.model.ShoppingItemField> itemFields,
+		java.util.List<com.liferay.shopping.model.ShoppingItemPrice> itemPrices,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException,
+			java.lang.Exception;
+
+	public void deleteItem(long itemId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getCategoriesItemsCount(long groupId,
+		java.util.List<java.lang.Long> categoryIds)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public com.liferay.shopping.model.ShoppingItem getItem(long itemId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public java.util.List<com.liferay.shopping.model.ShoppingItem> getItems(
+		long groupId, long categoryId)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public java.util.List<com.liferay.shopping.model.ShoppingItem> getItems(
+		long groupId, long categoryId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator obc)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getItemsCount(long groupId, long categoryId)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public com.liferay.shopping.model.ShoppingItem[] getItemsPrevAndNext(
+		long itemId, com.liferay.portal.kernel.util.OrderByComparator obc)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
+
+	public com.liferay.shopping.model.ShoppingItem updateItem(long itemId,
+		long groupId, long categoryId, java.lang.String sku,
+		java.lang.String name, java.lang.String description,
+		java.lang.String properties, java.lang.String fieldsQuantities,
+		boolean requiresShipping, int stockQuantity, boolean featured,
+		java.lang.Boolean sale, boolean smallImage,
+		java.lang.String smallImageURL, java.io.File smallFile,
+		boolean mediumImage, java.lang.String mediumImageURL,
+		java.io.File mediumFile, boolean largeImage,
+		java.lang.String largeImageURL, java.io.File largeFile,
+		java.util.List<com.liferay.shopping.model.ShoppingItemField> itemFields,
+		java.util.List<com.liferay.shopping.model.ShoppingItemPrice> itemPrices,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException,
+			java.lang.Exception;
 }

@@ -231,4 +231,9 @@ public interface ShoppingOrderItemLocalService
 	* @param beanIdentifier the Spring bean ID for this bean
 	*/
 	public void setBeanIdentifier(java.lang.String beanIdentifier);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public java.util.List<com.liferay.shopping.model.ShoppingOrderItem> getOrderItems(
+		long orderId)
+		throws com.liferay.portal.kernel.exception.SystemException;
 }

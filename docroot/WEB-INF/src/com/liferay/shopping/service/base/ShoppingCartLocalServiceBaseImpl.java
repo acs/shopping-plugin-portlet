@@ -53,10 +53,13 @@ import com.liferay.shopping.service.ShoppingOrderLocalService;
 import com.liferay.shopping.service.ShoppingOrderService;
 import com.liferay.shopping.service.persistence.ShoppingCartPersistence;
 import com.liferay.shopping.service.persistence.ShoppingCategoryPersistence;
+import com.liferay.shopping.service.persistence.ShoppingCouponFinder;
 import com.liferay.shopping.service.persistence.ShoppingCouponPersistence;
 import com.liferay.shopping.service.persistence.ShoppingItemFieldPersistence;
+import com.liferay.shopping.service.persistence.ShoppingItemFinder;
 import com.liferay.shopping.service.persistence.ShoppingItemPersistence;
 import com.liferay.shopping.service.persistence.ShoppingItemPricePersistence;
+import com.liferay.shopping.service.persistence.ShoppingOrderFinder;
 import com.liferay.shopping.service.persistence.ShoppingOrderItemPersistence;
 import com.liferay.shopping.service.persistence.ShoppingOrderPersistence;
 
@@ -480,6 +483,25 @@ public abstract class ShoppingCartLocalServiceBaseImpl
 	}
 
 	/**
+	 * Returns the shopping coupon finder.
+	 *
+	 * @return the shopping coupon finder
+	 */
+	public ShoppingCouponFinder getShoppingCouponFinder() {
+		return shoppingCouponFinder;
+	}
+
+	/**
+	 * Sets the shopping coupon finder.
+	 *
+	 * @param shoppingCouponFinder the shopping coupon finder
+	 */
+	public void setShoppingCouponFinder(
+		ShoppingCouponFinder shoppingCouponFinder) {
+		this.shoppingCouponFinder = shoppingCouponFinder;
+	}
+
+	/**
 	 * Returns the shopping item local service.
 	 *
 	 * @return the shopping item local service
@@ -533,6 +555,24 @@ public abstract class ShoppingCartLocalServiceBaseImpl
 	public void setShoppingItemPersistence(
 		ShoppingItemPersistence shoppingItemPersistence) {
 		this.shoppingItemPersistence = shoppingItemPersistence;
+	}
+
+	/**
+	 * Returns the shopping item finder.
+	 *
+	 * @return the shopping item finder
+	 */
+	public ShoppingItemFinder getShoppingItemFinder() {
+		return shoppingItemFinder;
+	}
+
+	/**
+	 * Sets the shopping item finder.
+	 *
+	 * @param shoppingItemFinder the shopping item finder
+	 */
+	public void setShoppingItemFinder(ShoppingItemFinder shoppingItemFinder) {
+		this.shoppingItemFinder = shoppingItemFinder;
 	}
 
 	/**
@@ -666,6 +706,24 @@ public abstract class ShoppingCartLocalServiceBaseImpl
 	public void setShoppingOrderPersistence(
 		ShoppingOrderPersistence shoppingOrderPersistence) {
 		this.shoppingOrderPersistence = shoppingOrderPersistence;
+	}
+
+	/**
+	 * Returns the shopping order finder.
+	 *
+	 * @return the shopping order finder
+	 */
+	public ShoppingOrderFinder getShoppingOrderFinder() {
+		return shoppingOrderFinder;
+	}
+
+	/**
+	 * Sets the shopping order finder.
+	 *
+	 * @param shoppingOrderFinder the shopping order finder
+	 */
+	public void setShoppingOrderFinder(ShoppingOrderFinder shoppingOrderFinder) {
+		this.shoppingOrderFinder = shoppingOrderFinder;
 	}
 
 	/**
@@ -904,12 +962,16 @@ public abstract class ShoppingCartLocalServiceBaseImpl
 	protected ShoppingCouponService shoppingCouponService;
 	@BeanReference(type = ShoppingCouponPersistence.class)
 	protected ShoppingCouponPersistence shoppingCouponPersistence;
+	@BeanReference(type = ShoppingCouponFinder.class)
+	protected ShoppingCouponFinder shoppingCouponFinder;
 	@BeanReference(type = ShoppingItemLocalService.class)
 	protected ShoppingItemLocalService shoppingItemLocalService;
 	@BeanReference(type = ShoppingItemService.class)
 	protected ShoppingItemService shoppingItemService;
 	@BeanReference(type = ShoppingItemPersistence.class)
 	protected ShoppingItemPersistence shoppingItemPersistence;
+	@BeanReference(type = ShoppingItemFinder.class)
+	protected ShoppingItemFinder shoppingItemFinder;
 	@BeanReference(type = ShoppingItemFieldLocalService.class)
 	protected ShoppingItemFieldLocalService shoppingItemFieldLocalService;
 	@BeanReference(type = ShoppingItemFieldPersistence.class)
@@ -924,6 +986,8 @@ public abstract class ShoppingCartLocalServiceBaseImpl
 	protected ShoppingOrderService shoppingOrderService;
 	@BeanReference(type = ShoppingOrderPersistence.class)
 	protected ShoppingOrderPersistence shoppingOrderPersistence;
+	@BeanReference(type = ShoppingOrderFinder.class)
+	protected ShoppingOrderFinder shoppingOrderFinder;
 	@BeanReference(type = ShoppingOrderItemLocalService.class)
 	protected ShoppingOrderItemLocalService shoppingOrderItemLocalService;
 	@BeanReference(type = ShoppingOrderItemPersistence.class)

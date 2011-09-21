@@ -217,6 +217,18 @@ public class ShoppingCouponClp extends BaseModelImpl<ShoppingCoupon>
 		_discountType = discountType;
 	}
 
+	public boolean hasValidDateRange() {
+		throw new UnsupportedOperationException();
+	}
+
+	public boolean hasValidEndDate() {
+		throw new UnsupportedOperationException();
+	}
+
+	public boolean hasValidStartDate() {
+		throw new UnsupportedOperationException();
+	}
+
 	public void persist() throws SystemException {
 		ShoppingCouponLocalServiceUtil.updateShoppingCoupon(this);
 	}

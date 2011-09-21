@@ -256,6 +256,13 @@ public class ShoppingItemPriceLocalServiceUtil {
 		getService().setBeanIdentifier(beanIdentifier);
 	}
 
+	public static java.util.List<com.liferay.shopping.model.ShoppingItemPrice> getItemPrices(
+		long itemId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService().getItemPrices(itemId);
+	}
+
 	public static void clearService() {
 		_service = null;
 	}

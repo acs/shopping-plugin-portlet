@@ -31,4 +31,7 @@ public interface ShoppingItemField extends ShoppingItemFieldModel, PersistedMode
 	 *
 	 * Never modify this interface directly. Add methods to {@link com.liferay.shopping.model.impl.ShoppingItemFieldImpl} and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
+	public java.lang.String[] getValuesArray();
+
+	public void setValuesArray(java.lang.String[] valuesArray);
 }

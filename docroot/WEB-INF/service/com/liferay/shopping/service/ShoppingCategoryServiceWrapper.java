@@ -29,6 +29,66 @@ public class ShoppingCategoryServiceWrapper implements ShoppingCategoryService {
 		_shoppingCategoryService = shoppingCategoryService;
 	}
 
+	public com.liferay.shopping.model.ShoppingCategory addCategory(
+		long parentCategoryId, java.lang.String name,
+		java.lang.String description,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _shoppingCategoryService.addCategory(parentCategoryId, name,
+			description, serviceContext);
+	}
+
+	public void deleteCategory(long categoryId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		_shoppingCategoryService.deleteCategory(categoryId);
+	}
+
+	public java.util.List<com.liferay.shopping.model.ShoppingCategory> getCategories(
+		long groupId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _shoppingCategoryService.getCategories(groupId);
+	}
+
+	public java.util.List<com.liferay.shopping.model.ShoppingCategory> getCategories(
+		long groupId, long parentCategoryId, int start, int end)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _shoppingCategoryService.getCategories(groupId,
+			parentCategoryId, start, end);
+	}
+
+	public int getCategoriesCount(long groupId, long parentCategoryId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _shoppingCategoryService.getCategoriesCount(groupId,
+			parentCategoryId);
+	}
+
+	public com.liferay.shopping.model.ShoppingCategory getCategory(
+		long categoryId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _shoppingCategoryService.getCategory(categoryId);
+	}
+
+	public void getSubcategoryIds(java.util.List<java.lang.Long> categoryIds,
+		long groupId, long categoryId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		_shoppingCategoryService.getSubcategoryIds(categoryIds, groupId,
+			categoryId);
+	}
+
+	public com.liferay.shopping.model.ShoppingCategory updateCategory(
+		long categoryId, long parentCategoryId, java.lang.String name,
+		java.lang.String description, boolean mergeWithParentCategory,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _shoppingCategoryService.updateCategory(categoryId,
+			parentCategoryId, name, description, mergeWithParentCategory,
+			serviceContext);
+	}
+
 	public ShoppingCategoryService getWrappedShoppingCategoryService() {
 		return _shoppingCategoryService;
 	}

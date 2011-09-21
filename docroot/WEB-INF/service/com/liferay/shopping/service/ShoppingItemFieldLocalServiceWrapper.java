@@ -249,6 +249,11 @@ public class ShoppingItemFieldLocalServiceWrapper
 		_shoppingItemFieldLocalService.setBeanIdentifier(beanIdentifier);
 	}
 
+	public java.util.List<com.liferay.shopping.model.ShoppingItemField> getItemFields(
+		long itemId) throws com.liferay.portal.kernel.exception.SystemException {
+		return _shoppingItemFieldLocalService.getItemFields(itemId);
+	}
+
 	public ShoppingItemFieldLocalService getWrappedShoppingItemFieldLocalService() {
 		return _shoppingItemFieldLocalService;
 	}

@@ -82,6 +82,22 @@ public class ShoppingCartLocalServiceClp implements ShoppingCartLocalService {
 
 		_setBeanIdentifierMethodKey15 = new MethodKey(_classLoaderProxy.getClassName(),
 				"setBeanIdentifier", java.lang.String.class);
+
+		_deleteGroupCartsMethodKey16 = new MethodKey(_classLoaderProxy.getClassName(),
+				"deleteGroupCarts", long.class);
+
+		_deleteUserCartsMethodKey17 = new MethodKey(_classLoaderProxy.getClassName(),
+				"deleteUserCarts", long.class);
+
+		_getCartMethodKey18 = new MethodKey(_classLoaderProxy.getClassName(),
+				"getCart", long.class, long.class);
+
+		_getItemsMethodKey19 = new MethodKey(_classLoaderProxy.getClassName(),
+				"getItems", long.class, java.lang.String.class);
+
+		_updateCartMethodKey20 = new MethodKey(_classLoaderProxy.getClassName(),
+				"updateCart", long.class, long.class, java.lang.String.class,
+				java.lang.String.class, int.class, boolean.class);
 	}
 
 	public com.liferay.shopping.model.ShoppingCart addShoppingCart(
@@ -519,6 +535,148 @@ public class ShoppingCartLocalServiceClp implements ShoppingCartLocalService {
 		}
 	}
 
+	public void deleteGroupCarts(long groupId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		MethodHandler methodHandler = new MethodHandler(_deleteGroupCartsMethodKey16,
+				groupId);
+
+		try {
+			_classLoaderProxy.invoke(methodHandler);
+		}
+		catch (Throwable t) {
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+	}
+
+	public void deleteUserCarts(long userId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		MethodHandler methodHandler = new MethodHandler(_deleteUserCartsMethodKey17,
+				userId);
+
+		try {
+			_classLoaderProxy.invoke(methodHandler);
+		}
+		catch (Throwable t) {
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+	}
+
+	public com.liferay.shopping.model.ShoppingCart getCart(long userId,
+		long groupId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		MethodHandler methodHandler = new MethodHandler(_getCartMethodKey18,
+				userId, groupId);
+
+		try {
+			returnObj = _classLoaderProxy.invoke(methodHandler);
+		}
+		catch (Throwable t) {
+			if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+				throw (com.liferay.portal.kernel.exception.PortalException)t;
+			}
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (com.liferay.shopping.model.ShoppingCart)ClpSerializer.translateOutput(returnObj);
+	}
+
+	public java.util.Map<com.liferay.shopping.model.ShoppingCartItem, java.lang.Integer> getItems(
+		long groupId, java.lang.String itemIds)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		MethodHandler methodHandler = new MethodHandler(_getItemsMethodKey19,
+				groupId, ClpSerializer.translateInput(itemIds));
+
+		try {
+			returnObj = _classLoaderProxy.invoke(methodHandler);
+		}
+		catch (Throwable t) {
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (java.util.Map<com.liferay.shopping.model.ShoppingCartItem, java.lang.Integer>)ClpSerializer.translateOutput(returnObj);
+	}
+
+	public com.liferay.shopping.model.ShoppingCart updateCart(long userId,
+		long groupId, java.lang.String itemIds, java.lang.String couponCodes,
+		int altShipping, boolean insure)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		MethodHandler methodHandler = new MethodHandler(_updateCartMethodKey20,
+				userId, groupId, ClpSerializer.translateInput(itemIds),
+				ClpSerializer.translateInput(couponCodes), altShipping, insure);
+
+		try {
+			returnObj = _classLoaderProxy.invoke(methodHandler);
+		}
+		catch (Throwable t) {
+			if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+				throw (com.liferay.portal.kernel.exception.PortalException)t;
+			}
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (com.liferay.shopping.model.ShoppingCart)ClpSerializer.translateOutput(returnObj);
+	}
+
 	public ClassLoaderProxy getClassLoaderProxy() {
 		return _classLoaderProxy;
 	}
@@ -540,4 +698,9 @@ public class ShoppingCartLocalServiceClp implements ShoppingCartLocalService {
 	private MethodKey _updateShoppingCartMethodKey13;
 	private MethodKey _getBeanIdentifierMethodKey14;
 	private MethodKey _setBeanIdentifierMethodKey15;
+	private MethodKey _deleteGroupCartsMethodKey16;
+	private MethodKey _deleteUserCartsMethodKey17;
+	private MethodKey _getCartMethodKey18;
+	private MethodKey _getItemsMethodKey19;
+	private MethodKey _updateCartMethodKey20;
 }

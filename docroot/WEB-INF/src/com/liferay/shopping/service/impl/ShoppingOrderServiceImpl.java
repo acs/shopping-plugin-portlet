@@ -14,26 +14,107 @@
 
 package com.liferay.shopping.service.impl;
 
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.security.permission.ActionKeys;
+import com.liferay.shopping.model.ShoppingOrder;
 import com.liferay.shopping.service.base.ShoppingOrderServiceBaseImpl;
+import com.liferay.shopping.service.permission.ShoppingOrderPermission;
+import com.liferay.shopping.service.permission.ShoppingPermission;
 
 /**
- * The implementation of the shopping order remote service.
- *
- * <p>
- * All custom service methods should be put in this class. Whenever methods are added, rerun ServiceBuilder to copy their definitions into the {@link com.liferay.shopping.service.ShoppingOrderService} interface.
- *
- * <p>
- * This is a remote service. Methods of this service are expected to have security checks based on the propagated JAAS credentials because this service can be accessed remotely.
- * </p>
- *
  * @author Brian Wing Shun Chan
- * @see com.liferay.shopping.service.base.ShoppingOrderServiceBaseImpl
- * @see com.liferay.shopping.service.ShoppingOrderServiceUtil
  */
 public class ShoppingOrderServiceImpl extends ShoppingOrderServiceBaseImpl {
-	/*
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never reference this interface directly. Always use {@link com.liferay.shopping.service.ShoppingOrderServiceUtil} to access the shopping order remote service.
-	 */
+
+	public void completeOrder(
+			long groupId, String number, String ppTxnId, String ppPaymentStatus,
+			double ppPaymentGross, String ppReceiverEmail, String ppPayerEmail)
+		throws PortalException, SystemException {
+
+		ShoppingOrder order = shoppingOrderPersistence.findByNumber(number);
+
+		ShoppingOrderPermission.check(
+			getPermissionChecker(), groupId, order.getOrderId(),
+			ActionKeys.UPDATE);
+
+		shoppingOrderLocalService.completeOrder(
+			number, ppTxnId, ppPaymentStatus, ppPaymentGross, ppReceiverEmail,
+			ppPayerEmail, false);
+	}
+
+	public void deleteOrder(long groupId, long orderId)
+		throws PortalException, SystemException {
+
+		ShoppingOrderPermission.check(
+			getPermissionChecker(), groupId, orderId, ActionKeys.DELETE);
+
+		shoppingOrderLocalService.deleteOrder(orderId);
+	}
+
+	public ShoppingOrder getOrder(long groupId, long orderId)
+		throws PortalException, SystemException {
+
+		ShoppingOrder order = shoppingOrderLocalService.getOrder(orderId);
+
+		if (order.getUserId() == getUserId()) {
+			return order;
+		}
+		else {
+			ShoppingPermission.check(
+				getPermissionChecker(), groupId, ActionKeys.MANAGE_ORDERS);
+
+			return order;
+		}
+	}
+
+	public void sendEmail(long groupId, long orderId, String emailType)
+		throws PortalException, SystemException {
+
+		ShoppingOrderPermission.check(
+			getPermissionChecker(), groupId, orderId, ActionKeys.UPDATE);
+
+		shoppingOrderLocalService.sendEmail(orderId, emailType);
+	}
+
+	public ShoppingOrder updateOrder(
+			long groupId, long orderId, String ppTxnId, String ppPaymentStatus,
+			double ppPaymentGross, String ppReceiverEmail, String ppPayerEmail)
+		throws PortalException, SystemException {
+
+		ShoppingOrderPermission.check(
+			getPermissionChecker(), groupId, orderId, ActionKeys.UPDATE);
+
+		return shoppingOrderLocalService.updateOrder(
+			orderId, ppTxnId, ppPaymentStatus, ppPaymentGross, ppReceiverEmail,
+			ppPayerEmail);
+	}
+
+	public ShoppingOrder updateOrder(
+			long groupId, long orderId, String billingFirstName,
+			String billingLastName, String billingEmailAddress,
+			String billingCompany, String billingStreet, String billingCity,
+			String billingState, String billingZip, String billingCountry,
+			String billingPhone, boolean shipToBilling,
+			String shippingFirstName, String shippingLastName,
+			String shippingEmailAddress, String shippingCompany,
+			String shippingStreet, String shippingCity, String shippingState,
+			String shippingZip, String shippingCountry, String shippingPhone,
+			String ccName, String ccType, String ccNumber, int ccExpMonth,
+			int ccExpYear, String ccVerNumber, String comments)
+		throws PortalException, SystemException {
+
+		ShoppingOrderPermission.check(
+			getPermissionChecker(), groupId, orderId, ActionKeys.UPDATE);
+
+		return shoppingOrderLocalService.updateOrder(
+			orderId, billingFirstName, billingLastName, billingEmailAddress,
+			billingCompany, billingStreet, billingCity, billingState,
+			billingZip, billingCountry, billingPhone, shipToBilling,
+			shippingFirstName, shippingLastName, shippingEmailAddress,
+			shippingCompany, shippingStreet, shippingCity, shippingState,
+			shippingZip, shippingCountry, shippingPhone, ccName, ccType,
+			ccNumber, ccExpMonth, ccExpYear, ccVerNumber, comments);
+	}
+
 }

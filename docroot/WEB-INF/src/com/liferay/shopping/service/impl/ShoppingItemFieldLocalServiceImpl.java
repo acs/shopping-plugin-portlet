@@ -14,27 +14,22 @@
 
 package com.liferay.shopping.service.impl;
 
+import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.shopping.model.ShoppingItemField;
 import com.liferay.shopping.service.base.ShoppingItemFieldLocalServiceBaseImpl;
 
+import java.util.List;
+
 /**
- * The implementation of the shopping item field local service.
- *
- * <p>
- * All custom service methods should be put in this class. Whenever methods are added, rerun ServiceBuilder to copy their definitions into the {@link com.liferay.shopping.service.ShoppingItemFieldLocalService} interface.
- *
- * <p>
- * This is a local service. Methods of this service will not have security checks based on the propagated JAAS credentials because this service can only be accessed from within the same VM.
- * </p>
- *
  * @author Brian Wing Shun Chan
- * @see com.liferay.shopping.service.base.ShoppingItemFieldLocalServiceBaseImpl
- * @see com.liferay.shopping.service.ShoppingItemFieldLocalServiceUtil
  */
 public class ShoppingItemFieldLocalServiceImpl
 	extends ShoppingItemFieldLocalServiceBaseImpl {
-	/*
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never reference this interface directly. Always use {@link com.liferay.shopping.service.ShoppingItemFieldLocalServiceUtil} to access the shopping item field local service.
-	 */
+
+	public List<ShoppingItemField> getItemFields(long itemId)
+		throws SystemException {
+
+		return shoppingItemFieldPersistence.findByItemId(itemId);
+	}
+
 }

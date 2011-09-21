@@ -247,6 +247,88 @@ public class ShoppingCouponLocalServiceWrapper
 		_shoppingCouponLocalService.setBeanIdentifier(beanIdentifier);
 	}
 
+	public com.liferay.shopping.model.ShoppingCoupon addCoupon(long userId,
+		java.lang.String code, boolean autoCode, java.lang.String name,
+		java.lang.String description, int startDateMonth, int startDateDay,
+		int startDateYear, int startDateHour, int startDateMinute,
+		int endDateMonth, int endDateDay, int endDateYear, int endDateHour,
+		int endDateMinute, boolean neverExpire, boolean active,
+		java.lang.String limitCategories, java.lang.String limitSkus,
+		double minOrder, double discount, java.lang.String discountType,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _shoppingCouponLocalService.addCoupon(userId, code, autoCode,
+			name, description, startDateMonth, startDateDay, startDateYear,
+			startDateHour, startDateMinute, endDateMonth, endDateDay,
+			endDateYear, endDateHour, endDateMinute, neverExpire, active,
+			limitCategories, limitSkus, minOrder, discount, discountType,
+			serviceContext);
+	}
+
+	public void deleteCoupon(long couponId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		_shoppingCouponLocalService.deleteCoupon(couponId);
+	}
+
+	public void deleteCoupon(com.liferay.shopping.model.ShoppingCoupon coupon)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		_shoppingCouponLocalService.deleteCoupon(coupon);
+	}
+
+	public void deleteCoupons(long groupId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		_shoppingCouponLocalService.deleteCoupons(groupId);
+	}
+
+	public com.liferay.shopping.model.ShoppingCoupon getCoupon(long couponId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _shoppingCouponLocalService.getCoupon(couponId);
+	}
+
+	public com.liferay.shopping.model.ShoppingCoupon getCoupon(
+		java.lang.String code)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _shoppingCouponLocalService.getCoupon(code);
+	}
+
+	public java.util.List<com.liferay.shopping.model.ShoppingCoupon> search(
+		long groupId, long companyId, java.lang.String code, boolean active,
+		java.lang.String discountType, boolean andOperator, int start, int end)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _shoppingCouponLocalService.search(groupId, companyId, code,
+			active, discountType, andOperator, start, end);
+	}
+
+	public int searchCount(long groupId, long companyId, java.lang.String code,
+		boolean active, java.lang.String discountType, boolean andOperator)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _shoppingCouponLocalService.searchCount(groupId, companyId,
+			code, active, discountType, andOperator);
+	}
+
+	public com.liferay.shopping.model.ShoppingCoupon updateCoupon(long userId,
+		long couponId, java.lang.String name, java.lang.String description,
+		int startDateMonth, int startDateDay, int startDateYear,
+		int startDateHour, int startDateMinute, int endDateMonth,
+		int endDateDay, int endDateYear, int endDateHour, int endDateMinute,
+		boolean neverExpire, boolean active, java.lang.String limitCategories,
+		java.lang.String limitSkus, double minOrder, double discount,
+		java.lang.String discountType,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _shoppingCouponLocalService.updateCoupon(userId, couponId, name,
+			description, startDateMonth, startDateDay, startDateYear,
+			startDateHour, startDateMinute, endDateMonth, endDateDay,
+			endDateYear, endDateHour, endDateMinute, neverExpire, active,
+			limitCategories, limitSkus, minOrder, discount, discountType,
+			serviceContext);
+	}
+
 	public ShoppingCouponLocalService getWrappedShoppingCouponLocalService() {
 		return _shoppingCouponLocalService;
 	}

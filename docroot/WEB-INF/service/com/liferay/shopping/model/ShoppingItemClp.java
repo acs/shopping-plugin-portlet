@@ -376,6 +376,23 @@ public class ShoppingItemClp extends BaseModelImpl<ShoppingItem>
 		_largeImageURL = largeImageURL;
 	}
 
+	public com.liferay.shopping.model.ShoppingCategory getCategory() {
+		throw new UnsupportedOperationException();
+	}
+
+	public java.lang.String[] getFieldsQuantitiesArray() {
+		throw new UnsupportedOperationException();
+	}
+
+	public java.util.List<com.liferay.shopping.model.ShoppingItemPrice> getItemPrices() {
+		throw new UnsupportedOperationException();
+	}
+
+	public void setFieldsQuantitiesArray(
+		java.lang.String[] fieldsQuantitiesArray) {
+		throw new UnsupportedOperationException();
+	}
+
 	public void persist() throws SystemException {
 		ShoppingItemLocalServiceUtil.updateShoppingItem(this);
 	}

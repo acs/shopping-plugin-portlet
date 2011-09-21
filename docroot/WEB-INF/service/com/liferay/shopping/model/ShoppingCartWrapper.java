@@ -358,6 +358,25 @@ public class ShoppingCartWrapper implements ShoppingCart {
 		_shoppingCart.persist();
 	}
 
+	public void addItemId(long itemId, java.lang.String fields) {
+		_shoppingCart.addItemId(itemId, fields);
+	}
+
+	public com.liferay.shopping.model.ShoppingCoupon getCoupon()
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _shoppingCart.getCoupon();
+	}
+
+	public java.util.Map<com.liferay.shopping.model.ShoppingCartItem, java.lang.Integer> getItems()
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _shoppingCart.getItems();
+	}
+
+	public int getItemsSize() {
+		return _shoppingCart.getItemsSize();
+	}
+
 	public ShoppingCart getWrappedShoppingCart() {
 		return _shoppingCart;
 	}

@@ -222,6 +222,14 @@ public class ShoppingItemFieldWrapper implements ShoppingItemField {
 		_shoppingItemField.persist();
 	}
 
+	public java.lang.String[] getValuesArray() {
+		return _shoppingItemField.getValuesArray();
+	}
+
+	public void setValuesArray(java.lang.String[] valuesArray) {
+		_shoppingItemField.setValuesArray(valuesArray);
+	}
+
 	public ShoppingItemField getWrappedShoppingItemField() {
 		return _shoppingItemField;
 	}

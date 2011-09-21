@@ -256,6 +256,11 @@ public class ShoppingItemFieldLocalServiceUtil {
 		getService().setBeanIdentifier(beanIdentifier);
 	}
 
+	public static java.util.List<com.liferay.shopping.model.ShoppingItemField> getItemFields(
+		long itemId) throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getItemFields(itemId);
+	}
+
 	public static void clearService() {
 		_service = null;
 	}

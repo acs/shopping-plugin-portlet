@@ -244,6 +244,38 @@ public class ShoppingCartLocalServiceWrapper implements ShoppingCartLocalService
 		_shoppingCartLocalService.setBeanIdentifier(beanIdentifier);
 	}
 
+	public void deleteGroupCarts(long groupId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		_shoppingCartLocalService.deleteGroupCarts(groupId);
+	}
+
+	public void deleteUserCarts(long userId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		_shoppingCartLocalService.deleteUserCarts(userId);
+	}
+
+	public com.liferay.shopping.model.ShoppingCart getCart(long userId,
+		long groupId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _shoppingCartLocalService.getCart(userId, groupId);
+	}
+
+	public java.util.Map<com.liferay.shopping.model.ShoppingCartItem, java.lang.Integer> getItems(
+		long groupId, java.lang.String itemIds)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _shoppingCartLocalService.getItems(groupId, itemIds);
+	}
+
+	public com.liferay.shopping.model.ShoppingCart updateCart(long userId,
+		long groupId, java.lang.String itemIds, java.lang.String couponCodes,
+		int altShipping, boolean insure)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _shoppingCartLocalService.updateCart(userId, groupId, itemIds,
+			couponCodes, altShipping, insure);
+	}
+
 	public ShoppingCartLocalService getWrappedShoppingCartLocalService() {
 		return _shoppingCartLocalService;
 	}

@@ -256,6 +256,135 @@ public class ShoppingCategoryLocalServiceUtil {
 		getService().setBeanIdentifier(beanIdentifier);
 	}
 
+	public static com.liferay.shopping.model.ShoppingCategory addCategory(
+		long userId, long parentCategoryId, java.lang.String name,
+		java.lang.String description,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService()
+				   .addCategory(userId, parentCategoryId, name, description,
+			serviceContext);
+	}
+
+	public static void addCategoryResources(long categoryId,
+		boolean addGroupPermissions, boolean addGuestPermissions)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		getService()
+			.addCategoryResources(categoryId, addGroupPermissions,
+			addGuestPermissions);
+	}
+
+	public static void addCategoryResources(long categoryId,
+		java.lang.String[] groupPermissions, java.lang.String[] guestPermissions)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		getService()
+			.addCategoryResources(categoryId, groupPermissions, guestPermissions);
+	}
+
+	public static void addCategoryResources(
+		com.liferay.shopping.model.ShoppingCategory category,
+		boolean addGroupPermissions, boolean addGuestPermissions)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		getService()
+			.addCategoryResources(category, addGroupPermissions,
+			addGuestPermissions);
+	}
+
+	public static void addCategoryResources(
+		com.liferay.shopping.model.ShoppingCategory category,
+		java.lang.String[] groupPermissions, java.lang.String[] guestPermissions)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		getService()
+			.addCategoryResources(category, groupPermissions, guestPermissions);
+	}
+
+	public static void deleteCategories(long groupId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		getService().deleteCategories(groupId);
+	}
+
+	public static void deleteCategory(long categoryId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		getService().deleteCategory(categoryId);
+	}
+
+	public static void deleteCategory(
+		com.liferay.shopping.model.ShoppingCategory category)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		getService().deleteCategory(category);
+	}
+
+	public static java.util.List<com.liferay.shopping.model.ShoppingCategory> getCategories(
+		long groupId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getCategories(groupId);
+	}
+
+	public static java.util.List<com.liferay.shopping.model.ShoppingCategory> getCategories(
+		long groupId, long parentCategoryId, int start, int end)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getCategories(groupId, parentCategoryId, start, end);
+	}
+
+	public static int getCategoriesCount(long groupId, long parentCategoryId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getCategoriesCount(groupId, parentCategoryId);
+	}
+
+	public static com.liferay.shopping.model.ShoppingCategory getCategory(
+		long categoryId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService().getCategory(categoryId);
+	}
+
+	public static java.util.List<com.liferay.shopping.model.ShoppingCategory> getParentCategories(
+		long categoryId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService().getParentCategories(categoryId);
+	}
+
+	public static java.util.List<com.liferay.shopping.model.ShoppingCategory> getParentCategories(
+		com.liferay.shopping.model.ShoppingCategory category)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService().getParentCategories(category);
+	}
+
+	public static com.liferay.shopping.model.ShoppingCategory getParentCategory(
+		com.liferay.shopping.model.ShoppingCategory category)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService().getParentCategory(category);
+	}
+
+	public static void getSubcategoryIds(
+		java.util.List<java.lang.Long> categoryIds, long groupId,
+		long categoryId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		getService().getSubcategoryIds(categoryIds, groupId, categoryId);
+	}
+
+	public static com.liferay.shopping.model.ShoppingCategory updateCategory(
+		long categoryId, long parentCategoryId, java.lang.String name,
+		java.lang.String description, boolean mergeWithParentCategory,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService()
+				   .updateCategory(categoryId, parentCategoryId, name,
+			description, mergeWithParentCategory, serviceContext);
+	}
+
 	public static void clearService() {
 		_service = null;
 	}

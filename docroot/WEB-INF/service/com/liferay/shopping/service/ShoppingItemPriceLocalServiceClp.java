@@ -85,6 +85,9 @@ public class ShoppingItemPriceLocalServiceClp
 
 		_setBeanIdentifierMethodKey15 = new MethodKey(_classLoaderProxy.getClassName(),
 				"setBeanIdentifier", java.lang.String.class);
+
+		_getItemPricesMethodKey16 = new MethodKey(_classLoaderProxy.getClassName(),
+				"getItemPrices", long.class);
 	}
 
 	public com.liferay.shopping.model.ShoppingItemPrice addShoppingItemPrice(
@@ -524,6 +527,39 @@ public class ShoppingItemPriceLocalServiceClp
 		}
 	}
 
+	public java.util.List<com.liferay.shopping.model.ShoppingItemPrice> getItemPrices(
+		long itemId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		MethodHandler methodHandler = new MethodHandler(_getItemPricesMethodKey16,
+				itemId);
+
+		try {
+			returnObj = _classLoaderProxy.invoke(methodHandler);
+		}
+		catch (Throwable t) {
+			if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+				throw (com.liferay.portal.kernel.exception.PortalException)t;
+			}
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (java.util.List<com.liferay.shopping.model.ShoppingItemPrice>)ClpSerializer.translateOutput(returnObj);
+	}
+
 	public ClassLoaderProxy getClassLoaderProxy() {
 		return _classLoaderProxy;
 	}
@@ -545,4 +581,5 @@ public class ShoppingItemPriceLocalServiceClp
 	private MethodKey _updateShoppingItemPriceMethodKey13;
 	private MethodKey _getBeanIdentifierMethodKey14;
 	private MethodKey _setBeanIdentifierMethodKey15;
+	private MethodKey _getItemPricesMethodKey16;
 }

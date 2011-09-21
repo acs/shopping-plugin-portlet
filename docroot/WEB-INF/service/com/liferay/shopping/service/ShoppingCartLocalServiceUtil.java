@@ -255,6 +255,39 @@ public class ShoppingCartLocalServiceUtil {
 		getService().setBeanIdentifier(beanIdentifier);
 	}
 
+	public static void deleteGroupCarts(long groupId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		getService().deleteGroupCarts(groupId);
+	}
+
+	public static void deleteUserCarts(long userId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		getService().deleteUserCarts(userId);
+	}
+
+	public static com.liferay.shopping.model.ShoppingCart getCart(long userId,
+		long groupId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService().getCart(userId, groupId);
+	}
+
+	public static java.util.Map<com.liferay.shopping.model.ShoppingCartItem, java.lang.Integer> getItems(
+		long groupId, java.lang.String itemIds)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getItems(groupId, itemIds);
+	}
+
+	public static com.liferay.shopping.model.ShoppingCart updateCart(
+		long userId, long groupId, java.lang.String itemIds,
+		java.lang.String couponCodes, int altShipping, boolean insure)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService()
+				   .updateCart(userId, groupId, itemIds, couponCodes,
+			altShipping, insure);
+	}
+
 	public static void clearService() {
 		_service = null;
 	}

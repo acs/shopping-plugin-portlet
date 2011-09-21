@@ -485,6 +485,18 @@ public class ShoppingCouponWrapper implements ShoppingCoupon {
 		_shoppingCoupon.persist();
 	}
 
+	public boolean hasValidDateRange() {
+		return _shoppingCoupon.hasValidDateRange();
+	}
+
+	public boolean hasValidEndDate() {
+		return _shoppingCoupon.hasValidEndDate();
+	}
+
+	public boolean hasValidStartDate() {
+		return _shoppingCoupon.hasValidStartDate();
+	}
+
 	public ShoppingCoupon getWrappedShoppingCoupon() {
 		return _shoppingCoupon;
 	}

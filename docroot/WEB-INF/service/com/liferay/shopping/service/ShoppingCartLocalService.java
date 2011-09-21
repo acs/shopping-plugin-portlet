@@ -228,4 +228,27 @@ public interface ShoppingCartLocalService extends PersistedModelLocalService {
 	* @param beanIdentifier the Spring bean ID for this bean
 	*/
 	public void setBeanIdentifier(java.lang.String beanIdentifier);
+
+	public void deleteGroupCarts(long groupId)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	public void deleteUserCarts(long userId)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public com.liferay.shopping.model.ShoppingCart getCart(long userId,
+		long groupId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public java.util.Map<com.liferay.shopping.model.ShoppingCartItem, java.lang.Integer> getItems(
+		long groupId, java.lang.String itemIds)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	public com.liferay.shopping.model.ShoppingCart updateCart(long userId,
+		long groupId, java.lang.String itemIds, java.lang.String couponCodes,
+		int altShipping, boolean insure)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
 }

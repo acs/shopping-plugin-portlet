@@ -82,6 +82,101 @@ public class ShoppingItemLocalServiceClp implements ShoppingItemLocalService {
 
 		_setBeanIdentifierMethodKey15 = new MethodKey(_classLoaderProxy.getClassName(),
 				"setBeanIdentifier", java.lang.String.class);
+
+		_addItemMethodKey16 = new MethodKey(_classLoaderProxy.getClassName(),
+				"addItem", long.class, long.class, long.class,
+				java.lang.String.class, java.lang.String.class,
+				java.lang.String.class, java.lang.String.class,
+				java.lang.String.class, boolean.class, int.class,
+				boolean.class, java.lang.Boolean.class, boolean.class,
+				java.lang.String.class, java.io.File.class, boolean.class,
+				java.lang.String.class, java.io.File.class, boolean.class,
+				java.lang.String.class, java.io.File.class,
+				java.util.List.class, java.util.List.class,
+				com.liferay.portal.service.ServiceContext.class);
+
+		_addItemResourcesMethodKey17 = new MethodKey(_classLoaderProxy.getClassName(),
+				"addItemResources", long.class, boolean.class, boolean.class);
+
+		_addItemResourcesMethodKey18 = new MethodKey(_classLoaderProxy.getClassName(),
+				"addItemResources", long.class, java.lang.String[].class,
+				java.lang.String[].class);
+
+		_addItemResourcesMethodKey19 = new MethodKey(_classLoaderProxy.getClassName(),
+				"addItemResources",
+				com.liferay.shopping.model.ShoppingItem.class, boolean.class,
+				boolean.class);
+
+		_addItemResourcesMethodKey20 = new MethodKey(_classLoaderProxy.getClassName(),
+				"addItemResources",
+				com.liferay.shopping.model.ShoppingItem.class,
+				java.lang.String[].class, java.lang.String[].class);
+
+		_deleteItemMethodKey21 = new MethodKey(_classLoaderProxy.getClassName(),
+				"deleteItem", long.class);
+
+		_deleteItemMethodKey22 = new MethodKey(_classLoaderProxy.getClassName(),
+				"deleteItem", com.liferay.shopping.model.ShoppingItem.class);
+
+		_deleteItemsMethodKey23 = new MethodKey(_classLoaderProxy.getClassName(),
+				"deleteItems", long.class, long.class);
+
+		_getCategoriesItemsCountMethodKey24 = new MethodKey(_classLoaderProxy.getClassName(),
+				"getCategoriesItemsCount", long.class, java.util.List.class);
+
+		_getFeaturedItemsMethodKey25 = new MethodKey(_classLoaderProxy.getClassName(),
+				"getFeaturedItems", long.class, long.class, int.class);
+
+		_getItemMethodKey26 = new MethodKey(_classLoaderProxy.getClassName(),
+				"getItem", long.class);
+
+		_getItemMethodKey27 = new MethodKey(_classLoaderProxy.getClassName(),
+				"getItem", long.class, java.lang.String.class);
+
+		_getItemByLargeImageIdMethodKey28 = new MethodKey(_classLoaderProxy.getClassName(),
+				"getItemByLargeImageId", long.class);
+
+		_getItemByMediumImageIdMethodKey29 = new MethodKey(_classLoaderProxy.getClassName(),
+				"getItemByMediumImageId", long.class);
+
+		_getItemBySmallImageIdMethodKey30 = new MethodKey(_classLoaderProxy.getClassName(),
+				"getItemBySmallImageId", long.class);
+
+		_getItemsMethodKey31 = new MethodKey(_classLoaderProxy.getClassName(),
+				"getItems", long.class, long.class);
+
+		_getItemsMethodKey32 = new MethodKey(_classLoaderProxy.getClassName(),
+				"getItems", long.class, long.class, int.class, int.class,
+				com.liferay.portal.kernel.util.OrderByComparator.class);
+
+		_getItemsCountMethodKey33 = new MethodKey(_classLoaderProxy.getClassName(),
+				"getItemsCount", long.class, long.class);
+
+		_getItemsPrevAndNextMethodKey34 = new MethodKey(_classLoaderProxy.getClassName(),
+				"getItemsPrevAndNext", long.class,
+				com.liferay.portal.kernel.util.OrderByComparator.class);
+
+		_getSaleItemsMethodKey35 = new MethodKey(_classLoaderProxy.getClassName(),
+				"getSaleItems", long.class, long.class, int.class);
+
+		_searchMethodKey36 = new MethodKey(_classLoaderProxy.getClassName(),
+				"search", long.class, long[].class, java.lang.String.class,
+				int.class, int.class);
+
+		_searchCountMethodKey37 = new MethodKey(_classLoaderProxy.getClassName(),
+				"searchCount", long.class, long[].class, java.lang.String.class);
+
+		_updateItemMethodKey38 = new MethodKey(_classLoaderProxy.getClassName(),
+				"updateItem", long.class, long.class, long.class, long.class,
+				java.lang.String.class, java.lang.String.class,
+				java.lang.String.class, java.lang.String.class,
+				java.lang.String.class, boolean.class, int.class,
+				boolean.class, java.lang.Boolean.class, boolean.class,
+				java.lang.String.class, java.io.File.class, boolean.class,
+				java.lang.String.class, java.io.File.class, boolean.class,
+				java.lang.String.class, java.io.File.class,
+				java.util.List.class, java.util.List.class,
+				com.liferay.portal.service.ServiceContext.class);
 	}
 
 	public com.liferay.shopping.model.ShoppingItem addShoppingItem(
@@ -519,6 +614,763 @@ public class ShoppingItemLocalServiceClp implements ShoppingItemLocalService {
 		}
 	}
 
+	public com.liferay.shopping.model.ShoppingItem addItem(long userId,
+		long groupId, long categoryId, java.lang.String sku,
+		java.lang.String name, java.lang.String description,
+		java.lang.String properties, java.lang.String fieldsQuantities,
+		boolean requiresShipping, int stockQuantity, boolean featured,
+		java.lang.Boolean sale, boolean smallImage,
+		java.lang.String smallImageURL, java.io.File smallImageFile,
+		boolean mediumImage, java.lang.String mediumImageURL,
+		java.io.File mediumImageFile, boolean largeImage,
+		java.lang.String largeImageURL, java.io.File largeImageFile,
+		java.util.List<com.liferay.shopping.model.ShoppingItemField> itemFields,
+		java.util.List<com.liferay.shopping.model.ShoppingItemPrice> itemPrices,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException,
+			java.lang.Exception {
+		Object returnObj = null;
+
+		MethodHandler methodHandler = new MethodHandler(_addItemMethodKey16,
+				userId, groupId, categoryId, ClpSerializer.translateInput(sku),
+				ClpSerializer.translateInput(name),
+				ClpSerializer.translateInput(description),
+				ClpSerializer.translateInput(properties),
+				ClpSerializer.translateInput(fieldsQuantities),
+				requiresShipping, stockQuantity, featured,
+				ClpSerializer.translateInput(sale), smallImage,
+				ClpSerializer.translateInput(smallImageURL),
+				ClpSerializer.translateInput(smallImageFile), mediumImage,
+				ClpSerializer.translateInput(mediumImageURL),
+				ClpSerializer.translateInput(mediumImageFile), largeImage,
+				ClpSerializer.translateInput(largeImageURL),
+				ClpSerializer.translateInput(largeImageFile),
+				ClpSerializer.translateInput(itemFields),
+				ClpSerializer.translateInput(itemPrices),
+				ClpSerializer.translateInput(serviceContext));
+
+		try {
+			returnObj = _classLoaderProxy.invoke(methodHandler);
+		}
+		catch (Throwable t) {
+			if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+				throw (com.liferay.portal.kernel.exception.PortalException)t;
+			}
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof java.lang.Exception) {
+				throw (java.lang.Exception)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (com.liferay.shopping.model.ShoppingItem)ClpSerializer.translateOutput(returnObj);
+	}
+
+	public void addItemResources(long itemId, boolean addGroupPermissions,
+		boolean addGuestPermissions)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		MethodHandler methodHandler = new MethodHandler(_addItemResourcesMethodKey17,
+				itemId, addGroupPermissions, addGuestPermissions);
+
+		try {
+			_classLoaderProxy.invoke(methodHandler);
+		}
+		catch (Throwable t) {
+			if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+				throw (com.liferay.portal.kernel.exception.PortalException)t;
+			}
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+	}
+
+	public void addItemResources(long itemId,
+		java.lang.String[] groupPermissions, java.lang.String[] guestPermissions)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		MethodHandler methodHandler = new MethodHandler(_addItemResourcesMethodKey18,
+				itemId, ClpSerializer.translateInput(groupPermissions),
+				ClpSerializer.translateInput(guestPermissions));
+
+		try {
+			_classLoaderProxy.invoke(methodHandler);
+		}
+		catch (Throwable t) {
+			if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+				throw (com.liferay.portal.kernel.exception.PortalException)t;
+			}
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+	}
+
+	public void addItemResources(com.liferay.shopping.model.ShoppingItem item,
+		boolean addGroupPermissions, boolean addGuestPermissions)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		MethodHandler methodHandler = new MethodHandler(_addItemResourcesMethodKey19,
+				ClpSerializer.translateInput(item), addGroupPermissions,
+				addGuestPermissions);
+
+		try {
+			_classLoaderProxy.invoke(methodHandler);
+		}
+		catch (Throwable t) {
+			if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+				throw (com.liferay.portal.kernel.exception.PortalException)t;
+			}
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+	}
+
+	public void addItemResources(com.liferay.shopping.model.ShoppingItem item,
+		java.lang.String[] groupPermissions, java.lang.String[] guestPermissions)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		MethodHandler methodHandler = new MethodHandler(_addItemResourcesMethodKey20,
+				ClpSerializer.translateInput(item),
+				ClpSerializer.translateInput(groupPermissions),
+				ClpSerializer.translateInput(guestPermissions));
+
+		try {
+			_classLoaderProxy.invoke(methodHandler);
+		}
+		catch (Throwable t) {
+			if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+				throw (com.liferay.portal.kernel.exception.PortalException)t;
+			}
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+	}
+
+	public void deleteItem(long itemId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		MethodHandler methodHandler = new MethodHandler(_deleteItemMethodKey21,
+				itemId);
+
+		try {
+			_classLoaderProxy.invoke(methodHandler);
+		}
+		catch (Throwable t) {
+			if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+				throw (com.liferay.portal.kernel.exception.PortalException)t;
+			}
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+	}
+
+	public void deleteItem(com.liferay.shopping.model.ShoppingItem item)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		MethodHandler methodHandler = new MethodHandler(_deleteItemMethodKey22,
+				ClpSerializer.translateInput(item));
+
+		try {
+			_classLoaderProxy.invoke(methodHandler);
+		}
+		catch (Throwable t) {
+			if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+				throw (com.liferay.portal.kernel.exception.PortalException)t;
+			}
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+	}
+
+	public void deleteItems(long groupId, long categoryId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		MethodHandler methodHandler = new MethodHandler(_deleteItemsMethodKey23,
+				groupId, categoryId);
+
+		try {
+			_classLoaderProxy.invoke(methodHandler);
+		}
+		catch (Throwable t) {
+			if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+				throw (com.liferay.portal.kernel.exception.PortalException)t;
+			}
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+	}
+
+	public int getCategoriesItemsCount(long groupId,
+		java.util.List<java.lang.Long> categoryIds)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		MethodHandler methodHandler = new MethodHandler(_getCategoriesItemsCountMethodKey24,
+				groupId, ClpSerializer.translateInput(categoryIds));
+
+		try {
+			returnObj = _classLoaderProxy.invoke(methodHandler);
+		}
+		catch (Throwable t) {
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return ((Integer)returnObj).intValue();
+	}
+
+	public java.util.List<com.liferay.shopping.model.ShoppingItem> getFeaturedItems(
+		long groupId, long categoryId, int numOfItems)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		MethodHandler methodHandler = new MethodHandler(_getFeaturedItemsMethodKey25,
+				groupId, categoryId, numOfItems);
+
+		try {
+			returnObj = _classLoaderProxy.invoke(methodHandler);
+		}
+		catch (Throwable t) {
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (java.util.List<com.liferay.shopping.model.ShoppingItem>)ClpSerializer.translateOutput(returnObj);
+	}
+
+	public com.liferay.shopping.model.ShoppingItem getItem(long itemId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		MethodHandler methodHandler = new MethodHandler(_getItemMethodKey26,
+				itemId);
+
+		try {
+			returnObj = _classLoaderProxy.invoke(methodHandler);
+		}
+		catch (Throwable t) {
+			if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+				throw (com.liferay.portal.kernel.exception.PortalException)t;
+			}
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (com.liferay.shopping.model.ShoppingItem)ClpSerializer.translateOutput(returnObj);
+	}
+
+	public com.liferay.shopping.model.ShoppingItem getItem(long companyId,
+		java.lang.String sku)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		MethodHandler methodHandler = new MethodHandler(_getItemMethodKey27,
+				companyId, ClpSerializer.translateInput(sku));
+
+		try {
+			returnObj = _classLoaderProxy.invoke(methodHandler);
+		}
+		catch (Throwable t) {
+			if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+				throw (com.liferay.portal.kernel.exception.PortalException)t;
+			}
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (com.liferay.shopping.model.ShoppingItem)ClpSerializer.translateOutput(returnObj);
+	}
+
+	public com.liferay.shopping.model.ShoppingItem getItemByLargeImageId(
+		long largeImageId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		MethodHandler methodHandler = new MethodHandler(_getItemByLargeImageIdMethodKey28,
+				largeImageId);
+
+		try {
+			returnObj = _classLoaderProxy.invoke(methodHandler);
+		}
+		catch (Throwable t) {
+			if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+				throw (com.liferay.portal.kernel.exception.PortalException)t;
+			}
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (com.liferay.shopping.model.ShoppingItem)ClpSerializer.translateOutput(returnObj);
+	}
+
+	public com.liferay.shopping.model.ShoppingItem getItemByMediumImageId(
+		long mediumImageId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		MethodHandler methodHandler = new MethodHandler(_getItemByMediumImageIdMethodKey29,
+				mediumImageId);
+
+		try {
+			returnObj = _classLoaderProxy.invoke(methodHandler);
+		}
+		catch (Throwable t) {
+			if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+				throw (com.liferay.portal.kernel.exception.PortalException)t;
+			}
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (com.liferay.shopping.model.ShoppingItem)ClpSerializer.translateOutput(returnObj);
+	}
+
+	public com.liferay.shopping.model.ShoppingItem getItemBySmallImageId(
+		long smallImageId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		MethodHandler methodHandler = new MethodHandler(_getItemBySmallImageIdMethodKey30,
+				smallImageId);
+
+		try {
+			returnObj = _classLoaderProxy.invoke(methodHandler);
+		}
+		catch (Throwable t) {
+			if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+				throw (com.liferay.portal.kernel.exception.PortalException)t;
+			}
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (com.liferay.shopping.model.ShoppingItem)ClpSerializer.translateOutput(returnObj);
+	}
+
+	public java.util.List<com.liferay.shopping.model.ShoppingItem> getItems(
+		long groupId, long categoryId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		MethodHandler methodHandler = new MethodHandler(_getItemsMethodKey31,
+				groupId, categoryId);
+
+		try {
+			returnObj = _classLoaderProxy.invoke(methodHandler);
+		}
+		catch (Throwable t) {
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (java.util.List<com.liferay.shopping.model.ShoppingItem>)ClpSerializer.translateOutput(returnObj);
+	}
+
+	public java.util.List<com.liferay.shopping.model.ShoppingItem> getItems(
+		long groupId, long categoryId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator obc)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		MethodHandler methodHandler = new MethodHandler(_getItemsMethodKey32,
+				groupId, categoryId, start, end,
+				ClpSerializer.translateInput(obc));
+
+		try {
+			returnObj = _classLoaderProxy.invoke(methodHandler);
+		}
+		catch (Throwable t) {
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (java.util.List<com.liferay.shopping.model.ShoppingItem>)ClpSerializer.translateOutput(returnObj);
+	}
+
+	public int getItemsCount(long groupId, long categoryId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		MethodHandler methodHandler = new MethodHandler(_getItemsCountMethodKey33,
+				groupId, categoryId);
+
+		try {
+			returnObj = _classLoaderProxy.invoke(methodHandler);
+		}
+		catch (Throwable t) {
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return ((Integer)returnObj).intValue();
+	}
+
+	public com.liferay.shopping.model.ShoppingItem[] getItemsPrevAndNext(
+		long itemId, com.liferay.portal.kernel.util.OrderByComparator obc)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		MethodHandler methodHandler = new MethodHandler(_getItemsPrevAndNextMethodKey34,
+				itemId, ClpSerializer.translateInput(obc));
+
+		try {
+			returnObj = _classLoaderProxy.invoke(methodHandler);
+		}
+		catch (Throwable t) {
+			if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+				throw (com.liferay.portal.kernel.exception.PortalException)t;
+			}
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (com.liferay.shopping.model.ShoppingItem[])ClpSerializer.translateOutput(returnObj);
+	}
+
+	public java.util.List<com.liferay.shopping.model.ShoppingItem> getSaleItems(
+		long groupId, long categoryId, int numOfItems)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		MethodHandler methodHandler = new MethodHandler(_getSaleItemsMethodKey35,
+				groupId, categoryId, numOfItems);
+
+		try {
+			returnObj = _classLoaderProxy.invoke(methodHandler);
+		}
+		catch (Throwable t) {
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (java.util.List<com.liferay.shopping.model.ShoppingItem>)ClpSerializer.translateOutput(returnObj);
+	}
+
+	public java.util.List<com.liferay.shopping.model.ShoppingItem> search(
+		long groupId, long[] categoryIds, java.lang.String keywords, int start,
+		int end) throws com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		MethodHandler methodHandler = new MethodHandler(_searchMethodKey36,
+				groupId, ClpSerializer.translateInput(categoryIds),
+				ClpSerializer.translateInput(keywords), start, end);
+
+		try {
+			returnObj = _classLoaderProxy.invoke(methodHandler);
+		}
+		catch (Throwable t) {
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (java.util.List<com.liferay.shopping.model.ShoppingItem>)ClpSerializer.translateOutput(returnObj);
+	}
+
+	public int searchCount(long groupId, long[] categoryIds,
+		java.lang.String keywords)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		MethodHandler methodHandler = new MethodHandler(_searchCountMethodKey37,
+				groupId, ClpSerializer.translateInput(categoryIds),
+				ClpSerializer.translateInput(keywords));
+
+		try {
+			returnObj = _classLoaderProxy.invoke(methodHandler);
+		}
+		catch (Throwable t) {
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return ((Integer)returnObj).intValue();
+	}
+
+	public com.liferay.shopping.model.ShoppingItem updateItem(long userId,
+		long itemId, long groupId, long categoryId, java.lang.String sku,
+		java.lang.String name, java.lang.String description,
+		java.lang.String properties, java.lang.String fieldsQuantities,
+		boolean requiresShipping, int stockQuantity, boolean featured,
+		java.lang.Boolean sale, boolean smallImage,
+		java.lang.String smallImageURL, java.io.File smallImageFile,
+		boolean mediumImage, java.lang.String mediumImageURL,
+		java.io.File mediumImageFile, boolean largeImage,
+		java.lang.String largeImageURL, java.io.File largeImageFile,
+		java.util.List<com.liferay.shopping.model.ShoppingItemField> itemFields,
+		java.util.List<com.liferay.shopping.model.ShoppingItemPrice> itemPrices,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException,
+			java.lang.Exception {
+		Object returnObj = null;
+
+		MethodHandler methodHandler = new MethodHandler(_updateItemMethodKey38,
+				userId, itemId, groupId, categoryId,
+				ClpSerializer.translateInput(sku),
+				ClpSerializer.translateInput(name),
+				ClpSerializer.translateInput(description),
+				ClpSerializer.translateInput(properties),
+				ClpSerializer.translateInput(fieldsQuantities),
+				requiresShipping, stockQuantity, featured,
+				ClpSerializer.translateInput(sale), smallImage,
+				ClpSerializer.translateInput(smallImageURL),
+				ClpSerializer.translateInput(smallImageFile), mediumImage,
+				ClpSerializer.translateInput(mediumImageURL),
+				ClpSerializer.translateInput(mediumImageFile), largeImage,
+				ClpSerializer.translateInput(largeImageURL),
+				ClpSerializer.translateInput(largeImageFile),
+				ClpSerializer.translateInput(itemFields),
+				ClpSerializer.translateInput(itemPrices),
+				ClpSerializer.translateInput(serviceContext));
+
+		try {
+			returnObj = _classLoaderProxy.invoke(methodHandler);
+		}
+		catch (Throwable t) {
+			if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+				throw (com.liferay.portal.kernel.exception.PortalException)t;
+			}
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof java.lang.Exception) {
+				throw (java.lang.Exception)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (com.liferay.shopping.model.ShoppingItem)ClpSerializer.translateOutput(returnObj);
+	}
+
 	public ClassLoaderProxy getClassLoaderProxy() {
 		return _classLoaderProxy;
 	}
@@ -540,4 +1392,27 @@ public class ShoppingItemLocalServiceClp implements ShoppingItemLocalService {
 	private MethodKey _updateShoppingItemMethodKey13;
 	private MethodKey _getBeanIdentifierMethodKey14;
 	private MethodKey _setBeanIdentifierMethodKey15;
+	private MethodKey _addItemMethodKey16;
+	private MethodKey _addItemResourcesMethodKey17;
+	private MethodKey _addItemResourcesMethodKey18;
+	private MethodKey _addItemResourcesMethodKey19;
+	private MethodKey _addItemResourcesMethodKey20;
+	private MethodKey _deleteItemMethodKey21;
+	private MethodKey _deleteItemMethodKey22;
+	private MethodKey _deleteItemsMethodKey23;
+	private MethodKey _getCategoriesItemsCountMethodKey24;
+	private MethodKey _getFeaturedItemsMethodKey25;
+	private MethodKey _getItemMethodKey26;
+	private MethodKey _getItemMethodKey27;
+	private MethodKey _getItemByLargeImageIdMethodKey28;
+	private MethodKey _getItemByMediumImageIdMethodKey29;
+	private MethodKey _getItemBySmallImageIdMethodKey30;
+	private MethodKey _getItemsMethodKey31;
+	private MethodKey _getItemsMethodKey32;
+	private MethodKey _getItemsCountMethodKey33;
+	private MethodKey _getItemsPrevAndNextMethodKey34;
+	private MethodKey _getSaleItemsMethodKey35;
+	private MethodKey _searchMethodKey36;
+	private MethodKey _searchCountMethodKey37;
+	private MethodKey _updateItemMethodKey38;
 }

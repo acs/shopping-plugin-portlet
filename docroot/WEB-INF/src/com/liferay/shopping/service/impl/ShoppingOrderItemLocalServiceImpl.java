@@ -14,27 +14,22 @@
 
 package com.liferay.shopping.service.impl;
 
+import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.shopping.model.ShoppingOrderItem;
 import com.liferay.shopping.service.base.ShoppingOrderItemLocalServiceBaseImpl;
 
+import java.util.List;
+
 /**
- * The implementation of the shopping order item local service.
- *
- * <p>
- * All custom service methods should be put in this class. Whenever methods are added, rerun ServiceBuilder to copy their definitions into the {@link com.liferay.shopping.service.ShoppingOrderItemLocalService} interface.
- *
- * <p>
- * This is a local service. Methods of this service will not have security checks based on the propagated JAAS credentials because this service can only be accessed from within the same VM.
- * </p>
- *
  * @author Brian Wing Shun Chan
- * @see com.liferay.shopping.service.base.ShoppingOrderItemLocalServiceBaseImpl
- * @see com.liferay.shopping.service.ShoppingOrderItemLocalServiceUtil
  */
 public class ShoppingOrderItemLocalServiceImpl
 	extends ShoppingOrderItemLocalServiceBaseImpl {
-	/*
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never reference this interface directly. Always use {@link com.liferay.shopping.service.ShoppingOrderItemLocalServiceUtil} to access the shopping order item local service.
-	 */
+
+	public List<ShoppingOrderItem> getOrderItems(long orderId)
+		throws SystemException {
+
+		return shoppingOrderItemPersistence.findByOrderId(orderId);
+	}
+
 }

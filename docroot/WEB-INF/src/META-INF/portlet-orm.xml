@@ -263,11 +263,15 @@
 	</entity>
 	<entity class="com.liferay.shopping.model.impl.ShoppingItemImpl" name="ShoppingItem">
 		<table name="Shopping_ShoppingItem" />
-		<attributes />
+		<attributes>
+			<transient name="fieldsQuantitiesArray" />
+		</attributes>
 	</entity>
 	<entity class="com.liferay.shopping.model.impl.ShoppingItemFieldImpl" name="ShoppingItemField">
 		<table name="Shopping_ShoppingItemField" />
-		<attributes />
+		<attributes>
+			<transient name="valuesArray" />
+		</attributes>
 	</entity>
 	<entity class="com.liferay.shopping.model.impl.ShoppingItemPriceImpl" name="ShoppingItemPrice">
 		<table name="Shopping_ShoppingItemPrice" />
