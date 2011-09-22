@@ -24,6 +24,7 @@ ShoppingCategory category = (ShoppingCategory)request.getAttribute(WebKeys.SHOPP
 long categoryId = BeanParamUtil.getLong(category, request, "categoryId");
 
 long parentCategoryId = BeanParamUtil.getLong(category, request, "parentCategoryId", ShoppingCategoryConstants.DEFAULT_PARENT_CATEGORY_ID);
+
 %>
 
 <portlet:actionURL var="editCategoryURL" name="addCategory">

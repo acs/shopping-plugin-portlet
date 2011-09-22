@@ -19,14 +19,12 @@ import javax.portlet.ActionResponse;
  */
 
 
-
 public class ShoppingPortlet extends MVCPortlet {
 
     public void addCategory (
             ActionRequest actionRequest, ActionResponse actionResponse)
         throws Exception {
-        _log.error("addCategory");
-        updateCategory (actionRequest);
+        updateCategory (actionRequest, actionResponse);
     }
 
     public void deleteCategory(
@@ -37,9 +35,9 @@ public class ShoppingPortlet extends MVCPortlet {
         ShoppingCategoryServiceUtil.deleteCategory(categoryId);
     }
 
-    protected void updateCategory(ActionRequest actionRequest)
+    protected void updateCategory (
+            ActionRequest actionRequest, ActionResponse actionResponse)
         throws Exception {
-        _log.error("updateCategory");
 
         long categoryId = ParamUtil.getLong(actionRequest, "categoryId");
 
@@ -54,23 +52,28 @@ public class ShoppingPortlet extends MVCPortlet {
         ServiceContext serviceContext = ServiceContextFactory.getInstance(
             ShoppingCategory.class.getName(), actionRequest);
 
-        if (categoryId <= 0) {
+       
+        try {
+            if (categoryId <= 0) {
 
-            // Add category
+                // Add category
 
-            ShoppingCategoryServiceUtil.addCategory(
-                parentCategoryId, name, description, serviceContext);
-        }
-        else {
+                ShoppingCategoryServiceUtil.addCategory(
+                    parentCategoryId, name, description, serviceContext);
+            }
+            else {
 
-            // Update category
+                // Update category
 
-            ShoppingCategoryServiceUtil.updateCategory(
-                categoryId, parentCategoryId, name, description,
-                mergeWithParentCategory, serviceContext);
+                ShoppingCategoryServiceUtil.updateCategory(
+                    categoryId, parentCategoryId, name, description,
+                    mergeWithParentCategory, serviceContext);
+            }
+        } catch (Exception ex) {
+            actionResponse.setRenderParameter("jspPage","/edit_category.jsp");
+            throw ex;
         }
     }
-
 
     private static Log _log = LogFactoryUtil.getLog(ShoppingPortlet.class);
 }
