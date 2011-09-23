@@ -439,7 +439,7 @@ int priceId = ParamUtil.getInteger(request, "priceId", -1);
 			<liferay-ui:error exception="<%= ItemLargeImageSizeException.class %>">
 
 				<%
-				long imageMaxSize = PrefsPropsUtil.getLong(PropsKeys.SHOPPING_IMAGE_LARGE_MAX_SIZE) / 1024;
+				long imageMaxSize = GetterUtil.getLong(PrefsPropsUtil.getString(PropsKeys.SHOPPING_IMAGE_LARGE_MAX_SIZE)) / 1024;
 				%>
 
 				<liferay-ui:message arguments="<%= imageMaxSize %>" key="please-enter-a-file-with-a-valid-file-size-no-larger-than-x" />
@@ -457,7 +457,7 @@ int priceId = ParamUtil.getInteger(request, "priceId", -1);
 			<liferay-ui:error exception="<%= ItemMediumImageSizeException.class %>">
 
 				<%
-				long imageMaxSize = PrefsPropsUtil.getLong(PropsKeys.SHOPPING_IMAGE_MEDIUM_MAX_SIZE) / 1024;
+				long imageMaxSize = GetterUtil.getLong(PrefsPropsUtil.getString(PropsKeys.SHOPPING_IMAGE_MEDIUM_MAX_SIZE)) / 1024;
 				%>
 
 				<liferay-ui:message arguments="<%= imageMaxSize %>" key="please-enter-a-file-with-a-valid-file-size-no-larger-than-x" />
@@ -475,7 +475,7 @@ int priceId = ParamUtil.getInteger(request, "priceId", -1);
 			<liferay-ui:error exception="<%= ItemSmallImageSizeException.class %>">
 
 				<%
-				long imageMaxSize = PrefsPropsUtil.getLong(PropsKeys.SHOPPING_IMAGE_SMALL_MAX_SIZE) / 1024;
+				long imageMaxSize = GetterUtil.getLong(PrefsPropsUtil.getString(PropsKeys.SHOPPING_IMAGE_SMALL_MAX_SIZE)) / 1024;
 				%>
 
 				<liferay-ui:message arguments="<%= imageMaxSize %>" key="please-enter-a-file-with-a-valid-file-size-no-larger-than-x" />

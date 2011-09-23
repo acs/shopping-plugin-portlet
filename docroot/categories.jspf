@@ -335,7 +335,8 @@ portletURL.setParameter("categoryId", String.valueOf(categoryId));
 
 						<c:if test="<%= showAddItemButton %>">
 							<portlet:renderURL var="addItemURL">
-								<portlet:param name="struts_action" value="/shopping/edit_item" />
+								<%-- <portlet:param name="struts_action" value="/shopping/edit_item" /> --%>
+								<portlet:param name="jspPage" value="/edit_item.jsp" />
 								<portlet:param name="redirect" value="<%= currentURL %>" />
 								<portlet:param name="categoryId" value="<%= String.valueOf(categoryId) %>" />
 							</portlet:renderURL>
