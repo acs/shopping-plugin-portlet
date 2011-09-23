@@ -19,9 +19,15 @@
 <%
 String redirect = ParamUtil.getString(request, "redirect");
 
-ShoppingCategory category = (ShoppingCategory)request.getAttribute(WebKeys.SHOPPING_CATEGORY);
+long categoryId = ParamUtil.getLong(request, "categoryId");
 
-long categoryId = BeanParamUtil.getLong(category, request, "categoryId");
+// ShoppingCategory category = (ShoppingCategory)request.getAttribute(WebKeys.SHOPPING_CATEGORY);
+
+ShoppingCategory category = null;
+
+if (categoryId > 0) {
+    category = ShoppingCategoryServiceUtil.getCategory(categoryId);
+}
 
 long parentCategoryId = BeanParamUtil.getLong(category, request, "parentCategoryId", ShoppingCategoryConstants.DEFAULT_PARENT_CATEGORY_ID);
 

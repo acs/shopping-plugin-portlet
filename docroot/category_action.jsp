@@ -25,7 +25,8 @@ ShoppingCategory category = (ShoppingCategory)row.getObject();
 <liferay-ui:icon-menu>
 	<c:if test="<%= ShoppingCategoryPermission.contains(permissionChecker, category, ActionKeys.UPDATE) %>">
 		<portlet:renderURL var="editURL">
-			<portlet:param name="struts_action" value="/shopping/edit_category" />
+			<%-- <portlet:param name="struts_action" value="/shopping/edit_category" /> --%>
+			<portlet:param name="jspPage" value="/edit_category.jsp" />
 			<portlet:param name="redirect" value="<%= currentURL %>" />
 			<portlet:param name="categoryId" value="<%= String.valueOf(category.getCategoryId()) %>" />
 		</portlet:renderURL>
@@ -51,9 +52,10 @@ ShoppingCategory category = (ShoppingCategory)row.getObject();
 	</c:if>
 
 	<c:if test="<%= ShoppingCategoryPermission.contains(permissionChecker, category, ActionKeys.DELETE) %>">
-		<portlet:actionURL var="deleteURL">
+		<portlet:actionURL var="deleteURL" name="deleteCategory">
+			<%-- <portlet:param name="struts_action" value="/shopping/edit_category" /> --%>
 			<portlet:param name="struts_action" value="/shopping/edit_category" />
-			<portlet:param name="<%= Constants.CMD %>" value="<%= Constants.DELETE %>" />
+			<%-- <portlet:param name="<%= Constants.CMD %>" value="<%= Constants.DELETE %>" /> --%>
 			<portlet:param name="redirect" value="<%= currentURL %>" />
 			<portlet:param name="categoryId" value="<%= String.valueOf(category.getCategoryId()) %>" />
 		</portlet:actionURL>

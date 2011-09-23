@@ -70,7 +70,8 @@ portletURL.setParameter("categoryId", String.valueOf(categoryId));
 
 			PortletURL rowURL = renderResponse.createRenderURL();
 
-			rowURL.setParameter("struts_action", "/shopping/view");
+			// rowURL.setParameter("struts_action", "/shopping/view");
+			rowURL.setParameter("jspPage", "/view.jsp");
 			rowURL.setParameter("categoryId", String.valueOf(curCategory.getCategoryId()));
 
 			// Name and description
@@ -225,8 +226,9 @@ portletURL.setParameter("categoryId", String.valueOf(categoryId));
 
 			PortletURL rowURL = renderResponse.createRenderURL();
 
-			rowURL.setParameter("struts_action", "/shopping/view_item");
-			rowURL.setParameter("redirect", currentURL);
+			// rowURL.setParameter("struts_action", "/shopping/view_item");
+			rowURL.setParameter("jspPage", "/view_item.jsp");
+			// rowURL.setParameter("redirect", currentURL);
 			rowURL.setParameter("itemId", String.valueOf(item.getItemId()));
 
 			// SKU and small image
