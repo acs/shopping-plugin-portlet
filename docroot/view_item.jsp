@@ -19,7 +19,15 @@
 <%
 String redirect = ParamUtil.getString(request, "redirect");
 
-ShoppingItem item = (ShoppingItem)request.getAttribute(WebKeys.SHOPPING_ITEM);
+long itemId = ParamUtil.getLong(request, "itemId");
+
+// ShoppingItem item = (ShoppingItem)request.getAttribute(WebKeys.SHOPPING_ITEM);
+
+ShoppingItem item = null;
+
+if (itemId > 0) {
+    item = ShoppingItemServiceUtil.getItem(itemId);
+}
 
 item = item.toEscapedModel();
 
@@ -144,7 +152,7 @@ ShoppingItem[] prevAndNext = ShoppingItemServiceUtil.getItemsPrevAndNext(item.ge
 
 			<br />
 
-			<c:if test="<%= PrefsPropsUtil.getBoolean(company.getCompanyId(), PropsKeys.SHOPPING_ITEM_SHOW_AVAILABILITY) %>">
+			<c:if test="<%= GetterUtil.getBoolean(PrefsPropsUtil.getString(company.getCompanyId(), PropsKeys.SHOPPING_ITEM_SHOW_AVAILABILITY)) %>">
 				<c:choose>
 					<c:when test="<%= ShoppingUtil.isInStock(item) %>">
 						<liferay-ui:message key="availability" />: <div class="portlet-msg-success"><liferay-ui:message key="in-stock" /></div><br />

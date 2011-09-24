@@ -19,9 +19,16 @@
 <%
 String redirect = ParamUtil.getString(request, "redirect");
 
-ShoppingItem item = (ShoppingItem)request.getAttribute(WebKeys.SHOPPING_ITEM);
+long itemId = ParamUtil.getLong(request, "itemId");
 
-long itemId = BeanParamUtil.getLong(item, request, "itemId");
+// ShoppingItem item = (ShoppingItem)request.getAttribute(WebKeys.SHOPPING_ITEM);
+ShoppingItem item = null;
+
+if (itemId > 0) {
+    item = ShoppingItemServiceUtil.getItem(itemId);
+}
+
+// long itemId = BeanParamUtil.getLong(item, request, "itemId");
 
 long categoryId = BeanParamUtil.getLong(item, request, "categoryId", ShoppingCategoryConstants.DEFAULT_PARENT_CATEGORY_ID);
 
@@ -74,8 +81,8 @@ else {
 int priceId = ParamUtil.getInteger(request, "priceId", -1);
 %>
 
-<portlet:actionURL var="editItemURL">
-	<portlet:param name="struts_action" value="/shopping/edit_item" />
+<portlet:actionURL var="editItemURL" name="updateItem">
+	<%-- <portlet:param name="struts_action" value="/shopping/edit_item" /> --%>
 </portlet:actionURL>
 
 <aui:form action="<%= editItemURL %>" enctype="multipart/form-data" method="post" name="fm" onSubmit='<%= "event.preventDefault(); " + renderResponse.getNamespace() + "saveItem();" %>'>

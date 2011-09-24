@@ -15,9 +15,18 @@
 --%>
 
 <%
-ShoppingCategory category = (ShoppingCategory)request.getAttribute(WebKeys.SHOPPING_CATEGORY);
 
-long categoryId = BeanParamUtil.getLong(category, request, "categoryId", ShoppingCategoryConstants.DEFAULT_PARENT_CATEGORY_ID);
+long categoryId = ParamUtil.getLong(request, "categoryId");
+
+// ShoppingCategory category = (ShoppingCategory)request.getAttribute(WebKeys.SHOPPING_CATEGORY);
+
+ShoppingCategory category = null;
+
+if (categoryId>0) {
+    category = ShoppingCategoryServiceUtil.getCategory(categoryId);
+}
+
+// long categoryId = BeanParamUtil.getLong(category, request, "categoryId", ShoppingCategoryConstants.DEFAULT_PARENT_CATEGORY_ID);
 
 PortletURL portletURL = renderResponse.createRenderURL();
 
