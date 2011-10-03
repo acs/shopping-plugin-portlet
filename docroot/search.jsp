@@ -43,7 +43,8 @@ String keywords = ParamUtil.getString(request, "keywords");
 %>
 
 <liferay-portlet:renderURL varImpl="searchURL">
-	<portlet:param name="struts_action" value="/shopping/search" />
+	<%-- <portlet:param name="struts_action" value="/shopping/search" /> --%>
+	<portlet:param name="jspPage" value="/search.jsp" />
 </liferay-portlet:renderURL>
 
 <aui:form action="<%= searchURL %>" method="get" name="fm">
@@ -61,7 +62,8 @@ String keywords = ParamUtil.getString(request, "keywords");
 	<%
 	PortletURL portletURL = renderResponse.createRenderURL();
 
-	portletURL.setParameter("struts_action", "/shopping/search");
+	// portletURL.setParameter("struts_action", "/shopping/search");
+	portletURL.setParameter("jspPage", "/search.jsp");
 	portletURL.setParameter("redirect", redirect);
 	portletURL.setParameter("breadcrumbsCategoryId", String.valueOf(breadcrumbsCategoryId));
 	portletURL.setParameter("searchCategoryId", String.valueOf(searchCategoryId));
@@ -97,7 +99,8 @@ String keywords = ParamUtil.getString(request, "keywords");
 
 		PortletURL rowURL = renderResponse.createRenderURL();
 
-		rowURL.setParameter("struts_action", "/shopping/view_item");
+		// rowURL.setParameter("struts_action", "/shopping/view_item");
+		rowURL.setParameter("jspPage", "/view_item.jsp");
 		rowURL.setParameter("redirect", currentURL);
 		rowURL.setParameter("itemId", String.valueOf(item.getItemId()));
 
@@ -174,7 +177,7 @@ String keywords = ParamUtil.getString(request, "keywords");
 
 		// Action
 
-		row.addJSP("right", SearchEntry.DEFAULT_VALIGN, "/item_action.jsp");
+		row.addJSP("right", SearchEntry.DEFAULT_VALIGN, "/item_action.jsp", application, request, response);
 
 		// Add result row
 
