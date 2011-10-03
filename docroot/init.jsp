@@ -42,6 +42,7 @@
 <%@ page import="com.liferay.portal.kernel.portlet.LiferayPortletURL" %>
 <%@ page import="com.liferay.portal.kernel.portlet.LiferayWindowState" %>
 <%@ page import="com.liferay.portal.kernel.servlet.ImageServletTokenUtil" %>
+<%@ page import="com.liferay.portal.kernel.servlet.SessionErrors" %>
 <%@ page import="com.liferay.portal.kernel.util.Constants" %>
 <%@ page import="com.liferay.portal.kernel.util.FastDateFormatFactoryUtil" %>
 <%@ page import="com.liferay.portal.kernel.util.GetterUtil" %>
@@ -71,16 +72,14 @@
 <%@ page import="java.util.Enumeration" %>
 <%@ page import="java.util.Currency" %>
 <%@ page import="java.util.HashMap" %>
+<%@ page import="java.util.Iterator" %>
 <%@ page import="java.util.Map" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Properties" %>
+<%@ page import="java.util.Set" %>
 <%@ page import="javax.portlet.WindowState" %>
 <%@ page import="javax.portlet.PortletURL" %>
 <%@ page import="javax.portlet.PortletMode" %>
-
-
-
-
 
 <%--
 --
