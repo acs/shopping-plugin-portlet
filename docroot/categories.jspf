@@ -36,7 +36,8 @@ portletURL.setParameter("categoryId", String.valueOf(categoryId));
 %>
 
 <liferay-portlet:renderURL varImpl="searchURL">
-	<portlet:param name="struts_action" value="/shopping/search" />
+	<%-- <portlet:param name="struts_action" value="/shopping/search" /> --%>
+	<portlet:param name="jspPage" value="/search.jsp" />
 </liferay-portlet:renderURL>
 
 <liferay-ui:panel-container extended="<%= true %>" persistState="<%= true %>">
