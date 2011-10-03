@@ -15,11 +15,8 @@
 package com.liferay.shopping.model;
 
 import com.liferay.portal.kernel.bean.AutoEscapeBeanHandler;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.model.impl.BaseModelImpl;
-
-import com.liferay.shopping.service.ShoppingItemFieldLocalServiceUtil;
 
 import java.io.Serializable;
 
@@ -33,28 +30,16 @@ public class ShoppingItemFieldClp extends BaseModelImpl<ShoppingItemField>
 	public ShoppingItemFieldClp() {
 	}
 
-	public Class<?> getModelClass() {
-		return ShoppingItemField.class;
-	}
-
-	public String getModelClassName() {
-		return ShoppingItemField.class.getName();
-	}
-
 	public long getPrimaryKey() {
 		return _itemFieldId;
 	}
 
-	public void setPrimaryKey(long primaryKey) {
-		setItemFieldId(primaryKey);
+	public void setPrimaryKey(long pk) {
+		setItemFieldId(pk);
 	}
 
 	public Serializable getPrimaryKeyObj() {
 		return new Long(_itemFieldId);
-	}
-
-	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
-		setPrimaryKey(((Long)primaryKeyObj).longValue());
 	}
 
 	public long getItemFieldId() {
@@ -105,11 +90,6 @@ public class ShoppingItemFieldClp extends BaseModelImpl<ShoppingItemField>
 		throw new UnsupportedOperationException();
 	}
 
-	public void persist() throws SystemException {
-		ShoppingItemFieldLocalServiceUtil.updateShoppingItemField(this);
-	}
-
-	@Override
 	public ShoppingItemField toEscapedModel() {
 		if (isEscapedModel()) {
 			return this;
@@ -121,7 +101,6 @@ public class ShoppingItemFieldClp extends BaseModelImpl<ShoppingItemField>
 		}
 	}
 
-	@Override
 	public Object clone() {
 		ShoppingItemFieldClp clone = new ShoppingItemFieldClp();
 
@@ -161,7 +140,6 @@ public class ShoppingItemFieldClp extends BaseModelImpl<ShoppingItemField>
 		return 0;
 	}
 
-	@Override
 	public boolean equals(Object obj) {
 		if (obj == null) {
 			return false;
@@ -176,9 +154,9 @@ public class ShoppingItemFieldClp extends BaseModelImpl<ShoppingItemField>
 			return false;
 		}
 
-		long primaryKey = shoppingItemField.getPrimaryKey();
+		long pk = shoppingItemField.getPrimaryKey();
 
-		if (getPrimaryKey() == primaryKey) {
+		if (getPrimaryKey() == pk) {
 			return true;
 		}
 		else {
@@ -186,12 +164,10 @@ public class ShoppingItemFieldClp extends BaseModelImpl<ShoppingItemField>
 		}
 	}
 
-	@Override
 	public int hashCode() {
 		return (int)getPrimaryKey();
 	}
 
-	@Override
 	public String toString() {
 		StringBundler sb = new StringBundler(11);
 

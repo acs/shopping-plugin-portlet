@@ -108,7 +108,9 @@ portletURL.setParameter("categoryId", String.valueOf(categoryId));
 
 			// Action
 
-			row.addJSP("right", SearchEntry.DEFAULT_VALIGN, "/category_action.jsp");
+			// row.addJSP("right", SearchEntry.DEFAULT_VALIGN, "/category_action.jsp");
+
+            row.addJSP("right", SearchEntry.DEFAULT_VALIGN, "/category_action.jsp", application, request, response);
 
 			// Add result row
 
@@ -139,8 +141,8 @@ portletURL.setParameter("categoryId", String.valueOf(categoryId));
 								<portlet:param name="jspPage" value="/edit_category.jsp" />
 								<portlet:param name="parentCategoryId" value="<%= String.valueOf(categoryId) %>" />
 							</portlet:renderURL>
-
-							<aui:button href="<%= addCategoriesURL %>" value='<%= (category == null) ? "add-category" : "add-subcategory" %>' />
+                            <% String buttonValue = (category == null) ? "add-category" : "add-subcategory"; %>
+                            <input type="button" value='<liferay-ui:message key="<%= buttonValue %>" />' onClick='location.href = "<%= addCategoriesURL.toString() %>"' />
 						</c:if>
 
 						<c:if test="<%= showPermissionsButton %>">
@@ -258,7 +260,7 @@ portletURL.setParameter("categoryId", String.valueOf(categoryId));
 					sb.append("/shopping/item?img_id=");
 					sb.append(item.getSmallImageId());
 					sb.append("&t=");
-					sb.append(WebServerServletTokenUtil.getToken(item.getSmallImageId()));
+					sb.append(ImageServletTokenUtil.getToken(item.getSmallImageId()));
 				}
 
 				sb.append("\">");
@@ -317,7 +319,9 @@ portletURL.setParameter("categoryId", String.valueOf(categoryId));
 
 			// Action
 
-			row.addJSP("right", SearchEntry.DEFAULT_VALIGN, "/item_action.jsp");
+			// row.addJSP("right", SearchEntry.DEFAULT_VALIGN, "/item_action.jsp");
+
+            row.addJSP("right", SearchEntry.DEFAULT_VALIGN, "/item_action.jsp", application, request, response);
 
 			// Add result row
 
@@ -350,7 +354,7 @@ portletURL.setParameter("categoryId", String.valueOf(categoryId));
 								<portlet:param name="categoryId" value="<%= String.valueOf(categoryId) %>" />
 							</portlet:renderURL>
 
-							<aui:button href="<%= addItemURL %>" value="add-item" />
+                            <input type="button" value='<liferay-ui:message key="add-item" />' onClick='location.href = "<%= addItemURL.toString() %>"' />
                             <%--
 							<portlet:renderURL var="addBooksURL">
 								<portlet:param name="struts_action" value="/shopping/add_book_items" />

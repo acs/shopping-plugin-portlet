@@ -16,7 +16,7 @@ package com.liferay.shopping.model.impl;
 
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
-import com.liferay.portal.model.CacheModel;
+// import com.liferay.portal.model.CacheModel;
 
 import com.liferay.shopping.model.ShoppingItem;
 
@@ -216,7 +216,7 @@ public class ShoppingItemCacheModel implements CacheModel<ShoppingItem> {
 			shoppingItemImpl.setLargeImageURL(largeImageURL);
 		}
 
-		shoppingItemImpl.resetOriginalValues();
+		// shoppingItemImpl.resetOriginalValues();
 
 		return shoppingItemImpl;
 	}

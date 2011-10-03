@@ -16,7 +16,7 @@ package com.liferay.shopping.model.impl;
 
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
-import com.liferay.portal.model.CacheModel;
+// import com.liferay.portal.model.CacheModel;
 
 import com.liferay.shopping.model.ShoppingCoupon;
 
@@ -165,7 +165,7 @@ public class ShoppingCouponCacheModel implements CacheModel<ShoppingCoupon> {
 			shoppingCouponImpl.setDiscountType(discountType);
 		}
 
-		shoppingCouponImpl.resetOriginalValues();
+		// shoppingCouponImpl.resetOriginalValues();
 
 		return shoppingCouponImpl;
 	}

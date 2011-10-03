@@ -16,11 +16,13 @@ package com.liferay.shopping.service;
 
 import com.liferay.portal.kernel.bean.PortletBeanLocatorUtil;
 import com.liferay.portal.kernel.util.ClassLoaderProxy;
-import com.liferay.portal.kernel.util.MethodCache;
-import com.liferay.portal.kernel.util.ReferenceRegistry;
 
 /**
  * The utility for the shopping item remote service. This utility wraps {@link com.liferay.shopping.service.impl.ShoppingItemServiceImpl} and is the primary access point for service operations in application layer code running on a remote server.
+ *
+ * <p>
+ * Never modify this class directly. Add custom service methods to {@link com.liferay.shopping.service.impl.ShoppingItemServiceImpl} and rerun ServiceBuilder to regenerate this class.
+ * </p>
  *
  * <p>
  * This is a remote service. Methods of this service are expected to have security checks based on the propagated JAAS credentials because this service can be accessed remotely.
@@ -33,11 +35,6 @@ import com.liferay.portal.kernel.util.ReferenceRegistry;
  * @generated
  */
 public class ShoppingItemServiceUtil {
-	/*
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never modify this class directly. Add custom service methods to {@link com.liferay.shopping.service.impl.ShoppingItemServiceImpl} and rerun ServiceBuilder to regenerate this class.
-	 */
 	public static com.liferay.shopping.model.ShoppingItem addItem(
 		long groupId, long categoryId, java.lang.String sku,
 		java.lang.String name, java.lang.String description,
@@ -135,34 +132,24 @@ public class ShoppingItemServiceUtil {
 
 	public static ShoppingItemService getService() {
 		if (_service == null) {
-			Object object = PortletBeanLocatorUtil.locate(ClpSerializer.getServletContextName(),
+			Object obj = PortletBeanLocatorUtil.locate(ClpSerializer.SERVLET_CONTEXT_NAME,
 					ShoppingItemService.class.getName());
-			ClassLoader portletClassLoader = (ClassLoader)PortletBeanLocatorUtil.locate(ClpSerializer.getServletContextName(),
+			ClassLoader portletClassLoader = (ClassLoader)PortletBeanLocatorUtil.locate(ClpSerializer.SERVLET_CONTEXT_NAME,
 					"portletClassLoader");
 
-			ClassLoaderProxy classLoaderProxy = new ClassLoaderProxy(object,
-					ShoppingItemService.class.getName(), portletClassLoader);
+			ClassLoaderProxy classLoaderProxy = new ClassLoaderProxy(obj,
+					portletClassLoader);
 
 			_service = new ShoppingItemServiceClp(classLoaderProxy);
 
 			ClpSerializer.setClassLoader(portletClassLoader);
-
-			ReferenceRegistry.registerReference(ShoppingItemServiceUtil.class,
-				"_service");
-			MethodCache.remove(ShoppingItemService.class);
 		}
 
 		return _service;
 	}
 
 	public void setService(ShoppingItemService service) {
-		MethodCache.remove(ShoppingItemService.class);
-
 		_service = service;
-
-		ReferenceRegistry.registerReference(ShoppingItemServiceUtil.class,
-			"_service");
-		MethodCache.remove(ShoppingItemService.class);
 	}
 
 	private static ShoppingItemService _service;

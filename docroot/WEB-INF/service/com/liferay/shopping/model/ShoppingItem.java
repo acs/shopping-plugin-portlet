@@ -14,10 +14,16 @@
 
 package com.liferay.shopping.model;
 
-import com.liferay.portal.model.PersistedModel;
-
 /**
- * The extended model interface for the ShoppingItem service. Represents a row in the &quot;Shopping_ShoppingItem&quot; database table, with each column mapped to a property of this class.
+ * The model interface for the ShoppingItem service. Represents a row in the &quot;Shopping_ShoppingItem&quot; database table, with each column mapped to a property of this class.
+ *
+ * <p>
+ * Never modify this interface directly. Add methods to {@link com.liferay.shopping.model.impl.ShoppingItemImpl} and rerun ServiceBuilder to automatically copy the method declarations to this interface.
+ * </p>
+ *
+ * <p>
+ * Never reference this interface directly. All methods that expect a shopping item model instance should use the {@link ShoppingItem} interface instead.
+ * </p>
  *
  * @author Brian Wing Shun Chan
  * @see ShoppingItemModel
@@ -25,12 +31,7 @@ import com.liferay.portal.model.PersistedModel;
  * @see com.liferay.shopping.model.impl.ShoppingItemModelImpl
  * @generated
  */
-public interface ShoppingItem extends ShoppingItemModel, PersistedModel {
-	/*
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never modify this interface directly. Add methods to {@link com.liferay.shopping.model.impl.ShoppingItemImpl} and rerun ServiceBuilder to automatically copy the method declarations to this interface.
-	 */
+public interface ShoppingItem extends ShoppingItemModel {
 	public com.liferay.shopping.model.ShoppingCategory getCategory();
 
 	public java.lang.String[] getFieldsQuantitiesArray();

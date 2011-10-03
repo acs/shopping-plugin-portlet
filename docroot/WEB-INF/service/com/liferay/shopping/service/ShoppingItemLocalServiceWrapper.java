@@ -32,7 +32,7 @@ public class ShoppingItemLocalServiceWrapper implements ShoppingItemLocalService
 	/**
 	* Adds the shopping item to the database. Also notifies the appropriate model listeners.
 	*
-	* @param shoppingItem the shopping item
+	* @param shoppingItem the shopping item to add
 	* @return the shopping item that was added
 	* @throws SystemException if a system exception occurred
 	*/
@@ -56,7 +56,7 @@ public class ShoppingItemLocalServiceWrapper implements ShoppingItemLocalService
 	/**
 	* Deletes the shopping item with the primary key from the database. Also notifies the appropriate model listeners.
 	*
-	* @param itemId the primary key of the shopping item
+	* @param itemId the primary key of the shopping item to delete
 	* @throws PortalException if a shopping item with the primary key could not be found
 	* @throws SystemException if a system exception occurred
 	*/
@@ -69,7 +69,7 @@ public class ShoppingItemLocalServiceWrapper implements ShoppingItemLocalService
 	/**
 	* Deletes the shopping item from the database. Also notifies the appropriate model listeners.
 	*
-	* @param shoppingItem the shopping item
+	* @param shoppingItem the shopping item to delete
 	* @throws SystemException if a system exception occurred
 	*/
 	public void deleteShoppingItem(
@@ -81,7 +81,7 @@ public class ShoppingItemLocalServiceWrapper implements ShoppingItemLocalService
 	/**
 	* Performs a dynamic query on the database and returns the matching rows.
 	*
-	* @param dynamicQuery the dynamic query
+	* @param dynamicQuery the dynamic query to search with
 	* @return the matching rows
 	* @throws SystemException if a system exception occurred
 	*/
@@ -99,9 +99,9 @@ public class ShoppingItemLocalServiceWrapper implements ShoppingItemLocalService
 	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
 	* </p>
 	*
-	* @param dynamicQuery the dynamic query
-	* @param start the lower bound of the range of model instances
-	* @param end the upper bound of the range of model instances (not inclusive)
+	* @param dynamicQuery the dynamic query to search with
+	* @param start the lower bound of the range of model instances to return
+	* @param end the upper bound of the range of model instances to return (not inclusive)
 	* @return the range of matching rows
 	* @throws SystemException if a system exception occurred
 	*/
@@ -119,10 +119,10 @@ public class ShoppingItemLocalServiceWrapper implements ShoppingItemLocalService
 	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
 	* </p>
 	*
-	* @param dynamicQuery the dynamic query
-	* @param start the lower bound of the range of model instances
-	* @param end the upper bound of the range of model instances (not inclusive)
-	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	* @param dynamicQuery the dynamic query to search with
+	* @param start the lower bound of the range of model instances to return
+	* @param end the upper bound of the range of model instances to return (not inclusive)
+	* @param orderByComparator the comparator to order the results by
 	* @return the ordered range of matching rows
 	* @throws SystemException if a system exception occurred
 	*/
@@ -137,9 +137,9 @@ public class ShoppingItemLocalServiceWrapper implements ShoppingItemLocalService
 	}
 
 	/**
-	* Returns the number of rows that match the dynamic query.
+	* Counts the number of rows that match the dynamic query.
 	*
-	* @param dynamicQuery the dynamic query
+	* @param dynamicQuery the dynamic query to search with
 	* @return the number of rows that match the dynamic query
 	* @throws SystemException if a system exception occurred
 	*/
@@ -150,9 +150,9 @@ public class ShoppingItemLocalServiceWrapper implements ShoppingItemLocalService
 	}
 
 	/**
-	* Returns the shopping item with the primary key.
+	* Gets the shopping item with the primary key.
 	*
-	* @param itemId the primary key of the shopping item
+	* @param itemId the primary key of the shopping item to get
 	* @return the shopping item
 	* @throws PortalException if a shopping item with the primary key could not be found
 	* @throws SystemException if a system exception occurred
@@ -163,22 +163,15 @@ public class ShoppingItemLocalServiceWrapper implements ShoppingItemLocalService
 		return _shoppingItemLocalService.getShoppingItem(itemId);
 	}
 
-	public com.liferay.portal.model.PersistedModel getPersistedModel(
-		java.io.Serializable primaryKeyObj)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
-		return _shoppingItemLocalService.getPersistedModel(primaryKeyObj);
-	}
-
 	/**
-	* Returns a range of all the shopping items.
+	* Gets a range of all the shopping items.
 	*
 	* <p>
 	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
 	* </p>
 	*
-	* @param start the lower bound of the range of shopping items
-	* @param end the upper bound of the range of shopping items (not inclusive)
+	* @param start the lower bound of the range of shopping items to return
+	* @param end the upper bound of the range of shopping items to return (not inclusive)
 	* @return the range of shopping items
 	* @throws SystemException if a system exception occurred
 	*/
@@ -189,7 +182,7 @@ public class ShoppingItemLocalServiceWrapper implements ShoppingItemLocalService
 	}
 
 	/**
-	* Returns the number of shopping items.
+	* Gets the number of shopping items.
 	*
 	* @return the number of shopping items
 	* @throws SystemException if a system exception occurred
@@ -200,9 +193,9 @@ public class ShoppingItemLocalServiceWrapper implements ShoppingItemLocalService
 	}
 
 	/**
-	* Updates the shopping item in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	* Updates the shopping item in the database. Also notifies the appropriate model listeners.
 	*
-	* @param shoppingItem the shopping item
+	* @param shoppingItem the shopping item to update
 	* @return the shopping item that was updated
 	* @throws SystemException if a system exception occurred
 	*/
@@ -213,9 +206,9 @@ public class ShoppingItemLocalServiceWrapper implements ShoppingItemLocalService
 	}
 
 	/**
-	* Updates the shopping item in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	* Updates the shopping item in the database. Also notifies the appropriate model listeners.
 	*
-	* @param shoppingItem the shopping item
+	* @param shoppingItem the shopping item to update
 	* @param merge whether to merge the shopping item with the current session. See {@link com.liferay.portal.service.persistence.BatchSession#update(com.liferay.portal.kernel.dao.orm.Session, com.liferay.portal.model.BaseModel, boolean)} for an explanation.
 	* @return the shopping item that was updated
 	* @throws SystemException if a system exception occurred
@@ -226,34 +219,16 @@ public class ShoppingItemLocalServiceWrapper implements ShoppingItemLocalService
 		return _shoppingItemLocalService.updateShoppingItem(shoppingItem, merge);
 	}
 
-	/**
-	* Returns the Spring bean ID for this bean.
-	*
-	* @return the Spring bean ID for this bean
-	*/
-	public java.lang.String getBeanIdentifier() {
-		return _shoppingItemLocalService.getBeanIdentifier();
-	}
-
-	/**
-	* Sets the Spring bean ID for this bean.
-	*
-	* @param beanIdentifier the Spring bean ID for this bean
-	*/
-	public void setBeanIdentifier(java.lang.String beanIdentifier) {
-		_shoppingItemLocalService.setBeanIdentifier(beanIdentifier);
-	}
-
 	public com.liferay.shopping.model.ShoppingItem addItem(long userId,
 		long groupId, long categoryId, java.lang.String sku,
 		java.lang.String name, java.lang.String description,
 		java.lang.String properties, java.lang.String fieldsQuantities,
 		boolean requiresShipping, int stockQuantity, boolean featured,
 		java.lang.Boolean sale, boolean smallImage,
-		java.lang.String smallImageURL, java.io.File smallImageFile,
+		java.lang.String smallImageURL, java.io.File smallFile,
 		boolean mediumImage, java.lang.String mediumImageURL,
-		java.io.File mediumImageFile, boolean largeImage,
-		java.lang.String largeImageURL, java.io.File largeImageFile,
+		java.io.File mediumFile, boolean largeImage,
+		java.lang.String largeImageURL, java.io.File largeFile,
 		java.util.List<com.liferay.shopping.model.ShoppingItemField> itemFields,
 		java.util.List<com.liferay.shopping.model.ShoppingItemPrice> itemPrices,
 		com.liferay.portal.service.ServiceContext serviceContext)
@@ -263,40 +238,42 @@ public class ShoppingItemLocalServiceWrapper implements ShoppingItemLocalService
 		return _shoppingItemLocalService.addItem(userId, groupId, categoryId,
 			sku, name, description, properties, fieldsQuantities,
 			requiresShipping, stockQuantity, featured, sale, smallImage,
-			smallImageURL, smallImageFile, mediumImage, mediumImageURL,
-			mediumImageFile, largeImage, largeImageURL, largeImageFile,
-			itemFields, itemPrices, serviceContext);
+			smallImageURL, smallFile, mediumImage, mediumImageURL, mediumFile,
+			largeImage, largeImageURL, largeFile, itemFields, itemPrices,
+			serviceContext);
 	}
 
-	public void addItemResources(long itemId, boolean addGroupPermissions,
+	public void addItemResources(long itemId, boolean addCommunityPermissions,
 		boolean addGuestPermissions)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
-		_shoppingItemLocalService.addItemResources(itemId, addGroupPermissions,
-			addGuestPermissions);
+		_shoppingItemLocalService.addItemResources(itemId,
+			addCommunityPermissions, addGuestPermissions);
 	}
 
 	public void addItemResources(long itemId,
-		java.lang.String[] groupPermissions, java.lang.String[] guestPermissions)
+		java.lang.String[] communityPermissions,
+		java.lang.String[] guestPermissions)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
-		_shoppingItemLocalService.addItemResources(itemId, groupPermissions,
-			guestPermissions);
+		_shoppingItemLocalService.addItemResources(itemId,
+			communityPermissions, guestPermissions);
 	}
 
 	public void addItemResources(com.liferay.shopping.model.ShoppingItem item,
-		boolean addGroupPermissions, boolean addGuestPermissions)
+		boolean addCommunityPermissions, boolean addGuestPermissions)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
-		_shoppingItemLocalService.addItemResources(item, addGroupPermissions,
-			addGuestPermissions);
+		_shoppingItemLocalService.addItemResources(item,
+			addCommunityPermissions, addGuestPermissions);
 	}
 
 	public void addItemResources(com.liferay.shopping.model.ShoppingItem item,
-		java.lang.String[] groupPermissions, java.lang.String[] guestPermissions)
+		java.lang.String[] communityPermissions,
+		java.lang.String[] guestPermissions)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
-		_shoppingItemLocalService.addItemResources(item, groupPermissions,
+		_shoppingItemLocalService.addItemResources(item, communityPermissions,
 			guestPermissions);
 	}
 
@@ -419,10 +396,10 @@ public class ShoppingItemLocalServiceWrapper implements ShoppingItemLocalService
 		java.lang.String properties, java.lang.String fieldsQuantities,
 		boolean requiresShipping, int stockQuantity, boolean featured,
 		java.lang.Boolean sale, boolean smallImage,
-		java.lang.String smallImageURL, java.io.File smallImageFile,
+		java.lang.String smallImageURL, java.io.File smallFile,
 		boolean mediumImage, java.lang.String mediumImageURL,
-		java.io.File mediumImageFile, boolean largeImage,
-		java.lang.String largeImageURL, java.io.File largeImageFile,
+		java.io.File mediumFile, boolean largeImage,
+		java.lang.String largeImageURL, java.io.File largeFile,
 		java.util.List<com.liferay.shopping.model.ShoppingItemField> itemFields,
 		java.util.List<com.liferay.shopping.model.ShoppingItemPrice> itemPrices,
 		com.liferay.portal.service.ServiceContext serviceContext)
@@ -432,18 +409,13 @@ public class ShoppingItemLocalServiceWrapper implements ShoppingItemLocalService
 		return _shoppingItemLocalService.updateItem(userId, itemId, groupId,
 			categoryId, sku, name, description, properties, fieldsQuantities,
 			requiresShipping, stockQuantity, featured, sale, smallImage,
-			smallImageURL, smallImageFile, mediumImage, mediumImageURL,
-			mediumImageFile, largeImage, largeImageURL, largeImageFile,
-			itemFields, itemPrices, serviceContext);
+			smallImageURL, smallFile, mediumImage, mediumImageURL, mediumFile,
+			largeImage, largeImageURL, largeFile, itemFields, itemPrices,
+			serviceContext);
 	}
 
 	public ShoppingItemLocalService getWrappedShoppingItemLocalService() {
 		return _shoppingItemLocalService;
-	}
-
-	public void setWrappedShoppingItemLocalService(
-		ShoppingItemLocalService shoppingItemLocalService) {
-		_shoppingItemLocalService = shoppingItemLocalService;
 	}
 
 	private ShoppingItemLocalService _shoppingItemLocalService;

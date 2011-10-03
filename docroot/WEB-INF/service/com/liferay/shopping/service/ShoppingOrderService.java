@@ -14,15 +14,18 @@
 
 package com.liferay.shopping.service;
 
+import com.liferay.portal.kernel.annotation.Isolation;
+import com.liferay.portal.kernel.annotation.Propagation;
+import com.liferay.portal.kernel.annotation.Transactional;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
-import com.liferay.portal.kernel.jsonwebservice.JSONWebService;
-import com.liferay.portal.kernel.transaction.Isolation;
-import com.liferay.portal.kernel.transaction.Propagation;
-import com.liferay.portal.kernel.transaction.Transactional;
 
 /**
  * The interface for the shopping order remote service.
+ *
+ * <p>
+ * Never modify or reference this interface directly. Always use {@link ShoppingOrderServiceUtil} to access the shopping order remote service. Add custom service methods to {@link com.liferay.shopping.service.impl.ShoppingOrderServiceImpl} and rerun ServiceBuilder to automatically copy the method declarations to this interface.
+ * </p>
  *
  * <p>
  * This is a remote service. Methods of this service are expected to have security checks based on the propagated JAAS credentials because this service can be accessed remotely.
@@ -34,15 +37,9 @@ import com.liferay.portal.kernel.transaction.Transactional;
  * @see com.liferay.shopping.service.impl.ShoppingOrderServiceImpl
  * @generated
  */
-@JSONWebService
 @Transactional(isolation = Isolation.PORTAL, rollbackFor =  {
 	PortalException.class, SystemException.class})
 public interface ShoppingOrderService {
-	/*
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never modify or reference this interface directly. Always use {@link ShoppingOrderServiceUtil} to access the shopping order remote service. Add custom service methods to {@link com.liferay.shopping.service.impl.ShoppingOrderServiceImpl} and rerun ServiceBuilder to automatically copy the method declarations to this interface.
-	 */
 	public void completeOrder(long groupId, java.lang.String number,
 		java.lang.String ppTxnId, java.lang.String ppPaymentStatus,
 		double ppPaymentGross, java.lang.String ppReceiverEmail,

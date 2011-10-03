@@ -15,7 +15,7 @@
 package com.liferay.shopping.service.persistence;
 
 import com.liferay.portal.NoSuchModelException;
-import com.liferay.portal.kernel.bean.BeanReference;
+import com.liferay.portal.kernel.annotation.BeanReference;
 import com.liferay.portal.kernel.cache.CacheRegistryUtil;
 import com.liferay.portal.kernel.dao.orm.EntityCacheUtil;
 import com.liferay.portal.kernel.dao.orm.FinderCacheUtil;
@@ -30,12 +30,9 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.InstanceFactory;
 import com.liferay.portal.kernel.util.OrderByComparator;
-import com.liferay.portal.kernel.util.PropsKeys;
-import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
-import com.liferay.portal.model.CacheModel;
 import com.liferay.portal.model.ModelListener;
 import com.liferay.portal.service.persistence.BatchSessionUtil;
 import com.liferay.portal.service.persistence.ResourcePersistence;
@@ -57,6 +54,10 @@ import java.util.List;
  * The persistence implementation for the shopping item price service.
  *
  * <p>
+ * Never modify or reference this class directly. Always use {@link ShoppingItemPriceUtil} to access the shopping item price persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.
+ * </p>
+ *
+ * <p>
  * Caching information and settings can be found in <code>portal.properties</code>
  * </p>
  *
@@ -67,18 +68,12 @@ import java.util.List;
  */
 public class ShoppingItemPricePersistenceImpl extends BasePersistenceImpl<ShoppingItemPrice>
 	implements ShoppingItemPricePersistence {
-	/*
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never modify or reference this class directly. Always use {@link ShoppingItemPriceUtil} to access the shopping item price persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.
-	 */
 	public static final String FINDER_CLASS_NAME_ENTITY = ShoppingItemPriceImpl.class.getName();
 	public static final String FINDER_CLASS_NAME_LIST = FINDER_CLASS_NAME_ENTITY +
 		".List";
 	public static final FinderPath FINDER_PATH_FIND_BY_ITEMID = new FinderPath(ShoppingItemPriceModelImpl.ENTITY_CACHE_ENABLED,
 			ShoppingItemPriceModelImpl.FINDER_CACHE_ENABLED,
-			ShoppingItemPriceImpl.class, FINDER_CLASS_NAME_LIST,
-			"findByItemId",
+			FINDER_CLASS_NAME_LIST, "findByItemId",
 			new String[] {
 				Long.class.getName(),
 				
@@ -86,41 +81,38 @@ public class ShoppingItemPricePersistenceImpl extends BasePersistenceImpl<Shoppi
 				"com.liferay.portal.kernel.util.OrderByComparator"
 			});
 	public static final FinderPath FINDER_PATH_COUNT_BY_ITEMID = new FinderPath(ShoppingItemPriceModelImpl.ENTITY_CACHE_ENABLED,
-			ShoppingItemPriceModelImpl.FINDER_CACHE_ENABLED, Long.class,
+			ShoppingItemPriceModelImpl.FINDER_CACHE_ENABLED,
 			FINDER_CLASS_NAME_LIST, "countByItemId",
 			new String[] { Long.class.getName() });
 	public static final FinderPath FINDER_PATH_FIND_ALL = new FinderPath(ShoppingItemPriceModelImpl.ENTITY_CACHE_ENABLED,
 			ShoppingItemPriceModelImpl.FINDER_CACHE_ENABLED,
-			ShoppingItemPriceImpl.class, FINDER_CLASS_NAME_LIST, "findAll",
-			new String[0]);
+			FINDER_CLASS_NAME_LIST, "findAll", new String[0]);
 	public static final FinderPath FINDER_PATH_COUNT_ALL = new FinderPath(ShoppingItemPriceModelImpl.ENTITY_CACHE_ENABLED,
-			ShoppingItemPriceModelImpl.FINDER_CACHE_ENABLED, Long.class,
+			ShoppingItemPriceModelImpl.FINDER_CACHE_ENABLED,
 			FINDER_CLASS_NAME_LIST, "countAll", new String[0]);
 
 	/**
 	 * Caches the shopping item price in the entity cache if it is enabled.
 	 *
-	 * @param shoppingItemPrice the shopping item price
+	 * @param shoppingItemPrice the shopping item price to cache
 	 */
 	public void cacheResult(ShoppingItemPrice shoppingItemPrice) {
 		EntityCacheUtil.putResult(ShoppingItemPriceModelImpl.ENTITY_CACHE_ENABLED,
 			ShoppingItemPriceImpl.class, shoppingItemPrice.getPrimaryKey(),
 			shoppingItemPrice);
-
-		shoppingItemPrice.resetOriginalValues();
 	}
 
 	/**
 	 * Caches the shopping item prices in the entity cache if it is enabled.
 	 *
-	 * @param shoppingItemPrices the shopping item prices
+	 * @param shoppingItemPrices the shopping item prices to cache
 	 */
 	public void cacheResult(List<ShoppingItemPrice> shoppingItemPrices) {
 		for (ShoppingItemPrice shoppingItemPrice : shoppingItemPrices) {
 			if (EntityCacheUtil.getResult(
 						ShoppingItemPriceModelImpl.ENTITY_CACHE_ENABLED,
 						ShoppingItemPriceImpl.class,
-						shoppingItemPrice.getPrimaryKey()) == null) {
+						shoppingItemPrice.getPrimaryKey(), this) == null) {
 				cacheResult(shoppingItemPrice);
 			}
 		}
@@ -133,12 +125,8 @@ public class ShoppingItemPricePersistenceImpl extends BasePersistenceImpl<Shoppi
 	 * The {@link com.liferay.portal.kernel.dao.orm.EntityCache} and {@link com.liferay.portal.kernel.dao.orm.FinderCache} are both cleared by this method.
 	 * </p>
 	 */
-	@Override
 	public void clearCache() {
-		if (_HIBERNATE_CACHE_USE_SECOND_LEVEL_CACHE) {
-			CacheRegistryUtil.clear(ShoppingItemPriceImpl.class.getName());
-		}
-
+		CacheRegistryUtil.clear(ShoppingItemPriceImpl.class.getName());
 		EntityCacheUtil.clearCache(ShoppingItemPriceImpl.class.getName());
 		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_ENTITY);
 		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST);
@@ -151,12 +139,9 @@ public class ShoppingItemPricePersistenceImpl extends BasePersistenceImpl<Shoppi
 	 * The {@link com.liferay.portal.kernel.dao.orm.EntityCache} and {@link com.liferay.portal.kernel.dao.orm.FinderCache} are both cleared by this method.
 	 * </p>
 	 */
-	@Override
 	public void clearCache(ShoppingItemPrice shoppingItemPrice) {
 		EntityCacheUtil.removeResult(ShoppingItemPriceModelImpl.ENTITY_CACHE_ENABLED,
 			ShoppingItemPriceImpl.class, shoppingItemPrice.getPrimaryKey());
-
-		FinderCacheUtil.removeResult(FINDER_PATH_FIND_ALL, FINDER_ARGS_EMPTY);
 	}
 
 	/**
@@ -177,12 +162,11 @@ public class ShoppingItemPricePersistenceImpl extends BasePersistenceImpl<Shoppi
 	/**
 	 * Removes the shopping item price with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
-	 * @param primaryKey the primary key of the shopping item price
+	 * @param primaryKey the primary key of the shopping item price to remove
 	 * @return the shopping item price that was removed
 	 * @throws com.liferay.portal.NoSuchModelException if a shopping item price with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
-	@Override
 	public ShoppingItemPrice remove(Serializable primaryKey)
 		throws NoSuchModelException, SystemException {
 		return remove(((Long)primaryKey).longValue());
@@ -191,7 +175,7 @@ public class ShoppingItemPricePersistenceImpl extends BasePersistenceImpl<Shoppi
 	/**
 	 * Removes the shopping item price with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
-	 * @param itemPriceId the primary key of the shopping item price
+	 * @param itemPriceId the primary key of the shopping item price to remove
 	 * @return the shopping item price that was removed
 	 * @throws com.liferay.shopping.NoSuchItemPriceException if a shopping item price with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
@@ -204,7 +188,7 @@ public class ShoppingItemPricePersistenceImpl extends BasePersistenceImpl<Shoppi
 			session = openSession();
 
 			ShoppingItemPrice shoppingItemPrice = (ShoppingItemPrice)session.get(ShoppingItemPriceImpl.class,
-					Long.valueOf(itemPriceId));
+					new Long(itemPriceId));
 
 			if (shoppingItemPrice == null) {
 				if (_log.isWarnEnabled()) {
@@ -215,7 +199,7 @@ public class ShoppingItemPricePersistenceImpl extends BasePersistenceImpl<Shoppi
 					itemPriceId);
 			}
 
-			return shoppingItemPricePersistence.remove(shoppingItemPrice);
+			return remove(shoppingItemPrice);
 		}
 		catch (NoSuchItemPriceException nsee) {
 			throw nsee;
@@ -228,20 +212,6 @@ public class ShoppingItemPricePersistenceImpl extends BasePersistenceImpl<Shoppi
 		}
 	}
 
-	/**
-	 * Removes the shopping item price from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param shoppingItemPrice the shopping item price
-	 * @return the shopping item price that was removed
-	 * @throws SystemException if a system exception occurred
-	 */
-	@Override
-	public ShoppingItemPrice remove(ShoppingItemPrice shoppingItemPrice)
-		throws SystemException {
-		return super.remove(shoppingItemPrice);
-	}
-
-	@Override
 	protected ShoppingItemPrice removeImpl(ShoppingItemPrice shoppingItemPrice)
 		throws SystemException {
 		shoppingItemPrice = toUnwrappedModel(shoppingItemPrice);
@@ -268,7 +238,6 @@ public class ShoppingItemPricePersistenceImpl extends BasePersistenceImpl<Shoppi
 		return shoppingItemPrice;
 	}
 
-	@Override
 	public ShoppingItemPrice updateImpl(
 		com.liferay.shopping.model.ShoppingItemPrice shoppingItemPrice,
 		boolean merge) throws SystemException {
@@ -325,23 +294,22 @@ public class ShoppingItemPricePersistenceImpl extends BasePersistenceImpl<Shoppi
 	}
 
 	/**
-	 * Returns the shopping item price with the primary key or throws a {@link com.liferay.portal.NoSuchModelException} if it could not be found.
+	 * Finds the shopping item price with the primary key or throws a {@link com.liferay.portal.NoSuchModelException} if it could not be found.
 	 *
-	 * @param primaryKey the primary key of the shopping item price
+	 * @param primaryKey the primary key of the shopping item price to find
 	 * @return the shopping item price
 	 * @throws com.liferay.portal.NoSuchModelException if a shopping item price with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
-	@Override
 	public ShoppingItemPrice findByPrimaryKey(Serializable primaryKey)
 		throws NoSuchModelException, SystemException {
 		return findByPrimaryKey(((Long)primaryKey).longValue());
 	}
 
 	/**
-	 * Returns the shopping item price with the primary key or throws a {@link com.liferay.shopping.NoSuchItemPriceException} if it could not be found.
+	 * Finds the shopping item price with the primary key or throws a {@link com.liferay.shopping.NoSuchItemPriceException} if it could not be found.
 	 *
-	 * @param itemPriceId the primary key of the shopping item price
+	 * @param itemPriceId the primary key of the shopping item price to find
 	 * @return the shopping item price
 	 * @throws com.liferay.shopping.NoSuchItemPriceException if a shopping item price with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
@@ -363,58 +331,44 @@ public class ShoppingItemPricePersistenceImpl extends BasePersistenceImpl<Shoppi
 	}
 
 	/**
-	 * Returns the shopping item price with the primary key or returns <code>null</code> if it could not be found.
+	 * Finds the shopping item price with the primary key or returns <code>null</code> if it could not be found.
 	 *
-	 * @param primaryKey the primary key of the shopping item price
+	 * @param primaryKey the primary key of the shopping item price to find
 	 * @return the shopping item price, or <code>null</code> if a shopping item price with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
-	@Override
 	public ShoppingItemPrice fetchByPrimaryKey(Serializable primaryKey)
 		throws SystemException {
 		return fetchByPrimaryKey(((Long)primaryKey).longValue());
 	}
 
 	/**
-	 * Returns the shopping item price with the primary key or returns <code>null</code> if it could not be found.
+	 * Finds the shopping item price with the primary key or returns <code>null</code> if it could not be found.
 	 *
-	 * @param itemPriceId the primary key of the shopping item price
+	 * @param itemPriceId the primary key of the shopping item price to find
 	 * @return the shopping item price, or <code>null</code> if a shopping item price with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
 	public ShoppingItemPrice fetchByPrimaryKey(long itemPriceId)
 		throws SystemException {
 		ShoppingItemPrice shoppingItemPrice = (ShoppingItemPrice)EntityCacheUtil.getResult(ShoppingItemPriceModelImpl.ENTITY_CACHE_ENABLED,
-				ShoppingItemPriceImpl.class, itemPriceId);
-
-		if (shoppingItemPrice == _nullShoppingItemPrice) {
-			return null;
-		}
+				ShoppingItemPriceImpl.class, itemPriceId, this);
 
 		if (shoppingItemPrice == null) {
 			Session session = null;
-
-			boolean hasException = false;
 
 			try {
 				session = openSession();
 
 				shoppingItemPrice = (ShoppingItemPrice)session.get(ShoppingItemPriceImpl.class,
-						Long.valueOf(itemPriceId));
+						new Long(itemPriceId));
 			}
 			catch (Exception e) {
-				hasException = true;
-
 				throw processException(e);
 			}
 			finally {
 				if (shoppingItemPrice != null) {
 					cacheResult(shoppingItemPrice);
-				}
-				else if (!hasException) {
-					EntityCacheUtil.putResult(ShoppingItemPriceModelImpl.ENTITY_CACHE_ENABLED,
-						ShoppingItemPriceImpl.class, itemPriceId,
-						_nullShoppingItemPrice);
 				}
 
 				closeSession(session);
@@ -425,9 +379,9 @@ public class ShoppingItemPricePersistenceImpl extends BasePersistenceImpl<Shoppi
 	}
 
 	/**
-	 * Returns all the shopping item prices where itemId = &#63;.
+	 * Finds all the shopping item prices where itemId = &#63;.
 	 *
-	 * @param itemId the item ID
+	 * @param itemId the item id to search with
 	 * @return the matching shopping item prices
 	 * @throws SystemException if a system exception occurred
 	 */
@@ -437,15 +391,15 @@ public class ShoppingItemPricePersistenceImpl extends BasePersistenceImpl<Shoppi
 	}
 
 	/**
-	 * Returns a range of all the shopping item prices where itemId = &#63;.
+	 * Finds a range of all the shopping item prices where itemId = &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
 	 * </p>
 	 *
-	 * @param itemId the item ID
-	 * @param start the lower bound of the range of shopping item prices
-	 * @param end the upper bound of the range of shopping item prices (not inclusive)
+	 * @param itemId the item id to search with
+	 * @param start the lower bound of the range of shopping item prices to return
+	 * @param end the upper bound of the range of shopping item prices to return (not inclusive)
 	 * @return the range of matching shopping item prices
 	 * @throws SystemException if a system exception occurred
 	 */
@@ -455,22 +409,27 @@ public class ShoppingItemPricePersistenceImpl extends BasePersistenceImpl<Shoppi
 	}
 
 	/**
-	 * Returns an ordered range of all the shopping item prices where itemId = &#63;.
+	 * Finds an ordered range of all the shopping item prices where itemId = &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
 	 * </p>
 	 *
-	 * @param itemId the item ID
-	 * @param start the lower bound of the range of shopping item prices
-	 * @param end the upper bound of the range of shopping item prices (not inclusive)
-	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param itemId the item id to search with
+	 * @param start the lower bound of the range of shopping item prices to return
+	 * @param end the upper bound of the range of shopping item prices to return (not inclusive)
+	 * @param orderByComparator the comparator to order the results by
 	 * @return the ordered range of matching shopping item prices
 	 * @throws SystemException if a system exception occurred
 	 */
 	public List<ShoppingItemPrice> findByItemId(long itemId, int start,
 		int end, OrderByComparator orderByComparator) throws SystemException {
-		Object[] finderArgs = new Object[] { itemId, start, end, orderByComparator };
+		Object[] finderArgs = new Object[] {
+				itemId,
+				
+				String.valueOf(start), String.valueOf(end),
+				String.valueOf(orderByComparator)
+			};
 
 		List<ShoppingItemPrice> list = (List<ShoppingItemPrice>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_ITEMID,
 				finderArgs, this);
@@ -538,14 +497,14 @@ public class ShoppingItemPricePersistenceImpl extends BasePersistenceImpl<Shoppi
 	}
 
 	/**
-	 * Returns the first shopping item price in the ordered set where itemId = &#63;.
+	 * Finds the first shopping item price in the ordered set where itemId = &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
 	 * </p>
 	 *
-	 * @param itemId the item ID
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @param itemId the item id to search with
+	 * @param orderByComparator the comparator to order the set by
 	 * @return the first matching shopping item price
 	 * @throws com.liferay.shopping.NoSuchItemPriceException if a matching shopping item price could not be found
 	 * @throws SystemException if a system exception occurred
@@ -574,14 +533,14 @@ public class ShoppingItemPricePersistenceImpl extends BasePersistenceImpl<Shoppi
 	}
 
 	/**
-	 * Returns the last shopping item price in the ordered set where itemId = &#63;.
+	 * Finds the last shopping item price in the ordered set where itemId = &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
 	 * </p>
 	 *
-	 * @param itemId the item ID
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @param itemId the item id to search with
+	 * @param orderByComparator the comparator to order the set by
 	 * @return the last matching shopping item price
 	 * @throws com.liferay.shopping.NoSuchItemPriceException if a matching shopping item price could not be found
 	 * @throws SystemException if a system exception occurred
@@ -612,15 +571,15 @@ public class ShoppingItemPricePersistenceImpl extends BasePersistenceImpl<Shoppi
 	}
 
 	/**
-	 * Returns the shopping item prices before and after the current shopping item price in the ordered set where itemId = &#63;.
+	 * Finds the shopping item prices before and after the current shopping item price in the ordered set where itemId = &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
 	 * </p>
 	 *
 	 * @param itemPriceId the primary key of the current shopping item price
-	 * @param itemId the item ID
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @param itemId the item id to search with
+	 * @param orderByComparator the comparator to order the set by
 	 * @return the previous, current, and next shopping item price
 	 * @throws com.liferay.shopping.NoSuchItemPriceException if a shopping item price with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
@@ -673,17 +632,17 @@ public class ShoppingItemPricePersistenceImpl extends BasePersistenceImpl<Shoppi
 		query.append(_FINDER_COLUMN_ITEMID_ITEMID_2);
 
 		if (orderByComparator != null) {
-			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
-			if (orderByConditionFields.length > 0) {
+			if (orderByFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByConditionFields.length; i++) {
+			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByConditionFields[i]);
+				query.append(orderByFields[i]);
 
-				if ((i + 1) < orderByConditionFields.length) {
+				if ((i + 1) < orderByFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -702,8 +661,6 @@ public class ShoppingItemPricePersistenceImpl extends BasePersistenceImpl<Shoppi
 			}
 
 			query.append(ORDER_BY_CLAUSE);
-
-			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -744,7 +701,7 @@ public class ShoppingItemPricePersistenceImpl extends BasePersistenceImpl<Shoppi
 		qPos.add(itemId);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByConditionValues(shoppingItemPrice);
+			Object[] values = orderByComparator.getOrderByValues(shoppingItemPrice);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -762,7 +719,7 @@ public class ShoppingItemPricePersistenceImpl extends BasePersistenceImpl<Shoppi
 	}
 
 	/**
-	 * Returns all the shopping item prices.
+	 * Finds all the shopping item prices.
 	 *
 	 * @return the shopping item prices
 	 * @throws SystemException if a system exception occurred
@@ -772,14 +729,14 @@ public class ShoppingItemPricePersistenceImpl extends BasePersistenceImpl<Shoppi
 	}
 
 	/**
-	 * Returns a range of all the shopping item prices.
+	 * Finds a range of all the shopping item prices.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
 	 * </p>
 	 *
-	 * @param start the lower bound of the range of shopping item prices
-	 * @param end the upper bound of the range of shopping item prices (not inclusive)
+	 * @param start the lower bound of the range of shopping item prices to return
+	 * @param end the upper bound of the range of shopping item prices to return (not inclusive)
 	 * @return the range of shopping item prices
 	 * @throws SystemException if a system exception occurred
 	 */
@@ -789,21 +746,24 @@ public class ShoppingItemPricePersistenceImpl extends BasePersistenceImpl<Shoppi
 	}
 
 	/**
-	 * Returns an ordered range of all the shopping item prices.
+	 * Finds an ordered range of all the shopping item prices.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
 	 * </p>
 	 *
-	 * @param start the lower bound of the range of shopping item prices
-	 * @param end the upper bound of the range of shopping item prices (not inclusive)
-	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param start the lower bound of the range of shopping item prices to return
+	 * @param end the upper bound of the range of shopping item prices to return (not inclusive)
+	 * @param orderByComparator the comparator to order the results by
 	 * @return the ordered range of shopping item prices
 	 * @throws SystemException if a system exception occurred
 	 */
 	public List<ShoppingItemPrice> findAll(int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
-		Object[] finderArgs = new Object[] { start, end, orderByComparator };
+		Object[] finderArgs = new Object[] {
+				String.valueOf(start), String.valueOf(end),
+				String.valueOf(orderByComparator)
+			};
 
 		List<ShoppingItemPrice> list = (List<ShoppingItemPrice>)FinderCacheUtil.getResult(FINDER_PATH_FIND_ALL,
 				finderArgs, this);
@@ -870,12 +830,12 @@ public class ShoppingItemPricePersistenceImpl extends BasePersistenceImpl<Shoppi
 	/**
 	 * Removes all the shopping item prices where itemId = &#63; from the database.
 	 *
-	 * @param itemId the item ID
+	 * @param itemId the item id to search with
 	 * @throws SystemException if a system exception occurred
 	 */
 	public void removeByItemId(long itemId) throws SystemException {
 		for (ShoppingItemPrice shoppingItemPrice : findByItemId(itemId)) {
-			shoppingItemPricePersistence.remove(shoppingItemPrice);
+			remove(shoppingItemPrice);
 		}
 	}
 
@@ -886,14 +846,14 @@ public class ShoppingItemPricePersistenceImpl extends BasePersistenceImpl<Shoppi
 	 */
 	public void removeAll() throws SystemException {
 		for (ShoppingItemPrice shoppingItemPrice : findAll()) {
-			shoppingItemPricePersistence.remove(shoppingItemPrice);
+			remove(shoppingItemPrice);
 		}
 	}
 
 	/**
-	 * Returns the number of shopping item prices where itemId = &#63;.
+	 * Counts all the shopping item prices where itemId = &#63;.
 	 *
-	 * @param itemId the item ID
+	 * @param itemId the item id to search with
 	 * @return the number of matching shopping item prices
 	 * @throws SystemException if a system exception occurred
 	 */
@@ -944,14 +904,16 @@ public class ShoppingItemPricePersistenceImpl extends BasePersistenceImpl<Shoppi
 	}
 
 	/**
-	 * Returns the number of shopping item prices.
+	 * Counts all the shopping item prices.
 	 *
 	 * @return the number of shopping item prices
 	 * @throws SystemException if a system exception occurred
 	 */
 	public int countAll() throws SystemException {
+		Object[] finderArgs = new Object[0];
+
 		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_ALL,
-				FINDER_ARGS_EMPTY, this);
+				finderArgs, this);
 
 		if (count == null) {
 			Session session = null;
@@ -971,8 +933,8 @@ public class ShoppingItemPricePersistenceImpl extends BasePersistenceImpl<Shoppi
 					count = Long.valueOf(0);
 				}
 
-				FinderCacheUtil.putResult(FINDER_PATH_COUNT_ALL,
-					FINDER_ARGS_EMPTY, count);
+				FinderCacheUtil.putResult(FINDER_PATH_COUNT_ALL, finderArgs,
+					count);
 
 				closeSession(session);
 			}
@@ -1040,25 +1002,5 @@ public class ShoppingItemPricePersistenceImpl extends BasePersistenceImpl<Shoppi
 	private static final String _ORDER_BY_ENTITY_ALIAS = "shoppingItemPrice.";
 	private static final String _NO_SUCH_ENTITY_WITH_PRIMARY_KEY = "No ShoppingItemPrice exists with the primary key ";
 	private static final String _NO_SUCH_ENTITY_WITH_KEY = "No ShoppingItemPrice exists with the key {";
-	private static final boolean _HIBERNATE_CACHE_USE_SECOND_LEVEL_CACHE = GetterUtil.getBoolean(PropsUtil.get(
-				PropsKeys.HIBERNATE_CACHE_USE_SECOND_LEVEL_CACHE));
 	private static Log _log = LogFactoryUtil.getLog(ShoppingItemPricePersistenceImpl.class);
-	private static ShoppingItemPrice _nullShoppingItemPrice = new ShoppingItemPriceImpl() {
-			@Override
-			public Object clone() {
-				return this;
-			}
-
-			@Override
-			public CacheModel<ShoppingItemPrice> toCacheModel() {
-				return _nullShoppingItemPriceCacheModel;
-			}
-		};
-
-	private static CacheModel<ShoppingItemPrice> _nullShoppingItemPriceCacheModel =
-		new CacheModel<ShoppingItemPrice>() {
-			public ShoppingItemPrice toEntityModel() {
-				return _nullShoppingItemPrice;
-			}
-		};
 }

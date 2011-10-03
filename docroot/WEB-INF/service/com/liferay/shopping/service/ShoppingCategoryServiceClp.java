@@ -24,35 +24,6 @@ import com.liferay.portal.kernel.util.MethodKey;
 public class ShoppingCategoryServiceClp implements ShoppingCategoryService {
 	public ShoppingCategoryServiceClp(ClassLoaderProxy classLoaderProxy) {
 		_classLoaderProxy = classLoaderProxy;
-
-		_addCategoryMethodKey0 = new MethodKey(_classLoaderProxy.getClassName(),
-				"addCategory", long.class, java.lang.String.class,
-				java.lang.String.class,
-				com.liferay.portal.service.ServiceContext.class);
-
-		_deleteCategoryMethodKey1 = new MethodKey(_classLoaderProxy.getClassName(),
-				"deleteCategory", long.class);
-
-		_getCategoriesMethodKey2 = new MethodKey(_classLoaderProxy.getClassName(),
-				"getCategories", long.class);
-
-		_getCategoriesMethodKey3 = new MethodKey(_classLoaderProxy.getClassName(),
-				"getCategories", long.class, long.class, int.class, int.class);
-
-		_getCategoriesCountMethodKey4 = new MethodKey(_classLoaderProxy.getClassName(),
-				"getCategoriesCount", long.class, long.class);
-
-		_getCategoryMethodKey5 = new MethodKey(_classLoaderProxy.getClassName(),
-				"getCategory", long.class);
-
-		_getSubcategoryIdsMethodKey6 = new MethodKey(_classLoaderProxy.getClassName(),
-				"getSubcategoryIds", java.util.List.class, long.class,
-				long.class);
-
-		_updateCategoryMethodKey7 = new MethodKey(_classLoaderProxy.getClassName(),
-				"updateCategory", long.class, long.class,
-				java.lang.String.class, java.lang.String.class, boolean.class,
-				com.liferay.portal.service.ServiceContext.class);
 	}
 
 	public com.liferay.shopping.model.ShoppingCategory addCategory(
@@ -64,9 +35,7 @@ public class ShoppingCategoryServiceClp implements ShoppingCategoryService {
 		Object returnObj = null;
 
 		MethodHandler methodHandler = new MethodHandler(_addCategoryMethodKey0,
-				parentCategoryId, ClpSerializer.translateInput(name),
-				ClpSerializer.translateInput(description),
-				ClpSerializer.translateInput(serviceContext));
+				parentCategoryId, name, description, serviceContext);
 
 		try {
 			returnObj = _classLoaderProxy.invoke(methodHandler);
@@ -240,7 +209,7 @@ public class ShoppingCategoryServiceClp implements ShoppingCategoryService {
 		long groupId, long categoryId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		MethodHandler methodHandler = new MethodHandler(_getSubcategoryIdsMethodKey6,
-				ClpSerializer.translateInput(categoryIds), groupId, categoryId);
+				categoryIds, groupId, categoryId);
 
 		try {
 			_classLoaderProxy.invoke(methodHandler);
@@ -269,11 +238,8 @@ public class ShoppingCategoryServiceClp implements ShoppingCategoryService {
 		Object returnObj = null;
 
 		MethodHandler methodHandler = new MethodHandler(_updateCategoryMethodKey7,
-				categoryId, parentCategoryId,
-				ClpSerializer.translateInput(name),
-				ClpSerializer.translateInput(description),
-				mergeWithParentCategory,
-				ClpSerializer.translateInput(serviceContext));
+				categoryId, parentCategoryId, name, description,
+				mergeWithParentCategory, serviceContext);
 
 		try {
 			returnObj = _classLoaderProxy.invoke(methodHandler);
@@ -304,12 +270,24 @@ public class ShoppingCategoryServiceClp implements ShoppingCategoryService {
 	}
 
 	private ClassLoaderProxy _classLoaderProxy;
-	private MethodKey _addCategoryMethodKey0;
-	private MethodKey _deleteCategoryMethodKey1;
-	private MethodKey _getCategoriesMethodKey2;
-	private MethodKey _getCategoriesMethodKey3;
-	private MethodKey _getCategoriesCountMethodKey4;
-	private MethodKey _getCategoryMethodKey5;
-	private MethodKey _getSubcategoryIdsMethodKey6;
-	private MethodKey _updateCategoryMethodKey7;
+	private MethodKey _addCategoryMethodKey0 = new MethodKey(_classLoaderProxy.getClassName(),
+			"addCategory", long.class, java.lang.String.class,
+			java.lang.String.class,
+			com.liferay.portal.service.ServiceContext.class);
+	private MethodKey _deleteCategoryMethodKey1 = new MethodKey(_classLoaderProxy.getClassName(),
+			"deleteCategory", long.class);
+	private MethodKey _getCategoriesMethodKey2 = new MethodKey(_classLoaderProxy.getClassName(),
+			"getCategories", long.class);
+	private MethodKey _getCategoriesMethodKey3 = new MethodKey(_classLoaderProxy.getClassName(),
+			"getCategories", long.class, long.class, int.class, int.class);
+	private MethodKey _getCategoriesCountMethodKey4 = new MethodKey(_classLoaderProxy.getClassName(),
+			"getCategoriesCount", long.class, long.class);
+	private MethodKey _getCategoryMethodKey5 = new MethodKey(_classLoaderProxy.getClassName(),
+			"getCategory", long.class);
+	private MethodKey _getSubcategoryIdsMethodKey6 = new MethodKey(_classLoaderProxy.getClassName(),
+			"getSubcategoryIds", java.util.List.class, long.class, long.class);
+	private MethodKey _updateCategoryMethodKey7 = new MethodKey(_classLoaderProxy.getClassName(),
+			"updateCategory", long.class, long.class, java.lang.String.class,
+			java.lang.String.class, boolean.class,
+			com.liferay.portal.service.ServiceContext.class);
 }

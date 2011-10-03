@@ -16,11 +16,13 @@ package com.liferay.shopping.service;
 
 import com.liferay.portal.kernel.bean.PortletBeanLocatorUtil;
 import com.liferay.portal.kernel.util.ClassLoaderProxy;
-import com.liferay.portal.kernel.util.MethodCache;
-import com.liferay.portal.kernel.util.ReferenceRegistry;
 
 /**
  * The utility for the shopping coupon remote service. This utility wraps {@link com.liferay.shopping.service.impl.ShoppingCouponServiceImpl} and is the primary access point for service operations in application layer code running on a remote server.
+ *
+ * <p>
+ * Never modify this class directly. Add custom service methods to {@link com.liferay.shopping.service.impl.ShoppingCouponServiceImpl} and rerun ServiceBuilder to regenerate this class.
+ * </p>
  *
  * <p>
  * This is a remote service. Methods of this service are expected to have security checks based on the propagated JAAS credentials because this service can be accessed remotely.
@@ -33,11 +35,6 @@ import com.liferay.portal.kernel.util.ReferenceRegistry;
  * @generated
  */
 public class ShoppingCouponServiceUtil {
-	/*
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never modify this class directly. Add custom service methods to {@link com.liferay.shopping.service.impl.ShoppingCouponServiceImpl} and rerun ServiceBuilder to regenerate this class.
-	 */
 	public static com.liferay.shopping.model.ShoppingCoupon addCoupon(
 		java.lang.String code, boolean autoCode, java.lang.String name,
 		java.lang.String description, int startDateMonth, int startDateDay,
@@ -105,34 +102,24 @@ public class ShoppingCouponServiceUtil {
 
 	public static ShoppingCouponService getService() {
 		if (_service == null) {
-			Object object = PortletBeanLocatorUtil.locate(ClpSerializer.getServletContextName(),
+			Object obj = PortletBeanLocatorUtil.locate(ClpSerializer.SERVLET_CONTEXT_NAME,
 					ShoppingCouponService.class.getName());
-			ClassLoader portletClassLoader = (ClassLoader)PortletBeanLocatorUtil.locate(ClpSerializer.getServletContextName(),
+			ClassLoader portletClassLoader = (ClassLoader)PortletBeanLocatorUtil.locate(ClpSerializer.SERVLET_CONTEXT_NAME,
 					"portletClassLoader");
 
-			ClassLoaderProxy classLoaderProxy = new ClassLoaderProxy(object,
-					ShoppingCouponService.class.getName(), portletClassLoader);
+			ClassLoaderProxy classLoaderProxy = new ClassLoaderProxy(obj,
+					portletClassLoader);
 
 			_service = new ShoppingCouponServiceClp(classLoaderProxy);
 
 			ClpSerializer.setClassLoader(portletClassLoader);
-
-			ReferenceRegistry.registerReference(ShoppingCouponServiceUtil.class,
-				"_service");
-			MethodCache.remove(ShoppingCouponService.class);
 		}
 
 		return _service;
 	}
 
 	public void setService(ShoppingCouponService service) {
-		MethodCache.remove(ShoppingCouponService.class);
-
 		_service = service;
-
-		ReferenceRegistry.registerReference(ShoppingCouponServiceUtil.class,
-			"_service");
-		MethodCache.remove(ShoppingCouponService.class);
 	}
 
 	private static ShoppingCouponService _service;

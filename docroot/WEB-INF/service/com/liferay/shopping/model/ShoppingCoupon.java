@@ -14,10 +14,16 @@
 
 package com.liferay.shopping.model;
 
-import com.liferay.portal.model.PersistedModel;
-
 /**
- * The extended model interface for the ShoppingCoupon service. Represents a row in the &quot;Shopping_ShoppingCoupon&quot; database table, with each column mapped to a property of this class.
+ * The model interface for the ShoppingCoupon service. Represents a row in the &quot;Shopping_ShoppingCoupon&quot; database table, with each column mapped to a property of this class.
+ *
+ * <p>
+ * Never modify this interface directly. Add methods to {@link com.liferay.shopping.model.impl.ShoppingCouponImpl} and rerun ServiceBuilder to automatically copy the method declarations to this interface.
+ * </p>
+ *
+ * <p>
+ * Never reference this interface directly. All methods that expect a shopping coupon model instance should use the {@link ShoppingCoupon} interface instead.
+ * </p>
  *
  * @author Brian Wing Shun Chan
  * @see ShoppingCouponModel
@@ -25,12 +31,7 @@ import com.liferay.portal.model.PersistedModel;
  * @see com.liferay.shopping.model.impl.ShoppingCouponModelImpl
  * @generated
  */
-public interface ShoppingCoupon extends ShoppingCouponModel, PersistedModel {
-	/*
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never modify this interface directly. Add methods to {@link com.liferay.shopping.model.impl.ShoppingCouponImpl} and rerun ServiceBuilder to automatically copy the method declarations to this interface.
-	 */
+public interface ShoppingCoupon extends ShoppingCouponModel {
 	public boolean hasValidDateRange();
 
 	public boolean hasValidEndDate();

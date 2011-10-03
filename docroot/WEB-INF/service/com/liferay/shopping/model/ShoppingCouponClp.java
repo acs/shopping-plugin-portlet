@@ -21,8 +21,6 @@ import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.model.impl.BaseModelImpl;
 import com.liferay.portal.util.PortalUtil;
 
-import com.liferay.shopping.service.ShoppingCouponLocalServiceUtil;
-
 import java.io.Serializable;
 
 import java.lang.reflect.Proxy;
@@ -37,28 +35,16 @@ public class ShoppingCouponClp extends BaseModelImpl<ShoppingCoupon>
 	public ShoppingCouponClp() {
 	}
 
-	public Class<?> getModelClass() {
-		return ShoppingCoupon.class;
-	}
-
-	public String getModelClassName() {
-		return ShoppingCoupon.class.getName();
-	}
-
 	public long getPrimaryKey() {
 		return _couponId;
 	}
 
-	public void setPrimaryKey(long primaryKey) {
-		setCouponId(primaryKey);
+	public void setPrimaryKey(long pk) {
+		setCouponId(pk);
 	}
 
 	public Serializable getPrimaryKeyObj() {
 		return new Long(_couponId);
-	}
-
-	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
-		setPrimaryKey(((Long)primaryKeyObj).longValue());
 	}
 
 	public long getCouponId() {
@@ -229,11 +215,6 @@ public class ShoppingCouponClp extends BaseModelImpl<ShoppingCoupon>
 		throw new UnsupportedOperationException();
 	}
 
-	public void persist() throws SystemException {
-		ShoppingCouponLocalServiceUtil.updateShoppingCoupon(this);
-	}
-
-	@Override
 	public ShoppingCoupon toEscapedModel() {
 		if (isEscapedModel()) {
 			return this;
@@ -245,7 +226,6 @@ public class ShoppingCouponClp extends BaseModelImpl<ShoppingCoupon>
 		}
 	}
 
-	@Override
 	public Object clone() {
 		ShoppingCouponClp clone = new ShoppingCouponClp();
 
@@ -284,7 +264,6 @@ public class ShoppingCouponClp extends BaseModelImpl<ShoppingCoupon>
 		return 0;
 	}
 
-	@Override
 	public boolean equals(Object obj) {
 		if (obj == null) {
 			return false;
@@ -299,9 +278,9 @@ public class ShoppingCouponClp extends BaseModelImpl<ShoppingCoupon>
 			return false;
 		}
 
-		long primaryKey = shoppingCoupon.getPrimaryKey();
+		long pk = shoppingCoupon.getPrimaryKey();
 
-		if (getPrimaryKey() == primaryKey) {
+		if (getPrimaryKey() == pk) {
 			return true;
 		}
 		else {
@@ -309,12 +288,10 @@ public class ShoppingCouponClp extends BaseModelImpl<ShoppingCoupon>
 		}
 	}
 
-	@Override
 	public int hashCode() {
 		return (int)getPrimaryKey();
 	}
 
-	@Override
 	public String toString() {
 		StringBundler sb = new StringBundler(37);
 

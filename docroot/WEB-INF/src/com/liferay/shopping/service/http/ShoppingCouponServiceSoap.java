@@ -119,7 +119,7 @@ public class ShoppingCouponServiceSoap {
 		}
 	}
 
-	public static com.liferay.shopping.model.ShoppingCoupon[] search(
+	public static com.liferay.shopping.model.ShoppingCouponSoap[] search(
 		long groupId, long companyId, java.lang.String code, boolean active,
 		java.lang.String discountType, boolean andOperator, int start, int end)
 		throws RemoteException {
@@ -128,7 +128,7 @@ public class ShoppingCouponServiceSoap {
 				ShoppingCouponServiceUtil.search(groupId, companyId, code,
 					active, discountType, andOperator, start, end);
 
-			return returnValue.toArray(new com.liferay.shopping.model.ShoppingCoupon[returnValue.size()]);
+			return com.liferay.shopping.model.ShoppingCouponSoap.toSoapModels(returnValue);
 		}
 		catch (Exception e) {
 			_log.error(e, e);

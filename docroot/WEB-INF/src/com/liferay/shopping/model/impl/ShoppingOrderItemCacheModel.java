@@ -16,7 +16,7 @@ package com.liferay.shopping.model.impl;
 
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
-import com.liferay.portal.model.CacheModel;
+// import com.liferay.portal.model.CacheModel;
 
 import com.liferay.shopping.model.ShoppingOrderItem;
 
@@ -110,7 +110,7 @@ public class ShoppingOrderItemCacheModel implements CacheModel<ShoppingOrderItem
 			shoppingOrderItemImpl.setShippedDate(new Date(shippedDate));
 		}
 
-		shoppingOrderItemImpl.resetOriginalValues();
+		// shoppingOrderItemImpl.resetOriginalValues();
 
 		return shoppingOrderItemImpl;
 	}

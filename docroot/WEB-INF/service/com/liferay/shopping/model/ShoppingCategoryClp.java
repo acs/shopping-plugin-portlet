@@ -20,8 +20,6 @@ import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.model.impl.BaseModelImpl;
 import com.liferay.portal.util.PortalUtil;
 
-import com.liferay.shopping.service.ShoppingCategoryLocalServiceUtil;
-
 import java.io.Serializable;
 
 import java.lang.reflect.Proxy;
@@ -36,28 +34,16 @@ public class ShoppingCategoryClp extends BaseModelImpl<ShoppingCategory>
 	public ShoppingCategoryClp() {
 	}
 
-	public Class<?> getModelClass() {
-		return ShoppingCategory.class;
-	}
-
-	public String getModelClassName() {
-		return ShoppingCategory.class.getName();
-	}
-
 	public long getPrimaryKey() {
 		return _categoryId;
 	}
 
-	public void setPrimaryKey(long primaryKey) {
-		setCategoryId(primaryKey);
+	public void setPrimaryKey(long pk) {
+		setCategoryId(pk);
 	}
 
 	public Serializable getPrimaryKeyObj() {
 		return new Long(_categoryId);
-	}
-
-	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
-		setPrimaryKey(((Long)primaryKeyObj).longValue());
 	}
 
 	public long getCategoryId() {
@@ -152,11 +138,6 @@ public class ShoppingCategoryClp extends BaseModelImpl<ShoppingCategory>
 		throw new UnsupportedOperationException();
 	}
 
-	public void persist() throws SystemException {
-		ShoppingCategoryLocalServiceUtil.updateShoppingCategory(this);
-	}
-
-	@Override
 	public ShoppingCategory toEscapedModel() {
 		if (isEscapedModel()) {
 			return this;
@@ -168,7 +149,6 @@ public class ShoppingCategoryClp extends BaseModelImpl<ShoppingCategory>
 		}
 	}
 
-	@Override
 	public Object clone() {
 		ShoppingCategoryClp clone = new ShoppingCategoryClp();
 
@@ -213,7 +193,6 @@ public class ShoppingCategoryClp extends BaseModelImpl<ShoppingCategory>
 		return 0;
 	}
 
-	@Override
 	public boolean equals(Object obj) {
 		if (obj == null) {
 			return false;
@@ -228,9 +207,9 @@ public class ShoppingCategoryClp extends BaseModelImpl<ShoppingCategory>
 			return false;
 		}
 
-		long primaryKey = shoppingCategory.getPrimaryKey();
+		long pk = shoppingCategory.getPrimaryKey();
 
-		if (getPrimaryKey() == primaryKey) {
+		if (getPrimaryKey() == pk) {
 			return true;
 		}
 		else {
@@ -238,12 +217,10 @@ public class ShoppingCategoryClp extends BaseModelImpl<ShoppingCategory>
 		}
 	}
 
-	@Override
 	public int hashCode() {
 		return (int)getPrimaryKey();
 	}
 
-	@Override
 	public String toString() {
 		StringBundler sb = new StringBundler(21);
 

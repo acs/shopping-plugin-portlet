@@ -33,7 +33,7 @@ public class ShoppingItemPriceLocalServiceWrapper
 	/**
 	* Adds the shopping item price to the database. Also notifies the appropriate model listeners.
 	*
-	* @param shoppingItemPrice the shopping item price
+	* @param shoppingItemPrice the shopping item price to add
 	* @return the shopping item price that was added
 	* @throws SystemException if a system exception occurred
 	*/
@@ -57,7 +57,7 @@ public class ShoppingItemPriceLocalServiceWrapper
 	/**
 	* Deletes the shopping item price with the primary key from the database. Also notifies the appropriate model listeners.
 	*
-	* @param itemPriceId the primary key of the shopping item price
+	* @param itemPriceId the primary key of the shopping item price to delete
 	* @throws PortalException if a shopping item price with the primary key could not be found
 	* @throws SystemException if a system exception occurred
 	*/
@@ -70,7 +70,7 @@ public class ShoppingItemPriceLocalServiceWrapper
 	/**
 	* Deletes the shopping item price from the database. Also notifies the appropriate model listeners.
 	*
-	* @param shoppingItemPrice the shopping item price
+	* @param shoppingItemPrice the shopping item price to delete
 	* @throws SystemException if a system exception occurred
 	*/
 	public void deleteShoppingItemPrice(
@@ -82,7 +82,7 @@ public class ShoppingItemPriceLocalServiceWrapper
 	/**
 	* Performs a dynamic query on the database and returns the matching rows.
 	*
-	* @param dynamicQuery the dynamic query
+	* @param dynamicQuery the dynamic query to search with
 	* @return the matching rows
 	* @throws SystemException if a system exception occurred
 	*/
@@ -100,9 +100,9 @@ public class ShoppingItemPriceLocalServiceWrapper
 	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
 	* </p>
 	*
-	* @param dynamicQuery the dynamic query
-	* @param start the lower bound of the range of model instances
-	* @param end the upper bound of the range of model instances (not inclusive)
+	* @param dynamicQuery the dynamic query to search with
+	* @param start the lower bound of the range of model instances to return
+	* @param end the upper bound of the range of model instances to return (not inclusive)
 	* @return the range of matching rows
 	* @throws SystemException if a system exception occurred
 	*/
@@ -121,10 +121,10 @@ public class ShoppingItemPriceLocalServiceWrapper
 	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
 	* </p>
 	*
-	* @param dynamicQuery the dynamic query
-	* @param start the lower bound of the range of model instances
-	* @param end the upper bound of the range of model instances (not inclusive)
-	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	* @param dynamicQuery the dynamic query to search with
+	* @param start the lower bound of the range of model instances to return
+	* @param end the upper bound of the range of model instances to return (not inclusive)
+	* @param orderByComparator the comparator to order the results by
 	* @return the ordered range of matching rows
 	* @throws SystemException if a system exception occurred
 	*/
@@ -139,9 +139,9 @@ public class ShoppingItemPriceLocalServiceWrapper
 	}
 
 	/**
-	* Returns the number of rows that match the dynamic query.
+	* Counts the number of rows that match the dynamic query.
 	*
-	* @param dynamicQuery the dynamic query
+	* @param dynamicQuery the dynamic query to search with
 	* @return the number of rows that match the dynamic query
 	* @throws SystemException if a system exception occurred
 	*/
@@ -152,9 +152,9 @@ public class ShoppingItemPriceLocalServiceWrapper
 	}
 
 	/**
-	* Returns the shopping item price with the primary key.
+	* Gets the shopping item price with the primary key.
 	*
-	* @param itemPriceId the primary key of the shopping item price
+	* @param itemPriceId the primary key of the shopping item price to get
 	* @return the shopping item price
 	* @throws PortalException if a shopping item price with the primary key could not be found
 	* @throws SystemException if a system exception occurred
@@ -166,22 +166,15 @@ public class ShoppingItemPriceLocalServiceWrapper
 		return _shoppingItemPriceLocalService.getShoppingItemPrice(itemPriceId);
 	}
 
-	public com.liferay.portal.model.PersistedModel getPersistedModel(
-		java.io.Serializable primaryKeyObj)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
-		return _shoppingItemPriceLocalService.getPersistedModel(primaryKeyObj);
-	}
-
 	/**
-	* Returns a range of all the shopping item prices.
+	* Gets a range of all the shopping item prices.
 	*
 	* <p>
 	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
 	* </p>
 	*
-	* @param start the lower bound of the range of shopping item prices
-	* @param end the upper bound of the range of shopping item prices (not inclusive)
+	* @param start the lower bound of the range of shopping item prices to return
+	* @param end the upper bound of the range of shopping item prices to return (not inclusive)
 	* @return the range of shopping item prices
 	* @throws SystemException if a system exception occurred
 	*/
@@ -192,7 +185,7 @@ public class ShoppingItemPriceLocalServiceWrapper
 	}
 
 	/**
-	* Returns the number of shopping item prices.
+	* Gets the number of shopping item prices.
 	*
 	* @return the number of shopping item prices
 	* @throws SystemException if a system exception occurred
@@ -203,9 +196,9 @@ public class ShoppingItemPriceLocalServiceWrapper
 	}
 
 	/**
-	* Updates the shopping item price in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	* Updates the shopping item price in the database. Also notifies the appropriate model listeners.
 	*
-	* @param shoppingItemPrice the shopping item price
+	* @param shoppingItemPrice the shopping item price to update
 	* @return the shopping item price that was updated
 	* @throws SystemException if a system exception occurred
 	*/
@@ -216,9 +209,9 @@ public class ShoppingItemPriceLocalServiceWrapper
 	}
 
 	/**
-	* Updates the shopping item price in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	* Updates the shopping item price in the database. Also notifies the appropriate model listeners.
 	*
-	* @param shoppingItemPrice the shopping item price
+	* @param shoppingItemPrice the shopping item price to update
 	* @param merge whether to merge the shopping item price with the current session. See {@link com.liferay.portal.service.persistence.BatchSession#update(com.liferay.portal.kernel.dao.orm.Session, com.liferay.portal.model.BaseModel, boolean)} for an explanation.
 	* @return the shopping item price that was updated
 	* @throws SystemException if a system exception occurred
@@ -231,24 +224,6 @@ public class ShoppingItemPriceLocalServiceWrapper
 			merge);
 	}
 
-	/**
-	* Returns the Spring bean ID for this bean.
-	*
-	* @return the Spring bean ID for this bean
-	*/
-	public java.lang.String getBeanIdentifier() {
-		return _shoppingItemPriceLocalService.getBeanIdentifier();
-	}
-
-	/**
-	* Sets the Spring bean ID for this bean.
-	*
-	* @param beanIdentifier the Spring bean ID for this bean
-	*/
-	public void setBeanIdentifier(java.lang.String beanIdentifier) {
-		_shoppingItemPriceLocalService.setBeanIdentifier(beanIdentifier);
-	}
-
 	public java.util.List<com.liferay.shopping.model.ShoppingItemPrice> getItemPrices(
 		long itemId)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -258,11 +233,6 @@ public class ShoppingItemPriceLocalServiceWrapper
 
 	public ShoppingItemPriceLocalService getWrappedShoppingItemPriceLocalService() {
 		return _shoppingItemPriceLocalService;
-	}
-
-	public void setWrappedShoppingItemPriceLocalService(
-		ShoppingItemPriceLocalService shoppingItemPriceLocalService) {
-		_shoppingItemPriceLocalService = shoppingItemPriceLocalService;
 	}
 
 	private ShoppingItemPriceLocalService _shoppingItemPriceLocalService;

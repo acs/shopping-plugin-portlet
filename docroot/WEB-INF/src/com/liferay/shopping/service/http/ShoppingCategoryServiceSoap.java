@@ -96,13 +96,13 @@ public class ShoppingCategoryServiceSoap {
 		}
 	}
 
-	public static com.liferay.shopping.model.ShoppingCategory[] getCategories(
+	public static com.liferay.shopping.model.ShoppingCategorySoap[] getCategories(
 		long groupId) throws RemoteException {
 		try {
 			java.util.List<com.liferay.shopping.model.ShoppingCategory> returnValue =
 				ShoppingCategoryServiceUtil.getCategories(groupId);
 
-			return returnValue.toArray(new com.liferay.shopping.model.ShoppingCategory[returnValue.size()]);
+			return com.liferay.shopping.model.ShoppingCategorySoap.toSoapModels(returnValue);
 		}
 		catch (Exception e) {
 			_log.error(e, e);
@@ -111,7 +111,7 @@ public class ShoppingCategoryServiceSoap {
 		}
 	}
 
-	public static com.liferay.shopping.model.ShoppingCategory[] getCategories(
+	public static com.liferay.shopping.model.ShoppingCategorySoap[] getCategories(
 		long groupId, long parentCategoryId, int start, int end)
 		throws RemoteException {
 		try {
@@ -119,7 +119,7 @@ public class ShoppingCategoryServiceSoap {
 				ShoppingCategoryServiceUtil.getCategories(groupId,
 					parentCategoryId, start, end);
 
-			return returnValue.toArray(new com.liferay.shopping.model.ShoppingCategory[returnValue.size()]);
+			return com.liferay.shopping.model.ShoppingCategorySoap.toSoapModels(returnValue);
 		}
 		catch (Exception e) {
 			_log.error(e, e);

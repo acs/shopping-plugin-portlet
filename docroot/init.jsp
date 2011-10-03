@@ -41,6 +41,7 @@
 <%@ page import="com.liferay.portal.kernel.language.UnicodeLanguageUtil" %>
 <%@ page import="com.liferay.portal.kernel.portlet.LiferayPortletURL" %>
 <%@ page import="com.liferay.portal.kernel.portlet.LiferayWindowState" %>
+<%@ page import="com.liferay.portal.kernel.servlet.ImageServletTokenUtil" %>
 <%@ page import="com.liferay.portal.kernel.util.Constants" %>
 <%@ page import="com.liferay.portal.kernel.util.FastDateFormatFactoryUtil" %>
 <%@ page import="com.liferay.portal.kernel.util.GetterUtil" %>
@@ -62,7 +63,8 @@
 <%@ page import="com.liferay.portlet.PortletPreferencesFactoryUtil" %>
 <%@ page import="com.liferay.portlet.PortletURLUtil" %>
 <%@ page import="com.liferay.portal.service.permission.GroupPermissionUtil" %>
-<%@ page import="com.liferay.portal.webserver.WebServerServletTokenUtil" %>
+<%-- <%@ page import="com.liferay.portal.webserver.WebServerServletTokenUtil" %> --%>
+<%@ page import="com.liferay.shopping.webserver.WebServerServletTokenUtil" %>
 <%@ page import="java.text.Format" %>
 <%@ page import="java.text.NumberFormat" %>
 <%@ page import="java.util.ArrayList" %>

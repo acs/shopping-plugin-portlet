@@ -16,11 +16,13 @@ package com.liferay.shopping.service;
 
 import com.liferay.portal.kernel.bean.PortletBeanLocatorUtil;
 import com.liferay.portal.kernel.util.ClassLoaderProxy;
-import com.liferay.portal.kernel.util.MethodCache;
-import com.liferay.portal.kernel.util.ReferenceRegistry;
 
 /**
  * The utility for the shopping category remote service. This utility wraps {@link com.liferay.shopping.service.impl.ShoppingCategoryServiceImpl} and is the primary access point for service operations in application layer code running on a remote server.
+ *
+ * <p>
+ * Never modify this class directly. Add custom service methods to {@link com.liferay.shopping.service.impl.ShoppingCategoryServiceImpl} and rerun ServiceBuilder to regenerate this class.
+ * </p>
  *
  * <p>
  * This is a remote service. Methods of this service are expected to have security checks based on the propagated JAAS credentials because this service can be accessed remotely.
@@ -33,11 +35,6 @@ import com.liferay.portal.kernel.util.ReferenceRegistry;
  * @generated
  */
 public class ShoppingCategoryServiceUtil {
-	/*
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never modify this class directly. Add custom service methods to {@link com.liferay.shopping.service.impl.ShoppingCategoryServiceImpl} and rerun ServiceBuilder to regenerate this class.
-	 */
 	public static com.liferay.shopping.model.ShoppingCategory addCategory(
 		long parentCategoryId, java.lang.String name,
 		java.lang.String description,
@@ -103,34 +100,24 @@ public class ShoppingCategoryServiceUtil {
 
 	public static ShoppingCategoryService getService() {
 		if (_service == null) {
-			Object object = PortletBeanLocatorUtil.locate(ClpSerializer.getServletContextName(),
+			Object obj = PortletBeanLocatorUtil.locate(ClpSerializer.SERVLET_CONTEXT_NAME,
 					ShoppingCategoryService.class.getName());
-			ClassLoader portletClassLoader = (ClassLoader)PortletBeanLocatorUtil.locate(ClpSerializer.getServletContextName(),
+			ClassLoader portletClassLoader = (ClassLoader)PortletBeanLocatorUtil.locate(ClpSerializer.SERVLET_CONTEXT_NAME,
 					"portletClassLoader");
 
-			ClassLoaderProxy classLoaderProxy = new ClassLoaderProxy(object,
-					ShoppingCategoryService.class.getName(), portletClassLoader);
+			ClassLoaderProxy classLoaderProxy = new ClassLoaderProxy(obj,
+					portletClassLoader);
 
 			_service = new ShoppingCategoryServiceClp(classLoaderProxy);
 
 			ClpSerializer.setClassLoader(portletClassLoader);
-
-			ReferenceRegistry.registerReference(ShoppingCategoryServiceUtil.class,
-				"_service");
-			MethodCache.remove(ShoppingCategoryService.class);
 		}
 
 		return _service;
 	}
 
 	public void setService(ShoppingCategoryService service) {
-		MethodCache.remove(ShoppingCategoryService.class);
-
 		_service = service;
-
-		ReferenceRegistry.registerReference(ShoppingCategoryServiceUtil.class,
-			"_service");
-		MethodCache.remove(ShoppingCategoryService.class);
 	}
 
 	private static ShoppingCategoryService _service;

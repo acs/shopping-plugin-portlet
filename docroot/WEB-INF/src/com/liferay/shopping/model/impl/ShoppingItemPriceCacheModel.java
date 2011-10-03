@@ -15,7 +15,7 @@
 package com.liferay.shopping.model.impl;
 
 import com.liferay.portal.kernel.util.StringBundler;
-import com.liferay.portal.model.CacheModel;
+// import com.liferay.portal.model.CacheModel;
 
 import com.liferay.shopping.model.ShoppingItemPrice;
 
@@ -70,7 +70,7 @@ public class ShoppingItemPriceCacheModel implements CacheModel<ShoppingItemPrice
 		shoppingItemPriceImpl.setUseShippingFormula(useShippingFormula);
 		shoppingItemPriceImpl.setStatus(status);
 
-		shoppingItemPriceImpl.resetOriginalValues();
+		// shoppingItemPriceImpl.resetOriginalValues();
 
 		return shoppingItemPriceImpl;
 	}

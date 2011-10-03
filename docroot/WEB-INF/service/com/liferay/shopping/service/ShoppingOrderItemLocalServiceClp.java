@@ -25,69 +25,6 @@ public class ShoppingOrderItemLocalServiceClp
 	implements ShoppingOrderItemLocalService {
 	public ShoppingOrderItemLocalServiceClp(ClassLoaderProxy classLoaderProxy) {
 		_classLoaderProxy = classLoaderProxy;
-
-		_addShoppingOrderItemMethodKey0 = new MethodKey(_classLoaderProxy.getClassName(),
-				"addShoppingOrderItem",
-				com.liferay.shopping.model.ShoppingOrderItem.class);
-
-		_createShoppingOrderItemMethodKey1 = new MethodKey(_classLoaderProxy.getClassName(),
-				"createShoppingOrderItem", long.class);
-
-		_deleteShoppingOrderItemMethodKey2 = new MethodKey(_classLoaderProxy.getClassName(),
-				"deleteShoppingOrderItem", long.class);
-
-		_deleteShoppingOrderItemMethodKey3 = new MethodKey(_classLoaderProxy.getClassName(),
-				"deleteShoppingOrderItem",
-				com.liferay.shopping.model.ShoppingOrderItem.class);
-
-		_dynamicQueryMethodKey4 = new MethodKey(_classLoaderProxy.getClassName(),
-				"dynamicQuery",
-				com.liferay.portal.kernel.dao.orm.DynamicQuery.class);
-
-		_dynamicQueryMethodKey5 = new MethodKey(_classLoaderProxy.getClassName(),
-				"dynamicQuery",
-				com.liferay.portal.kernel.dao.orm.DynamicQuery.class,
-				int.class, int.class);
-
-		_dynamicQueryMethodKey6 = new MethodKey(_classLoaderProxy.getClassName(),
-				"dynamicQuery",
-				com.liferay.portal.kernel.dao.orm.DynamicQuery.class,
-				int.class, int.class,
-				com.liferay.portal.kernel.util.OrderByComparator.class);
-
-		_dynamicQueryCountMethodKey7 = new MethodKey(_classLoaderProxy.getClassName(),
-				"dynamicQueryCount",
-				com.liferay.portal.kernel.dao.orm.DynamicQuery.class);
-
-		_getShoppingOrderItemMethodKey8 = new MethodKey(_classLoaderProxy.getClassName(),
-				"getShoppingOrderItem", long.class);
-
-		_getPersistedModelMethodKey9 = new MethodKey(_classLoaderProxy.getClassName(),
-				"getPersistedModel", java.io.Serializable.class);
-
-		_getShoppingOrderItemsMethodKey10 = new MethodKey(_classLoaderProxy.getClassName(),
-				"getShoppingOrderItems", int.class, int.class);
-
-		_getShoppingOrderItemsCountMethodKey11 = new MethodKey(_classLoaderProxy.getClassName(),
-				"getShoppingOrderItemsCount");
-
-		_updateShoppingOrderItemMethodKey12 = new MethodKey(_classLoaderProxy.getClassName(),
-				"updateShoppingOrderItem",
-				com.liferay.shopping.model.ShoppingOrderItem.class);
-
-		_updateShoppingOrderItemMethodKey13 = new MethodKey(_classLoaderProxy.getClassName(),
-				"updateShoppingOrderItem",
-				com.liferay.shopping.model.ShoppingOrderItem.class,
-				boolean.class);
-
-		_getBeanIdentifierMethodKey14 = new MethodKey(_classLoaderProxy.getClassName(),
-				"getBeanIdentifier");
-
-		_setBeanIdentifierMethodKey15 = new MethodKey(_classLoaderProxy.getClassName(),
-				"setBeanIdentifier", java.lang.String.class);
-
-		_getOrderItemsMethodKey16 = new MethodKey(_classLoaderProxy.getClassName(),
-				"getOrderItems", long.class);
 	}
 
 	public com.liferay.shopping.model.ShoppingOrderItem addShoppingOrderItem(
@@ -96,7 +33,7 @@ public class ShoppingOrderItemLocalServiceClp
 		Object returnObj = null;
 
 		MethodHandler methodHandler = new MethodHandler(_addShoppingOrderItemMethodKey0,
-				ClpSerializer.translateInput(shoppingOrderItem));
+				shoppingOrderItem);
 
 		try {
 			returnObj = _classLoaderProxy.invoke(methodHandler);
@@ -173,7 +110,7 @@ public class ShoppingOrderItemLocalServiceClp
 		com.liferay.shopping.model.ShoppingOrderItem shoppingOrderItem)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		MethodHandler methodHandler = new MethodHandler(_deleteShoppingOrderItemMethodKey3,
-				ClpSerializer.translateInput(shoppingOrderItem));
+				shoppingOrderItem);
 
 		try {
 			_classLoaderProxy.invoke(methodHandler);
@@ -200,7 +137,7 @@ public class ShoppingOrderItemLocalServiceClp
 		Object returnObj = null;
 
 		MethodHandler methodHandler = new MethodHandler(_dynamicQueryMethodKey4,
-				ClpSerializer.translateInput(dynamicQuery));
+				dynamicQuery);
 
 		try {
 			returnObj = _classLoaderProxy.invoke(methodHandler);
@@ -229,7 +166,7 @@ public class ShoppingOrderItemLocalServiceClp
 		Object returnObj = null;
 
 		MethodHandler methodHandler = new MethodHandler(_dynamicQueryMethodKey5,
-				ClpSerializer.translateInput(dynamicQuery), start, end);
+				dynamicQuery, start, end);
 
 		try {
 			returnObj = _classLoaderProxy.invoke(methodHandler);
@@ -260,8 +197,7 @@ public class ShoppingOrderItemLocalServiceClp
 		Object returnObj = null;
 
 		MethodHandler methodHandler = new MethodHandler(_dynamicQueryMethodKey6,
-				ClpSerializer.translateInput(dynamicQuery), start, end,
-				ClpSerializer.translateInput(orderByComparator));
+				dynamicQuery, start, end, orderByComparator);
 
 		try {
 			returnObj = _classLoaderProxy.invoke(methodHandler);
@@ -289,7 +225,7 @@ public class ShoppingOrderItemLocalServiceClp
 		Object returnObj = null;
 
 		MethodHandler methodHandler = new MethodHandler(_dynamicQueryCountMethodKey7,
-				ClpSerializer.translateInput(dynamicQuery));
+				dynamicQuery);
 
 		try {
 			returnObj = _classLoaderProxy.invoke(methodHandler);
@@ -344,45 +280,12 @@ public class ShoppingOrderItemLocalServiceClp
 		return (com.liferay.shopping.model.ShoppingOrderItem)ClpSerializer.translateOutput(returnObj);
 	}
 
-	public com.liferay.portal.model.PersistedModel getPersistedModel(
-		java.io.Serializable primaryKeyObj)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
-		Object returnObj = null;
-
-		MethodHandler methodHandler = new MethodHandler(_getPersistedModelMethodKey9,
-				ClpSerializer.translateInput(primaryKeyObj));
-
-		try {
-			returnObj = _classLoaderProxy.invoke(methodHandler);
-		}
-		catch (Throwable t) {
-			if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
-				throw (com.liferay.portal.kernel.exception.PortalException)t;
-			}
-
-			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
-				throw (com.liferay.portal.kernel.exception.SystemException)t;
-			}
-
-			if (t instanceof RuntimeException) {
-				throw (RuntimeException)t;
-			}
-			else {
-				throw new RuntimeException(t.getClass().getName() +
-					" is not a valid exception");
-			}
-		}
-
-		return (com.liferay.portal.model.PersistedModel)ClpSerializer.translateOutput(returnObj);
-	}
-
 	public java.util.List<com.liferay.shopping.model.ShoppingOrderItem> getShoppingOrderItems(
 		int start, int end)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
-		MethodHandler methodHandler = new MethodHandler(_getShoppingOrderItemsMethodKey10,
+		MethodHandler methodHandler = new MethodHandler(_getShoppingOrderItemsMethodKey9,
 				start, end);
 
 		try {
@@ -409,7 +312,7 @@ public class ShoppingOrderItemLocalServiceClp
 		throws com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
-		MethodHandler methodHandler = new MethodHandler(_getShoppingOrderItemsCountMethodKey11);
+		MethodHandler methodHandler = new MethodHandler(_getShoppingOrderItemsCountMethodKey10);
 
 		try {
 			returnObj = _classLoaderProxy.invoke(methodHandler);
@@ -436,8 +339,8 @@ public class ShoppingOrderItemLocalServiceClp
 		throws com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
-		MethodHandler methodHandler = new MethodHandler(_updateShoppingOrderItemMethodKey12,
-				ClpSerializer.translateInput(shoppingOrderItem));
+		MethodHandler methodHandler = new MethodHandler(_updateShoppingOrderItemMethodKey11,
+				shoppingOrderItem);
 
 		try {
 			returnObj = _classLoaderProxy.invoke(methodHandler);
@@ -465,8 +368,8 @@ public class ShoppingOrderItemLocalServiceClp
 		throws com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
-		MethodHandler methodHandler = new MethodHandler(_updateShoppingOrderItemMethodKey13,
-				ClpSerializer.translateInput(shoppingOrderItem), merge);
+		MethodHandler methodHandler = new MethodHandler(_updateShoppingOrderItemMethodKey12,
+				shoppingOrderItem, merge);
 
 		try {
 			returnObj = _classLoaderProxy.invoke(methodHandler);
@@ -488,51 +391,12 @@ public class ShoppingOrderItemLocalServiceClp
 		return (com.liferay.shopping.model.ShoppingOrderItem)ClpSerializer.translateOutput(returnObj);
 	}
 
-	public java.lang.String getBeanIdentifier() {
-		Object returnObj = null;
-
-		MethodHandler methodHandler = new MethodHandler(_getBeanIdentifierMethodKey14);
-
-		try {
-			returnObj = _classLoaderProxy.invoke(methodHandler);
-		}
-		catch (Throwable t) {
-			if (t instanceof RuntimeException) {
-				throw (RuntimeException)t;
-			}
-			else {
-				throw new RuntimeException(t.getClass().getName() +
-					" is not a valid exception");
-			}
-		}
-
-		return (java.lang.String)ClpSerializer.translateOutput(returnObj);
-	}
-
-	public void setBeanIdentifier(java.lang.String beanIdentifier) {
-		MethodHandler methodHandler = new MethodHandler(_setBeanIdentifierMethodKey15,
-				ClpSerializer.translateInput(beanIdentifier));
-
-		try {
-			_classLoaderProxy.invoke(methodHandler);
-		}
-		catch (Throwable t) {
-			if (t instanceof RuntimeException) {
-				throw (RuntimeException)t;
-			}
-			else {
-				throw new RuntimeException(t.getClass().getName() +
-					" is not a valid exception");
-			}
-		}
-	}
-
 	public java.util.List<com.liferay.shopping.model.ShoppingOrderItem> getOrderItems(
 		long orderId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
-		MethodHandler methodHandler = new MethodHandler(_getOrderItemsMethodKey16,
+		MethodHandler methodHandler = new MethodHandler(_getOrderItemsMethodKey13,
 				orderId);
 
 		try {
@@ -560,21 +424,41 @@ public class ShoppingOrderItemLocalServiceClp
 	}
 
 	private ClassLoaderProxy _classLoaderProxy;
-	private MethodKey _addShoppingOrderItemMethodKey0;
-	private MethodKey _createShoppingOrderItemMethodKey1;
-	private MethodKey _deleteShoppingOrderItemMethodKey2;
-	private MethodKey _deleteShoppingOrderItemMethodKey3;
-	private MethodKey _dynamicQueryMethodKey4;
-	private MethodKey _dynamicQueryMethodKey5;
-	private MethodKey _dynamicQueryMethodKey6;
-	private MethodKey _dynamicQueryCountMethodKey7;
-	private MethodKey _getShoppingOrderItemMethodKey8;
-	private MethodKey _getPersistedModelMethodKey9;
-	private MethodKey _getShoppingOrderItemsMethodKey10;
-	private MethodKey _getShoppingOrderItemsCountMethodKey11;
-	private MethodKey _updateShoppingOrderItemMethodKey12;
-	private MethodKey _updateShoppingOrderItemMethodKey13;
-	private MethodKey _getBeanIdentifierMethodKey14;
-	private MethodKey _setBeanIdentifierMethodKey15;
-	private MethodKey _getOrderItemsMethodKey16;
+	private MethodKey _addShoppingOrderItemMethodKey0 = new MethodKey(_classLoaderProxy.getClassName(),
+			"addShoppingOrderItem",
+			com.liferay.shopping.model.ShoppingOrderItem.class);
+	private MethodKey _createShoppingOrderItemMethodKey1 = new MethodKey(_classLoaderProxy.getClassName(),
+			"createShoppingOrderItem", long.class);
+	private MethodKey _deleteShoppingOrderItemMethodKey2 = new MethodKey(_classLoaderProxy.getClassName(),
+			"deleteShoppingOrderItem", long.class);
+	private MethodKey _deleteShoppingOrderItemMethodKey3 = new MethodKey(_classLoaderProxy.getClassName(),
+			"deleteShoppingOrderItem",
+			com.liferay.shopping.model.ShoppingOrderItem.class);
+	private MethodKey _dynamicQueryMethodKey4 = new MethodKey(_classLoaderProxy.getClassName(),
+			"dynamicQuery", com.liferay.portal.kernel.dao.orm.DynamicQuery.class);
+	private MethodKey _dynamicQueryMethodKey5 = new MethodKey(_classLoaderProxy.getClassName(),
+			"dynamicQuery",
+			com.liferay.portal.kernel.dao.orm.DynamicQuery.class, int.class,
+			int.class);
+	private MethodKey _dynamicQueryMethodKey6 = new MethodKey(_classLoaderProxy.getClassName(),
+			"dynamicQuery",
+			com.liferay.portal.kernel.dao.orm.DynamicQuery.class, int.class,
+			int.class, com.liferay.portal.kernel.util.OrderByComparator.class);
+	private MethodKey _dynamicQueryCountMethodKey7 = new MethodKey(_classLoaderProxy.getClassName(),
+			"dynamicQueryCount",
+			com.liferay.portal.kernel.dao.orm.DynamicQuery.class);
+	private MethodKey _getShoppingOrderItemMethodKey8 = new MethodKey(_classLoaderProxy.getClassName(),
+			"getShoppingOrderItem", long.class);
+	private MethodKey _getShoppingOrderItemsMethodKey9 = new MethodKey(_classLoaderProxy.getClassName(),
+			"getShoppingOrderItems", int.class, int.class);
+	private MethodKey _getShoppingOrderItemsCountMethodKey10 = new MethodKey(_classLoaderProxy.getClassName(),
+			"getShoppingOrderItemsCount");
+	private MethodKey _updateShoppingOrderItemMethodKey11 = new MethodKey(_classLoaderProxy.getClassName(),
+			"updateShoppingOrderItem",
+			com.liferay.shopping.model.ShoppingOrderItem.class);
+	private MethodKey _updateShoppingOrderItemMethodKey12 = new MethodKey(_classLoaderProxy.getClassName(),
+			"updateShoppingOrderItem",
+			com.liferay.shopping.model.ShoppingOrderItem.class, boolean.class);
+	private MethodKey _getOrderItemsMethodKey13 = new MethodKey(_classLoaderProxy.getClassName(),
+			"getOrderItems", long.class);
 }

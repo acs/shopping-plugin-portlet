@@ -33,7 +33,7 @@ public class ShoppingCategoryLocalServiceWrapper
 	/**
 	* Adds the shopping category to the database. Also notifies the appropriate model listeners.
 	*
-	* @param shoppingCategory the shopping category
+	* @param shoppingCategory the shopping category to add
 	* @return the shopping category that was added
 	* @throws SystemException if a system exception occurred
 	*/
@@ -57,7 +57,7 @@ public class ShoppingCategoryLocalServiceWrapper
 	/**
 	* Deletes the shopping category with the primary key from the database. Also notifies the appropriate model listeners.
 	*
-	* @param categoryId the primary key of the shopping category
+	* @param categoryId the primary key of the shopping category to delete
 	* @throws PortalException if a shopping category with the primary key could not be found
 	* @throws SystemException if a system exception occurred
 	*/
@@ -70,7 +70,7 @@ public class ShoppingCategoryLocalServiceWrapper
 	/**
 	* Deletes the shopping category from the database. Also notifies the appropriate model listeners.
 	*
-	* @param shoppingCategory the shopping category
+	* @param shoppingCategory the shopping category to delete
 	* @throws SystemException if a system exception occurred
 	*/
 	public void deleteShoppingCategory(
@@ -82,7 +82,7 @@ public class ShoppingCategoryLocalServiceWrapper
 	/**
 	* Performs a dynamic query on the database and returns the matching rows.
 	*
-	* @param dynamicQuery the dynamic query
+	* @param dynamicQuery the dynamic query to search with
 	* @return the matching rows
 	* @throws SystemException if a system exception occurred
 	*/
@@ -100,9 +100,9 @@ public class ShoppingCategoryLocalServiceWrapper
 	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
 	* </p>
 	*
-	* @param dynamicQuery the dynamic query
-	* @param start the lower bound of the range of model instances
-	* @param end the upper bound of the range of model instances (not inclusive)
+	* @param dynamicQuery the dynamic query to search with
+	* @param start the lower bound of the range of model instances to return
+	* @param end the upper bound of the range of model instances to return (not inclusive)
 	* @return the range of matching rows
 	* @throws SystemException if a system exception occurred
 	*/
@@ -121,10 +121,10 @@ public class ShoppingCategoryLocalServiceWrapper
 	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
 	* </p>
 	*
-	* @param dynamicQuery the dynamic query
-	* @param start the lower bound of the range of model instances
-	* @param end the upper bound of the range of model instances (not inclusive)
-	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	* @param dynamicQuery the dynamic query to search with
+	* @param start the lower bound of the range of model instances to return
+	* @param end the upper bound of the range of model instances to return (not inclusive)
+	* @param orderByComparator the comparator to order the results by
 	* @return the ordered range of matching rows
 	* @throws SystemException if a system exception occurred
 	*/
@@ -139,9 +139,9 @@ public class ShoppingCategoryLocalServiceWrapper
 	}
 
 	/**
-	* Returns the number of rows that match the dynamic query.
+	* Counts the number of rows that match the dynamic query.
 	*
-	* @param dynamicQuery the dynamic query
+	* @param dynamicQuery the dynamic query to search with
 	* @return the number of rows that match the dynamic query
 	* @throws SystemException if a system exception occurred
 	*/
@@ -152,9 +152,9 @@ public class ShoppingCategoryLocalServiceWrapper
 	}
 
 	/**
-	* Returns the shopping category with the primary key.
+	* Gets the shopping category with the primary key.
 	*
-	* @param categoryId the primary key of the shopping category
+	* @param categoryId the primary key of the shopping category to get
 	* @return the shopping category
 	* @throws PortalException if a shopping category with the primary key could not be found
 	* @throws SystemException if a system exception occurred
@@ -166,22 +166,15 @@ public class ShoppingCategoryLocalServiceWrapper
 		return _shoppingCategoryLocalService.getShoppingCategory(categoryId);
 	}
 
-	public com.liferay.portal.model.PersistedModel getPersistedModel(
-		java.io.Serializable primaryKeyObj)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
-		return _shoppingCategoryLocalService.getPersistedModel(primaryKeyObj);
-	}
-
 	/**
-	* Returns a range of all the shopping categories.
+	* Gets a range of all the shopping categories.
 	*
 	* <p>
 	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
 	* </p>
 	*
-	* @param start the lower bound of the range of shopping categories
-	* @param end the upper bound of the range of shopping categories (not inclusive)
+	* @param start the lower bound of the range of shopping categories to return
+	* @param end the upper bound of the range of shopping categories to return (not inclusive)
 	* @return the range of shopping categories
 	* @throws SystemException if a system exception occurred
 	*/
@@ -192,7 +185,7 @@ public class ShoppingCategoryLocalServiceWrapper
 	}
 
 	/**
-	* Returns the number of shopping categories.
+	* Gets the number of shopping categories.
 	*
 	* @return the number of shopping categories
 	* @throws SystemException if a system exception occurred
@@ -203,9 +196,9 @@ public class ShoppingCategoryLocalServiceWrapper
 	}
 
 	/**
-	* Updates the shopping category in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	* Updates the shopping category in the database. Also notifies the appropriate model listeners.
 	*
-	* @param shoppingCategory the shopping category
+	* @param shoppingCategory the shopping category to update
 	* @return the shopping category that was updated
 	* @throws SystemException if a system exception occurred
 	*/
@@ -216,9 +209,9 @@ public class ShoppingCategoryLocalServiceWrapper
 	}
 
 	/**
-	* Updates the shopping category in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	* Updates the shopping category in the database. Also notifies the appropriate model listeners.
 	*
-	* @param shoppingCategory the shopping category
+	* @param shoppingCategory the shopping category to update
 	* @param merge whether to merge the shopping category with the current session. See {@link com.liferay.portal.service.persistence.BatchSession#update(com.liferay.portal.kernel.dao.orm.Session, com.liferay.portal.model.BaseModel, boolean)} for an explanation.
 	* @return the shopping category that was updated
 	* @throws SystemException if a system exception occurred
@@ -229,24 +222,6 @@ public class ShoppingCategoryLocalServiceWrapper
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _shoppingCategoryLocalService.updateShoppingCategory(shoppingCategory,
 			merge);
-	}
-
-	/**
-	* Returns the Spring bean ID for this bean.
-	*
-	* @return the Spring bean ID for this bean
-	*/
-	public java.lang.String getBeanIdentifier() {
-		return _shoppingCategoryLocalService.getBeanIdentifier();
-	}
-
-	/**
-	* Sets the Spring bean ID for this bean.
-	*
-	* @param beanIdentifier the Spring bean ID for this bean
-	*/
-	public void setBeanIdentifier(java.lang.String beanIdentifier) {
-		_shoppingCategoryLocalService.setBeanIdentifier(beanIdentifier);
 	}
 
 	public com.liferay.shopping.model.ShoppingCategory addCategory(
@@ -260,37 +235,39 @@ public class ShoppingCategoryLocalServiceWrapper
 	}
 
 	public void addCategoryResources(long categoryId,
-		boolean addGroupPermissions, boolean addGuestPermissions)
+		boolean addCommunityPermissions, boolean addGuestPermissions)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		_shoppingCategoryLocalService.addCategoryResources(categoryId,
-			addGroupPermissions, addGuestPermissions);
+			addCommunityPermissions, addGuestPermissions);
 	}
 
 	public void addCategoryResources(long categoryId,
-		java.lang.String[] groupPermissions, java.lang.String[] guestPermissions)
+		java.lang.String[] communityPermissions,
+		java.lang.String[] guestPermissions)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		_shoppingCategoryLocalService.addCategoryResources(categoryId,
-			groupPermissions, guestPermissions);
+			communityPermissions, guestPermissions);
 	}
 
 	public void addCategoryResources(
 		com.liferay.shopping.model.ShoppingCategory category,
-		boolean addGroupPermissions, boolean addGuestPermissions)
+		boolean addCommunityPermissions, boolean addGuestPermissions)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		_shoppingCategoryLocalService.addCategoryResources(category,
-			addGroupPermissions, addGuestPermissions);
+			addCommunityPermissions, addGuestPermissions);
 	}
 
 	public void addCategoryResources(
 		com.liferay.shopping.model.ShoppingCategory category,
-		java.lang.String[] groupPermissions, java.lang.String[] guestPermissions)
+		java.lang.String[] communityPermissions,
+		java.lang.String[] guestPermissions)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		_shoppingCategoryLocalService.addCategoryResources(category,
-			groupPermissions, guestPermissions);
+			communityPermissions, guestPermissions);
 	}
 
 	public void deleteCategories(long groupId)
@@ -379,11 +356,6 @@ public class ShoppingCategoryLocalServiceWrapper
 
 	public ShoppingCategoryLocalService getWrappedShoppingCategoryLocalService() {
 		return _shoppingCategoryLocalService;
-	}
-
-	public void setWrappedShoppingCategoryLocalService(
-		ShoppingCategoryLocalService shoppingCategoryLocalService) {
-		_shoppingCategoryLocalService = shoppingCategoryLocalService;
 	}
 
 	private ShoppingCategoryLocalService _shoppingCategoryLocalService;

@@ -20,8 +20,6 @@ import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.model.impl.BaseModelImpl;
 import com.liferay.portal.util.PortalUtil;
 
-import com.liferay.shopping.service.ShoppingCartLocalServiceUtil;
-
 import java.io.Serializable;
 
 import java.lang.reflect.Proxy;
@@ -36,28 +34,16 @@ public class ShoppingCartClp extends BaseModelImpl<ShoppingCart>
 	public ShoppingCartClp() {
 	}
 
-	public Class<?> getModelClass() {
-		return ShoppingCart.class;
-	}
-
-	public String getModelClassName() {
-		return ShoppingCart.class.getName();
-	}
-
 	public long getPrimaryKey() {
 		return _cartId;
 	}
 
-	public void setPrimaryKey(long primaryKey) {
-		setCartId(primaryKey);
+	public void setPrimaryKey(long pk) {
+		setCartId(pk);
 	}
 
 	public Serializable getPrimaryKeyObj() {
 		return new Long(_cartId);
-	}
-
-	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
-		setPrimaryKey(((Long)primaryKeyObj).longValue());
 	}
 
 	public long getCartId() {
@@ -176,11 +162,6 @@ public class ShoppingCartClp extends BaseModelImpl<ShoppingCart>
 		throw new UnsupportedOperationException();
 	}
 
-	public void persist() throws SystemException {
-		ShoppingCartLocalServiceUtil.updateShoppingCart(this);
-	}
-
-	@Override
 	public ShoppingCart toEscapedModel() {
 		if (isEscapedModel()) {
 			return this;
@@ -192,7 +173,6 @@ public class ShoppingCartClp extends BaseModelImpl<ShoppingCart>
 		}
 	}
 
-	@Override
 	public Object clone() {
 		ShoppingCartClp clone = new ShoppingCartClp();
 
@@ -212,12 +192,12 @@ public class ShoppingCartClp extends BaseModelImpl<ShoppingCart>
 	}
 
 	public int compareTo(ShoppingCart shoppingCart) {
-		long primaryKey = shoppingCart.getPrimaryKey();
+		long pk = shoppingCart.getPrimaryKey();
 
-		if (getPrimaryKey() < primaryKey) {
+		if (getPrimaryKey() < pk) {
 			return -1;
 		}
-		else if (getPrimaryKey() > primaryKey) {
+		else if (getPrimaryKey() > pk) {
 			return 1;
 		}
 		else {
@@ -225,7 +205,6 @@ public class ShoppingCartClp extends BaseModelImpl<ShoppingCart>
 		}
 	}
 
-	@Override
 	public boolean equals(Object obj) {
 		if (obj == null) {
 			return false;
@@ -240,9 +219,9 @@ public class ShoppingCartClp extends BaseModelImpl<ShoppingCart>
 			return false;
 		}
 
-		long primaryKey = shoppingCart.getPrimaryKey();
+		long pk = shoppingCart.getPrimaryKey();
 
-		if (getPrimaryKey() == primaryKey) {
+		if (getPrimaryKey() == pk) {
 			return true;
 		}
 		else {
@@ -250,12 +229,10 @@ public class ShoppingCartClp extends BaseModelImpl<ShoppingCart>
 		}
 	}
 
-	@Override
 	public int hashCode() {
 		return (int)getPrimaryKey();
 	}
 
-	@Override
 	public String toString() {
 		StringBundler sb = new StringBundler(23);
 

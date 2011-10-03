@@ -15,7 +15,7 @@
 package com.liferay.shopping.service.persistence;
 
 import com.liferay.portal.NoSuchModelException;
-import com.liferay.portal.kernel.bean.BeanReference;
+import com.liferay.portal.kernel.annotation.BeanReference;
 import com.liferay.portal.kernel.cache.CacheRegistryUtil;
 import com.liferay.portal.kernel.dao.orm.EntityCacheUtil;
 import com.liferay.portal.kernel.dao.orm.FinderCacheUtil;
@@ -30,12 +30,9 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.InstanceFactory;
 import com.liferay.portal.kernel.util.OrderByComparator;
-import com.liferay.portal.kernel.util.PropsKeys;
-import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
-import com.liferay.portal.model.CacheModel;
 import com.liferay.portal.model.ModelListener;
 import com.liferay.portal.service.persistence.BatchSessionUtil;
 import com.liferay.portal.service.persistence.ResourcePersistence;
@@ -57,6 +54,10 @@ import java.util.List;
  * The persistence implementation for the shopping item field service.
  *
  * <p>
+ * Never modify or reference this class directly. Always use {@link ShoppingItemFieldUtil} to access the shopping item field persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.
+ * </p>
+ *
+ * <p>
  * Caching information and settings can be found in <code>portal.properties</code>
  * </p>
  *
@@ -67,18 +68,12 @@ import java.util.List;
  */
 public class ShoppingItemFieldPersistenceImpl extends BasePersistenceImpl<ShoppingItemField>
 	implements ShoppingItemFieldPersistence {
-	/*
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never modify or reference this class directly. Always use {@link ShoppingItemFieldUtil} to access the shopping item field persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.
-	 */
 	public static final String FINDER_CLASS_NAME_ENTITY = ShoppingItemFieldImpl.class.getName();
 	public static final String FINDER_CLASS_NAME_LIST = FINDER_CLASS_NAME_ENTITY +
 		".List";
 	public static final FinderPath FINDER_PATH_FIND_BY_ITEMID = new FinderPath(ShoppingItemFieldModelImpl.ENTITY_CACHE_ENABLED,
 			ShoppingItemFieldModelImpl.FINDER_CACHE_ENABLED,
-			ShoppingItemFieldImpl.class, FINDER_CLASS_NAME_LIST,
-			"findByItemId",
+			FINDER_CLASS_NAME_LIST, "findByItemId",
 			new String[] {
 				Long.class.getName(),
 				
@@ -86,41 +81,38 @@ public class ShoppingItemFieldPersistenceImpl extends BasePersistenceImpl<Shoppi
 				"com.liferay.portal.kernel.util.OrderByComparator"
 			});
 	public static final FinderPath FINDER_PATH_COUNT_BY_ITEMID = new FinderPath(ShoppingItemFieldModelImpl.ENTITY_CACHE_ENABLED,
-			ShoppingItemFieldModelImpl.FINDER_CACHE_ENABLED, Long.class,
+			ShoppingItemFieldModelImpl.FINDER_CACHE_ENABLED,
 			FINDER_CLASS_NAME_LIST, "countByItemId",
 			new String[] { Long.class.getName() });
 	public static final FinderPath FINDER_PATH_FIND_ALL = new FinderPath(ShoppingItemFieldModelImpl.ENTITY_CACHE_ENABLED,
 			ShoppingItemFieldModelImpl.FINDER_CACHE_ENABLED,
-			ShoppingItemFieldImpl.class, FINDER_CLASS_NAME_LIST, "findAll",
-			new String[0]);
+			FINDER_CLASS_NAME_LIST, "findAll", new String[0]);
 	public static final FinderPath FINDER_PATH_COUNT_ALL = new FinderPath(ShoppingItemFieldModelImpl.ENTITY_CACHE_ENABLED,
-			ShoppingItemFieldModelImpl.FINDER_CACHE_ENABLED, Long.class,
+			ShoppingItemFieldModelImpl.FINDER_CACHE_ENABLED,
 			FINDER_CLASS_NAME_LIST, "countAll", new String[0]);
 
 	/**
 	 * Caches the shopping item field in the entity cache if it is enabled.
 	 *
-	 * @param shoppingItemField the shopping item field
+	 * @param shoppingItemField the shopping item field to cache
 	 */
 	public void cacheResult(ShoppingItemField shoppingItemField) {
 		EntityCacheUtil.putResult(ShoppingItemFieldModelImpl.ENTITY_CACHE_ENABLED,
 			ShoppingItemFieldImpl.class, shoppingItemField.getPrimaryKey(),
 			shoppingItemField);
-
-		shoppingItemField.resetOriginalValues();
 	}
 
 	/**
 	 * Caches the shopping item fields in the entity cache if it is enabled.
 	 *
-	 * @param shoppingItemFields the shopping item fields
+	 * @param shoppingItemFields the shopping item fields to cache
 	 */
 	public void cacheResult(List<ShoppingItemField> shoppingItemFields) {
 		for (ShoppingItemField shoppingItemField : shoppingItemFields) {
 			if (EntityCacheUtil.getResult(
 						ShoppingItemFieldModelImpl.ENTITY_CACHE_ENABLED,
 						ShoppingItemFieldImpl.class,
-						shoppingItemField.getPrimaryKey()) == null) {
+						shoppingItemField.getPrimaryKey(), this) == null) {
 				cacheResult(shoppingItemField);
 			}
 		}
@@ -133,12 +125,8 @@ public class ShoppingItemFieldPersistenceImpl extends BasePersistenceImpl<Shoppi
 	 * The {@link com.liferay.portal.kernel.dao.orm.EntityCache} and {@link com.liferay.portal.kernel.dao.orm.FinderCache} are both cleared by this method.
 	 * </p>
 	 */
-	@Override
 	public void clearCache() {
-		if (_HIBERNATE_CACHE_USE_SECOND_LEVEL_CACHE) {
-			CacheRegistryUtil.clear(ShoppingItemFieldImpl.class.getName());
-		}
-
+		CacheRegistryUtil.clear(ShoppingItemFieldImpl.class.getName());
 		EntityCacheUtil.clearCache(ShoppingItemFieldImpl.class.getName());
 		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_ENTITY);
 		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST);
@@ -151,12 +139,9 @@ public class ShoppingItemFieldPersistenceImpl extends BasePersistenceImpl<Shoppi
 	 * The {@link com.liferay.portal.kernel.dao.orm.EntityCache} and {@link com.liferay.portal.kernel.dao.orm.FinderCache} are both cleared by this method.
 	 * </p>
 	 */
-	@Override
 	public void clearCache(ShoppingItemField shoppingItemField) {
 		EntityCacheUtil.removeResult(ShoppingItemFieldModelImpl.ENTITY_CACHE_ENABLED,
 			ShoppingItemFieldImpl.class, shoppingItemField.getPrimaryKey());
-
-		FinderCacheUtil.removeResult(FINDER_PATH_FIND_ALL, FINDER_ARGS_EMPTY);
 	}
 
 	/**
@@ -177,12 +162,11 @@ public class ShoppingItemFieldPersistenceImpl extends BasePersistenceImpl<Shoppi
 	/**
 	 * Removes the shopping item field with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
-	 * @param primaryKey the primary key of the shopping item field
+	 * @param primaryKey the primary key of the shopping item field to remove
 	 * @return the shopping item field that was removed
 	 * @throws com.liferay.portal.NoSuchModelException if a shopping item field with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
-	@Override
 	public ShoppingItemField remove(Serializable primaryKey)
 		throws NoSuchModelException, SystemException {
 		return remove(((Long)primaryKey).longValue());
@@ -191,7 +175,7 @@ public class ShoppingItemFieldPersistenceImpl extends BasePersistenceImpl<Shoppi
 	/**
 	 * Removes the shopping item field with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
-	 * @param itemFieldId the primary key of the shopping item field
+	 * @param itemFieldId the primary key of the shopping item field to remove
 	 * @return the shopping item field that was removed
 	 * @throws com.liferay.shopping.NoSuchItemFieldException if a shopping item field with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
@@ -204,7 +188,7 @@ public class ShoppingItemFieldPersistenceImpl extends BasePersistenceImpl<Shoppi
 			session = openSession();
 
 			ShoppingItemField shoppingItemField = (ShoppingItemField)session.get(ShoppingItemFieldImpl.class,
-					Long.valueOf(itemFieldId));
+					new Long(itemFieldId));
 
 			if (shoppingItemField == null) {
 				if (_log.isWarnEnabled()) {
@@ -215,7 +199,7 @@ public class ShoppingItemFieldPersistenceImpl extends BasePersistenceImpl<Shoppi
 					itemFieldId);
 			}
 
-			return shoppingItemFieldPersistence.remove(shoppingItemField);
+			return remove(shoppingItemField);
 		}
 		catch (NoSuchItemFieldException nsee) {
 			throw nsee;
@@ -228,20 +212,6 @@ public class ShoppingItemFieldPersistenceImpl extends BasePersistenceImpl<Shoppi
 		}
 	}
 
-	/**
-	 * Removes the shopping item field from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param shoppingItemField the shopping item field
-	 * @return the shopping item field that was removed
-	 * @throws SystemException if a system exception occurred
-	 */
-	@Override
-	public ShoppingItemField remove(ShoppingItemField shoppingItemField)
-		throws SystemException {
-		return super.remove(shoppingItemField);
-	}
-
-	@Override
 	protected ShoppingItemField removeImpl(ShoppingItemField shoppingItemField)
 		throws SystemException {
 		shoppingItemField = toUnwrappedModel(shoppingItemField);
@@ -268,7 +238,6 @@ public class ShoppingItemFieldPersistenceImpl extends BasePersistenceImpl<Shoppi
 		return shoppingItemField;
 	}
 
-	@Override
 	public ShoppingItemField updateImpl(
 		com.liferay.shopping.model.ShoppingItemField shoppingItemField,
 		boolean merge) throws SystemException {
@@ -320,23 +289,22 @@ public class ShoppingItemFieldPersistenceImpl extends BasePersistenceImpl<Shoppi
 	}
 
 	/**
-	 * Returns the shopping item field with the primary key or throws a {@link com.liferay.portal.NoSuchModelException} if it could not be found.
+	 * Finds the shopping item field with the primary key or throws a {@link com.liferay.portal.NoSuchModelException} if it could not be found.
 	 *
-	 * @param primaryKey the primary key of the shopping item field
+	 * @param primaryKey the primary key of the shopping item field to find
 	 * @return the shopping item field
 	 * @throws com.liferay.portal.NoSuchModelException if a shopping item field with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
-	@Override
 	public ShoppingItemField findByPrimaryKey(Serializable primaryKey)
 		throws NoSuchModelException, SystemException {
 		return findByPrimaryKey(((Long)primaryKey).longValue());
 	}
 
 	/**
-	 * Returns the shopping item field with the primary key or throws a {@link com.liferay.shopping.NoSuchItemFieldException} if it could not be found.
+	 * Finds the shopping item field with the primary key or throws a {@link com.liferay.shopping.NoSuchItemFieldException} if it could not be found.
 	 *
-	 * @param itemFieldId the primary key of the shopping item field
+	 * @param itemFieldId the primary key of the shopping item field to find
 	 * @return the shopping item field
 	 * @throws com.liferay.shopping.NoSuchItemFieldException if a shopping item field with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
@@ -358,58 +326,44 @@ public class ShoppingItemFieldPersistenceImpl extends BasePersistenceImpl<Shoppi
 	}
 
 	/**
-	 * Returns the shopping item field with the primary key or returns <code>null</code> if it could not be found.
+	 * Finds the shopping item field with the primary key or returns <code>null</code> if it could not be found.
 	 *
-	 * @param primaryKey the primary key of the shopping item field
+	 * @param primaryKey the primary key of the shopping item field to find
 	 * @return the shopping item field, or <code>null</code> if a shopping item field with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
-	@Override
 	public ShoppingItemField fetchByPrimaryKey(Serializable primaryKey)
 		throws SystemException {
 		return fetchByPrimaryKey(((Long)primaryKey).longValue());
 	}
 
 	/**
-	 * Returns the shopping item field with the primary key or returns <code>null</code> if it could not be found.
+	 * Finds the shopping item field with the primary key or returns <code>null</code> if it could not be found.
 	 *
-	 * @param itemFieldId the primary key of the shopping item field
+	 * @param itemFieldId the primary key of the shopping item field to find
 	 * @return the shopping item field, or <code>null</code> if a shopping item field with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
 	public ShoppingItemField fetchByPrimaryKey(long itemFieldId)
 		throws SystemException {
 		ShoppingItemField shoppingItemField = (ShoppingItemField)EntityCacheUtil.getResult(ShoppingItemFieldModelImpl.ENTITY_CACHE_ENABLED,
-				ShoppingItemFieldImpl.class, itemFieldId);
-
-		if (shoppingItemField == _nullShoppingItemField) {
-			return null;
-		}
+				ShoppingItemFieldImpl.class, itemFieldId, this);
 
 		if (shoppingItemField == null) {
 			Session session = null;
-
-			boolean hasException = false;
 
 			try {
 				session = openSession();
 
 				shoppingItemField = (ShoppingItemField)session.get(ShoppingItemFieldImpl.class,
-						Long.valueOf(itemFieldId));
+						new Long(itemFieldId));
 			}
 			catch (Exception e) {
-				hasException = true;
-
 				throw processException(e);
 			}
 			finally {
 				if (shoppingItemField != null) {
 					cacheResult(shoppingItemField);
-				}
-				else if (!hasException) {
-					EntityCacheUtil.putResult(ShoppingItemFieldModelImpl.ENTITY_CACHE_ENABLED,
-						ShoppingItemFieldImpl.class, itemFieldId,
-						_nullShoppingItemField);
 				}
 
 				closeSession(session);
@@ -420,9 +374,9 @@ public class ShoppingItemFieldPersistenceImpl extends BasePersistenceImpl<Shoppi
 	}
 
 	/**
-	 * Returns all the shopping item fields where itemId = &#63;.
+	 * Finds all the shopping item fields where itemId = &#63;.
 	 *
-	 * @param itemId the item ID
+	 * @param itemId the item id to search with
 	 * @return the matching shopping item fields
 	 * @throws SystemException if a system exception occurred
 	 */
@@ -432,15 +386,15 @@ public class ShoppingItemFieldPersistenceImpl extends BasePersistenceImpl<Shoppi
 	}
 
 	/**
-	 * Returns a range of all the shopping item fields where itemId = &#63;.
+	 * Finds a range of all the shopping item fields where itemId = &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
 	 * </p>
 	 *
-	 * @param itemId the item ID
-	 * @param start the lower bound of the range of shopping item fields
-	 * @param end the upper bound of the range of shopping item fields (not inclusive)
+	 * @param itemId the item id to search with
+	 * @param start the lower bound of the range of shopping item fields to return
+	 * @param end the upper bound of the range of shopping item fields to return (not inclusive)
 	 * @return the range of matching shopping item fields
 	 * @throws SystemException if a system exception occurred
 	 */
@@ -450,22 +404,27 @@ public class ShoppingItemFieldPersistenceImpl extends BasePersistenceImpl<Shoppi
 	}
 
 	/**
-	 * Returns an ordered range of all the shopping item fields where itemId = &#63;.
+	 * Finds an ordered range of all the shopping item fields where itemId = &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
 	 * </p>
 	 *
-	 * @param itemId the item ID
-	 * @param start the lower bound of the range of shopping item fields
-	 * @param end the upper bound of the range of shopping item fields (not inclusive)
-	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param itemId the item id to search with
+	 * @param start the lower bound of the range of shopping item fields to return
+	 * @param end the upper bound of the range of shopping item fields to return (not inclusive)
+	 * @param orderByComparator the comparator to order the results by
 	 * @return the ordered range of matching shopping item fields
 	 * @throws SystemException if a system exception occurred
 	 */
 	public List<ShoppingItemField> findByItemId(long itemId, int start,
 		int end, OrderByComparator orderByComparator) throws SystemException {
-		Object[] finderArgs = new Object[] { itemId, start, end, orderByComparator };
+		Object[] finderArgs = new Object[] {
+				itemId,
+				
+				String.valueOf(start), String.valueOf(end),
+				String.valueOf(orderByComparator)
+			};
 
 		List<ShoppingItemField> list = (List<ShoppingItemField>)FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_ITEMID,
 				finderArgs, this);
@@ -533,14 +492,14 @@ public class ShoppingItemFieldPersistenceImpl extends BasePersistenceImpl<Shoppi
 	}
 
 	/**
-	 * Returns the first shopping item field in the ordered set where itemId = &#63;.
+	 * Finds the first shopping item field in the ordered set where itemId = &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
 	 * </p>
 	 *
-	 * @param itemId the item ID
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @param itemId the item id to search with
+	 * @param orderByComparator the comparator to order the set by
 	 * @return the first matching shopping item field
 	 * @throws com.liferay.shopping.NoSuchItemFieldException if a matching shopping item field could not be found
 	 * @throws SystemException if a system exception occurred
@@ -569,14 +528,14 @@ public class ShoppingItemFieldPersistenceImpl extends BasePersistenceImpl<Shoppi
 	}
 
 	/**
-	 * Returns the last shopping item field in the ordered set where itemId = &#63;.
+	 * Finds the last shopping item field in the ordered set where itemId = &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
 	 * </p>
 	 *
-	 * @param itemId the item ID
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @param itemId the item id to search with
+	 * @param orderByComparator the comparator to order the set by
 	 * @return the last matching shopping item field
 	 * @throws com.liferay.shopping.NoSuchItemFieldException if a matching shopping item field could not be found
 	 * @throws SystemException if a system exception occurred
@@ -607,15 +566,15 @@ public class ShoppingItemFieldPersistenceImpl extends BasePersistenceImpl<Shoppi
 	}
 
 	/**
-	 * Returns the shopping item fields before and after the current shopping item field in the ordered set where itemId = &#63;.
+	 * Finds the shopping item fields before and after the current shopping item field in the ordered set where itemId = &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
 	 * </p>
 	 *
 	 * @param itemFieldId the primary key of the current shopping item field
-	 * @param itemId the item ID
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @param itemId the item id to search with
+	 * @param orderByComparator the comparator to order the set by
 	 * @return the previous, current, and next shopping item field
 	 * @throws com.liferay.shopping.NoSuchItemFieldException if a shopping item field with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
@@ -668,17 +627,17 @@ public class ShoppingItemFieldPersistenceImpl extends BasePersistenceImpl<Shoppi
 		query.append(_FINDER_COLUMN_ITEMID_ITEMID_2);
 
 		if (orderByComparator != null) {
-			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
+			String[] orderByFields = orderByComparator.getOrderByFields();
 
-			if (orderByConditionFields.length > 0) {
+			if (orderByFields.length > 0) {
 				query.append(WHERE_AND);
 			}
 
-			for (int i = 0; i < orderByConditionFields.length; i++) {
+			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByConditionFields[i]);
+				query.append(orderByFields[i]);
 
-				if ((i + 1) < orderByConditionFields.length) {
+				if ((i + 1) < orderByFields.length) {
 					if (orderByComparator.isAscending() ^ previous) {
 						query.append(WHERE_GREATER_THAN_HAS_NEXT);
 					}
@@ -697,8 +656,6 @@ public class ShoppingItemFieldPersistenceImpl extends BasePersistenceImpl<Shoppi
 			}
 
 			query.append(ORDER_BY_CLAUSE);
-
-			String[] orderByFields = orderByComparator.getOrderByFields();
 
 			for (int i = 0; i < orderByFields.length; i++) {
 				query.append(_ORDER_BY_ENTITY_ALIAS);
@@ -739,7 +696,7 @@ public class ShoppingItemFieldPersistenceImpl extends BasePersistenceImpl<Shoppi
 		qPos.add(itemId);
 
 		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByConditionValues(shoppingItemField);
+			Object[] values = orderByComparator.getOrderByValues(shoppingItemField);
 
 			for (Object value : values) {
 				qPos.add(value);
@@ -757,7 +714,7 @@ public class ShoppingItemFieldPersistenceImpl extends BasePersistenceImpl<Shoppi
 	}
 
 	/**
-	 * Returns all the shopping item fields.
+	 * Finds all the shopping item fields.
 	 *
 	 * @return the shopping item fields
 	 * @throws SystemException if a system exception occurred
@@ -767,14 +724,14 @@ public class ShoppingItemFieldPersistenceImpl extends BasePersistenceImpl<Shoppi
 	}
 
 	/**
-	 * Returns a range of all the shopping item fields.
+	 * Finds a range of all the shopping item fields.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
 	 * </p>
 	 *
-	 * @param start the lower bound of the range of shopping item fields
-	 * @param end the upper bound of the range of shopping item fields (not inclusive)
+	 * @param start the lower bound of the range of shopping item fields to return
+	 * @param end the upper bound of the range of shopping item fields to return (not inclusive)
 	 * @return the range of shopping item fields
 	 * @throws SystemException if a system exception occurred
 	 */
@@ -784,21 +741,24 @@ public class ShoppingItemFieldPersistenceImpl extends BasePersistenceImpl<Shoppi
 	}
 
 	/**
-	 * Returns an ordered range of all the shopping item fields.
+	 * Finds an ordered range of all the shopping item fields.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
 	 * </p>
 	 *
-	 * @param start the lower bound of the range of shopping item fields
-	 * @param end the upper bound of the range of shopping item fields (not inclusive)
-	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param start the lower bound of the range of shopping item fields to return
+	 * @param end the upper bound of the range of shopping item fields to return (not inclusive)
+	 * @param orderByComparator the comparator to order the results by
 	 * @return the ordered range of shopping item fields
 	 * @throws SystemException if a system exception occurred
 	 */
 	public List<ShoppingItemField> findAll(int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
-		Object[] finderArgs = new Object[] { start, end, orderByComparator };
+		Object[] finderArgs = new Object[] {
+				String.valueOf(start), String.valueOf(end),
+				String.valueOf(orderByComparator)
+			};
 
 		List<ShoppingItemField> list = (List<ShoppingItemField>)FinderCacheUtil.getResult(FINDER_PATH_FIND_ALL,
 				finderArgs, this);
@@ -865,12 +825,12 @@ public class ShoppingItemFieldPersistenceImpl extends BasePersistenceImpl<Shoppi
 	/**
 	 * Removes all the shopping item fields where itemId = &#63; from the database.
 	 *
-	 * @param itemId the item ID
+	 * @param itemId the item id to search with
 	 * @throws SystemException if a system exception occurred
 	 */
 	public void removeByItemId(long itemId) throws SystemException {
 		for (ShoppingItemField shoppingItemField : findByItemId(itemId)) {
-			shoppingItemFieldPersistence.remove(shoppingItemField);
+			remove(shoppingItemField);
 		}
 	}
 
@@ -881,14 +841,14 @@ public class ShoppingItemFieldPersistenceImpl extends BasePersistenceImpl<Shoppi
 	 */
 	public void removeAll() throws SystemException {
 		for (ShoppingItemField shoppingItemField : findAll()) {
-			shoppingItemFieldPersistence.remove(shoppingItemField);
+			remove(shoppingItemField);
 		}
 	}
 
 	/**
-	 * Returns the number of shopping item fields where itemId = &#63;.
+	 * Counts all the shopping item fields where itemId = &#63;.
 	 *
-	 * @param itemId the item ID
+	 * @param itemId the item id to search with
 	 * @return the number of matching shopping item fields
 	 * @throws SystemException if a system exception occurred
 	 */
@@ -939,14 +899,16 @@ public class ShoppingItemFieldPersistenceImpl extends BasePersistenceImpl<Shoppi
 	}
 
 	/**
-	 * Returns the number of shopping item fields.
+	 * Counts all the shopping item fields.
 	 *
 	 * @return the number of shopping item fields
 	 * @throws SystemException if a system exception occurred
 	 */
 	public int countAll() throws SystemException {
+		Object[] finderArgs = new Object[0];
+
 		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_ALL,
-				FINDER_ARGS_EMPTY, this);
+				finderArgs, this);
 
 		if (count == null) {
 			Session session = null;
@@ -966,8 +928,8 @@ public class ShoppingItemFieldPersistenceImpl extends BasePersistenceImpl<Shoppi
 					count = Long.valueOf(0);
 				}
 
-				FinderCacheUtil.putResult(FINDER_PATH_COUNT_ALL,
-					FINDER_ARGS_EMPTY, count);
+				FinderCacheUtil.putResult(FINDER_PATH_COUNT_ALL, finderArgs,
+					count);
 
 				closeSession(session);
 			}
@@ -1035,25 +997,5 @@ public class ShoppingItemFieldPersistenceImpl extends BasePersistenceImpl<Shoppi
 	private static final String _ORDER_BY_ENTITY_ALIAS = "shoppingItemField.";
 	private static final String _NO_SUCH_ENTITY_WITH_PRIMARY_KEY = "No ShoppingItemField exists with the primary key ";
 	private static final String _NO_SUCH_ENTITY_WITH_KEY = "No ShoppingItemField exists with the key {";
-	private static final boolean _HIBERNATE_CACHE_USE_SECOND_LEVEL_CACHE = GetterUtil.getBoolean(PropsUtil.get(
-				PropsKeys.HIBERNATE_CACHE_USE_SECOND_LEVEL_CACHE));
 	private static Log _log = LogFactoryUtil.getLog(ShoppingItemFieldPersistenceImpl.class);
-	private static ShoppingItemField _nullShoppingItemField = new ShoppingItemFieldImpl() {
-			@Override
-			public Object clone() {
-				return this;
-			}
-
-			@Override
-			public CacheModel<ShoppingItemField> toCacheModel() {
-				return _nullShoppingItemFieldCacheModel;
-			}
-		};
-
-	private static CacheModel<ShoppingItemField> _nullShoppingItemFieldCacheModel =
-		new CacheModel<ShoppingItemField>() {
-			public ShoppingItemField toEntityModel() {
-				return _nullShoppingItemField;
-			}
-		};
 }

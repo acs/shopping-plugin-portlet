@@ -14,13 +14,16 @@
 
 package com.liferay.shopping.service.persistence;
 
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.service.persistence.BasePersistence;
 
 import com.liferay.shopping.model.ShoppingItem;
 
 /**
  * The persistence interface for the shopping item service.
+ *
+ * <p>
+ * Never modify or reference this interface directly. Always use {@link ShoppingItemUtil} to access the shopping item persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this interface.
+ * </p>
  *
  * <p>
  * Caching information and settings can be found in <code>portal.properties</code>
@@ -32,16 +35,10 @@ import com.liferay.shopping.model.ShoppingItem;
  * @generated
  */
 public interface ShoppingItemPersistence extends BasePersistence<ShoppingItem> {
-	/*
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never modify or reference this interface directly. Always use {@link ShoppingItemUtil} to access the shopping item persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this interface.
-	 */
-
 	/**
 	* Caches the shopping item in the entity cache if it is enabled.
 	*
-	* @param shoppingItem the shopping item
+	* @param shoppingItem the shopping item to cache
 	*/
 	public void cacheResult(
 		com.liferay.shopping.model.ShoppingItem shoppingItem);
@@ -49,7 +46,7 @@ public interface ShoppingItemPersistence extends BasePersistence<ShoppingItem> {
 	/**
 	* Caches the shopping items in the entity cache if it is enabled.
 	*
-	* @param shoppingItems the shopping items
+	* @param shoppingItems the shopping items to cache
 	*/
 	public void cacheResult(
 		java.util.List<com.liferay.shopping.model.ShoppingItem> shoppingItems);
@@ -65,7 +62,7 @@ public interface ShoppingItemPersistence extends BasePersistence<ShoppingItem> {
 	/**
 	* Removes the shopping item with the primary key from the database. Also notifies the appropriate model listeners.
 	*
-	* @param itemId the primary key of the shopping item
+	* @param itemId the primary key of the shopping item to remove
 	* @return the shopping item that was removed
 	* @throws com.liferay.shopping.NoSuchItemException if a shopping item with the primary key could not be found
 	* @throws SystemException if a system exception occurred
@@ -79,9 +76,9 @@ public interface ShoppingItemPersistence extends BasePersistence<ShoppingItem> {
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* Returns the shopping item with the primary key or throws a {@link com.liferay.shopping.NoSuchItemException} if it could not be found.
+	* Finds the shopping item with the primary key or throws a {@link com.liferay.shopping.NoSuchItemException} if it could not be found.
 	*
-	* @param itemId the primary key of the shopping item
+	* @param itemId the primary key of the shopping item to find
 	* @return the shopping item
 	* @throws com.liferay.shopping.NoSuchItemException if a shopping item with the primary key could not be found
 	* @throws SystemException if a system exception occurred
@@ -91,9 +88,9 @@ public interface ShoppingItemPersistence extends BasePersistence<ShoppingItem> {
 			com.liferay.shopping.NoSuchItemException;
 
 	/**
-	* Returns the shopping item with the primary key or returns <code>null</code> if it could not be found.
+	* Finds the shopping item with the primary key or returns <code>null</code> if it could not be found.
 	*
-	* @param itemId the primary key of the shopping item
+	* @param itemId the primary key of the shopping item to find
 	* @return the shopping item, or <code>null</code> if a shopping item with the primary key could not be found
 	* @throws SystemException if a system exception occurred
 	*/
@@ -101,9 +98,9 @@ public interface ShoppingItemPersistence extends BasePersistence<ShoppingItem> {
 		long itemId) throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* Returns the shopping item where smallImageId = &#63; or throws a {@link com.liferay.shopping.NoSuchItemException} if it could not be found.
+	* Finds the shopping item where smallImageId = &#63; or throws a {@link com.liferay.shopping.NoSuchItemException} if it could not be found.
 	*
-	* @param smallImageId the small image ID
+	* @param smallImageId the small image id to search with
 	* @return the matching shopping item
 	* @throws com.liferay.shopping.NoSuchItemException if a matching shopping item could not be found
 	* @throws SystemException if a system exception occurred
@@ -114,9 +111,9 @@ public interface ShoppingItemPersistence extends BasePersistence<ShoppingItem> {
 			com.liferay.shopping.NoSuchItemException;
 
 	/**
-	* Returns the shopping item where smallImageId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	* Finds the shopping item where smallImageId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
 	*
-	* @param smallImageId the small image ID
+	* @param smallImageId the small image id to search with
 	* @return the matching shopping item, or <code>null</code> if a matching shopping item could not be found
 	* @throws SystemException if a system exception occurred
 	*/
@@ -125,10 +122,9 @@ public interface ShoppingItemPersistence extends BasePersistence<ShoppingItem> {
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* Returns the shopping item where smallImageId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	* Finds the shopping item where smallImageId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
 	*
-	* @param smallImageId the small image ID
-	* @param retrieveFromCache whether to use the finder cache
+	* @param smallImageId the small image id to search with
 	* @return the matching shopping item, or <code>null</code> if a matching shopping item could not be found
 	* @throws SystemException if a system exception occurred
 	*/
@@ -137,9 +133,9 @@ public interface ShoppingItemPersistence extends BasePersistence<ShoppingItem> {
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* Returns the shopping item where mediumImageId = &#63; or throws a {@link com.liferay.shopping.NoSuchItemException} if it could not be found.
+	* Finds the shopping item where mediumImageId = &#63; or throws a {@link com.liferay.shopping.NoSuchItemException} if it could not be found.
 	*
-	* @param mediumImageId the medium image ID
+	* @param mediumImageId the medium image id to search with
 	* @return the matching shopping item
 	* @throws com.liferay.shopping.NoSuchItemException if a matching shopping item could not be found
 	* @throws SystemException if a system exception occurred
@@ -150,9 +146,9 @@ public interface ShoppingItemPersistence extends BasePersistence<ShoppingItem> {
 			com.liferay.shopping.NoSuchItemException;
 
 	/**
-	* Returns the shopping item where mediumImageId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	* Finds the shopping item where mediumImageId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
 	*
-	* @param mediumImageId the medium image ID
+	* @param mediumImageId the medium image id to search with
 	* @return the matching shopping item, or <code>null</code> if a matching shopping item could not be found
 	* @throws SystemException if a system exception occurred
 	*/
@@ -161,10 +157,9 @@ public interface ShoppingItemPersistence extends BasePersistence<ShoppingItem> {
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* Returns the shopping item where mediumImageId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	* Finds the shopping item where mediumImageId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
 	*
-	* @param mediumImageId the medium image ID
-	* @param retrieveFromCache whether to use the finder cache
+	* @param mediumImageId the medium image id to search with
 	* @return the matching shopping item, or <code>null</code> if a matching shopping item could not be found
 	* @throws SystemException if a system exception occurred
 	*/
@@ -173,9 +168,9 @@ public interface ShoppingItemPersistence extends BasePersistence<ShoppingItem> {
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* Returns the shopping item where largeImageId = &#63; or throws a {@link com.liferay.shopping.NoSuchItemException} if it could not be found.
+	* Finds the shopping item where largeImageId = &#63; or throws a {@link com.liferay.shopping.NoSuchItemException} if it could not be found.
 	*
-	* @param largeImageId the large image ID
+	* @param largeImageId the large image id to search with
 	* @return the matching shopping item
 	* @throws com.liferay.shopping.NoSuchItemException if a matching shopping item could not be found
 	* @throws SystemException if a system exception occurred
@@ -186,9 +181,9 @@ public interface ShoppingItemPersistence extends BasePersistence<ShoppingItem> {
 			com.liferay.shopping.NoSuchItemException;
 
 	/**
-	* Returns the shopping item where largeImageId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	* Finds the shopping item where largeImageId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
 	*
-	* @param largeImageId the large image ID
+	* @param largeImageId the large image id to search with
 	* @return the matching shopping item, or <code>null</code> if a matching shopping item could not be found
 	* @throws SystemException if a system exception occurred
 	*/
@@ -197,10 +192,9 @@ public interface ShoppingItemPersistence extends BasePersistence<ShoppingItem> {
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* Returns the shopping item where largeImageId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	* Finds the shopping item where largeImageId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
 	*
-	* @param largeImageId the large image ID
-	* @param retrieveFromCache whether to use the finder cache
+	* @param largeImageId the large image id to search with
 	* @return the matching shopping item, or <code>null</code> if a matching shopping item could not be found
 	* @throws SystemException if a system exception occurred
 	*/
@@ -209,10 +203,10 @@ public interface ShoppingItemPersistence extends BasePersistence<ShoppingItem> {
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* Returns all the shopping items where groupId = &#63; and categoryId = &#63;.
+	* Finds all the shopping items where groupId = &#63; and categoryId = &#63;.
 	*
-	* @param groupId the group ID
-	* @param categoryId the category ID
+	* @param groupId the group id to search with
+	* @param categoryId the category id to search with
 	* @return the matching shopping items
 	* @throws SystemException if a system exception occurred
 	*/
@@ -221,16 +215,16 @@ public interface ShoppingItemPersistence extends BasePersistence<ShoppingItem> {
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* Returns a range of all the shopping items where groupId = &#63; and categoryId = &#63;.
+	* Finds a range of all the shopping items where groupId = &#63; and categoryId = &#63;.
 	*
 	* <p>
 	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
 	* </p>
 	*
-	* @param groupId the group ID
-	* @param categoryId the category ID
-	* @param start the lower bound of the range of shopping items
-	* @param end the upper bound of the range of shopping items (not inclusive)
+	* @param groupId the group id to search with
+	* @param categoryId the category id to search with
+	* @param start the lower bound of the range of shopping items to return
+	* @param end the upper bound of the range of shopping items to return (not inclusive)
 	* @return the range of matching shopping items
 	* @throws SystemException if a system exception occurred
 	*/
@@ -239,17 +233,17 @@ public interface ShoppingItemPersistence extends BasePersistence<ShoppingItem> {
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* Returns an ordered range of all the shopping items where groupId = &#63; and categoryId = &#63;.
+	* Finds an ordered range of all the shopping items where groupId = &#63; and categoryId = &#63;.
 	*
 	* <p>
 	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
 	* </p>
 	*
-	* @param groupId the group ID
-	* @param categoryId the category ID
-	* @param start the lower bound of the range of shopping items
-	* @param end the upper bound of the range of shopping items (not inclusive)
-	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	* @param groupId the group id to search with
+	* @param categoryId the category id to search with
+	* @param start the lower bound of the range of shopping items to return
+	* @param end the upper bound of the range of shopping items to return (not inclusive)
+	* @param orderByComparator the comparator to order the results by
 	* @return the ordered range of matching shopping items
 	* @throws SystemException if a system exception occurred
 	*/
@@ -259,15 +253,15 @@ public interface ShoppingItemPersistence extends BasePersistence<ShoppingItem> {
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* Returns the first shopping item in the ordered set where groupId = &#63; and categoryId = &#63;.
+	* Finds the first shopping item in the ordered set where groupId = &#63; and categoryId = &#63;.
 	*
 	* <p>
 	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
 	* </p>
 	*
-	* @param groupId the group ID
-	* @param categoryId the category ID
-	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @param groupId the group id to search with
+	* @param categoryId the category id to search with
+	* @param orderByComparator the comparator to order the set by
 	* @return the first matching shopping item
 	* @throws com.liferay.shopping.NoSuchItemException if a matching shopping item could not be found
 	* @throws SystemException if a system exception occurred
@@ -279,15 +273,15 @@ public interface ShoppingItemPersistence extends BasePersistence<ShoppingItem> {
 			com.liferay.shopping.NoSuchItemException;
 
 	/**
-	* Returns the last shopping item in the ordered set where groupId = &#63; and categoryId = &#63;.
+	* Finds the last shopping item in the ordered set where groupId = &#63; and categoryId = &#63;.
 	*
 	* <p>
 	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
 	* </p>
 	*
-	* @param groupId the group ID
-	* @param categoryId the category ID
-	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @param groupId the group id to search with
+	* @param categoryId the category id to search with
+	* @param orderByComparator the comparator to order the set by
 	* @return the last matching shopping item
 	* @throws com.liferay.shopping.NoSuchItemException if a matching shopping item could not be found
 	* @throws SystemException if a system exception occurred
@@ -299,16 +293,16 @@ public interface ShoppingItemPersistence extends BasePersistence<ShoppingItem> {
 			com.liferay.shopping.NoSuchItemException;
 
 	/**
-	* Returns the shopping items before and after the current shopping item in the ordered set where groupId = &#63; and categoryId = &#63;.
+	* Finds the shopping items before and after the current shopping item in the ordered set where groupId = &#63; and categoryId = &#63;.
 	*
 	* <p>
 	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
 	* </p>
 	*
 	* @param itemId the primary key of the current shopping item
-	* @param groupId the group ID
-	* @param categoryId the category ID
-	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @param groupId the group id to search with
+	* @param categoryId the category id to search with
+	* @param orderByComparator the comparator to order the set by
 	* @return the previous, current, and next shopping item
 	* @throws com.liferay.shopping.NoSuchItemException if a shopping item with the primary key could not be found
 	* @throws SystemException if a system exception occurred
@@ -320,77 +314,10 @@ public interface ShoppingItemPersistence extends BasePersistence<ShoppingItem> {
 			com.liferay.shopping.NoSuchItemException;
 
 	/**
-	* Returns all the shopping items that the user has permission to view where groupId = &#63; and categoryId = &#63;.
+	* Finds the shopping item where companyId = &#63; and sku = &#63; or throws a {@link com.liferay.shopping.NoSuchItemException} if it could not be found.
 	*
-	* @param groupId the group ID
-	* @param categoryId the category ID
-	* @return the matching shopping items that the user has permission to view
-	* @throws SystemException if a system exception occurred
-	*/
-	public java.util.List<com.liferay.shopping.model.ShoppingItem> filterFindByG_C(
-		long groupId, long categoryId)
-		throws com.liferay.portal.kernel.exception.SystemException;
-
-	/**
-	* Returns a range of all the shopping items that the user has permission to view where groupId = &#63; and categoryId = &#63;.
-	*
-	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	* </p>
-	*
-	* @param groupId the group ID
-	* @param categoryId the category ID
-	* @param start the lower bound of the range of shopping items
-	* @param end the upper bound of the range of shopping items (not inclusive)
-	* @return the range of matching shopping items that the user has permission to view
-	* @throws SystemException if a system exception occurred
-	*/
-	public java.util.List<com.liferay.shopping.model.ShoppingItem> filterFindByG_C(
-		long groupId, long categoryId, int start, int end)
-		throws com.liferay.portal.kernel.exception.SystemException;
-
-	/**
-	* Returns an ordered range of all the shopping items that the user has permissions to view where groupId = &#63; and categoryId = &#63;.
-	*
-	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	* </p>
-	*
-	* @param groupId the group ID
-	* @param categoryId the category ID
-	* @param start the lower bound of the range of shopping items
-	* @param end the upper bound of the range of shopping items (not inclusive)
-	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	* @return the ordered range of matching shopping items that the user has permission to view
-	* @throws SystemException if a system exception occurred
-	*/
-	public java.util.List<com.liferay.shopping.model.ShoppingItem> filterFindByG_C(
-		long groupId, long categoryId, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
-		throws com.liferay.portal.kernel.exception.SystemException;
-
-	/**
-	* Returns the shopping items before and after the current shopping item in the ordered set of shopping items that the user has permission to view where groupId = &#63; and categoryId = &#63;.
-	*
-	* @param itemId the primary key of the current shopping item
-	* @param groupId the group ID
-	* @param categoryId the category ID
-	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	* @return the previous, current, and next shopping item
-	* @throws com.liferay.shopping.NoSuchItemException if a shopping item with the primary key could not be found
-	* @throws SystemException if a system exception occurred
-	*/
-	public com.liferay.shopping.model.ShoppingItem[] filterFindByG_C_PrevAndNext(
-		long itemId, long groupId, long categoryId,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
-		throws com.liferay.portal.kernel.exception.SystemException,
-			com.liferay.shopping.NoSuchItemException;
-
-	/**
-	* Returns the shopping item where companyId = &#63; and sku = &#63; or throws a {@link com.liferay.shopping.NoSuchItemException} if it could not be found.
-	*
-	* @param companyId the company ID
-	* @param sku the sku
+	* @param companyId the company id to search with
+	* @param sku the sku to search with
 	* @return the matching shopping item
 	* @throws com.liferay.shopping.NoSuchItemException if a matching shopping item could not be found
 	* @throws SystemException if a system exception occurred
@@ -401,10 +328,10 @@ public interface ShoppingItemPersistence extends BasePersistence<ShoppingItem> {
 			com.liferay.shopping.NoSuchItemException;
 
 	/**
-	* Returns the shopping item where companyId = &#63; and sku = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	* Finds the shopping item where companyId = &#63; and sku = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
 	*
-	* @param companyId the company ID
-	* @param sku the sku
+	* @param companyId the company id to search with
+	* @param sku the sku to search with
 	* @return the matching shopping item, or <code>null</code> if a matching shopping item could not be found
 	* @throws SystemException if a system exception occurred
 	*/
@@ -413,11 +340,10 @@ public interface ShoppingItemPersistence extends BasePersistence<ShoppingItem> {
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* Returns the shopping item where companyId = &#63; and sku = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	* Finds the shopping item where companyId = &#63; and sku = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
 	*
-	* @param companyId the company ID
-	* @param sku the sku
-	* @param retrieveFromCache whether to use the finder cache
+	* @param companyId the company id to search with
+	* @param sku the sku to search with
 	* @return the matching shopping item, or <code>null</code> if a matching shopping item could not be found
 	* @throws SystemException if a system exception occurred
 	*/
@@ -426,7 +352,7 @@ public interface ShoppingItemPersistence extends BasePersistence<ShoppingItem> {
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* Returns all the shopping items.
+	* Finds all the shopping items.
 	*
 	* @return the shopping items
 	* @throws SystemException if a system exception occurred
@@ -435,14 +361,14 @@ public interface ShoppingItemPersistence extends BasePersistence<ShoppingItem> {
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* Returns a range of all the shopping items.
+	* Finds a range of all the shopping items.
 	*
 	* <p>
 	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
 	* </p>
 	*
-	* @param start the lower bound of the range of shopping items
-	* @param end the upper bound of the range of shopping items (not inclusive)
+	* @param start the lower bound of the range of shopping items to return
+	* @param end the upper bound of the range of shopping items to return (not inclusive)
 	* @return the range of shopping items
 	* @throws SystemException if a system exception occurred
 	*/
@@ -451,15 +377,15 @@ public interface ShoppingItemPersistence extends BasePersistence<ShoppingItem> {
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* Returns an ordered range of all the shopping items.
+	* Finds an ordered range of all the shopping items.
 	*
 	* <p>
 	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
 	* </p>
 	*
-	* @param start the lower bound of the range of shopping items
-	* @param end the upper bound of the range of shopping items (not inclusive)
-	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	* @param start the lower bound of the range of shopping items to return
+	* @param end the upper bound of the range of shopping items to return (not inclusive)
+	* @param orderByComparator the comparator to order the results by
 	* @return the ordered range of shopping items
 	* @throws SystemException if a system exception occurred
 	*/
@@ -471,7 +397,7 @@ public interface ShoppingItemPersistence extends BasePersistence<ShoppingItem> {
 	/**
 	* Removes the shopping item where smallImageId = &#63; from the database.
 	*
-	* @param smallImageId the small image ID
+	* @param smallImageId the small image id to search with
 	* @throws SystemException if a system exception occurred
 	*/
 	public void removeBySmallImageId(long smallImageId)
@@ -481,7 +407,7 @@ public interface ShoppingItemPersistence extends BasePersistence<ShoppingItem> {
 	/**
 	* Removes the shopping item where mediumImageId = &#63; from the database.
 	*
-	* @param mediumImageId the medium image ID
+	* @param mediumImageId the medium image id to search with
 	* @throws SystemException if a system exception occurred
 	*/
 	public void removeByMediumImageId(long mediumImageId)
@@ -491,7 +417,7 @@ public interface ShoppingItemPersistence extends BasePersistence<ShoppingItem> {
 	/**
 	* Removes the shopping item where largeImageId = &#63; from the database.
 	*
-	* @param largeImageId the large image ID
+	* @param largeImageId the large image id to search with
 	* @throws SystemException if a system exception occurred
 	*/
 	public void removeByLargeImageId(long largeImageId)
@@ -501,8 +427,8 @@ public interface ShoppingItemPersistence extends BasePersistence<ShoppingItem> {
 	/**
 	* Removes all the shopping items where groupId = &#63; and categoryId = &#63; from the database.
 	*
-	* @param groupId the group ID
-	* @param categoryId the category ID
+	* @param groupId the group id to search with
+	* @param categoryId the category id to search with
 	* @throws SystemException if a system exception occurred
 	*/
 	public void removeByG_C(long groupId, long categoryId)
@@ -511,8 +437,8 @@ public interface ShoppingItemPersistence extends BasePersistence<ShoppingItem> {
 	/**
 	* Removes the shopping item where companyId = &#63; and sku = &#63; from the database.
 	*
-	* @param companyId the company ID
-	* @param sku the sku
+	* @param companyId the company id to search with
+	* @param sku the sku to search with
 	* @throws SystemException if a system exception occurred
 	*/
 	public void removeByC_S(long companyId, java.lang.String sku)
@@ -528,9 +454,9 @@ public interface ShoppingItemPersistence extends BasePersistence<ShoppingItem> {
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* Returns the number of shopping items where smallImageId = &#63;.
+	* Counts all the shopping items where smallImageId = &#63;.
 	*
-	* @param smallImageId the small image ID
+	* @param smallImageId the small image id to search with
 	* @return the number of matching shopping items
 	* @throws SystemException if a system exception occurred
 	*/
@@ -538,9 +464,9 @@ public interface ShoppingItemPersistence extends BasePersistence<ShoppingItem> {
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* Returns the number of shopping items where mediumImageId = &#63;.
+	* Counts all the shopping items where mediumImageId = &#63;.
 	*
-	* @param mediumImageId the medium image ID
+	* @param mediumImageId the medium image id to search with
 	* @return the number of matching shopping items
 	* @throws SystemException if a system exception occurred
 	*/
@@ -548,9 +474,9 @@ public interface ShoppingItemPersistence extends BasePersistence<ShoppingItem> {
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* Returns the number of shopping items where largeImageId = &#63;.
+	* Counts all the shopping items where largeImageId = &#63;.
 	*
-	* @param largeImageId the large image ID
+	* @param largeImageId the large image id to search with
 	* @return the number of matching shopping items
 	* @throws SystemException if a system exception occurred
 	*/
@@ -558,10 +484,10 @@ public interface ShoppingItemPersistence extends BasePersistence<ShoppingItem> {
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* Returns the number of shopping items where groupId = &#63; and categoryId = &#63;.
+	* Counts all the shopping items where groupId = &#63; and categoryId = &#63;.
 	*
-	* @param groupId the group ID
-	* @param categoryId the category ID
+	* @param groupId the group id to search with
+	* @param categoryId the category id to search with
 	* @return the number of matching shopping items
 	* @throws SystemException if a system exception occurred
 	*/
@@ -569,21 +495,10 @@ public interface ShoppingItemPersistence extends BasePersistence<ShoppingItem> {
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* Returns the number of shopping items that the user has permission to view where groupId = &#63; and categoryId = &#63;.
+	* Counts all the shopping items where companyId = &#63; and sku = &#63;.
 	*
-	* @param groupId the group ID
-	* @param categoryId the category ID
-	* @return the number of matching shopping items that the user has permission to view
-	* @throws SystemException if a system exception occurred
-	*/
-	public int filterCountByG_C(long groupId, long categoryId)
-		throws com.liferay.portal.kernel.exception.SystemException;
-
-	/**
-	* Returns the number of shopping items where companyId = &#63; and sku = &#63;.
-	*
-	* @param companyId the company ID
-	* @param sku the sku
+	* @param companyId the company id to search with
+	* @param sku the sku to search with
 	* @return the number of matching shopping items
 	* @throws SystemException if a system exception occurred
 	*/
@@ -591,7 +506,7 @@ public interface ShoppingItemPersistence extends BasePersistence<ShoppingItem> {
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* Returns the number of shopping items.
+	* Counts all the shopping items.
 	*
 	* @return the number of shopping items
 	* @throws SystemException if a system exception occurred
@@ -600,9 +515,9 @@ public interface ShoppingItemPersistence extends BasePersistence<ShoppingItem> {
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* Returns all the shopping item prices associated with the shopping item.
+	* Gets all the shopping item prices associated with the shopping item.
 	*
-	* @param pk the primary key of the shopping item
+	* @param pk the primary key of the shopping item to get the associated shopping item prices for
 	* @return the shopping item prices associated with the shopping item
 	* @throws SystemException if a system exception occurred
 	*/
@@ -610,15 +525,15 @@ public interface ShoppingItemPersistence extends BasePersistence<ShoppingItem> {
 		long pk) throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* Returns a range of all the shopping item prices associated with the shopping item.
+	* Gets a range of all the shopping item prices associated with the shopping item.
 	*
 	* <p>
 	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
 	* </p>
 	*
-	* @param pk the primary key of the shopping item
-	* @param start the lower bound of the range of shopping items
-	* @param end the upper bound of the range of shopping items (not inclusive)
+	* @param pk the primary key of the shopping item to get the associated shopping item prices for
+	* @param start the lower bound of the range of shopping items to return
+	* @param end the upper bound of the range of shopping items to return (not inclusive)
 	* @return the range of shopping item prices associated with the shopping item
 	* @throws SystemException if a system exception occurred
 	*/
@@ -627,16 +542,16 @@ public interface ShoppingItemPersistence extends BasePersistence<ShoppingItem> {
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* Returns an ordered range of all the shopping item prices associated with the shopping item.
+	* Gets an ordered range of all the shopping item prices associated with the shopping item.
 	*
 	* <p>
 	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
 	* </p>
 	*
-	* @param pk the primary key of the shopping item
-	* @param start the lower bound of the range of shopping items
-	* @param end the upper bound of the range of shopping items (not inclusive)
-	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	* @param pk the primary key of the shopping item to get the associated shopping item prices for
+	* @param start the lower bound of the range of shopping items to return
+	* @param end the upper bound of the range of shopping items to return (not inclusive)
+	* @param orderByComparator the comparator to order the results by
 	* @return the ordered range of shopping item prices associated with the shopping item
 	* @throws SystemException if a system exception occurred
 	*/
@@ -646,9 +561,9 @@ public interface ShoppingItemPersistence extends BasePersistence<ShoppingItem> {
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* Returns the number of shopping item prices associated with the shopping item.
+	* Gets the number of shopping item prices associated with the shopping item.
 	*
-	* @param pk the primary key of the shopping item
+	* @param pk the primary key of the shopping item to get the number of associated shopping item prices for
 	* @return the number of shopping item prices associated with the shopping item
 	* @throws SystemException if a system exception occurred
 	*/
@@ -656,7 +571,7 @@ public interface ShoppingItemPersistence extends BasePersistence<ShoppingItem> {
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* Returns <code>true</code> if the shopping item price is associated with the shopping item.
+	* Determines if the shopping item price is associated with the shopping item.
 	*
 	* @param pk the primary key of the shopping item
 	* @param shoppingItemPricePK the primary key of the shopping item price
@@ -667,7 +582,7 @@ public interface ShoppingItemPersistence extends BasePersistence<ShoppingItem> {
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* Returns <code>true</code> if the shopping item has any shopping item prices associated with it.
+	* Determines if the shopping item has any shopping item prices associated with it.
 	*
 	* @param pk the primary key of the shopping item to check for associations with shopping item prices
 	* @return <code>true</code> if the shopping item has any shopping item prices associated with it; <code>false</code> otherwise
@@ -675,7 +590,4 @@ public interface ShoppingItemPersistence extends BasePersistence<ShoppingItem> {
 	*/
 	public boolean containsShoppingItemPrices(long pk)
 		throws com.liferay.portal.kernel.exception.SystemException;
-
-	public ShoppingItem remove(ShoppingItem shoppingItem)
-		throws SystemException;
 }

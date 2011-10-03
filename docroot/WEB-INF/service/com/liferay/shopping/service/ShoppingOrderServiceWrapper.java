@@ -99,10 +99,5 @@ public class ShoppingOrderServiceWrapper implements ShoppingOrderService {
 		return _shoppingOrderService;
 	}
 
-	public void setWrappedShoppingOrderService(
-		ShoppingOrderService shoppingOrderService) {
-		_shoppingOrderService = shoppingOrderService;
-	}
-
 	private ShoppingOrderService _shoppingOrderService;
 }

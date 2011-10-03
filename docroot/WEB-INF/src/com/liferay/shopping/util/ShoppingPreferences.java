@@ -25,7 +25,7 @@ import com.liferay.portal.service.PortletPreferencesLocalServiceUtil;
 import com.liferay.portal.util.PortletKeys;
 import com.liferay.portal.kernel.util.PropsUtil;
 // import com.liferay.portal.util.PropsUtil;
-import com.liferay.util.ContentUtil;
+// import com.liferay.util.ContentUtil;
 
 import java.io.IOException;
 

@@ -16,7 +16,7 @@ package com.liferay.shopping.model.impl;
 
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
-import com.liferay.portal.model.CacheModel;
+// import com.liferay.portal.model.CacheModel;
 
 import com.liferay.shopping.model.ShoppingCart;
 
@@ -107,7 +107,7 @@ public class ShoppingCartCacheModel implements CacheModel<ShoppingCart> {
 		shoppingCartImpl.setAltShipping(altShipping);
 		shoppingCartImpl.setInsure(insure);
 
-		shoppingCartImpl.resetOriginalValues();
+		// shoppingCartImpl.resetOriginalValues();
 
 		return shoppingCartImpl;
 	}

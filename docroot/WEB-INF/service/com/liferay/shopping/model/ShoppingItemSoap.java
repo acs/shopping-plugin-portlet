@@ -21,7 +21,10 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * This class is used by SOAP remote services, specifically {@link com.liferay.shopping.service.http.ShoppingItemServiceSoap}.
+ * <p>
+ * This class is used by
+ * {@link com.liferay.shopping.service.http.ShoppingItemServiceSoap}.
+ * </p>
  *
  * @author    Brian Wing Shun Chan
  * @see       com.liferay.shopping.service.http.ShoppingItemServiceSoap

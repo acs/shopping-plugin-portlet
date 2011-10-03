@@ -15,11 +15,8 @@
 package com.liferay.shopping.model;
 
 import com.liferay.portal.kernel.bean.AutoEscapeBeanHandler;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.model.impl.BaseModelImpl;
-
-import com.liferay.shopping.service.ShoppingItemPriceLocalServiceUtil;
 
 import java.io.Serializable;
 
@@ -33,28 +30,16 @@ public class ShoppingItemPriceClp extends BaseModelImpl<ShoppingItemPrice>
 	public ShoppingItemPriceClp() {
 	}
 
-	public Class<?> getModelClass() {
-		return ShoppingItemPrice.class;
-	}
-
-	public String getModelClassName() {
-		return ShoppingItemPrice.class.getName();
-	}
-
 	public long getPrimaryKey() {
 		return _itemPriceId;
 	}
 
-	public void setPrimaryKey(long primaryKey) {
-		setItemPriceId(primaryKey);
+	public void setPrimaryKey(long pk) {
+		setItemPriceId(pk);
 	}
 
 	public Serializable getPrimaryKeyObj() {
 		return new Long(_itemPriceId);
-	}
-
-	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
-		setPrimaryKey(((Long)primaryKeyObj).longValue());
 	}
 
 	public long getItemPriceId() {
@@ -145,11 +130,6 @@ public class ShoppingItemPriceClp extends BaseModelImpl<ShoppingItemPrice>
 		_status = status;
 	}
 
-	public void persist() throws SystemException {
-		ShoppingItemPriceLocalServiceUtil.updateShoppingItemPrice(this);
-	}
-
-	@Override
 	public ShoppingItemPrice toEscapedModel() {
 		if (isEscapedModel()) {
 			return this;
@@ -161,7 +141,6 @@ public class ShoppingItemPriceClp extends BaseModelImpl<ShoppingItemPrice>
 		}
 	}
 
-	@Override
 	public Object clone() {
 		ShoppingItemPriceClp clone = new ShoppingItemPriceClp();
 
@@ -213,7 +192,6 @@ public class ShoppingItemPriceClp extends BaseModelImpl<ShoppingItemPrice>
 		return 0;
 	}
 
-	@Override
 	public boolean equals(Object obj) {
 		if (obj == null) {
 			return false;
@@ -228,9 +206,9 @@ public class ShoppingItemPriceClp extends BaseModelImpl<ShoppingItemPrice>
 			return false;
 		}
 
-		long primaryKey = shoppingItemPrice.getPrimaryKey();
+		long pk = shoppingItemPrice.getPrimaryKey();
 
-		if (getPrimaryKey() == primaryKey) {
+		if (getPrimaryKey() == pk) {
 			return true;
 		}
 		else {
@@ -238,12 +216,10 @@ public class ShoppingItemPriceClp extends BaseModelImpl<ShoppingItemPrice>
 		}
 	}
 
-	@Override
 	public int hashCode() {
 		return (int)getPrimaryKey();
 	}
 
-	@Override
 	public String toString() {
 		StringBundler sb = new StringBundler(21);
 

@@ -1,4 +1,4 @@
-Liferay.Service.register("Liferay.Service.Shopping", "com.liferay.shopping.service", "shopping-plugin-portlet");
+Liferay.Service.register("Liferay.Service.Shopping", "com.liferay.shopping.service");
 
 Liferay.Service.registerClass(
 	Liferay.Service.Shopping, "ShoppingCategory",

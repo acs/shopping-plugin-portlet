@@ -24,52 +24,6 @@ import com.liferay.portal.kernel.util.MethodKey;
 public class ShoppingItemServiceClp implements ShoppingItemService {
 	public ShoppingItemServiceClp(ClassLoaderProxy classLoaderProxy) {
 		_classLoaderProxy = classLoaderProxy;
-
-		_addItemMethodKey0 = new MethodKey(_classLoaderProxy.getClassName(),
-				"addItem", long.class, long.class, java.lang.String.class,
-				java.lang.String.class, java.lang.String.class,
-				java.lang.String.class, java.lang.String.class, boolean.class,
-				int.class, boolean.class, java.lang.Boolean.class,
-				boolean.class, java.lang.String.class, java.io.File.class,
-				boolean.class, java.lang.String.class, java.io.File.class,
-				boolean.class, java.lang.String.class, java.io.File.class,
-				java.util.List.class, java.util.List.class,
-				com.liferay.portal.service.ServiceContext.class);
-
-		_deleteItemMethodKey1 = new MethodKey(_classLoaderProxy.getClassName(),
-				"deleteItem", long.class);
-
-		_getCategoriesItemsCountMethodKey2 = new MethodKey(_classLoaderProxy.getClassName(),
-				"getCategoriesItemsCount", long.class, java.util.List.class);
-
-		_getItemMethodKey3 = new MethodKey(_classLoaderProxy.getClassName(),
-				"getItem", long.class);
-
-		_getItemsMethodKey4 = new MethodKey(_classLoaderProxy.getClassName(),
-				"getItems", long.class, long.class);
-
-		_getItemsMethodKey5 = new MethodKey(_classLoaderProxy.getClassName(),
-				"getItems", long.class, long.class, int.class, int.class,
-				com.liferay.portal.kernel.util.OrderByComparator.class);
-
-		_getItemsCountMethodKey6 = new MethodKey(_classLoaderProxy.getClassName(),
-				"getItemsCount", long.class, long.class);
-
-		_getItemsPrevAndNextMethodKey7 = new MethodKey(_classLoaderProxy.getClassName(),
-				"getItemsPrevAndNext", long.class,
-				com.liferay.portal.kernel.util.OrderByComparator.class);
-
-		_updateItemMethodKey8 = new MethodKey(_classLoaderProxy.getClassName(),
-				"updateItem", long.class, long.class, long.class,
-				java.lang.String.class, java.lang.String.class,
-				java.lang.String.class, java.lang.String.class,
-				java.lang.String.class, boolean.class, int.class,
-				boolean.class, java.lang.Boolean.class, boolean.class,
-				java.lang.String.class, java.io.File.class, boolean.class,
-				java.lang.String.class, java.io.File.class, boolean.class,
-				java.lang.String.class, java.io.File.class,
-				java.util.List.class, java.util.List.class,
-				com.liferay.portal.service.ServiceContext.class);
 	}
 
 	public com.liferay.shopping.model.ShoppingItem addItem(long groupId,
@@ -91,22 +45,11 @@ public class ShoppingItemServiceClp implements ShoppingItemService {
 		Object returnObj = null;
 
 		MethodHandler methodHandler = new MethodHandler(_addItemMethodKey0,
-				groupId, categoryId, ClpSerializer.translateInput(sku),
-				ClpSerializer.translateInput(name),
-				ClpSerializer.translateInput(description),
-				ClpSerializer.translateInput(properties),
-				ClpSerializer.translateInput(fieldsQuantities),
-				requiresShipping, stockQuantity, featured,
-				ClpSerializer.translateInput(sale), smallImage,
-				ClpSerializer.translateInput(smallImageURL),
-				ClpSerializer.translateInput(smallFile), mediumImage,
-				ClpSerializer.translateInput(mediumImageURL),
-				ClpSerializer.translateInput(mediumFile), largeImage,
-				ClpSerializer.translateInput(largeImageURL),
-				ClpSerializer.translateInput(largeFile),
-				ClpSerializer.translateInput(itemFields),
-				ClpSerializer.translateInput(itemPrices),
-				ClpSerializer.translateInput(serviceContext));
+				groupId, categoryId, sku, name, description, properties,
+				fieldsQuantities, requiresShipping, stockQuantity, featured,
+				sale, smallImage, smallImageURL, smallFile, mediumImage,
+				mediumImageURL, mediumFile, largeImage, largeImageURL,
+				largeFile, itemFields, itemPrices, serviceContext);
 
 		try {
 			returnObj = _classLoaderProxy.invoke(methodHandler);
@@ -170,7 +113,7 @@ public class ShoppingItemServiceClp implements ShoppingItemService {
 		Object returnObj = null;
 
 		MethodHandler methodHandler = new MethodHandler(_getCategoriesItemsCountMethodKey2,
-				groupId, ClpSerializer.translateInput(categoryIds));
+				groupId, categoryIds);
 
 		try {
 			returnObj = _classLoaderProxy.invoke(methodHandler);
@@ -259,8 +202,7 @@ public class ShoppingItemServiceClp implements ShoppingItemService {
 		Object returnObj = null;
 
 		MethodHandler methodHandler = new MethodHandler(_getItemsMethodKey5,
-				groupId, categoryId, start, end,
-				ClpSerializer.translateInput(obc));
+				groupId, categoryId, start, end, obc);
 
 		try {
 			returnObj = _classLoaderProxy.invoke(methodHandler);
@@ -316,7 +258,7 @@ public class ShoppingItemServiceClp implements ShoppingItemService {
 		Object returnObj = null;
 
 		MethodHandler methodHandler = new MethodHandler(_getItemsPrevAndNextMethodKey7,
-				itemId, ClpSerializer.translateInput(obc));
+				itemId, obc);
 
 		try {
 			returnObj = _classLoaderProxy.invoke(methodHandler);
@@ -361,22 +303,11 @@ public class ShoppingItemServiceClp implements ShoppingItemService {
 		Object returnObj = null;
 
 		MethodHandler methodHandler = new MethodHandler(_updateItemMethodKey8,
-				itemId, groupId, categoryId, ClpSerializer.translateInput(sku),
-				ClpSerializer.translateInput(name),
-				ClpSerializer.translateInput(description),
-				ClpSerializer.translateInput(properties),
-				ClpSerializer.translateInput(fieldsQuantities),
-				requiresShipping, stockQuantity, featured,
-				ClpSerializer.translateInput(sale), smallImage,
-				ClpSerializer.translateInput(smallImageURL),
-				ClpSerializer.translateInput(smallFile), mediumImage,
-				ClpSerializer.translateInput(mediumImageURL),
-				ClpSerializer.translateInput(mediumFile), largeImage,
-				ClpSerializer.translateInput(largeImageURL),
-				ClpSerializer.translateInput(largeFile),
-				ClpSerializer.translateInput(itemFields),
-				ClpSerializer.translateInput(itemPrices),
-				ClpSerializer.translateInput(serviceContext));
+				itemId, groupId, categoryId, sku, name, description,
+				properties, fieldsQuantities, requiresShipping, stockQuantity,
+				featured, sale, smallImage, smallImageURL, smallFile,
+				mediumImage, mediumImageURL, mediumFile, largeImage,
+				largeImageURL, largeFile, itemFields, itemPrices, serviceContext);
 
 		try {
 			returnObj = _classLoaderProxy.invoke(methodHandler);
@@ -411,13 +342,40 @@ public class ShoppingItemServiceClp implements ShoppingItemService {
 	}
 
 	private ClassLoaderProxy _classLoaderProxy;
-	private MethodKey _addItemMethodKey0;
-	private MethodKey _deleteItemMethodKey1;
-	private MethodKey _getCategoriesItemsCountMethodKey2;
-	private MethodKey _getItemMethodKey3;
-	private MethodKey _getItemsMethodKey4;
-	private MethodKey _getItemsMethodKey5;
-	private MethodKey _getItemsCountMethodKey6;
-	private MethodKey _getItemsPrevAndNextMethodKey7;
-	private MethodKey _updateItemMethodKey8;
+	private MethodKey _addItemMethodKey0 = new MethodKey(_classLoaderProxy.getClassName(),
+			"addItem", long.class, long.class, java.lang.String.class,
+			java.lang.String.class, java.lang.String.class,
+			java.lang.String.class, java.lang.String.class, boolean.class,
+			int.class, boolean.class, java.lang.Boolean.class, boolean.class,
+			java.lang.String.class, java.io.File.class, boolean.class,
+			java.lang.String.class, java.io.File.class, boolean.class,
+			java.lang.String.class, java.io.File.class, java.util.List.class,
+			java.util.List.class,
+			com.liferay.portal.service.ServiceContext.class);
+	private MethodKey _deleteItemMethodKey1 = new MethodKey(_classLoaderProxy.getClassName(),
+			"deleteItem", long.class);
+	private MethodKey _getCategoriesItemsCountMethodKey2 = new MethodKey(_classLoaderProxy.getClassName(),
+			"getCategoriesItemsCount", long.class, java.util.List.class);
+	private MethodKey _getItemMethodKey3 = new MethodKey(_classLoaderProxy.getClassName(),
+			"getItem", long.class);
+	private MethodKey _getItemsMethodKey4 = new MethodKey(_classLoaderProxy.getClassName(),
+			"getItems", long.class, long.class);
+	private MethodKey _getItemsMethodKey5 = new MethodKey(_classLoaderProxy.getClassName(),
+			"getItems", long.class, long.class, int.class, int.class,
+			com.liferay.portal.kernel.util.OrderByComparator.class);
+	private MethodKey _getItemsCountMethodKey6 = new MethodKey(_classLoaderProxy.getClassName(),
+			"getItemsCount", long.class, long.class);
+	private MethodKey _getItemsPrevAndNextMethodKey7 = new MethodKey(_classLoaderProxy.getClassName(),
+			"getItemsPrevAndNext", long.class,
+			com.liferay.portal.kernel.util.OrderByComparator.class);
+	private MethodKey _updateItemMethodKey8 = new MethodKey(_classLoaderProxy.getClassName(),
+			"updateItem", long.class, long.class, long.class,
+			java.lang.String.class, java.lang.String.class,
+			java.lang.String.class, java.lang.String.class,
+			java.lang.String.class, boolean.class, int.class, boolean.class,
+			java.lang.Boolean.class, boolean.class, java.lang.String.class,
+			java.io.File.class, boolean.class, java.lang.String.class,
+			java.io.File.class, boolean.class, java.lang.String.class,
+			java.io.File.class, java.util.List.class, java.util.List.class,
+			com.liferay.portal.service.ServiceContext.class);
 }

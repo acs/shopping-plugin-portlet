@@ -18,7 +18,6 @@ import com.liferay.portal.kernel.bean.PortletBeanLocatorUtil;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.OrderByComparator;
-import com.liferay.portal.kernel.util.ReferenceRegistry;
 import com.liferay.portal.service.ServiceContext;
 
 import com.liferay.shopping.model.ShoppingItemField;
@@ -27,6 +26,10 @@ import java.util.List;
 
 /**
  * The persistence utility for the shopping item field service. This utility wraps {@link ShoppingItemFieldPersistenceImpl} and provides direct access to the database for CRUD operations. This utility should only be used by the service layer, as it must operate within a transaction. Never access this utility in a JSP, controller, model, or other front-end class.
+ *
+ * <p>
+ * Never modify this class directly. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.
+ * </p>
  *
  * <p>
  * Caching information and settings can be found in <code>portal.properties</code>
@@ -38,12 +41,6 @@ import java.util.List;
  * @generated
  */
 public class ShoppingItemFieldUtil {
-	/*
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never modify this class directly. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.
-	 */
-
 	/**
 	 * @see com.liferay.portal.service.persistence.BasePersistence#clearCache()
 	 */
@@ -123,7 +120,7 @@ public class ShoppingItemFieldUtil {
 	/**
 	* Caches the shopping item field in the entity cache if it is enabled.
 	*
-	* @param shoppingItemField the shopping item field
+	* @param shoppingItemField the shopping item field to cache
 	*/
 	public static void cacheResult(
 		com.liferay.shopping.model.ShoppingItemField shoppingItemField) {
@@ -133,7 +130,7 @@ public class ShoppingItemFieldUtil {
 	/**
 	* Caches the shopping item fields in the entity cache if it is enabled.
 	*
-	* @param shoppingItemFields the shopping item fields
+	* @param shoppingItemFields the shopping item fields to cache
 	*/
 	public static void cacheResult(
 		java.util.List<com.liferay.shopping.model.ShoppingItemField> shoppingItemFields) {
@@ -154,7 +151,7 @@ public class ShoppingItemFieldUtil {
 	/**
 	* Removes the shopping item field with the primary key from the database. Also notifies the appropriate model listeners.
 	*
-	* @param itemFieldId the primary key of the shopping item field
+	* @param itemFieldId the primary key of the shopping item field to remove
 	* @return the shopping item field that was removed
 	* @throws com.liferay.shopping.NoSuchItemFieldException if a shopping item field with the primary key could not be found
 	* @throws SystemException if a system exception occurred
@@ -174,9 +171,9 @@ public class ShoppingItemFieldUtil {
 	}
 
 	/**
-	* Returns the shopping item field with the primary key or throws a {@link com.liferay.shopping.NoSuchItemFieldException} if it could not be found.
+	* Finds the shopping item field with the primary key or throws a {@link com.liferay.shopping.NoSuchItemFieldException} if it could not be found.
 	*
-	* @param itemFieldId the primary key of the shopping item field
+	* @param itemFieldId the primary key of the shopping item field to find
 	* @return the shopping item field
 	* @throws com.liferay.shopping.NoSuchItemFieldException if a shopping item field with the primary key could not be found
 	* @throws SystemException if a system exception occurred
@@ -189,9 +186,9 @@ public class ShoppingItemFieldUtil {
 	}
 
 	/**
-	* Returns the shopping item field with the primary key or returns <code>null</code> if it could not be found.
+	* Finds the shopping item field with the primary key or returns <code>null</code> if it could not be found.
 	*
-	* @param itemFieldId the primary key of the shopping item field
+	* @param itemFieldId the primary key of the shopping item field to find
 	* @return the shopping item field, or <code>null</code> if a shopping item field with the primary key could not be found
 	* @throws SystemException if a system exception occurred
 	*/
@@ -202,9 +199,9 @@ public class ShoppingItemFieldUtil {
 	}
 
 	/**
-	* Returns all the shopping item fields where itemId = &#63;.
+	* Finds all the shopping item fields where itemId = &#63;.
 	*
-	* @param itemId the item ID
+	* @param itemId the item id to search with
 	* @return the matching shopping item fields
 	* @throws SystemException if a system exception occurred
 	*/
@@ -214,15 +211,15 @@ public class ShoppingItemFieldUtil {
 	}
 
 	/**
-	* Returns a range of all the shopping item fields where itemId = &#63;.
+	* Finds a range of all the shopping item fields where itemId = &#63;.
 	*
 	* <p>
 	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
 	* </p>
 	*
-	* @param itemId the item ID
-	* @param start the lower bound of the range of shopping item fields
-	* @param end the upper bound of the range of shopping item fields (not inclusive)
+	* @param itemId the item id to search with
+	* @param start the lower bound of the range of shopping item fields to return
+	* @param end the upper bound of the range of shopping item fields to return (not inclusive)
 	* @return the range of matching shopping item fields
 	* @throws SystemException if a system exception occurred
 	*/
@@ -233,16 +230,16 @@ public class ShoppingItemFieldUtil {
 	}
 
 	/**
-	* Returns an ordered range of all the shopping item fields where itemId = &#63;.
+	* Finds an ordered range of all the shopping item fields where itemId = &#63;.
 	*
 	* <p>
 	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
 	* </p>
 	*
-	* @param itemId the item ID
-	* @param start the lower bound of the range of shopping item fields
-	* @param end the upper bound of the range of shopping item fields (not inclusive)
-	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	* @param itemId the item id to search with
+	* @param start the lower bound of the range of shopping item fields to return
+	* @param end the upper bound of the range of shopping item fields to return (not inclusive)
+	* @param orderByComparator the comparator to order the results by
 	* @return the ordered range of matching shopping item fields
 	* @throws SystemException if a system exception occurred
 	*/
@@ -255,14 +252,14 @@ public class ShoppingItemFieldUtil {
 	}
 
 	/**
-	* Returns the first shopping item field in the ordered set where itemId = &#63;.
+	* Finds the first shopping item field in the ordered set where itemId = &#63;.
 	*
 	* <p>
 	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
 	* </p>
 	*
-	* @param itemId the item ID
-	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @param itemId the item id to search with
+	* @param orderByComparator the comparator to order the set by
 	* @return the first matching shopping item field
 	* @throws com.liferay.shopping.NoSuchItemFieldException if a matching shopping item field could not be found
 	* @throws SystemException if a system exception occurred
@@ -276,14 +273,14 @@ public class ShoppingItemFieldUtil {
 	}
 
 	/**
-	* Returns the last shopping item field in the ordered set where itemId = &#63;.
+	* Finds the last shopping item field in the ordered set where itemId = &#63;.
 	*
 	* <p>
 	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
 	* </p>
 	*
-	* @param itemId the item ID
-	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @param itemId the item id to search with
+	* @param orderByComparator the comparator to order the set by
 	* @return the last matching shopping item field
 	* @throws com.liferay.shopping.NoSuchItemFieldException if a matching shopping item field could not be found
 	* @throws SystemException if a system exception occurred
@@ -297,15 +294,15 @@ public class ShoppingItemFieldUtil {
 	}
 
 	/**
-	* Returns the shopping item fields before and after the current shopping item field in the ordered set where itemId = &#63;.
+	* Finds the shopping item fields before and after the current shopping item field in the ordered set where itemId = &#63;.
 	*
 	* <p>
 	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
 	* </p>
 	*
 	* @param itemFieldId the primary key of the current shopping item field
-	* @param itemId the item ID
-	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @param itemId the item id to search with
+	* @param orderByComparator the comparator to order the set by
 	* @return the previous, current, and next shopping item field
 	* @throws com.liferay.shopping.NoSuchItemFieldException if a shopping item field with the primary key could not be found
 	* @throws SystemException if a system exception occurred
@@ -321,7 +318,7 @@ public class ShoppingItemFieldUtil {
 	}
 
 	/**
-	* Returns all the shopping item fields.
+	* Finds all the shopping item fields.
 	*
 	* @return the shopping item fields
 	* @throws SystemException if a system exception occurred
@@ -332,14 +329,14 @@ public class ShoppingItemFieldUtil {
 	}
 
 	/**
-	* Returns a range of all the shopping item fields.
+	* Finds a range of all the shopping item fields.
 	*
 	* <p>
 	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
 	* </p>
 	*
-	* @param start the lower bound of the range of shopping item fields
-	* @param end the upper bound of the range of shopping item fields (not inclusive)
+	* @param start the lower bound of the range of shopping item fields to return
+	* @param end the upper bound of the range of shopping item fields to return (not inclusive)
 	* @return the range of shopping item fields
 	* @throws SystemException if a system exception occurred
 	*/
@@ -350,15 +347,15 @@ public class ShoppingItemFieldUtil {
 	}
 
 	/**
-	* Returns an ordered range of all the shopping item fields.
+	* Finds an ordered range of all the shopping item fields.
 	*
 	* <p>
 	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
 	* </p>
 	*
-	* @param start the lower bound of the range of shopping item fields
-	* @param end the upper bound of the range of shopping item fields (not inclusive)
-	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	* @param start the lower bound of the range of shopping item fields to return
+	* @param end the upper bound of the range of shopping item fields to return (not inclusive)
+	* @param orderByComparator the comparator to order the results by
 	* @return the ordered range of shopping item fields
 	* @throws SystemException if a system exception occurred
 	*/
@@ -372,7 +369,7 @@ public class ShoppingItemFieldUtil {
 	/**
 	* Removes all the shopping item fields where itemId = &#63; from the database.
 	*
-	* @param itemId the item ID
+	* @param itemId the item id to search with
 	* @throws SystemException if a system exception occurred
 	*/
 	public static void removeByItemId(long itemId)
@@ -391,9 +388,9 @@ public class ShoppingItemFieldUtil {
 	}
 
 	/**
-	* Returns the number of shopping item fields where itemId = &#63;.
+	* Counts all the shopping item fields where itemId = &#63;.
 	*
-	* @param itemId the item ID
+	* @param itemId the item id to search with
 	* @return the number of matching shopping item fields
 	* @throws SystemException if a system exception occurred
 	*/
@@ -403,7 +400,7 @@ public class ShoppingItemFieldUtil {
 	}
 
 	/**
-	* Returns the number of shopping item fields.
+	* Counts all the shopping item fields.
 	*
 	* @return the number of shopping item fields
 	* @throws SystemException if a system exception occurred
@@ -415,11 +412,8 @@ public class ShoppingItemFieldUtil {
 
 	public static ShoppingItemFieldPersistence getPersistence() {
 		if (_persistence == null) {
-			_persistence = (ShoppingItemFieldPersistence)PortletBeanLocatorUtil.locate(com.liferay.shopping.service.ClpSerializer.getServletContextName(),
+			_persistence = (ShoppingItemFieldPersistence)PortletBeanLocatorUtil.locate(com.liferay.shopping.service.ClpSerializer.SERVLET_CONTEXT_NAME,
 					ShoppingItemFieldPersistence.class.getName());
-
-			ReferenceRegistry.registerReference(ShoppingItemFieldUtil.class,
-				"_persistence");
 		}
 
 		return _persistence;
@@ -427,9 +421,6 @@ public class ShoppingItemFieldUtil {
 
 	public void setPersistence(ShoppingItemFieldPersistence persistence) {
 		_persistence = persistence;
-
-		ReferenceRegistry.registerReference(ShoppingItemFieldUtil.class,
-			"_persistence");
 	}
 
 	private static ShoppingItemFieldPersistence _persistence;

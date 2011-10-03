@@ -24,35 +24,6 @@ import com.liferay.portal.kernel.util.MethodKey;
 public class ShoppingCouponServiceClp implements ShoppingCouponService {
 	public ShoppingCouponServiceClp(ClassLoaderProxy classLoaderProxy) {
 		_classLoaderProxy = classLoaderProxy;
-
-		_addCouponMethodKey0 = new MethodKey(_classLoaderProxy.getClassName(),
-				"addCoupon", java.lang.String.class, boolean.class,
-				java.lang.String.class, java.lang.String.class, int.class,
-				int.class, int.class, int.class, int.class, int.class,
-				int.class, int.class, int.class, int.class, boolean.class,
-				boolean.class, java.lang.String.class, java.lang.String.class,
-				double.class, double.class, java.lang.String.class,
-				com.liferay.portal.service.ServiceContext.class);
-
-		_deleteCouponMethodKey1 = new MethodKey(_classLoaderProxy.getClassName(),
-				"deleteCoupon", long.class, long.class);
-
-		_getCouponMethodKey2 = new MethodKey(_classLoaderProxy.getClassName(),
-				"getCoupon", long.class, long.class);
-
-		_searchMethodKey3 = new MethodKey(_classLoaderProxy.getClassName(),
-				"search", long.class, long.class, java.lang.String.class,
-				boolean.class, java.lang.String.class, boolean.class,
-				int.class, int.class);
-
-		_updateCouponMethodKey4 = new MethodKey(_classLoaderProxy.getClassName(),
-				"updateCoupon", long.class, java.lang.String.class,
-				java.lang.String.class, int.class, int.class, int.class,
-				int.class, int.class, int.class, int.class, int.class,
-				int.class, int.class, boolean.class, boolean.class,
-				java.lang.String.class, java.lang.String.class, double.class,
-				double.class, java.lang.String.class,
-				com.liferay.portal.service.ServiceContext.class);
 	}
 
 	public com.liferay.shopping.model.ShoppingCoupon addCoupon(
@@ -69,16 +40,11 @@ public class ShoppingCouponServiceClp implements ShoppingCouponService {
 		Object returnObj = null;
 
 		MethodHandler methodHandler = new MethodHandler(_addCouponMethodKey0,
-				ClpSerializer.translateInput(code), autoCode,
-				ClpSerializer.translateInput(name),
-				ClpSerializer.translateInput(description), startDateMonth,
+				code, autoCode, name, description, startDateMonth,
 				startDateDay, startDateYear, startDateHour, startDateMinute,
 				endDateMonth, endDateDay, endDateYear, endDateHour,
-				endDateMinute, neverExpire, active,
-				ClpSerializer.translateInput(limitCategories),
-				ClpSerializer.translateInput(limitSkus), minOrder, discount,
-				ClpSerializer.translateInput(discountType),
-				ClpSerializer.translateInput(serviceContext));
+				endDateMinute, neverExpire, active, limitCategories, limitSkus,
+				minOrder, discount, discountType, serviceContext);
 
 		try {
 			returnObj = _classLoaderProxy.invoke(methodHandler);
@@ -173,9 +139,8 @@ public class ShoppingCouponServiceClp implements ShoppingCouponService {
 		Object returnObj = null;
 
 		MethodHandler methodHandler = new MethodHandler(_searchMethodKey3,
-				groupId, companyId, ClpSerializer.translateInput(code), active,
-				ClpSerializer.translateInput(discountType), andOperator, start,
-				end);
+				groupId, companyId, code, active, discountType, andOperator,
+				start, end);
 
 		try {
 			returnObj = _classLoaderProxy.invoke(methodHandler);
@@ -215,15 +180,11 @@ public class ShoppingCouponServiceClp implements ShoppingCouponService {
 		Object returnObj = null;
 
 		MethodHandler methodHandler = new MethodHandler(_updateCouponMethodKey4,
-				couponId, ClpSerializer.translateInput(name),
-				ClpSerializer.translateInput(description), startDateMonth,
-				startDateDay, startDateYear, startDateHour, startDateMinute,
-				endDateMonth, endDateDay, endDateYear, endDateHour,
-				endDateMinute, neverExpire, active,
-				ClpSerializer.translateInput(limitCategories),
-				ClpSerializer.translateInput(limitSkus), minOrder, discount,
-				ClpSerializer.translateInput(discountType),
-				ClpSerializer.translateInput(serviceContext));
+				couponId, name, description, startDateMonth, startDateDay,
+				startDateYear, startDateHour, startDateMinute, endDateMonth,
+				endDateDay, endDateYear, endDateHour, endDateMinute,
+				neverExpire, active, limitCategories, limitSkus, minOrder,
+				discount, discountType, serviceContext);
 
 		try {
 			returnObj = _classLoaderProxy.invoke(methodHandler);
@@ -254,9 +215,28 @@ public class ShoppingCouponServiceClp implements ShoppingCouponService {
 	}
 
 	private ClassLoaderProxy _classLoaderProxy;
-	private MethodKey _addCouponMethodKey0;
-	private MethodKey _deleteCouponMethodKey1;
-	private MethodKey _getCouponMethodKey2;
-	private MethodKey _searchMethodKey3;
-	private MethodKey _updateCouponMethodKey4;
+	private MethodKey _addCouponMethodKey0 = new MethodKey(_classLoaderProxy.getClassName(),
+			"addCoupon", java.lang.String.class, boolean.class,
+			java.lang.String.class, java.lang.String.class, int.class,
+			int.class, int.class, int.class, int.class, int.class, int.class,
+			int.class, int.class, int.class, boolean.class, boolean.class,
+			java.lang.String.class, java.lang.String.class, double.class,
+			double.class, java.lang.String.class,
+			com.liferay.portal.service.ServiceContext.class);
+	private MethodKey _deleteCouponMethodKey1 = new MethodKey(_classLoaderProxy.getClassName(),
+			"deleteCoupon", long.class, long.class);
+	private MethodKey _getCouponMethodKey2 = new MethodKey(_classLoaderProxy.getClassName(),
+			"getCoupon", long.class, long.class);
+	private MethodKey _searchMethodKey3 = new MethodKey(_classLoaderProxy.getClassName(),
+			"search", long.class, long.class, java.lang.String.class,
+			boolean.class, java.lang.String.class, boolean.class, int.class,
+			int.class);
+	private MethodKey _updateCouponMethodKey4 = new MethodKey(_classLoaderProxy.getClassName(),
+			"updateCoupon", long.class, java.lang.String.class,
+			java.lang.String.class, int.class, int.class, int.class, int.class,
+			int.class, int.class, int.class, int.class, int.class, int.class,
+			boolean.class, boolean.class, java.lang.String.class,
+			java.lang.String.class, double.class, double.class,
+			java.lang.String.class,
+			com.liferay.portal.service.ServiceContext.class);
 }

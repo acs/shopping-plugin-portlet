@@ -16,7 +16,7 @@ package com.liferay.shopping.model.impl;
 
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
-import com.liferay.portal.model.CacheModel;
+// import com.liferay.portal.model.CacheModel;
 
 import com.liferay.shopping.model.ShoppingOrder;
 
@@ -413,7 +413,7 @@ public class ShoppingOrderCacheModel implements CacheModel<ShoppingOrder> {
 		shoppingOrderImpl.setSendOrderEmail(sendOrderEmail);
 		shoppingOrderImpl.setSendShippingEmail(sendShippingEmail);
 
-		shoppingOrderImpl.resetOriginalValues();
+		// shoppingOrderImpl.resetOriginalValues();
 
 		return shoppingOrderImpl;
 	}

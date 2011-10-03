@@ -124,23 +124,11 @@ public class ShoppingCouponLocalServiceImpl
 	public void deleteCoupon(long couponId)
 		throws PortalException, SystemException {
 
-		ShoppingCoupon coupon = shoppingCouponPersistence.findByPrimaryKey(
-			couponId);
-
-		deleteCoupon(coupon);
-	}
-
-	public void deleteCoupon(ShoppingCoupon coupon) throws SystemException {
-		shoppingCouponPersistence.remove(coupon);
+		shoppingCouponPersistence.remove(couponId);
 	}
 
 	public void deleteCoupons(long groupId) throws SystemException {
-		List<ShoppingCoupon> coupons = shoppingCouponPersistence.findByGroupId(
-			groupId);
-
-		for (ShoppingCoupon coupon : coupons) {
-			deleteCoupon(coupon);
-		}
+		shoppingCouponPersistence.removeByGroupId(groupId);
 	}
 
 	public ShoppingCoupon getCoupon(long couponId)

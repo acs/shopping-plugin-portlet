@@ -24,40 +24,6 @@ import com.liferay.portal.kernel.util.MethodKey;
 public class ShoppingOrderServiceClp implements ShoppingOrderService {
 	public ShoppingOrderServiceClp(ClassLoaderProxy classLoaderProxy) {
 		_classLoaderProxy = classLoaderProxy;
-
-		_completeOrderMethodKey0 = new MethodKey(_classLoaderProxy.getClassName(),
-				"completeOrder", long.class, java.lang.String.class,
-				java.lang.String.class, java.lang.String.class, double.class,
-				java.lang.String.class, java.lang.String.class);
-
-		_deleteOrderMethodKey1 = new MethodKey(_classLoaderProxy.getClassName(),
-				"deleteOrder", long.class, long.class);
-
-		_getOrderMethodKey2 = new MethodKey(_classLoaderProxy.getClassName(),
-				"getOrder", long.class, long.class);
-
-		_sendEmailMethodKey3 = new MethodKey(_classLoaderProxy.getClassName(),
-				"sendEmail", long.class, long.class, java.lang.String.class);
-
-		_updateOrderMethodKey4 = new MethodKey(_classLoaderProxy.getClassName(),
-				"updateOrder", long.class, long.class, java.lang.String.class,
-				java.lang.String.class, double.class, java.lang.String.class,
-				java.lang.String.class);
-
-		_updateOrderMethodKey5 = new MethodKey(_classLoaderProxy.getClassName(),
-				"updateOrder", long.class, long.class, java.lang.String.class,
-				java.lang.String.class, java.lang.String.class,
-				java.lang.String.class, java.lang.String.class,
-				java.lang.String.class, java.lang.String.class,
-				java.lang.String.class, java.lang.String.class,
-				java.lang.String.class, boolean.class, java.lang.String.class,
-				java.lang.String.class, java.lang.String.class,
-				java.lang.String.class, java.lang.String.class,
-				java.lang.String.class, java.lang.String.class,
-				java.lang.String.class, java.lang.String.class,
-				java.lang.String.class, java.lang.String.class,
-				java.lang.String.class, java.lang.String.class, int.class,
-				int.class, java.lang.String.class, java.lang.String.class);
 	}
 
 	public void completeOrder(long groupId, java.lang.String number,
@@ -67,11 +33,8 @@ public class ShoppingOrderServiceClp implements ShoppingOrderService {
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		MethodHandler methodHandler = new MethodHandler(_completeOrderMethodKey0,
-				groupId, ClpSerializer.translateInput(number),
-				ClpSerializer.translateInput(ppTxnId),
-				ClpSerializer.translateInput(ppPaymentStatus), ppPaymentGross,
-				ClpSerializer.translateInput(ppReceiverEmail),
-				ClpSerializer.translateInput(ppPayerEmail));
+				groupId, number, ppTxnId, ppPaymentStatus, ppPaymentGross,
+				ppReceiverEmail, ppPayerEmail);
 
 		try {
 			_classLoaderProxy.invoke(methodHandler);
@@ -160,7 +123,7 @@ public class ShoppingOrderServiceClp implements ShoppingOrderService {
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		MethodHandler methodHandler = new MethodHandler(_sendEmailMethodKey3,
-				groupId, orderId, ClpSerializer.translateInput(emailType));
+				groupId, orderId, emailType);
 
 		try {
 			_classLoaderProxy.invoke(methodHandler);
@@ -193,10 +156,8 @@ public class ShoppingOrderServiceClp implements ShoppingOrderService {
 		Object returnObj = null;
 
 		MethodHandler methodHandler = new MethodHandler(_updateOrderMethodKey4,
-				groupId, orderId, ClpSerializer.translateInput(ppTxnId),
-				ClpSerializer.translateInput(ppPaymentStatus), ppPaymentGross,
-				ClpSerializer.translateInput(ppReceiverEmail),
-				ClpSerializer.translateInput(ppPayerEmail));
+				groupId, orderId, ppTxnId, ppPaymentStatus, ppPaymentGross,
+				ppReceiverEmail, ppPayerEmail);
 
 		try {
 			returnObj = _classLoaderProxy.invoke(methodHandler);
@@ -242,32 +203,14 @@ public class ShoppingOrderServiceClp implements ShoppingOrderService {
 		Object returnObj = null;
 
 		MethodHandler methodHandler = new MethodHandler(_updateOrderMethodKey5,
-				groupId, orderId,
-				ClpSerializer.translateInput(billingFirstName),
-				ClpSerializer.translateInput(billingLastName),
-				ClpSerializer.translateInput(billingEmailAddress),
-				ClpSerializer.translateInput(billingCompany),
-				ClpSerializer.translateInput(billingStreet),
-				ClpSerializer.translateInput(billingCity),
-				ClpSerializer.translateInput(billingState),
-				ClpSerializer.translateInput(billingZip),
-				ClpSerializer.translateInput(billingCountry),
-				ClpSerializer.translateInput(billingPhone), shipToBilling,
-				ClpSerializer.translateInput(shippingFirstName),
-				ClpSerializer.translateInput(shippingLastName),
-				ClpSerializer.translateInput(shippingEmailAddress),
-				ClpSerializer.translateInput(shippingCompany),
-				ClpSerializer.translateInput(shippingStreet),
-				ClpSerializer.translateInput(shippingCity),
-				ClpSerializer.translateInput(shippingState),
-				ClpSerializer.translateInput(shippingZip),
-				ClpSerializer.translateInput(shippingCountry),
-				ClpSerializer.translateInput(shippingPhone),
-				ClpSerializer.translateInput(ccName),
-				ClpSerializer.translateInput(ccType),
-				ClpSerializer.translateInput(ccNumber), ccExpMonth, ccExpYear,
-				ClpSerializer.translateInput(ccVerNumber),
-				ClpSerializer.translateInput(comments));
+				groupId, orderId, billingFirstName, billingLastName,
+				billingEmailAddress, billingCompany, billingStreet,
+				billingCity, billingState, billingZip, billingCountry,
+				billingPhone, shipToBilling, shippingFirstName,
+				shippingLastName, shippingEmailAddress, shippingCompany,
+				shippingStreet, shippingCity, shippingState, shippingZip,
+				shippingCountry, shippingPhone, ccName, ccType, ccNumber,
+				ccExpMonth, ccExpYear, ccVerNumber, comments);
 
 		try {
 			returnObj = _classLoaderProxy.invoke(methodHandler);
@@ -298,10 +241,32 @@ public class ShoppingOrderServiceClp implements ShoppingOrderService {
 	}
 
 	private ClassLoaderProxy _classLoaderProxy;
-	private MethodKey _completeOrderMethodKey0;
-	private MethodKey _deleteOrderMethodKey1;
-	private MethodKey _getOrderMethodKey2;
-	private MethodKey _sendEmailMethodKey3;
-	private MethodKey _updateOrderMethodKey4;
-	private MethodKey _updateOrderMethodKey5;
+	private MethodKey _completeOrderMethodKey0 = new MethodKey(_classLoaderProxy.getClassName(),
+			"completeOrder", long.class, java.lang.String.class,
+			java.lang.String.class, java.lang.String.class, double.class,
+			java.lang.String.class, java.lang.String.class);
+	private MethodKey _deleteOrderMethodKey1 = new MethodKey(_classLoaderProxy.getClassName(),
+			"deleteOrder", long.class, long.class);
+	private MethodKey _getOrderMethodKey2 = new MethodKey(_classLoaderProxy.getClassName(),
+			"getOrder", long.class, long.class);
+	private MethodKey _sendEmailMethodKey3 = new MethodKey(_classLoaderProxy.getClassName(),
+			"sendEmail", long.class, long.class, java.lang.String.class);
+	private MethodKey _updateOrderMethodKey4 = new MethodKey(_classLoaderProxy.getClassName(),
+			"updateOrder", long.class, long.class, java.lang.String.class,
+			java.lang.String.class, double.class, java.lang.String.class,
+			java.lang.String.class);
+	private MethodKey _updateOrderMethodKey5 = new MethodKey(_classLoaderProxy.getClassName(),
+			"updateOrder", long.class, long.class, java.lang.String.class,
+			java.lang.String.class, java.lang.String.class,
+			java.lang.String.class, java.lang.String.class,
+			java.lang.String.class, java.lang.String.class,
+			java.lang.String.class, java.lang.String.class,
+			java.lang.String.class, boolean.class, java.lang.String.class,
+			java.lang.String.class, java.lang.String.class,
+			java.lang.String.class, java.lang.String.class,
+			java.lang.String.class, java.lang.String.class,
+			java.lang.String.class, java.lang.String.class,
+			java.lang.String.class, java.lang.String.class,
+			java.lang.String.class, java.lang.String.class, int.class,
+			int.class, java.lang.String.class, java.lang.String.class);
 }

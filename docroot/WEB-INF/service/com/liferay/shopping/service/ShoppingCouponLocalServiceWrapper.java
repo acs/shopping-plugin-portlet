@@ -33,7 +33,7 @@ public class ShoppingCouponLocalServiceWrapper
 	/**
 	* Adds the shopping coupon to the database. Also notifies the appropriate model listeners.
 	*
-	* @param shoppingCoupon the shopping coupon
+	* @param shoppingCoupon the shopping coupon to add
 	* @return the shopping coupon that was added
 	* @throws SystemException if a system exception occurred
 	*/
@@ -57,7 +57,7 @@ public class ShoppingCouponLocalServiceWrapper
 	/**
 	* Deletes the shopping coupon with the primary key from the database. Also notifies the appropriate model listeners.
 	*
-	* @param couponId the primary key of the shopping coupon
+	* @param couponId the primary key of the shopping coupon to delete
 	* @throws PortalException if a shopping coupon with the primary key could not be found
 	* @throws SystemException if a system exception occurred
 	*/
@@ -70,7 +70,7 @@ public class ShoppingCouponLocalServiceWrapper
 	/**
 	* Deletes the shopping coupon from the database. Also notifies the appropriate model listeners.
 	*
-	* @param shoppingCoupon the shopping coupon
+	* @param shoppingCoupon the shopping coupon to delete
 	* @throws SystemException if a system exception occurred
 	*/
 	public void deleteShoppingCoupon(
@@ -82,7 +82,7 @@ public class ShoppingCouponLocalServiceWrapper
 	/**
 	* Performs a dynamic query on the database and returns the matching rows.
 	*
-	* @param dynamicQuery the dynamic query
+	* @param dynamicQuery the dynamic query to search with
 	* @return the matching rows
 	* @throws SystemException if a system exception occurred
 	*/
@@ -100,9 +100,9 @@ public class ShoppingCouponLocalServiceWrapper
 	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
 	* </p>
 	*
-	* @param dynamicQuery the dynamic query
-	* @param start the lower bound of the range of model instances
-	* @param end the upper bound of the range of model instances (not inclusive)
+	* @param dynamicQuery the dynamic query to search with
+	* @param start the lower bound of the range of model instances to return
+	* @param end the upper bound of the range of model instances to return (not inclusive)
 	* @return the range of matching rows
 	* @throws SystemException if a system exception occurred
 	*/
@@ -120,10 +120,10 @@ public class ShoppingCouponLocalServiceWrapper
 	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
 	* </p>
 	*
-	* @param dynamicQuery the dynamic query
-	* @param start the lower bound of the range of model instances
-	* @param end the upper bound of the range of model instances (not inclusive)
-	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	* @param dynamicQuery the dynamic query to search with
+	* @param start the lower bound of the range of model instances to return
+	* @param end the upper bound of the range of model instances to return (not inclusive)
+	* @param orderByComparator the comparator to order the results by
 	* @return the ordered range of matching rows
 	* @throws SystemException if a system exception occurred
 	*/
@@ -138,9 +138,9 @@ public class ShoppingCouponLocalServiceWrapper
 	}
 
 	/**
-	* Returns the number of rows that match the dynamic query.
+	* Counts the number of rows that match the dynamic query.
 	*
-	* @param dynamicQuery the dynamic query
+	* @param dynamicQuery the dynamic query to search with
 	* @return the number of rows that match the dynamic query
 	* @throws SystemException if a system exception occurred
 	*/
@@ -151,9 +151,9 @@ public class ShoppingCouponLocalServiceWrapper
 	}
 
 	/**
-	* Returns the shopping coupon with the primary key.
+	* Gets the shopping coupon with the primary key.
 	*
-	* @param couponId the primary key of the shopping coupon
+	* @param couponId the primary key of the shopping coupon to get
 	* @return the shopping coupon
 	* @throws PortalException if a shopping coupon with the primary key could not be found
 	* @throws SystemException if a system exception occurred
@@ -165,22 +165,15 @@ public class ShoppingCouponLocalServiceWrapper
 		return _shoppingCouponLocalService.getShoppingCoupon(couponId);
 	}
 
-	public com.liferay.portal.model.PersistedModel getPersistedModel(
-		java.io.Serializable primaryKeyObj)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
-		return _shoppingCouponLocalService.getPersistedModel(primaryKeyObj);
-	}
-
 	/**
-	* Returns a range of all the shopping coupons.
+	* Gets a range of all the shopping coupons.
 	*
 	* <p>
 	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
 	* </p>
 	*
-	* @param start the lower bound of the range of shopping coupons
-	* @param end the upper bound of the range of shopping coupons (not inclusive)
+	* @param start the lower bound of the range of shopping coupons to return
+	* @param end the upper bound of the range of shopping coupons to return (not inclusive)
 	* @return the range of shopping coupons
 	* @throws SystemException if a system exception occurred
 	*/
@@ -191,7 +184,7 @@ public class ShoppingCouponLocalServiceWrapper
 	}
 
 	/**
-	* Returns the number of shopping coupons.
+	* Gets the number of shopping coupons.
 	*
 	* @return the number of shopping coupons
 	* @throws SystemException if a system exception occurred
@@ -202,9 +195,9 @@ public class ShoppingCouponLocalServiceWrapper
 	}
 
 	/**
-	* Updates the shopping coupon in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	* Updates the shopping coupon in the database. Also notifies the appropriate model listeners.
 	*
-	* @param shoppingCoupon the shopping coupon
+	* @param shoppingCoupon the shopping coupon to update
 	* @return the shopping coupon that was updated
 	* @throws SystemException if a system exception occurred
 	*/
@@ -215,9 +208,9 @@ public class ShoppingCouponLocalServiceWrapper
 	}
 
 	/**
-	* Updates the shopping coupon in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	* Updates the shopping coupon in the database. Also notifies the appropriate model listeners.
 	*
-	* @param shoppingCoupon the shopping coupon
+	* @param shoppingCoupon the shopping coupon to update
 	* @param merge whether to merge the shopping coupon with the current session. See {@link com.liferay.portal.service.persistence.BatchSession#update(com.liferay.portal.kernel.dao.orm.Session, com.liferay.portal.model.BaseModel, boolean)} for an explanation.
 	* @return the shopping coupon that was updated
 	* @throws SystemException if a system exception occurred
@@ -227,24 +220,6 @@ public class ShoppingCouponLocalServiceWrapper
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _shoppingCouponLocalService.updateShoppingCoupon(shoppingCoupon,
 			merge);
-	}
-
-	/**
-	* Returns the Spring bean ID for this bean.
-	*
-	* @return the Spring bean ID for this bean
-	*/
-	public java.lang.String getBeanIdentifier() {
-		return _shoppingCouponLocalService.getBeanIdentifier();
-	}
-
-	/**
-	* Sets the Spring bean ID for this bean.
-	*
-	* @param beanIdentifier the Spring bean ID for this bean
-	*/
-	public void setBeanIdentifier(java.lang.String beanIdentifier) {
-		_shoppingCouponLocalService.setBeanIdentifier(beanIdentifier);
 	}
 
 	public com.liferay.shopping.model.ShoppingCoupon addCoupon(long userId,
@@ -270,11 +245,6 @@ public class ShoppingCouponLocalServiceWrapper
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		_shoppingCouponLocalService.deleteCoupon(couponId);
-	}
-
-	public void deleteCoupon(com.liferay.shopping.model.ShoppingCoupon coupon)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		_shoppingCouponLocalService.deleteCoupon(coupon);
 	}
 
 	public void deleteCoupons(long groupId)
@@ -331,11 +301,6 @@ public class ShoppingCouponLocalServiceWrapper
 
 	public ShoppingCouponLocalService getWrappedShoppingCouponLocalService() {
 		return _shoppingCouponLocalService;
-	}
-
-	public void setWrappedShoppingCouponLocalService(
-		ShoppingCouponLocalService shoppingCouponLocalService) {
-		_shoppingCouponLocalService = shoppingCouponLocalService;
 	}
 
 	private ShoppingCouponLocalService _shoppingCouponLocalService;
