@@ -38,6 +38,7 @@ portletURL.setParameter("tabs1", tabs1);
 	<liferay-ui:search-form
 		page="/order_search.jsp"
 		searchContainer="<%= searchContainer %>"
+        servletContext="<%= application %>"
 	/>
 
 	<%
