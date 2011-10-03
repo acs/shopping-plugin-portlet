@@ -49,9 +49,9 @@ portletURL.setParameter("tabs1", tabs1);
 
 	searchContainer.setTotal(total);
 
-	// List results = ShoppingCouponServiceUtil.search(scopeGroupId, company.getCompanyId(), searchTerms.getCode(), searchTerms.isActive(), searchTerms.getDiscountType(), searchTerms.isAndOperator(), searchContainer.getStart(), searchContainer.getEnd());
+	List results = ShoppingCouponServiceUtil.search(scopeGroupId, company.getCompanyId(), searchTerms.getCode(), searchTerms.isActive(), searchTerms.getDiscountType(), searchTerms.isAndOperator(), searchContainer.getStart(), searchContainer.getEnd());
 
-        List results = new ArrayList();
+    //    List results = new ArrayList();
 
 	searchContainer.setResults(results);
 	%>
