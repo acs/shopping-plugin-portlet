@@ -8,7 +8,7 @@
 			FROM
 				Shopping_ShoppingItem
 			WHERE
-				(ShoppingItem.groupId = ?) AND
+				(Shopping_ShoppingItem.groupId = ?) AND
 				[$CATEGORY_ID$]
 		]]>
 	</sql>
