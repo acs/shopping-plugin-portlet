@@ -33,13 +33,15 @@ if (ShoppingPermission.contains(permissionChecker, scopeGroupId, ActionKeys.MANA
 
 PortletURL viewURL = renderResponse.createRenderURL();
 
-viewURL.setParameter("struts_action", "/shopping/view");
+// viewURL.setParameter("struts_action", "/shopping/view");
+viewURL.setParameter("jspPage", "/view.jsp");
 
 // Cart
 
 PortletURL cartURL = renderResponse.createRenderURL();
 
-cartURL.setParameter("struts_action", "/shopping/cart");
+// cartURL.setParameter("struts_action", "/shopping/cart");
+cartURL.setParameter("jspPage", "/cart.jsp");
 
 if (!tabs1.equals("cart")) {
 	cartURL.setParameter("redirect", currentURL);
