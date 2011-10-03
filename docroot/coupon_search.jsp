@@ -65,7 +65,7 @@ CouponDisplayTerms displayTerms = (CouponDisplayTerms)searchContainer.getDisplay
 <aui:script>
 	function <portlet:namespace />addCoupon() {
 		document.<portlet:namespace />fm.method = 'post';
-		submitForm(document.<portlet:namespace />fm, '<portlet:renderURL><portlet:param name="struts_action" value="/shopping/edit_coupon" /><portlet:param name="redirect" value="<%= currentURL %>" /></portlet:renderURL>');
+		submitForm(document.<portlet:namespace />fm, '<portlet:actionURL name="updateCoupon"><portlet:param name="jspPage" value="/edit_coupon.jsp" /><portlet:param name="redirect" value="<%= currentURL %>" /></portlet:actionURL>');
 	}
 
 	<c:if test="<%= windowState.equals(WindowState.MAXIMIZED) %>">
