@@ -51,8 +51,6 @@ portletURL.setParameter("tabs1", tabs1);
 
 	List results = ShoppingCouponServiceUtil.search(scopeGroupId, company.getCompanyId(), searchTerms.getCode(), searchTerms.isActive(), searchTerms.getDiscountType(), searchTerms.isAndOperator(), searchContainer.getStart(), searchContainer.getEnd());
 
-    //    List results = new ArrayList();
-
 	searchContainer.setResults(results);
 	%>
 

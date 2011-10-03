@@ -36,7 +36,7 @@ ShoppingCoupon coupon = (ShoppingCoupon)row.getObject();
 		url="<%= editURL %>"
 	/>
 
-	<portlet:actionURL var="deleteURL" name="deleteCoupon">
+	<portlet:actionURL var="deleteURL" name="deleteCoupons">
 		<%-- <portlet:param name="struts_action" value="/shopping/edit_coupon" /> --%>
 		<portlet:param name="redirect" value="<%= currentURL %>" />
 		<portlet:param name="deleteCouponIds" value="<%= String.valueOf(coupon.getCouponId()) %>" />

@@ -345,22 +345,19 @@ public class ShoppingPortlet extends MVCPortlet {
         if (couponId <= 0) {
 
             // Add coupon
-            _log.error("CouponId: " + couponId);
+            _log.error("AA CouponId: " + couponId);
 
-            try {
             ShoppingCouponServiceUtil.addCoupon(
                 code, autoCode, name, description, startDateMonth, startDateDay,
                 startDateYear, startDateHour, startDateMinute, endDateMonth,
                 endDateDay, endDateYear, endDateHour, endDateMinute,
                 neverExpire, active, limitCategories, limitSkus, minOrder,
                 discount, discountType, serviceContext);
-            } catch (Exception ex) {
-                _log.error(ex);
-            }
         }
         else {
 
             // Update coupon
+            _log.error("UPDATE CouponId: " + couponId);
 
             ShoppingCouponServiceUtil.updateCoupon(
                 couponId, name, description, startDateMonth, startDateDay,

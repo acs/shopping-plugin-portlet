@@ -110,7 +110,7 @@ public class ShoppingCouponFinderImpl
 
 			SQLQuery q = session.createSQLQuery(sql);
 
-			q.addEntity("ShoppingCoupon", ShoppingCouponImpl.class);
+			q.addEntity("Shopping_ShoppingCoupon", ShoppingCouponImpl.class);
 
 			QueryPos qPos = QueryPos.getInstance(q);
 
@@ -132,5 +132,4 @@ public class ShoppingCouponFinderImpl
 			closeSession(session);
 		}
 	}
-
 }
