@@ -19,9 +19,13 @@
 <%
 String redirect = ParamUtil.getString(request, "redirect");
 
-ShoppingCoupon coupon = (ShoppingCoupon)request.getAttribute(WebKeys.SHOPPING_COUPON);
+long couponId =  ParamUtil.getLong(request, "couponId");
 
-long couponId = BeanParamUtil.getLong(coupon, request, "couponId");
+ShoppingCoupon coupon = null;
+
+if (couponId > 0) {
+    coupon = ShoppingCouponServiceUtil.getCoupon(themeDisplay.getScopeGroupId(), couponId);
+}
 
 String code = BeanParamUtil.getString(coupon, request, "code");
 
