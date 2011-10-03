@@ -158,7 +158,7 @@ public class ShoppingOrderFinderImpl
 
 			SQLQuery q = session.createSQLQuery(sql);
 
-			q.addEntity("ShoppingOrder", ShoppingOrderImpl.class);
+			q.addEntity("Shopping_ShoppingOrder", ShoppingOrderImpl.class);
 
 			QueryPos qPos = QueryPos.getInstance(q);
 

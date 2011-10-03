@@ -4,9 +4,9 @@
 	<sql id="com.liferay.shopping.service.persistence.ShoppingItemFinder.countByG_C">
 		<![CDATA[
 			SELECT
-				COUNT(DISTINCT ShoppingItem.itemId) AS COUNT_VALUE
+				COUNT(DISTINCT Shopping_ShoppingItem.itemId) AS COUNT_VALUE
 			FROM
-				ShoppingItem
+				Shopping_ShoppingItem
 			WHERE
 				(ShoppingItem.groupId = ?) AND
 				[$CATEGORY_ID$]
@@ -17,7 +17,7 @@
 			SELECT
 				COUNT(*) AS COUNT_VALUE
 			FROM
-				ShoppingCoupon
+				Shopping_ShoppingCoupon
 			WHERE
 				(groupId = ?) AND
 				(companyId = ?) AND
@@ -33,7 +33,7 @@
 			SELECT
 				COUNT(*) AS COUNT_VALUE
 			FROM
-				ShoppingOrder
+				Shopping_ShoppingOrder
 			WHERE
 				(groupId = ?) AND
 				(companyId = ?) AND
@@ -71,9 +71,9 @@
 	<sql id="com.liferay.shopping.service.persistence.ShoppingOrderFinder.findByG_C_U_N_PPPS">
 		<![CDATA[
 			SELECT
-				{ShoppingOrder.*}
+				{Shopping_ShoppingOrder.*}
 			FROM
-				ShoppingOrder
+				Shopping_ShoppingOrder
 			WHERE
 				(groupId = ?) AND
 				(companyId = ?) AND
