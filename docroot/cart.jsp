@@ -89,8 +89,9 @@ boolean minQuantityMultiple = GetterUtil.getBoolean(PrefsPropsUtil.getString(com
 	}
 </aui:script>
 
-<portlet:actionURL var="cartURL">
-	<portlet:param name="struts_action" value="/shopping/cart" />
+<portlet:actionURL var="cartURL" name="updateCart">
+	<%-- <portlet:param name="struts_action" value="/shopping/cart" /> --%>
+	<%-- <portlet:param name="jspPage" value="/shopping/cart" /> --%>
 </portlet:actionURL>
 
 <aui:form action="<%= cartURL %>" method="post" name="fm" onSubmit='<%= "event.preventDefault(); " + renderResponse.getNamespace() + "saveCart();" %>'>
@@ -187,7 +188,8 @@ boolean minQuantityMultiple = GetterUtil.getBoolean(PrefsPropsUtil.getString(com
 
 		PortletURL rowURL = renderResponse.createRenderURL();
 
-		rowURL.setParameter("struts_action", "/shopping/view_item");
+		// rowURL.setParameter("struts_action", "/shopping/view_item");
+		rowURL.setParameter("jspPage", "/view_item.jsp");
 		rowURL.setParameter("itemId", String.valueOf(item.getItemId()));
 
 		// SKU and small image
@@ -463,7 +465,8 @@ boolean minQuantityMultiple = GetterUtil.getBoolean(PrefsPropsUtil.getString(com
 		<c:if test="<%= coupon != null %>">
 
 			<portlet:renderURL var="viewCouponURL" windowState="<%= LiferayWindowState.POP_UP.toString() %>">
-				<portlet:param name="struts_action" value="/shopping/view_coupon" />
+				<%-- <portlet:param name="struts_action" value="/shopping/view_coupon" /> --%>
+				<portlet:param name="jspPage" value="/view_coupon.jsp" />
 				<portlet:param name="couponId" value="<%= String.valueOf(coupon.getCouponId()) %>" />
 			</portlet:renderURL>
 

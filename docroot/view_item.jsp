@@ -42,12 +42,13 @@ OrderByComparator orderByComparator = ShoppingUtil.getItemOrderByComparator(orde
 ShoppingItem[] prevAndNext = ShoppingItemServiceUtil.getItemsPrevAndNext(item.getItemId(), orderByComparator);
 %>
 
-<portlet:actionURL var="cartURL">
-	<portlet:param name="struts_action" value="/shopping/cart" />
+<portlet:actionURL var="cartURL" name="updateCart">
+	<%-- <portlet:param name="struts_action" value="/shopping/cart" /> --%>
+	<%-- <portlet:param name="jspPage" value="/cart.jsp" /> --%>
 </portlet:actionURL>
 
 <portlet:renderURL var="redirectURL">
-	<portlet:param name="struts_action" value="/shopping/cart" />
+	<%-- <portlet:param name="struts_action" value="/shopping/cart" /> --%>
 	<portlet:param name="redirect" value="<%= currentURL %>" />
 </portlet:renderURL>
 
@@ -205,7 +206,8 @@ ShoppingItem[] prevAndNext = ShoppingItemServiceUtil.getItemsPrevAndNext(item.ge
 				<c:if test="<%= (prevAndNext[0] != null) || (prevAndNext[2] != null) %>">
 					<c:if test="<%= prevAndNext[0] != null %>">
 						<portlet:renderURL var="viewPreviousPageURL">
-							<portlet:param name="struts_action" value="/shopping/view_item" />
+							<%-- <portlet:param name="struts_action" value="/shopping/view_item" /> --%>
+							<portlet:param name="jspPage" value="/view_item.jsp" />
 							<portlet:param name="itemId" value="<%= String.valueOf(prevAndNext[0].getItemId()) %>" />
 						</portlet:renderURL>
 
@@ -214,7 +216,8 @@ ShoppingItem[] prevAndNext = ShoppingItemServiceUtil.getItemsPrevAndNext(item.ge
 
 					<c:if test="<%= prevAndNext[2] != null %>">
 						<portlet:renderURL var="viewNextPageURL">
-							<portlet:param name="struts_action" value="/shopping/view_item" />
+							<%-- <portlet:param name="struts_action" value="/shopping/view_item" /> --%>
+							<portlet:param name="jspPage" value="/view_item.jsp" />
 							<portlet:param name="itemId" value="<%= String.valueOf(prevAndNext[2].getItemId()) %>" />
 						</portlet:renderURL>
 
