@@ -53,9 +53,9 @@
 	<sql id="com.liferay.shopping.service.persistence.ShoppingCouponFinder.findByG_C_C_A_DT">
 		<![CDATA[
 			SELECT
-				{ShoppingCoupon.*}
+				{Shopping_ShoppingCoupon.*}
 			FROM
-				ShoppingCoupon
+				Shopping_ShoppingCoupon
 			WHERE
 				(groupId = ?) AND
 				(companyId = ?) AND
