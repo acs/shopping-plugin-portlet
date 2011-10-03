@@ -20,11 +20,13 @@
 ResultRow row = (ResultRow)request.getAttribute(WebKeys.SEARCH_CONTAINER_RESULT_ROW);
 
 ShoppingCoupon coupon = (ShoppingCoupon)row.getObject();
+
 %>
 
 <liferay-ui:icon-menu>
 	<portlet:renderURL var="editURL">
-		<portlet:param name="struts_action" value="/shopping/edit_coupon" />
+		<%-- <portlet:param name="struts_action" value="/shopping/edit_coupon" /> --%>
+		<portlet:param name="jspPage" value="/edit_coupon.jsp" />
 		<portlet:param name="redirect" value="<%= currentURL %>" />
 		<portlet:param name="couponId" value="<%= String.valueOf(coupon.getCouponId()) %>" />
 	</portlet:renderURL>
@@ -34,9 +36,8 @@ ShoppingCoupon coupon = (ShoppingCoupon)row.getObject();
 		url="<%= editURL %>"
 	/>
 
-	<portlet:actionURL var="deleteURL">
-		<portlet:param name="struts_action" value="/shopping/edit_coupon" />
-		<portlet:param name="<%= Constants.CMD %>" value="<%= Constants.DELETE %>" />
+	<portlet:actionURL var="deleteURL" name="deleteCoupon">
+		<%-- <portlet:param name="struts_action" value="/shopping/edit_coupon" /> --%>
 		<portlet:param name="redirect" value="<%= currentURL %>" />
 		<portlet:param name="deleteCouponIds" value="<%= String.valueOf(coupon.getCouponId()) %>" />
 	</portlet:actionURL>
