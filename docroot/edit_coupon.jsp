@@ -40,8 +40,9 @@ double discount = BeanParamUtil.getDouble(coupon, request, "discount");
 String discountType = BeanParamUtil.getString(coupon, request, "discountType");
 %>
 
-<portlet:actionURL var="editCouponURL">
-	<portlet:param name="struts_action" value="/shopping/edit_coupon" />
+<portlet:actionURL var="editCouponURL" name="updateCoupon">
+	<%-- <portlet:param name="struts_action" value="/shopping/edit_coupon" /> --%>
+	 <portlet:param name="jspPage" value="/edit_coupon.jsp" />
 </portlet:actionURL>
 
 <aui:form action="<%= editCouponURL %>" method="post" name="fm" onSubmit='<%= "event.preventDefault(); " + renderResponse.getNamespace() + "saveCoupon();" %>'>

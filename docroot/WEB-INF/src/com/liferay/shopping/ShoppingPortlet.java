@@ -1,3 +1,18 @@
+/**
+ * Copyright (c) 2000-2011 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2011 Andago Ingenieria S.L.. All rights reserved.
+ *
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option)
+ * any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ */
+
 package com.liferay.shopping;
 
 
@@ -6,27 +21,31 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.upload.UploadPortletRequest;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.StringUtil;
 
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.ServiceContextFactory;
 import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.portal.util.PortalUtil;
 
+import com.liferay.shopping.model.ShoppingCategory;
+import com.liferay.shopping.model.ShoppingCoupon;
 import com.liferay.shopping.model.ShoppingItem;
 import com.liferay.shopping.model.ShoppingItemField;
-import com.liferay.shopping.model.ShoppingCategory;
 import com.liferay.shopping.model.ShoppingItemPrice;
 import com.liferay.shopping.model.ShoppingItemPriceConstants;
 import com.liferay.shopping.service.persistence.ShoppingItemFieldUtil;
 import com.liferay.shopping.service.persistence.ShoppingItemPriceUtil;
 import com.liferay.shopping.service.ShoppingItemServiceUtil;
 import com.liferay.shopping.service.ShoppingCategoryServiceUtil;
+import com.liferay.shopping.service.ShoppingCouponServiceUtil;
 import com.liferay.shopping.util.WebKeys;
 
 import com.liferay.util.bridges.mvc.MVCPortlet;
 
 import java.io.File;
 
+import java.util.Calendar;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -251,6 +270,108 @@ public class ShoppingPortlet extends MVCPortlet {
                 largeFile, itemFields, itemPrices, serviceContext);
         }
     }
+
+    // COUPONS
+
+    public void deleteCoupons(
+            ActionRequest actionRequest, ActionResponse actionResponse)
+        throws Exception {
+        ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(
+            WebKeys.THEME_DISPLAY);
+
+        long[] deleteCouponIds = StringUtil.split(
+            ParamUtil.getString(actionRequest, "deleteCouponIds"), 0L);
+
+        for (int i = 0; i < deleteCouponIds.length; i++) {
+            ShoppingCouponServiceUtil.deleteCoupon(
+                themeDisplay.getScopeGroupId(), deleteCouponIds[i]);
+        }
+    }
+
+
+    public void updateCoupon(
+            ActionRequest actionRequest, ActionResponse actionResponse)
+        throws Exception {
+        long couponId = ParamUtil.getLong(actionRequest, "couponId");
+
+        String code = ParamUtil.getString(actionRequest, "code");
+        boolean autoCode = ParamUtil.getBoolean(actionRequest, "autoCode");
+
+        String name = ParamUtil.getString(actionRequest, "name");
+        String description = ParamUtil.getString(actionRequest, "description");
+
+        int startDateMonth = ParamUtil.getInteger(
+            actionRequest, "startDateMonth");
+        int startDateDay = ParamUtil.getInteger(actionRequest, "startDateDay");
+        int startDateYear = ParamUtil.getInteger(
+            actionRequest, "startDateYear");
+        int startDateHour = ParamUtil.getInteger(
+            actionRequest, "startDateHour");
+        int startDateMinute = ParamUtil.getInteger(
+            actionRequest, "startDateMinute");
+        int startDateAmPm = ParamUtil.getInteger(
+            actionRequest, "startDateAmPm");
+
+        if (startDateAmPm == Calendar.PM) {
+            startDateHour += 12;
+        }
+
+        int endDateMonth = ParamUtil.getInteger(actionRequest, "endDateMonth");
+        int endDateDay = ParamUtil.getInteger(actionRequest, "endDateDay");
+        int endDateYear = ParamUtil.getInteger(actionRequest, "endDateYear");
+        int endDateHour = ParamUtil.getInteger(actionRequest, "endDateHour");
+        int endDateMinute = ParamUtil.getInteger(
+            actionRequest, "endDateMinute");
+        int endDateAmPm = ParamUtil.getInteger(actionRequest, "endDateAmPm");
+        boolean neverExpire = ParamUtil.getBoolean(
+            actionRequest, "neverExpire");
+
+        if (endDateAmPm == Calendar.PM) {
+            endDateHour += 12;
+        }
+
+        boolean active = ParamUtil.getBoolean(actionRequest, "active");
+        String limitCategories = ParamUtil.getString(
+            actionRequest, "limitCategories");
+        String limitSkus = ParamUtil.getString(actionRequest, "limitSkus");
+        double minOrder = ParamUtil.getDouble(actionRequest, "minOrder", -1.0);
+        double discount = ParamUtil.getDouble(actionRequest, "discount", -1.0);
+        String discountType = ParamUtil.getString(
+            actionRequest, "discountType");
+
+        ServiceContext serviceContext = ServiceContextFactory.getInstance(
+            ShoppingCoupon.class.getName(), actionRequest);
+
+        if (couponId <= 0) {
+
+            // Add coupon
+            _log.error("CouponId: " + couponId);
+
+            try {
+            ShoppingCouponServiceUtil.addCoupon(
+                code, autoCode, name, description, startDateMonth, startDateDay,
+                startDateYear, startDateHour, startDateMinute, endDateMonth,
+                endDateDay, endDateYear, endDateHour, endDateMinute,
+                neverExpire, active, limitCategories, limitSkus, minOrder,
+                discount, discountType, serviceContext);
+            } catch (Exception ex) {
+                _log.error(ex);
+            }
+        }
+        else {
+
+            // Update coupon
+
+            ShoppingCouponServiceUtil.updateCoupon(
+                couponId, name, description, startDateMonth, startDateDay,
+                startDateYear, startDateHour, startDateMinute, endDateMonth,
+                endDateDay, endDateYear, endDateHour, endDateMinute,
+                neverExpire, active, limitCategories, limitSkus, minOrder,
+                discount, discountType, serviceContext);
+        }
+    }
+
+    // ORDERS
 
     private static Log _log = LogFactoryUtil.getLog(ShoppingPortlet.class);
 }
