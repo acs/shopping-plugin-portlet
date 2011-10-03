@@ -20,14 +20,17 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.upload.UploadPortletRequest;
+import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.StringUtil;
+import com.liferay.portal.kernel.util.Validator;
 
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.ServiceContextFactory;
 import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.portal.util.PortalUtil;
 
+import com.liferay.shopping.model.ShoppingCart;
 import com.liferay.shopping.model.ShoppingCategory;
 import com.liferay.shopping.model.ShoppingCoupon;
 import com.liferay.shopping.model.ShoppingItem;
@@ -36,9 +39,13 @@ import com.liferay.shopping.model.ShoppingItemPrice;
 import com.liferay.shopping.model.ShoppingItemPriceConstants;
 import com.liferay.shopping.service.persistence.ShoppingItemFieldUtil;
 import com.liferay.shopping.service.persistence.ShoppingItemPriceUtil;
-import com.liferay.shopping.service.ShoppingItemServiceUtil;
+import com.liferay.shopping.service.ShoppingCartLocalServiceUtil;
 import com.liferay.shopping.service.ShoppingCategoryServiceUtil;
 import com.liferay.shopping.service.ShoppingCouponServiceUtil;
+import com.liferay.shopping.service.ShoppingItemLocalServiceUtil;
+import com.liferay.shopping.service.ShoppingItemServiceUtil;
+import com.liferay.shopping.service.ShoppingOrderServiceUtil;
+import com.liferay.shopping.util.ShoppingUtil;
 import com.liferay.shopping.util.WebKeys;
 
 import com.liferay.util.bridges.mvc.MVCPortlet;
@@ -368,7 +375,112 @@ public class ShoppingPortlet extends MVCPortlet {
         }
     }
 
+    // CART
+    public void updateCart(
+            ActionRequest actionRequest, ActionResponse actionResponse)
+        throws Exception {
+
+        String cmd = ParamUtil.getString(actionRequest, Constants.CMD);
+
+        ShoppingCart cart = ShoppingUtil.getCart(actionRequest);
+
+        if (cmd.equals(Constants.ADD)) {
+            long itemId = ParamUtil.getLong(actionRequest, "itemId");
+
+            String fields = ParamUtil.getString(actionRequest, "fields");
+
+            if (Validator.isNotNull(fields)) {
+                fields = "|" + fields;
+            }
+
+            ShoppingItem item = ShoppingItemLocalServiceUtil.getItem(itemId);
+
+            if (item.getMinQuantity() > 0) {
+                for (int i = 0; i < item.getMinQuantity(); i++) {
+                    cart.addItemId(itemId, fields);
+                }
+            }
+            else {
+                cart.addItemId(itemId, fields);
+            }
+        }
+        else {
+            String itemIds = ParamUtil.getString(actionRequest, "itemIds");
+            String couponCodes = ParamUtil.getString(
+                actionRequest, "couponCodes");
+            int altShipping = ParamUtil.getInteger(
+                actionRequest, "altShipping");
+            boolean insure = ParamUtil.getBoolean(actionRequest, "insure");
+
+            cart.setItemIds(itemIds);
+            cart.setCouponCodes(couponCodes);
+            cart.setAltShipping(altShipping);
+            cart.setInsure(insure);
+        }
+
+        ShoppingCartLocalServiceUtil.updateCart(
+            cart.getUserId(), cart.getGroupId(), cart.getItemIds(),
+            cart.getCouponCodes(), cart.getAltShipping(), cart.isInsure());
+
+        if (cmd.equals(Constants.ADD) || cmd.equals(Constants.UPDATE)) {
+            addSuccessMessage(actionRequest, actionResponse);
+        }
+        actionResponse.setRenderParameter("jspPage","/cart.jsp");
+    }
+
     // ORDERS
+
+   public void deleteOrders(
+            ActionRequest actionRequest, ActionResponse actionResponse)
+        throws Exception {
+        ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(
+            WebKeys.THEME_DISPLAY);
+
+        long[] deleteOrderIds = StringUtil.split(
+            ParamUtil.getString(actionRequest, "deleteOrderIds"), 0L);
+
+        for (int i = 0; i < deleteOrderIds.length; i++) {
+            ShoppingOrderServiceUtil.deleteOrder(
+                themeDisplay.getScopeGroupId(), deleteOrderIds[i]);
+        }
+    }
+
+    public void sendEmail(
+            ActionRequest actionRequest, ActionResponse actionResponse)
+        throws Exception {
+        ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(
+            WebKeys.THEME_DISPLAY);
+
+        long orderId = ParamUtil.getLong(actionRequest, "orderId");
+
+        String emailType = ParamUtil.getString(actionRequest, "emailType");
+
+        ShoppingOrderServiceUtil.sendEmail(
+            themeDisplay.getScopeGroupId(), orderId, emailType);
+    }
+
+    public void updateOrder(
+            ActionRequest actionRequest, ActionResponse actionResponse)
+        throws Exception {
+        ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(
+            WebKeys.THEME_DISPLAY);
+
+        String number = ParamUtil.getString(actionRequest, "number");
+        String ppTxnId = ParamUtil.getString(actionRequest, "ppTxnId");
+        String ppPaymentStatus = ShoppingUtil.getPpPaymentStatus(
+            ParamUtil.getString(actionRequest, "ppPaymentStatus"));
+        double ppPaymentGross = ParamUtil.getDouble(
+            actionRequest, "ppPaymentGross");
+        String ppReceiverEmail = ParamUtil.getString(
+            actionRequest, "ppReceiverEmail");
+        String ppPayerEmail = ParamUtil.getString(
+            actionRequest, "ppPayerEmail");
+
+        ShoppingOrderServiceUtil.completeOrder(
+            themeDisplay.getScopeGroupId(), number, ppTxnId, ppPaymentStatus,
+            ppPaymentGross, ppReceiverEmail, ppPayerEmail);
+    }
+
 
     private static Log _log = LogFactoryUtil.getLog(ShoppingPortlet.class);
 }
