@@ -353,7 +353,7 @@ public class ShoppingItemWrapper implements ShoppingItem {
 		_shoppingItem.setLargeImageURL(largeImageURL);
 	}
 
-	public com.liferay.shopping.model.ShoppingItem toEscapedModel() {
+	public ShoppingItem toEscapedModel() {
 		return _shoppingItem.toEscapedModel();
 	}
 
@@ -398,7 +398,7 @@ public class ShoppingItemWrapper implements ShoppingItem {
 		return _shoppingItem.clone();
 	}
 
-	public int compareTo(com.liferay.shopping.model.ShoppingItem shoppingItem) {
+	public int compareTo(ShoppingItem shoppingItem) {
 		return _shoppingItem.compareTo(shoppingItem);
 	}
 

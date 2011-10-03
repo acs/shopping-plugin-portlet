@@ -124,7 +124,7 @@ public class ShoppingItemPriceWrapper implements ShoppingItemPrice {
 		_shoppingItemPrice.setStatus(status);
 	}
 
-	public com.liferay.shopping.model.ShoppingItemPrice toEscapedModel() {
+	public ShoppingItemPrice toEscapedModel() {
 		return _shoppingItemPrice.toEscapedModel();
 	}
 
@@ -169,8 +169,7 @@ public class ShoppingItemPriceWrapper implements ShoppingItemPrice {
 		return _shoppingItemPrice.clone();
 	}
 
-	public int compareTo(
-		com.liferay.shopping.model.ShoppingItemPrice shoppingItemPrice) {
+	public int compareTo(ShoppingItemPrice shoppingItemPrice) {
 		return _shoppingItemPrice.compareTo(shoppingItemPrice);
 	}
 

@@ -23,6 +23,7 @@ import com.liferay.portal.kernel.dao.orm.FinderPath;
 import com.liferay.portal.kernel.dao.orm.Query;
 import com.liferay.portal.kernel.dao.orm.QueryPos;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
+import com.liferay.portal.kernel.dao.orm.SQLQuery;
 import com.liferay.portal.kernel.dao.orm.Session;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.log.Log;
@@ -35,6 +36,7 @@ import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.ModelListener;
+import com.liferay.portal.security.permission.InlineSQLHelperUtil;
 import com.liferay.portal.service.persistence.BatchSessionUtil;
 import com.liferay.portal.service.persistence.CompanyPersistence;
 import com.liferay.portal.service.persistence.ResourcePersistence;
@@ -848,6 +850,133 @@ public class ShoppingOrderPersistenceImpl extends BasePersistenceImpl<ShoppingOr
 	}
 
 	/**
+	 * Filters by the user's permissions and finds all the shopping orders where groupId = &#63;.
+	 *
+	 * @param groupId the group id to search with
+	 * @return the matching shopping orders that the user has permission to view
+	 * @throws SystemException if a system exception occurred
+	 */
+	public List<ShoppingOrder> filterFindByGroupId(long groupId)
+		throws SystemException {
+		return filterFindByGroupId(groupId, QueryUtil.ALL_POS,
+			QueryUtil.ALL_POS, null);
+	}
+
+	/**
+	 * Filters by the user's permissions and finds a range of all the shopping orders where groupId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	 * </p>
+	 *
+	 * @param groupId the group id to search with
+	 * @param start the lower bound of the range of shopping orders to return
+	 * @param end the upper bound of the range of shopping orders to return (not inclusive)
+	 * @return the range of matching shopping orders that the user has permission to view
+	 * @throws SystemException if a system exception occurred
+	 */
+	public List<ShoppingOrder> filterFindByGroupId(long groupId, int start,
+		int end) throws SystemException {
+		return filterFindByGroupId(groupId, start, end, null);
+	}
+
+	/**
+	 * Filters by the user's permissions and finds an ordered range of all the shopping orders where groupId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	 * </p>
+	 *
+	 * @param groupId the group id to search with
+	 * @param start the lower bound of the range of shopping orders to return
+	 * @param end the upper bound of the range of shopping orders to return (not inclusive)
+	 * @param orderByComparator the comparator to order the results by
+	 * @return the ordered range of matching shopping orders that the user has permission to view
+	 * @throws SystemException if a system exception occurred
+	 */
+	public List<ShoppingOrder> filterFindByGroupId(long groupId, int start,
+		int end, OrderByComparator orderByComparator) throws SystemException {
+		if (!InlineSQLHelperUtil.isEnabled(groupId)) {
+			return findByGroupId(groupId, start, end, orderByComparator);
+		}
+
+		StringBundler query = null;
+
+		if (orderByComparator != null) {
+			query = new StringBundler(3 +
+					(orderByComparator.getOrderByFields().length * 3));
+		}
+		else {
+			query = new StringBundler(3);
+		}
+
+		if (getDB().isSupportsInlineDistinct()) {
+			query.append(_FILTER_SQL_SELECT_SHOPPINGORDER_WHERE);
+		}
+		else {
+			query.append(_FILTER_SQL_SELECT_SHOPPINGORDER_NO_INLINE_DISTINCT_WHERE_1);
+		}
+
+		query.append(_FINDER_COLUMN_GROUPID_GROUPID_2);
+
+		if (!getDB().isSupportsInlineDistinct()) {
+			query.append(_FILTER_SQL_SELECT_SHOPPINGORDER_NO_INLINE_DISTINCT_WHERE_2);
+		}
+
+		if (orderByComparator != null) {
+			if (getDB().isSupportsInlineDistinct()) {
+				appendOrderByComparator(query, _ORDER_BY_ENTITY_ALIAS,
+					orderByComparator);
+			}
+			else {
+				appendOrderByComparator(query, _ORDER_BY_ENTITY_TABLE,
+					orderByComparator);
+			}
+		}
+
+		else {
+			if (getDB().isSupportsInlineDistinct()) {
+				query.append(ShoppingOrderModelImpl.ORDER_BY_JPQL);
+			}
+			else {
+				query.append(ShoppingOrderModelImpl.ORDER_BY_SQL);
+			}
+		}
+
+		String sql = InlineSQLHelperUtil.replacePermissionCheck(query.toString(),
+				ShoppingOrder.class.getName(), _FILTER_COLUMN_PK,
+				_FILTER_COLUMN_USERID, groupId);
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			SQLQuery q = session.createSQLQuery(sql);
+
+			if (getDB().isSupportsInlineDistinct()) {
+				q.addEntity(_FILTER_ENTITY_ALIAS, ShoppingOrderImpl.class);
+			}
+			else {
+				q.addEntity(_FILTER_ENTITY_TABLE, ShoppingOrderImpl.class);
+			}
+
+			QueryPos qPos = QueryPos.getInstance(q);
+
+			qPos.add(groupId);
+
+			return (List<ShoppingOrder>)QueryUtil.list(q, getDialect(), start,
+				end);
+		}
+		catch (Exception e) {
+			throw processException(e);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
+	/**
 	 * Finds the shopping order where number = &#63; or throws a {@link com.liferay.shopping.NoSuchOrderException} if it could not be found.
 	 *
 	 * @param number the number to search with
@@ -1539,6 +1668,162 @@ public class ShoppingOrderPersistenceImpl extends BasePersistenceImpl<ShoppingOr
 	}
 
 	/**
+	 * Filters by the user's permissions and finds all the shopping orders where groupId = &#63; and userId = &#63; and ppPaymentStatus = &#63;.
+	 *
+	 * @param groupId the group id to search with
+	 * @param userId the user id to search with
+	 * @param ppPaymentStatus the pp payment status to search with
+	 * @return the matching shopping orders that the user has permission to view
+	 * @throws SystemException if a system exception occurred
+	 */
+	public List<ShoppingOrder> filterFindByG_U_PPPS(long groupId, long userId,
+		String ppPaymentStatus) throws SystemException {
+		return filterFindByG_U_PPPS(groupId, userId, ppPaymentStatus,
+			QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
+	}
+
+	/**
+	 * Filters by the user's permissions and finds a range of all the shopping orders where groupId = &#63; and userId = &#63; and ppPaymentStatus = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	 * </p>
+	 *
+	 * @param groupId the group id to search with
+	 * @param userId the user id to search with
+	 * @param ppPaymentStatus the pp payment status to search with
+	 * @param start the lower bound of the range of shopping orders to return
+	 * @param end the upper bound of the range of shopping orders to return (not inclusive)
+	 * @return the range of matching shopping orders that the user has permission to view
+	 * @throws SystemException if a system exception occurred
+	 */
+	public List<ShoppingOrder> filterFindByG_U_PPPS(long groupId, long userId,
+		String ppPaymentStatus, int start, int end) throws SystemException {
+		return filterFindByG_U_PPPS(groupId, userId, ppPaymentStatus, start,
+			end, null);
+	}
+
+	/**
+	 * Filters by the user's permissions and finds an ordered range of all the shopping orders where groupId = &#63; and userId = &#63; and ppPaymentStatus = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	 * </p>
+	 *
+	 * @param groupId the group id to search with
+	 * @param userId the user id to search with
+	 * @param ppPaymentStatus the pp payment status to search with
+	 * @param start the lower bound of the range of shopping orders to return
+	 * @param end the upper bound of the range of shopping orders to return (not inclusive)
+	 * @param orderByComparator the comparator to order the results by
+	 * @return the ordered range of matching shopping orders that the user has permission to view
+	 * @throws SystemException if a system exception occurred
+	 */
+	public List<ShoppingOrder> filterFindByG_U_PPPS(long groupId, long userId,
+		String ppPaymentStatus, int start, int end,
+		OrderByComparator orderByComparator) throws SystemException {
+		if (!InlineSQLHelperUtil.isEnabled(groupId)) {
+			return findByG_U_PPPS(groupId, userId, ppPaymentStatus, start, end,
+				orderByComparator);
+		}
+
+		StringBundler query = null;
+
+		if (orderByComparator != null) {
+			query = new StringBundler(5 +
+					(orderByComparator.getOrderByFields().length * 3));
+		}
+		else {
+			query = new StringBundler(5);
+		}
+
+		if (getDB().isSupportsInlineDistinct()) {
+			query.append(_FILTER_SQL_SELECT_SHOPPINGORDER_WHERE);
+		}
+		else {
+			query.append(_FILTER_SQL_SELECT_SHOPPINGORDER_NO_INLINE_DISTINCT_WHERE_1);
+		}
+
+		query.append(_FINDER_COLUMN_G_U_PPPS_GROUPID_2);
+
+		query.append(_FINDER_COLUMN_G_U_PPPS_USERID_2);
+
+		if (ppPaymentStatus == null) {
+			query.append(_FINDER_COLUMN_G_U_PPPS_PPPAYMENTSTATUS_1);
+		}
+		else {
+			if (ppPaymentStatus.equals(StringPool.BLANK)) {
+				query.append(_FINDER_COLUMN_G_U_PPPS_PPPAYMENTSTATUS_3);
+			}
+			else {
+				query.append(_FINDER_COLUMN_G_U_PPPS_PPPAYMENTSTATUS_2);
+			}
+		}
+
+		if (!getDB().isSupportsInlineDistinct()) {
+			query.append(_FILTER_SQL_SELECT_SHOPPINGORDER_NO_INLINE_DISTINCT_WHERE_2);
+		}
+
+		if (orderByComparator != null) {
+			if (getDB().isSupportsInlineDistinct()) {
+				appendOrderByComparator(query, _ORDER_BY_ENTITY_ALIAS,
+					orderByComparator);
+			}
+			else {
+				appendOrderByComparator(query, _ORDER_BY_ENTITY_TABLE,
+					orderByComparator);
+			}
+		}
+
+		else {
+			if (getDB().isSupportsInlineDistinct()) {
+				query.append(ShoppingOrderModelImpl.ORDER_BY_JPQL);
+			}
+			else {
+				query.append(ShoppingOrderModelImpl.ORDER_BY_SQL);
+			}
+		}
+
+		String sql = InlineSQLHelperUtil.replacePermissionCheck(query.toString(),
+				ShoppingOrder.class.getName(), _FILTER_COLUMN_PK,
+				_FILTER_COLUMN_USERID, groupId);
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			SQLQuery q = session.createSQLQuery(sql);
+
+			if (getDB().isSupportsInlineDistinct()) {
+				q.addEntity(_FILTER_ENTITY_ALIAS, ShoppingOrderImpl.class);
+			}
+			else {
+				q.addEntity(_FILTER_ENTITY_TABLE, ShoppingOrderImpl.class);
+			}
+
+			QueryPos qPos = QueryPos.getInstance(q);
+
+			qPos.add(groupId);
+
+			qPos.add(userId);
+
+			if (ppPaymentStatus != null) {
+				qPos.add(ppPaymentStatus);
+			}
+
+			return (List<ShoppingOrder>)QueryUtil.list(q, getDialect(), start,
+				end);
+		}
+		catch (Exception e) {
+			throw processException(e);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
+	/**
 	 * Finds all the shopping orders.
 	 *
 	 * @return the shopping orders
@@ -1766,6 +2051,54 @@ public class ShoppingOrderPersistenceImpl extends BasePersistenceImpl<ShoppingOr
 	}
 
 	/**
+	 * Filters by the user's permissions and counts all the shopping orders where groupId = &#63;.
+	 *
+	 * @param groupId the group id to search with
+	 * @return the number of matching shopping orders that the user has permission to view
+	 * @throws SystemException if a system exception occurred
+	 */
+	public int filterCountByGroupId(long groupId) throws SystemException {
+		if (!InlineSQLHelperUtil.isEnabled(groupId)) {
+			return countByGroupId(groupId);
+		}
+
+		StringBundler query = new StringBundler(2);
+
+		query.append(_FILTER_SQL_COUNT_SHOPPINGORDER_WHERE);
+
+		query.append(_FINDER_COLUMN_GROUPID_GROUPID_2);
+
+		String sql = InlineSQLHelperUtil.replacePermissionCheck(query.toString(),
+				ShoppingOrder.class.getName(), _FILTER_COLUMN_PK,
+				_FILTER_COLUMN_USERID, groupId);
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			SQLQuery q = session.createSQLQuery(sql);
+
+			q.addScalar(COUNT_COLUMN_NAME,
+				com.liferay.portal.kernel.dao.orm.Type.LONG);
+
+			QueryPos qPos = QueryPos.getInstance(q);
+
+			qPos.add(groupId);
+
+			Long count = (Long)q.uniqueResult();
+
+			return count.intValue();
+		}
+		catch (Exception e) {
+			throw processException(e);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
+	/**
 	 * Counts all the shopping orders where number = &#63;.
 	 *
 	 * @param number the number to search with
@@ -1972,6 +2305,77 @@ public class ShoppingOrderPersistenceImpl extends BasePersistenceImpl<ShoppingOr
 	}
 
 	/**
+	 * Filters by the user's permissions and counts all the shopping orders where groupId = &#63; and userId = &#63; and ppPaymentStatus = &#63;.
+	 *
+	 * @param groupId the group id to search with
+	 * @param userId the user id to search with
+	 * @param ppPaymentStatus the pp payment status to search with
+	 * @return the number of matching shopping orders that the user has permission to view
+	 * @throws SystemException if a system exception occurred
+	 */
+	public int filterCountByG_U_PPPS(long groupId, long userId,
+		String ppPaymentStatus) throws SystemException {
+		if (!InlineSQLHelperUtil.isEnabled(groupId)) {
+			return countByG_U_PPPS(groupId, userId, ppPaymentStatus);
+		}
+
+		StringBundler query = new StringBundler(4);
+
+		query.append(_FILTER_SQL_COUNT_SHOPPINGORDER_WHERE);
+
+		query.append(_FINDER_COLUMN_G_U_PPPS_GROUPID_2);
+
+		query.append(_FINDER_COLUMN_G_U_PPPS_USERID_2);
+
+		if (ppPaymentStatus == null) {
+			query.append(_FINDER_COLUMN_G_U_PPPS_PPPAYMENTSTATUS_1);
+		}
+		else {
+			if (ppPaymentStatus.equals(StringPool.BLANK)) {
+				query.append(_FINDER_COLUMN_G_U_PPPS_PPPAYMENTSTATUS_3);
+			}
+			else {
+				query.append(_FINDER_COLUMN_G_U_PPPS_PPPAYMENTSTATUS_2);
+			}
+		}
+
+		String sql = InlineSQLHelperUtil.replacePermissionCheck(query.toString(),
+				ShoppingOrder.class.getName(), _FILTER_COLUMN_PK,
+				_FILTER_COLUMN_USERID, groupId);
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			SQLQuery q = session.createSQLQuery(sql);
+
+			q.addScalar(COUNT_COLUMN_NAME,
+				com.liferay.portal.kernel.dao.orm.Type.LONG);
+
+			QueryPos qPos = QueryPos.getInstance(q);
+
+			qPos.add(groupId);
+
+			qPos.add(userId);
+
+			if (ppPaymentStatus != null) {
+				qPos.add(ppPaymentStatus);
+			}
+
+			Long count = (Long)q.uniqueResult();
+
+			return count.intValue();
+		}
+		catch (Exception e) {
+			throw processException(e);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
+	/**
 	 * Counts all the shopping orders.
 	 *
 	 * @return the number of shopping orders
@@ -2082,7 +2486,18 @@ public class ShoppingOrderPersistenceImpl extends BasePersistenceImpl<ShoppingOr
 	private static final String _FINDER_COLUMN_G_U_PPPS_PPPAYMENTSTATUS_1 = "shoppingOrder.ppPaymentStatus IS NULL";
 	private static final String _FINDER_COLUMN_G_U_PPPS_PPPAYMENTSTATUS_2 = "shoppingOrder.ppPaymentStatus = ?";
 	private static final String _FINDER_COLUMN_G_U_PPPS_PPPAYMENTSTATUS_3 = "(shoppingOrder.ppPaymentStatus IS NULL OR shoppingOrder.ppPaymentStatus = ?)";
+	private static final String _FILTER_SQL_SELECT_SHOPPINGORDER_WHERE = "SELECT DISTINCT {shoppingOrder.*} FROM Shopping_ShoppingOrder shoppingOrder WHERE ";
+	private static final String _FILTER_SQL_SELECT_SHOPPINGORDER_NO_INLINE_DISTINCT_WHERE_1 =
+		"SELECT {Shopping_ShoppingOrder.*} FROM (SELECT DISTINCT shoppingOrder.orderId FROM Shopping_ShoppingOrder shoppingOrder WHERE ";
+	private static final String _FILTER_SQL_SELECT_SHOPPINGORDER_NO_INLINE_DISTINCT_WHERE_2 =
+		") TEMP_TABLE INNER JOIN Shopping_ShoppingOrder ON TEMP_TABLE.orderId = Shopping_ShoppingOrder.orderId";
+	private static final String _FILTER_SQL_COUNT_SHOPPINGORDER_WHERE = "SELECT COUNT(DISTINCT shoppingOrder.orderId) AS COUNT_VALUE FROM Shopping_ShoppingOrder shoppingOrder WHERE ";
+	private static final String _FILTER_COLUMN_PK = "shoppingOrder.orderId";
+	private static final String _FILTER_COLUMN_USERID = "shoppingOrder.userId";
+	private static final String _FILTER_ENTITY_ALIAS = "shoppingOrder";
+	private static final String _FILTER_ENTITY_TABLE = "Shopping_ShoppingOrder";
 	private static final String _ORDER_BY_ENTITY_ALIAS = "shoppingOrder.";
+	private static final String _ORDER_BY_ENTITY_TABLE = "Shopping_ShoppingOrder.";
 	private static final String _NO_SUCH_ENTITY_WITH_PRIMARY_KEY = "No ShoppingOrder exists with the primary key ";
 	private static final String _NO_SUCH_ENTITY_WITH_KEY = "No ShoppingOrder exists with the key {";
 	private static Log _log = LogFactoryUtil.getLog(ShoppingOrderPersistenceImpl.class);

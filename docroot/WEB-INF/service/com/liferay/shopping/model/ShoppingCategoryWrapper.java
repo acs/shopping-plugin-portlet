@@ -125,7 +125,7 @@ public class ShoppingCategoryWrapper implements ShoppingCategory {
 		_shoppingCategory.setDescription(description);
 	}
 
-	public com.liferay.shopping.model.ShoppingCategory toEscapedModel() {
+	public ShoppingCategory toEscapedModel() {
 		return _shoppingCategory.toEscapedModel();
 	}
 
@@ -170,8 +170,7 @@ public class ShoppingCategoryWrapper implements ShoppingCategory {
 		return _shoppingCategory.clone();
 	}
 
-	public int compareTo(
-		com.liferay.shopping.model.ShoppingCategory shoppingCategory) {
+	public int compareTo(ShoppingCategory shoppingCategory) {
 		return _shoppingCategory.compareTo(shoppingCategory);
 	}
 

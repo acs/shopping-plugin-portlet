@@ -116,7 +116,7 @@ public class ShoppingOrderItemWrapper implements ShoppingOrderItem {
 		_shoppingOrderItem.setShippedDate(shippedDate);
 	}
 
-	public com.liferay.shopping.model.ShoppingOrderItem toEscapedModel() {
+	public ShoppingOrderItem toEscapedModel() {
 		return _shoppingOrderItem.toEscapedModel();
 	}
 
@@ -161,8 +161,7 @@ public class ShoppingOrderItemWrapper implements ShoppingOrderItem {
 		return _shoppingOrderItem.clone();
 	}
 
-	public int compareTo(
-		com.liferay.shopping.model.ShoppingOrderItem shoppingOrderItem) {
+	public int compareTo(ShoppingOrderItem shoppingOrderItem) {
 		return _shoppingOrderItem.compareTo(shoppingOrderItem);
 	}
 

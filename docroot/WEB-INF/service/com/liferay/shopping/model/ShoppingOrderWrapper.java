@@ -473,7 +473,7 @@ public class ShoppingOrderWrapper implements ShoppingOrder {
 		_shoppingOrder.setSendShippingEmail(sendShippingEmail);
 	}
 
-	public com.liferay.shopping.model.ShoppingOrder toEscapedModel() {
+	public ShoppingOrder toEscapedModel() {
 		return _shoppingOrder.toEscapedModel();
 	}
 
@@ -518,7 +518,7 @@ public class ShoppingOrderWrapper implements ShoppingOrder {
 		return _shoppingOrder.clone();
 	}
 
-	public int compareTo(com.liferay.shopping.model.ShoppingOrder shoppingOrder) {
+	public int compareTo(ShoppingOrder shoppingOrder) {
 		return _shoppingOrder.compareTo(shoppingOrder);
 	}
 

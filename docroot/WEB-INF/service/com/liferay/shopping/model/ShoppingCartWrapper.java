@@ -137,7 +137,7 @@ public class ShoppingCartWrapper implements ShoppingCart {
 		_shoppingCart.setInsure(insure);
 	}
 
-	public com.liferay.shopping.model.ShoppingCart toEscapedModel() {
+	public ShoppingCart toEscapedModel() {
 		return _shoppingCart.toEscapedModel();
 	}
 
@@ -182,7 +182,7 @@ public class ShoppingCartWrapper implements ShoppingCart {
 		return _shoppingCart.clone();
 	}
 
-	public int compareTo(com.liferay.shopping.model.ShoppingCart shoppingCart) {
+	public int compareTo(ShoppingCart shoppingCart) {
 		return _shoppingCart.compareTo(shoppingCart);
 	}
 

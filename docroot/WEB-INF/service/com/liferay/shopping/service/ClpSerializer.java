@@ -37,7 +37,7 @@ import java.util.List;
  * @author Brian Wing Shun Chan
  */
 public class ClpSerializer {
-	public static final String SERVLET_CONTEXT_NAME = "shop-portlet";
+	public static final String SERVLET_CONTEXT_NAME = "shopping-plugin-portlet";
 
 	public static void setClassLoader(ClassLoader classLoader) {
 		_classLoader = classLoader;

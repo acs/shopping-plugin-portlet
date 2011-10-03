@@ -76,7 +76,7 @@ public class ShoppingItemFieldWrapper implements ShoppingItemField {
 		_shoppingItemField.setDescription(description);
 	}
 
-	public com.liferay.shopping.model.ShoppingItemField toEscapedModel() {
+	public ShoppingItemField toEscapedModel() {
 		return _shoppingItemField.toEscapedModel();
 	}
 
@@ -121,8 +121,7 @@ public class ShoppingItemFieldWrapper implements ShoppingItemField {
 		return _shoppingItemField.clone();
 	}
 
-	public int compareTo(
-		com.liferay.shopping.model.ShoppingItemField shoppingItemField) {
+	public int compareTo(ShoppingItemField shoppingItemField) {
 		return _shoppingItemField.compareTo(shoppingItemField);
 	}
 

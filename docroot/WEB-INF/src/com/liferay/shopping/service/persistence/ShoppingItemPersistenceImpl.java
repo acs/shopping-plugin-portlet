@@ -39,6 +39,7 @@ import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.ModelListener;
+import com.liferay.portal.security.permission.InlineSQLHelperUtil;
 import com.liferay.portal.service.persistence.BatchSessionUtil;
 import com.liferay.portal.service.persistence.ImagePersistence;
 import com.liferay.portal.service.persistence.ResourcePersistence;
@@ -1310,6 +1311,141 @@ public class ShoppingItemPersistenceImpl extends BasePersistenceImpl<ShoppingIte
 	}
 
 	/**
+	 * Filters by the user's permissions and finds all the shopping items where groupId = &#63; and categoryId = &#63;.
+	 *
+	 * @param groupId the group id to search with
+	 * @param categoryId the category id to search with
+	 * @return the matching shopping items that the user has permission to view
+	 * @throws SystemException if a system exception occurred
+	 */
+	public List<ShoppingItem> filterFindByG_C(long groupId, long categoryId)
+		throws SystemException {
+		return filterFindByG_C(groupId, categoryId, QueryUtil.ALL_POS,
+			QueryUtil.ALL_POS, null);
+	}
+
+	/**
+	 * Filters by the user's permissions and finds a range of all the shopping items where groupId = &#63; and categoryId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	 * </p>
+	 *
+	 * @param groupId the group id to search with
+	 * @param categoryId the category id to search with
+	 * @param start the lower bound of the range of shopping items to return
+	 * @param end the upper bound of the range of shopping items to return (not inclusive)
+	 * @return the range of matching shopping items that the user has permission to view
+	 * @throws SystemException if a system exception occurred
+	 */
+	public List<ShoppingItem> filterFindByG_C(long groupId, long categoryId,
+		int start, int end) throws SystemException {
+		return filterFindByG_C(groupId, categoryId, start, end, null);
+	}
+
+	/**
+	 * Filters by the user's permissions and finds an ordered range of all the shopping items where groupId = &#63; and categoryId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	 * </p>
+	 *
+	 * @param groupId the group id to search with
+	 * @param categoryId the category id to search with
+	 * @param start the lower bound of the range of shopping items to return
+	 * @param end the upper bound of the range of shopping items to return (not inclusive)
+	 * @param orderByComparator the comparator to order the results by
+	 * @return the ordered range of matching shopping items that the user has permission to view
+	 * @throws SystemException if a system exception occurred
+	 */
+	public List<ShoppingItem> filterFindByG_C(long groupId, long categoryId,
+		int start, int end, OrderByComparator orderByComparator)
+		throws SystemException {
+		if (!InlineSQLHelperUtil.isEnabled(groupId)) {
+			return findByG_C(groupId, categoryId, start, end, orderByComparator);
+		}
+
+		StringBundler query = null;
+
+		if (orderByComparator != null) {
+			query = new StringBundler(4 +
+					(orderByComparator.getOrderByFields().length * 3));
+		}
+		else {
+			query = new StringBundler(4);
+		}
+
+		if (getDB().isSupportsInlineDistinct()) {
+			query.append(_FILTER_SQL_SELECT_SHOPPINGITEM_WHERE);
+		}
+		else {
+			query.append(_FILTER_SQL_SELECT_SHOPPINGITEM_NO_INLINE_DISTINCT_WHERE_1);
+		}
+
+		query.append(_FINDER_COLUMN_G_C_GROUPID_2);
+
+		query.append(_FINDER_COLUMN_G_C_CATEGORYID_2);
+
+		if (!getDB().isSupportsInlineDistinct()) {
+			query.append(_FILTER_SQL_SELECT_SHOPPINGITEM_NO_INLINE_DISTINCT_WHERE_2);
+		}
+
+		if (orderByComparator != null) {
+			if (getDB().isSupportsInlineDistinct()) {
+				appendOrderByComparator(query, _ORDER_BY_ENTITY_ALIAS,
+					orderByComparator);
+			}
+			else {
+				appendOrderByComparator(query, _ORDER_BY_ENTITY_TABLE,
+					orderByComparator);
+			}
+		}
+
+		else {
+			if (getDB().isSupportsInlineDistinct()) {
+				query.append(ShoppingItemModelImpl.ORDER_BY_JPQL);
+			}
+			else {
+				query.append(ShoppingItemModelImpl.ORDER_BY_SQL);
+			}
+		}
+
+		String sql = InlineSQLHelperUtil.replacePermissionCheck(query.toString(),
+				ShoppingItem.class.getName(), _FILTER_COLUMN_PK,
+				_FILTER_COLUMN_USERID, groupId);
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			SQLQuery q = session.createSQLQuery(sql);
+
+			if (getDB().isSupportsInlineDistinct()) {
+				q.addEntity(_FILTER_ENTITY_ALIAS, ShoppingItemImpl.class);
+			}
+			else {
+				q.addEntity(_FILTER_ENTITY_TABLE, ShoppingItemImpl.class);
+			}
+
+			QueryPos qPos = QueryPos.getInstance(q);
+
+			qPos.add(groupId);
+
+			qPos.add(categoryId);
+
+			return (List<ShoppingItem>)QueryUtil.list(q, getDialect(), start,
+				end);
+		}
+		catch (Exception e) {
+			throw processException(e);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
+	/**
 	 * Finds the shopping item where companyId = &#63; and sku = &#63; or throws a {@link com.liferay.shopping.NoSuchItemException} if it could not be found.
 	 *
 	 * @param companyId the company id to search with
@@ -1869,6 +2005,60 @@ public class ShoppingItemPersistenceImpl extends BasePersistenceImpl<ShoppingIte
 	}
 
 	/**
+	 * Filters by the user's permissions and counts all the shopping items where groupId = &#63; and categoryId = &#63;.
+	 *
+	 * @param groupId the group id to search with
+	 * @param categoryId the category id to search with
+	 * @return the number of matching shopping items that the user has permission to view
+	 * @throws SystemException if a system exception occurred
+	 */
+	public int filterCountByG_C(long groupId, long categoryId)
+		throws SystemException {
+		if (!InlineSQLHelperUtil.isEnabled(groupId)) {
+			return countByG_C(groupId, categoryId);
+		}
+
+		StringBundler query = new StringBundler(3);
+
+		query.append(_FILTER_SQL_COUNT_SHOPPINGITEM_WHERE);
+
+		query.append(_FINDER_COLUMN_G_C_GROUPID_2);
+
+		query.append(_FINDER_COLUMN_G_C_CATEGORYID_2);
+
+		String sql = InlineSQLHelperUtil.replacePermissionCheck(query.toString(),
+				ShoppingItem.class.getName(), _FILTER_COLUMN_PK,
+				_FILTER_COLUMN_USERID, groupId);
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			SQLQuery q = session.createSQLQuery(sql);
+
+			q.addScalar(COUNT_COLUMN_NAME,
+				com.liferay.portal.kernel.dao.orm.Type.LONG);
+
+			QueryPos qPos = QueryPos.getInstance(q);
+
+			qPos.add(groupId);
+
+			qPos.add(categoryId);
+
+			Long count = (Long)q.uniqueResult();
+
+			return count.intValue();
+		}
+		catch (Exception e) {
+			throw processException(e);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
+	/**
 	 * Counts all the shopping items where companyId = &#63; and sku = &#63;.
 	 *
 	 * @param companyId the company id to search with
@@ -2307,7 +2497,18 @@ public class ShoppingItemPersistenceImpl extends BasePersistenceImpl<ShoppingIte
 	private static final String _FINDER_COLUMN_C_S_SKU_1 = "shoppingItem.sku IS NULL";
 	private static final String _FINDER_COLUMN_C_S_SKU_2 = "shoppingItem.sku = ?";
 	private static final String _FINDER_COLUMN_C_S_SKU_3 = "(shoppingItem.sku IS NULL OR shoppingItem.sku = ?)";
+	private static final String _FILTER_SQL_SELECT_SHOPPINGITEM_WHERE = "SELECT DISTINCT {shoppingItem.*} FROM Shopping_ShoppingItem shoppingItem WHERE ";
+	private static final String _FILTER_SQL_SELECT_SHOPPINGITEM_NO_INLINE_DISTINCT_WHERE_1 =
+		"SELECT {Shopping_ShoppingItem.*} FROM (SELECT DISTINCT shoppingItem.itemId FROM Shopping_ShoppingItem shoppingItem WHERE ";
+	private static final String _FILTER_SQL_SELECT_SHOPPINGITEM_NO_INLINE_DISTINCT_WHERE_2 =
+		") TEMP_TABLE INNER JOIN Shopping_ShoppingItem ON TEMP_TABLE.itemId = Shopping_ShoppingItem.itemId";
+	private static final String _FILTER_SQL_COUNT_SHOPPINGITEM_WHERE = "SELECT COUNT(DISTINCT shoppingItem.itemId) AS COUNT_VALUE FROM Shopping_ShoppingItem shoppingItem WHERE ";
+	private static final String _FILTER_COLUMN_PK = "shoppingItem.itemId";
+	private static final String _FILTER_COLUMN_USERID = "shoppingItem.userId";
+	private static final String _FILTER_ENTITY_ALIAS = "shoppingItem";
+	private static final String _FILTER_ENTITY_TABLE = "Shopping_ShoppingItem";
 	private static final String _ORDER_BY_ENTITY_ALIAS = "shoppingItem.";
+	private static final String _ORDER_BY_ENTITY_TABLE = "Shopping_ShoppingItem.";
 	private static final String _NO_SUCH_ENTITY_WITH_PRIMARY_KEY = "No ShoppingItem exists with the primary key ";
 	private static final String _NO_SUCH_ENTITY_WITH_KEY = "No ShoppingItem exists with the key {";
 	private static Log _log = LogFactoryUtil.getLog(ShoppingItemPersistenceImpl.class);

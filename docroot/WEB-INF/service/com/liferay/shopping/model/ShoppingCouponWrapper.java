@@ -193,7 +193,7 @@ public class ShoppingCouponWrapper implements ShoppingCoupon {
 		_shoppingCoupon.setDiscountType(discountType);
 	}
 
-	public com.liferay.shopping.model.ShoppingCoupon toEscapedModel() {
+	public ShoppingCoupon toEscapedModel() {
 		return _shoppingCoupon.toEscapedModel();
 	}
 
@@ -238,8 +238,7 @@ public class ShoppingCouponWrapper implements ShoppingCoupon {
 		return _shoppingCoupon.clone();
 	}
 
-	public int compareTo(
-		com.liferay.shopping.model.ShoppingCoupon shoppingCoupon) {
+	public int compareTo(ShoppingCoupon shoppingCoupon) {
 		return _shoppingCoupon.compareTo(shoppingCoupon);
 	}
 
