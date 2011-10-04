@@ -25,10 +25,18 @@ import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 
+import com.liferay.portal.security.auth.PrincipalException;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.ServiceContextFactory;
 import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.portal.util.PortalUtil;
+
+import com.liferay.shopping.CartMinQuantityException;
+import com.liferay.shopping.CouponActiveException;
+import com.liferay.shopping.CouponEndDateException;
+import com.liferay.shopping.CouponStartDateException;
+import com.liferay.shopping.NoSuchCouponException;
+import com.liferay.shopping.NoSuchItemException;
 
 import com.liferay.shopping.model.ShoppingCart;
 import com.liferay.shopping.model.ShoppingCategory;
@@ -380,6 +388,10 @@ public class ShoppingPortlet extends MVCPortlet {
             ActionRequest actionRequest, ActionResponse actionResponse)
         throws Exception {
 
+        try {
+
+        actionResponse.setRenderParameter("jspPage","/cart.jsp");
+
         String cmd = ParamUtil.getString(actionRequest, Constants.CMD);
 
         ShoppingCart cart = ShoppingUtil.getCart(actionRequest);
@@ -425,7 +437,29 @@ public class ShoppingPortlet extends MVCPortlet {
         if (cmd.equals(Constants.ADD) || cmd.equals(Constants.UPDATE)) {
             addSuccessMessage(actionRequest, actionResponse);
         }
-        actionResponse.setRenderParameter("jspPage","/cart.jsp");
+
+        } catch (Exception e) {
+            if (e instanceof NoSuchItemException ||
+                e instanceof PrincipalException) {
+
+                SessionErrors.add(actionRequest, e.getClass().getName());
+
+                // setForward(actionRequest, "portlet.shopping.error");
+            }
+            else if (e instanceof CartMinQuantityException ||
+                     e instanceof CouponActiveException ||
+                     e instanceof CouponEndDateException ||
+                     e instanceof CouponStartDateException ||
+                     e instanceof NoSuchCouponException) {
+
+                _log.error ("Cart Exception: " + e.getClass().getName());
+                SessionErrors.add(actionRequest, e.getClass().getName(), e);
+            }
+            else {
+                throw e;
+            }
+        }
+
     }
 
     // ORDERS
