@@ -390,7 +390,6 @@ public class ShoppingPortlet extends MVCPortlet {
 
         try {
 
-        actionResponse.setRenderParameter("jspPage","/cart.jsp");
 
         String cmd = ParamUtil.getString(actionRequest, Constants.CMD);
 
@@ -436,6 +435,7 @@ public class ShoppingPortlet extends MVCPortlet {
 
         if (cmd.equals(Constants.ADD) || cmd.equals(Constants.UPDATE)) {
             addSuccessMessage(actionRequest, actionResponse);
+            actionResponse.setRenderParameter("jspPage","/cart.jsp");
         }
 
         } catch (Exception e) {
