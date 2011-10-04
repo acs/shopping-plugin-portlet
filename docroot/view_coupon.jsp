@@ -17,12 +17,15 @@
 <%@ include file="/init.jsp" %>
 
 <%
-ShoppingCoupon coupon = (ShoppingCoupon)request.getAttribute(WebKeys.SHOPPING_COUPON);
+
+long couponId = ParamUtil.getLong(request, "couponId");
+
+ShoppingCoupon coupon  = ShoppingCouponServiceUtil.getCoupon(themeDisplay.getScopeGroupId(), couponId);
 
 coupon = coupon.toEscapedModel();
 %>
 
-<strong><%= coupon.getCouponId() %></strong>
+<strong><%= couponId %></strong>
 
 <br /><br />
 
