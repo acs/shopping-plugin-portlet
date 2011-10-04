@@ -70,8 +70,7 @@
 <%@ page import="com.liferay.portlet.PortletPreferencesFactoryUtil" %>
 <%@ page import="com.liferay.portlet.PortletURLUtil" %>
 <%@ page import="com.liferay.portal.service.permission.GroupPermissionUtil" %>
-<%-- <%@ page import="com.liferay.portal.webserver.WebServerServletTokenUtil" %> --%>
-<%@ page import="com.liferay.shopping.webserver.WebServerServletTokenUtil" %>
+<%@ page import="com.liferay.portal.webserver.WebServerServletTokenUtil" %>
 <%@ page import="com.liferay.util.StateUtil" %>
 <%@ page import="java.text.Format" %>
 <%@ page import="java.text.NumberFormat" %>
