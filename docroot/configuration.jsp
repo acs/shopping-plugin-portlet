@@ -324,7 +324,7 @@ else if (tabs3.equals("shipping-email")) {
 									[$PORTAL_URL$]
 								</dt>
 								<dd>
-									<%= company.getVirtualHostname() %>
+									VirtualHostname? <%-- <%= company.getVirtualHostname() %> --%>
 								</dd>
 								<dt>
 									[$PORTLET_NAME$]
