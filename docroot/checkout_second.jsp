@@ -29,8 +29,8 @@ String altShippingName = shoppingPrefs.getAlternativeShippingName(altShipping);
 ShoppingOrder order = (ShoppingOrder)request.getAttribute(WebKeys.SHOPPING_ORDER);
 %>
 
-<portlet:actionURL var="checkoutSecondURL">
-	<portlet:param name="struts_action" value="/shopping/checkout" />
+<portlet:actionURL var="checkoutSecondURL" name="saveLatestOrder">
+	<%-- <portlet:param name="struts_action" value="/shopping/checkout" /> --%>
 </portlet:actionURL>
 
 <aui:form action="<%= checkoutSecondURL %>" method="post" name="fm">
@@ -64,7 +64,7 @@ ShoppingOrder order = (ShoppingOrder)request.getAttribute(WebKeys.SHOPPING_ORDER
 	<aui:input name="ccVerNumber" type="hidden" value="<%= order.getCcVerNumber() %>" />
 	<aui:input name="comments" type="hidden" value="<%= order.getComments() %>" />
 
-	<liferay-util:include page="/tabs1.jsp">
+	<liferay-util:include page="/tabs.jsp" servletContext="<%= application %>">
 		<liferay-util:param name="tabs1" value="cart" />
 	</liferay-util:include>
 
@@ -317,7 +317,7 @@ ShoppingOrder order = (ShoppingOrder)request.getAttribute(WebKeys.SHOPPING_ORDER
 	</c:if>
 
 	<%
-	boolean showAvailability = PrefsPropsUtil.getBoolean(company.getCompanyId(), PropsKeys.SHOPPING_ITEM_SHOW_AVAILABILITY);
+	boolean showAvailability = GetterUtil.getBoolean(PrefsPropsUtil.getString(company.getCompanyId(), PropsKeys.SHOPPING_ITEM_SHOW_AVAILABILITY));
 
 	StringBundler itemIds = new StringBundler();
 

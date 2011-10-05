@@ -38,6 +38,29 @@ import com.liferay.shopping.CouponStartDateException;
 import com.liferay.shopping.NoSuchCouponException;
 import com.liferay.shopping.NoSuchItemException;
 
+import com.liferay.shopping.BillingCityException;
+import com.liferay.shopping.BillingCountryException;
+import com.liferay.shopping.BillingEmailAddressException;
+import com.liferay.shopping.BillingFirstNameException;
+import com.liferay.shopping.BillingLastNameException;
+import com.liferay.shopping.BillingPhoneException;
+import com.liferay.shopping.BillingStateException;
+import com.liferay.shopping.BillingStreetException;
+import com.liferay.shopping.BillingZipException;
+import com.liferay.shopping.CCExpirationException;
+import com.liferay.shopping.CCNameException;
+import com.liferay.shopping.CCNumberException;
+import com.liferay.shopping.CCTypeException;
+import com.liferay.shopping.ShippingCityException;
+import com.liferay.shopping.ShippingCountryException;
+import com.liferay.shopping.ShippingEmailAddressException;
+import com.liferay.shopping.ShippingFirstNameException;
+import com.liferay.shopping.ShippingLastNameException;
+import com.liferay.shopping.ShippingPhoneException;
+import com.liferay.shopping.ShippingStateException;
+import com.liferay.shopping.ShippingStreetException;
+import com.liferay.shopping.ShippingZipException;
+
 import com.liferay.shopping.model.ShoppingCart;
 import com.liferay.shopping.model.ShoppingCategory;
 import com.liferay.shopping.model.ShoppingCoupon;
@@ -45,6 +68,7 @@ import com.liferay.shopping.model.ShoppingItem;
 import com.liferay.shopping.model.ShoppingItemField;
 import com.liferay.shopping.model.ShoppingItemPrice;
 import com.liferay.shopping.model.ShoppingItemPriceConstants;
+import com.liferay.shopping.model.ShoppingOrder;
 import com.liferay.shopping.service.persistence.ShoppingItemFieldUtil;
 import com.liferay.shopping.service.persistence.ShoppingItemPriceUtil;
 import com.liferay.shopping.service.ShoppingCartLocalServiceUtil;
@@ -53,6 +77,7 @@ import com.liferay.shopping.service.ShoppingCouponServiceUtil;
 import com.liferay.shopping.service.ShoppingItemLocalServiceUtil;
 import com.liferay.shopping.service.ShoppingItemServiceUtil;
 import com.liferay.shopping.service.ShoppingOrderServiceUtil;
+import com.liferay.shopping.service.ShoppingOrderLocalServiceUtil;
 import com.liferay.shopping.util.ShoppingUtil;
 import com.liferay.shopping.util.WebKeys;
 
@@ -513,6 +538,146 @@ public class ShoppingPortlet extends MVCPortlet {
         ShoppingOrderServiceUtil.completeOrder(
             themeDisplay.getScopeGroupId(), number, ppTxnId, ppPaymentStatus,
             ppPaymentGross, ppReceiverEmail, ppPayerEmail);
+    }
+
+    // CHECKOUT
+
+    public void updateLatestOrder(
+            ActionRequest actionRequest, ActionResponse actionResponse)
+        throws Exception {
+
+        ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(
+            WebKeys.THEME_DISPLAY);
+
+        String billingFirstName = ParamUtil.getString(
+            actionRequest, "billingFirstName");
+        String billingLastName = ParamUtil.getString(
+            actionRequest, "billingLastName");
+        String billingEmailAddress = ParamUtil.getString(
+            actionRequest, "billingEmailAddress");
+        String billingCompany = ParamUtil.getString(
+            actionRequest, "billingCompany");
+        String billingStreet = ParamUtil.getString(
+            actionRequest, "billingStreet");
+        String billingCity = ParamUtil.getString(actionRequest, "billingCity");
+
+        String billingStateSel = ParamUtil.getString(
+            actionRequest, "billingStateSel");
+        String billingState = billingStateSel;
+        if (Validator.isNull(billingStateSel)) {
+            billingState = ParamUtil.getString(actionRequest, "billingState");
+        }
+
+        String billingZip = ParamUtil.getString(actionRequest, "billingZip");
+        String billingCountry = ParamUtil.getString(
+            actionRequest, "billingCountry");
+        String billingPhone = ParamUtil.getString(
+            actionRequest, "billingPhone");
+
+        boolean shipToBilling = ParamUtil.getBoolean(
+            actionRequest, "shipToBilling");
+        String shippingFirstName = ParamUtil.getString(
+            actionRequest, "shippingFirstName");
+        String shippingLastName = ParamUtil.getString(
+            actionRequest, "shippingLastName");
+        String shippingEmailAddress = ParamUtil.getString(
+            actionRequest, "shippingEmailAddress");
+        String shippingCompany = ParamUtil.getString(
+            actionRequest, "shippingCompany");
+        String shippingStreet = ParamUtil.getString(
+            actionRequest, "shippingStreet");
+        String shippingCity = ParamUtil.getString(
+            actionRequest, "shippingCity");
+
+        String shippingStateSel = ParamUtil.getString(
+            actionRequest, "shippingStateSel");
+        String shippingState = shippingStateSel;
+        if (Validator.isNull(shippingStateSel)) {
+            shippingState = ParamUtil.getString(actionRequest, "shippingState");
+        }
+
+        String shippingZip = ParamUtil.getString(actionRequest, "shippingZip");
+        String shippingCountry = ParamUtil.getString(
+            actionRequest, "shippingCountry");
+        String shippingPhone = ParamUtil.getString(
+            actionRequest, "shippingPhone");
+
+        String ccName = ParamUtil.getString(actionRequest, "ccName");
+        String ccType = ParamUtil.getString(actionRequest, "ccType");
+        String ccNumber = ParamUtil.getString(actionRequest, "ccNumber");
+        int ccExpMonth = ParamUtil.getInteger(actionRequest, "ccExpMonth");
+        int ccExpYear = ParamUtil.getInteger(actionRequest, "ccExpYear");
+        String ccVerNumber = ParamUtil.getString(actionRequest, "ccVerNumber");
+
+        String comments = ParamUtil.getString(actionRequest, "comments");
+
+        try {
+        ShoppingOrder order = ShoppingOrderLocalServiceUtil.updateLatestOrder(
+            themeDisplay.getUserId(), themeDisplay.getScopeGroupId(),
+            billingFirstName, billingLastName, billingEmailAddress,
+            billingCompany, billingStreet, billingCity, billingState,
+            billingZip, billingCountry, billingPhone, shipToBilling,
+            shippingFirstName, shippingLastName, shippingEmailAddress,
+            shippingCompany, shippingStreet, shippingCity, shippingState,
+            shippingZip, shippingCountry, shippingPhone, ccName, ccType,
+            ccNumber, ccExpMonth, ccExpYear, ccVerNumber, comments);
+
+        actionRequest.setAttribute(WebKeys.SHOPPING_ORDER, order);
+        actionResponse.setRenderParameter("jspPage","/checkout_second.jsp");
+        }
+        catch (Exception e) {
+                if (e instanceof BillingCityException ||
+                    e instanceof BillingCountryException ||
+                    e instanceof BillingEmailAddressException ||
+                    e instanceof BillingFirstNameException ||
+                    e instanceof BillingLastNameException ||
+                    e instanceof BillingPhoneException ||
+                    e instanceof BillingStateException ||
+                    e instanceof BillingStreetException ||
+                    e instanceof BillingZipException ||
+                    e instanceof CCExpirationException ||
+                    e instanceof CCNameException ||
+                    e instanceof CCNumberException ||
+                    e instanceof CCTypeException ||
+                    e instanceof ShippingCityException ||
+                    e instanceof ShippingCountryException ||
+                    e instanceof ShippingEmailAddressException ||
+                    e instanceof ShippingFirstNameException ||
+                    e instanceof ShippingLastNameException ||
+                    e instanceof ShippingPhoneException ||
+                    e instanceof ShippingStateException ||
+                    e instanceof ShippingStreetException ||
+                    e instanceof ShippingZipException) {
+
+                    SessionErrors.add(actionRequest, e.getClass().getName());
+                    actionResponse.setRenderParameter("jspPage","/checkout_first.jsp");
+
+                    //setForward(
+                    //    actionRequest, "portlet.shopping.checkout_first");
+                }
+                //else if (e instanceof PrincipalException) {
+                    // setForward(actionRequest, "portlet.shopping.error");
+                //}
+                else {
+                    throw e;
+                }
+        }
+    }
+
+    public void saveLatestOrder(
+            ActionRequest actionRequest, ActionResponse actionResponse)
+        throws Exception {
+
+        updateCart(actionRequest, actionResponse);
+        updateLatestOrder(actionRequest, actionResponse);
+
+        ShoppingCart cart = ShoppingUtil.getCart(actionRequest);
+
+        ShoppingOrder order =
+            ShoppingOrderLocalServiceUtil.saveLatestOrder(cart);
+
+        actionRequest.setAttribute(WebKeys.SHOPPING_ORDER, order);
+        actionResponse.setRenderParameter("jspPage","/checkout_third.jsp");
     }
 
 

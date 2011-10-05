@@ -17,7 +17,8 @@
 <%@ include file="/init.jsp" %>
 
 <%
-ShoppingOrder order = (ShoppingOrder)request.getAttribute(WebKeys.SHOPPING_ORDER);
+ShoppingOrder order = ShoppingOrderLocalServiceUtil.getLatestOrder(
+            themeDisplay.getUserId(), themeDisplay.getScopeGroupId());
 
 String billingState = BeanParamUtil.getString(order, request, "billingState");
 String billingStateSel = ParamUtil.getString(request, "billingStateSel");
@@ -58,8 +59,8 @@ String ccVerNumber = ParamUtil.getString(request, "ccVerNumber");
 List addresses = AddressServiceUtil.getAddresses(Contact.class.getName(), contact.getContactId());
 %>
 
-<portlet:actionURL var="checkoutURL">
-	<portlet:param name="struts_action" value="/shopping/checkout" />
+<portlet:actionURL var="checkoutURL" name="updateLatestOrder">
+	<%-- <portlet:param name="struts_action" value="/shopping/checkout" /> --%>
 </portlet:actionURL>
 
 <aui:form action="<%= checkoutURL %>" method="post" name="fm">

@@ -19,11 +19,11 @@
 <%
 String redirect = ParamUtil.getString(request, "redirect");
 
-ShoppingOrder order = (ShoppingOrder)request.getAttribute(WebKeys.SHOPPING_ORDER);
+long orderId = ParamUtil.getLong(request, "orderId");
+
+ShoppingOrder order = ShoppingOrderServiceUtil.getOrder(themeDisplay.getScopeGroupId(), orderId); 
 
 order = order.toEscapedModel();
-
-long orderId = BeanParamUtil.getLong(order, request, "orderId");
 %>
 
 <portlet:actionURL var="editOrderURL">
@@ -410,7 +410,7 @@ long orderId = BeanParamUtil.getLong(order, request, "orderId");
 		catch (Exception e) {
 		}
 
-		String[] fieldsArray = StringUtil.split(ShoppingUtil.getItemFields(orderItem.getItemId()), '&');
+		String[] fieldsArray = StringUtil.split(ShoppingUtil.getItemFields(orderItem.getItemId()), "&");
 
 		int quantity = orderItem.getQuantity();
 

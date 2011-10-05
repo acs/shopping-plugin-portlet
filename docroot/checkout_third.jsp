@@ -17,7 +17,8 @@
 <%@ include file="/init.jsp" %>
 
 <%
-String orderId = ParamUtil.getString(request, "orderId");
+ShoppingOrder order = (ShoppingOrder)request.getAttribute(WebKeys.SHOPPING_ORDER);
+// String orderId = ParamUtil.getString(request, "orderId");
 
 try {
 	ShoppingCart cart = ShoppingUtil.getCart(renderRequest);
@@ -28,7 +29,7 @@ catch (Exception e) {
 }
 %>
 
-<liferay-util:include page="/tabs1.jsp">
+<liferay-util:include page="/tabs.jsp" servletContext="<%= application %>">
 	<liferay-util:param name="tabs1" value="cart" />
 </liferay-util:include>
 
@@ -36,4 +37,4 @@ catch (Exception e) {
 	<liferay-ui:message key="thank-you-for-your-purchase" />
 </div>
 
-<liferay-ui:message key="your-order-number-is" /> <strong><%= orderId %></strong>. <liferay-ui:message key="you-will-receive-an-email-shortly-with-your-order-summary-and-further-details" />
+<liferay-ui:message key="your-order-number-is" /> <strong><%= order.getOrderId() %></strong>. <liferay-ui:message key="you-will-receive-an-email-shortly-with-your-order-summary-and-further-details" />
