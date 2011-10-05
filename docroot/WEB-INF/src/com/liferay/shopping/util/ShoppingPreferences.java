@@ -14,6 +14,9 @@
 
 package com.liferay.shopping.util;
 
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.PropsKeys;
@@ -23,6 +26,7 @@ import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.service.PortletPreferencesLocalServiceUtil;
 import com.liferay.portal.util.PortletKeys;
+import com.liferay.util.portlet.PortletProps;
 import com.liferay.portal.kernel.util.PropsUtil;
 // import com.liferay.portal.util.PropsUtil;
 import com.liferay.util.ContentUtil;
@@ -339,11 +343,13 @@ public class ShoppingPreferences {
 	}
 
 	public String getEmailOrderConfirmationBody() {
-		String emailOrderConfirmationBody = _portletPreferences.getValue(
-			"emailOrderConfirmationBody", StringPool.BLANK);
+		String emailOrderConfirmationBody = PortletProps.get(
+	        PortletPropsKeys.SHOPPING_EMAIL_ORDER_CONFIRMATION_BODY);
+
+        _log.error(PortletPropsKeys.SHOPPING_EMAIL_ORDER_CONFIRMATION_BODY + " " + emailOrderConfirmationBody);
 
 		if (Validator.isNotNull(emailOrderConfirmationBody)) {
-			return emailOrderConfirmationBody;
+            return ContentUtil.get(emailOrderConfirmationBody); 
 		}
 		else {
 			return ContentUtil.get(PropsUtil.get(
@@ -359,11 +365,13 @@ public class ShoppingPreferences {
 	}
 
 	public String getEmailOrderConfirmationSubject() {
-		String emailOrderConfirmationSubject = _portletPreferences.getValue(
-			"emailOrderConfirmationSubject", StringPool.BLANK);
+		String emailOrderConfirmationSubject = PortletProps.get(
+			PortletPropsKeys.SHOPPING_EMAIL_ORDER_CONFIRMATION_SUBJECT);
+
+        _log.error(PortletPropsKeys.SHOPPING_EMAIL_ORDER_CONFIRMATION_SUBJECT + " " + emailOrderConfirmationSubject);
 
 		if (Validator.isNotNull(emailOrderConfirmationSubject)) {
-			return emailOrderConfirmationSubject;
+            return ContentUtil.get(emailOrderConfirmationSubject);
 		}
 		else {
 			return ContentUtil.get(PropsUtil.get(
@@ -380,8 +388,10 @@ public class ShoppingPreferences {
 	}
 
 	public boolean getEmailOrderShippingEnabled() {
-		String emailOrderShippingEnabled = _portletPreferences.getValue(
-			"emailOrderShippingEnabled", StringPool.BLANK);
+		//String emailOrderShippingEnabled = _portletPreferences.getValue(
+		//	"emailOrderShippingEnabled", StringPool.BLANK);
+		String emailOrderShippingEnabled = PortletProps.get(
+			PortletPropsKeys.SHOPPING_EMAIL_ORDER_SHIPPING_ENABLED);
 
 		if (Validator.isNotNull(emailOrderShippingEnabled)) {
 			return GetterUtil.getBoolean(emailOrderShippingEnabled);
@@ -401,11 +411,13 @@ public class ShoppingPreferences {
 	}
 
 	public String getEmailOrderShippingBody() {
-		String emailOrderShippingBody = _portletPreferences.getValue(
-			"emailOrderShippingBody", StringPool.BLANK);
+		//String emailOrderShippingBody = _portletPreferences.getValue(
+		//	"emailOrderShippingBody", StringPool.BLANK);
+		String emailOrderShippingBody = PortletProps.get (
+			PortletPropsKeys.SHOPPING_EMAIL_ORDER_SHIPPING_BODY);
 
 		if (Validator.isNotNull(emailOrderShippingBody)) {
-			return emailOrderShippingBody;
+            return ContentUtil.get(emailOrderShippingBody);
 		}
 		else {
 			return ContentUtil.get(PropsUtil.get(
@@ -421,11 +433,14 @@ public class ShoppingPreferences {
 	}
 
 	public String getEmailOrderShippingSubject() {
-		String emailOrderShippingSubject = _portletPreferences.getValue(
-			"emailOrderShippingSubject", StringPool.BLANK);
+		//String emailOrderShippingSubject = _portletPreferences.getValue(
+		//	"emailOrderShippingSubject", StringPool.BLANK);
+		String emailOrderShippingSubject = PortletProps.get (
+			PortletPropsKeys.SHOPPING_EMAIL_ORDER_SHIPPING_SUBJECT);
+
 
 		if (Validator.isNotNull(emailOrderShippingSubject)) {
-			return emailOrderShippingSubject;
+            return ContentUtil.get(emailOrderShippingSubject);
 		}
 		else {
 			return ContentUtil.get(PropsUtil.get(
@@ -458,4 +473,5 @@ public class ShoppingPreferences {
 
 	private PortletPreferences _portletPreferences;
 
+    private static Log _log = LogFactoryUtil.getLog(ShoppingPreferences.class);
 }

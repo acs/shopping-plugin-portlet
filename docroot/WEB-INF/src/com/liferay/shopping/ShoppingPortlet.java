@@ -680,6 +680,39 @@ public class ShoppingPortlet extends MVCPortlet {
         actionResponse.setRenderParameter("jspPage","/checkout_third.jsp");
     }
 
+    public void editOrder(
+            ActionRequest actionRequest, ActionResponse actionResponse)
+        throws Exception {
+
+        String cmd = ParamUtil.getString(actionRequest, Constants.CMD);
+
+        try {
+            if (cmd.equals(Constants.ADD) || cmd.equals(Constants.UPDATE)) {
+                updateOrder(actionRequest, actionResponse);
+            }
+            else if (cmd.equals(Constants.DELETE)) {
+                deleteOrders(actionRequest, actionResponse);
+            }
+            else if (cmd.equals("sendEmail")) {
+                sendEmail(actionRequest, actionResponse);
+            }
+
+            sendRedirect(actionRequest, actionResponse);
+        }
+        catch (Exception e) {
+            if (e instanceof NoSuchOrderException ||
+                e instanceof PrincipalException) {
+
+                SessionErrors.add(actionRequest, e.getClass().getName());
+
+                // setForward(actionRequest, "portlet.shopping.error");
+            }
+            else {
+                throw e;
+            }
+        }
+    }
 
     private static Log _log = LogFactoryUtil.getLog(ShoppingPortlet.class);
 }
+
