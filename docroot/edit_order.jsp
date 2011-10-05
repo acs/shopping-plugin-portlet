@@ -26,8 +26,8 @@ ShoppingOrder order = ShoppingOrderServiceUtil.getOrder(themeDisplay.getScopeGro
 order = order.toEscapedModel();
 %>
 
-<portlet:actionURL var="editOrderURL">
-	<portlet:param name="struts_action" value="/shopping/edit_order" />
+<portlet:actionURL var="editOrderURL" name="editOrder">
+	<%-- <portlet:param name="struts_action" value="/shopping/edit_order" /> --%>
 </portlet:actionURL>
 
 <aui:form action="<%= editOrderURL %>" method="post" name="fm">
@@ -543,7 +543,8 @@ order = order.toEscapedModel();
 			</c:if>
 
 			<portlet:renderURL var="viewInvoiceURL" windowState="<%= LiferayWindowState.POP_UP.toString() %>">
-				<portlet:param name="struts_action" value="/shopping/edit_order" />
+				<%-- <portlet:param name="struts_action" value="/shopping/edit_order" /> --%>
+				<portlet:param name="jspPage" value="/edit_order.jsp" />
 				<portlet:param name="orderId" value="<%= String.valueOf(orderId) %>" />
 			</portlet:renderURL>
 
@@ -569,7 +570,8 @@ order = order.toEscapedModel();
 				<aui:button onClick='<%= renderResponse.getNamespace() + "deleteOrder();" %>' value="delete" />
 			</c:if>
 
-			<aui:button href="<%= redirect %>" type="cancel" />
+            <input type="button" value='<liferay-ui:message key="cancel" />' onClick='location.href = "<%= redirect %>"' />
+			<%-- <aui:button href="<%= redirect %>" type="cancel" /> --%>
 		</aui:button-row>
 	</c:if>
 </aui:form>
