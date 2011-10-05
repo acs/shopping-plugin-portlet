@@ -24,7 +24,7 @@ ShoppingOrder order = (ShoppingOrder)row.getObject();
 
 <liferay-ui:icon-menu>
 	<portlet:renderURL var="editURL">
-		<portlet:param name="struts_action" value="/shopping/edit_order" />
+		<portlet:param name="jspPage" value="/edit_order.jsp" />
 		<portlet:param name="redirect" value="<%= currentURL %>" />
 		<portlet:param name="orderId" value="<%= String.valueOf(order.getOrderId()) %>" />
 	</portlet:renderURL>
@@ -35,8 +35,7 @@ ShoppingOrder order = (ShoppingOrder)row.getObject();
 	/>
 
 	<c:if test="<%= ShoppingOrderPermission.contains(permissionChecker, scopeGroupId, order, ActionKeys.DELETE) %>">
-		<portlet:actionURL var="deleteURL">
-			<portlet:param name="struts_action" value="/shopping/edit_order" />
+		<portlet:actionURL var="deleteURL" name="deleteOrders">
 			<portlet:param name="<%= Constants.CMD %>" value="<%= Constants.DELETE %>" />
 			<portlet:param name="redirect" value="<%= currentURL %>" />
 			<portlet:param name="deleteOrderIds" value="<%= String.valueOf(order.getOrderId()) %>" />
