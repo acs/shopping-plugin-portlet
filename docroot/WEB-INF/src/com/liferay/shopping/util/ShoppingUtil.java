@@ -882,7 +882,7 @@ public class ShoppingUtil {
 
 	public static String getPayPalNotifyURL(ThemeDisplay themeDisplay) {
 		return themeDisplay.getPortalURL() + themeDisplay.getPathMain() +
-			"/shopping/notify";
+			"/notify";
 	}
 
 	public static String getPayPalRedirectURL(
@@ -939,7 +939,8 @@ public class ShoppingUtil {
 		PortletURL portletURL, ShoppingOrder order) {
 
 		portletURL.setParameter(
-			"struts_action", "/shopping/checkout");
+		//	"struts_action", "/shopping/checkout");
+			"jspPage", "/checkout.jsp");
 		portletURL.setParameter(Constants.CMD, Constants.VIEW);
 		portletURL.setParameter("orderId", String.valueOf(order.getOrderId()));
 
