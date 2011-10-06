@@ -19,6 +19,11 @@
             <name>copy-request-parameters</name>
             <value>true</value>
         </init-param>
+        <!-- Added so Paypal could invoke an action in the portlet -->
+        <init-param>
+            <name>check-auth-token</name>
+            <value>false</value>
+        </init-param>
         <expiration-cache>0</expiration-cache>
         <supports>
             <mime-type>text/html</mime-type>

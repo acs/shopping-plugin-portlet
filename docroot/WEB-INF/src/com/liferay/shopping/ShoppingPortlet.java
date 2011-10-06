@@ -15,13 +15,15 @@
 
 package com.liferay.shopping;
 
-
+import com.liferay.portal.kernel.io.unsync.UnsyncBufferedReader;
+import com.liferay.portal.kernel.io.unsync.UnsyncPrintWriter;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.upload.UploadPortletRequest;
 import com.liferay.portal.kernel.util.Constants;
+import com.liferay.portal.kernel.util.HttpUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
@@ -86,10 +88,16 @@ import com.liferay.shopping.util.WebKeys;
 import com.liferay.util.bridges.mvc.MVCPortlet;
 
 import java.io.File;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 
-import java.util.Calendar;
-import java.util.List;
+import java.net.URL;
+import java.net.URLConnection;
+
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Enumeration;
+import java.util.List;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
@@ -740,6 +748,152 @@ public class ShoppingPortlet extends MVCPortlet {
                 throw e;
             }
         }
+    }
+
+
+    // PayPal Notification
+    public void paypalNotification(
+            ActionRequest request, ActionResponse response)
+        throws Exception {
+        String invoice = null;
+
+        _log.error("Receiving notification from PayPal");
+
+        try {
+            if (_log.isDebugEnabled()) {
+                _log.debug("Receiving notification from PayPal");
+            }
+
+            String query = "cmd=_notify-validate";
+
+            Enumeration<String> enu = request.getParameterNames();
+
+            while (enu.hasMoreElements()) {
+                String name = enu.nextElement();
+
+                String value = request.getParameter(name);
+
+                query = query + "&" + name + "=" + HttpUtil.encodeURL(value);
+            }
+
+            if (_log.isDebugEnabled()) {
+                _log.debug("Sending response to PayPal " + query);
+            }
+
+            URL url = new URL("https://www.paypal.com/cgi-bin/webscr");
+
+            URLConnection urlc = url.openConnection();
+
+            urlc.setDoOutput(true);
+            urlc.setRequestProperty(
+                "Content-Type","application/x-www-form-urlencoded");
+
+            PrintWriter pw = new UnsyncPrintWriter(urlc.getOutputStream());
+
+            pw.println(query);
+
+            pw.close();
+
+            UnsyncBufferedReader unsyncBufferedReader =
+                new UnsyncBufferedReader(
+                    new InputStreamReader(urlc.getInputStream()));
+
+            String payPalStatus = unsyncBufferedReader.readLine();
+
+            unsyncBufferedReader.close();
+            String itemName = ParamUtil.getString(request, "item_name");
+            String itemNumber = ParamUtil.getString(request, "item_number");
+            invoice = ParamUtil.getString(request, "invoice");
+            String txnId = ParamUtil.getString(request, "txn_id");
+            String paymentStatus = ParamUtil.getString(
+                request, "payment_status");
+            double paymentGross = ParamUtil.getDouble(request, "mc_gross");
+            String receiverEmail = ParamUtil.getString(
+                request, "receiver_email");
+            String payerEmail = ParamUtil.getString(request, "payer_email");
+
+            _log.error("Receiving response from PayPal " + payPalStatus);
+            if (_log.isDebugEnabled()) {
+                _log.debug("Receiving response from PayPal");
+                _log.debug("Item name " + itemName);
+                _log.debug("Item number " + itemNumber);
+                _log.debug("Invoice " + invoice);
+                _log.debug("Transaction ID " + txnId);
+                _log.debug("Payment status " + paymentStatus);
+                _log.debug("Payment gross " + paymentGross);
+                _log.debug("Receiver email " + receiverEmail);
+                _log.debug("Payer email " + payerEmail);
+            }
+
+            if (payPalStatus.equals("VERIFIED") && validate(request)) {
+                ShoppingOrderLocalServiceUtil.completeOrder(
+                    invoice, txnId, paymentStatus, paymentGross, receiverEmail,
+                    payerEmail, true);
+            }
+            else if (payPalStatus.equals("INVALID")) {
+            }
+        }
+        catch (Exception e) {
+            PortalUtil.sendError(e, request, response);
+        }
+    }
+
+    protected boolean validate(ActionRequest request) throws Exception {
+
+        // Invoice
+
+        String ppInvoice = ParamUtil.getString(request, "invoice");
+
+        ShoppingOrder order = ShoppingOrderLocalServiceUtil.getOrder(
+            ppInvoice);
+
+        ShoppingPreferences shoppingPrefs = ShoppingPreferences.getInstance(
+            order.getCompanyId(), order.getGroupId());
+
+        // Receiver email address
+
+        String ppReceiverEmail = ParamUtil.getString(
+            request, "receiver_email");
+
+        String payPalEmailAddress = shoppingPrefs.getPayPalEmailAddress();
+
+        if (!payPalEmailAddress.equals(ppReceiverEmail)) {
+            return false;
+        }
+
+        // Payment gross
+
+        double ppGross = ParamUtil.getDouble(request, "mc_gross");
+
+        double orderTotal = ShoppingUtil.calculateTotal(order);
+
+        if (orderTotal != ppGross) {
+            return false;
+        }
+
+        // Payment currency
+
+        String ppCurrency = ParamUtil.getString(request, "mc_currency");
+
+        String currencyId = shoppingPrefs.getCurrencyId();
+
+        if (!currencyId.equals(ppCurrency)) {
+            return false;
+        }
+
+        // Transaction ID
+
+        String ppTxnId = ParamUtil.getString(request, "txn_id");
+
+        try {
+            ShoppingOrderLocalServiceUtil.getPayPalTxnIdOrder(ppTxnId);
+
+            return false;
+        }
+        catch (NoSuchOrderException nsoe) {
+        }
+
+        return true;
     }
 
     private static Log _log = LogFactoryUtil.getLog(ShoppingPortlet.class);
