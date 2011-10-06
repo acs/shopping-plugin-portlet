@@ -18,6 +18,7 @@ package com.liferay.shopping;
 
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.upload.UploadPortletRequest;
 import com.liferay.portal.kernel.util.Constants;
@@ -78,6 +79,7 @@ import com.liferay.shopping.service.ShoppingItemLocalServiceUtil;
 import com.liferay.shopping.service.ShoppingItemServiceUtil;
 import com.liferay.shopping.service.ShoppingOrderServiceUtil;
 import com.liferay.shopping.service.ShoppingOrderLocalServiceUtil;
+import com.liferay.shopping.util.ShoppingPreferences;
 import com.liferay.shopping.util.ShoppingUtil;
 import com.liferay.shopping.util.WebKeys;
 
@@ -668,8 +670,14 @@ public class ShoppingPortlet extends MVCPortlet {
             ActionRequest actionRequest, ActionResponse actionResponse)
         throws Exception {
 
-        updateCart(actionRequest, actionResponse);
-        updateLatestOrder(actionRequest, actionResponse);
+        ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(
+            WebKeys.THEME_DISPLAY);
+
+        LiferayPortletResponse liferayPortletResponse =
+            (LiferayPortletResponse)actionResponse;
+
+        // updateCart(actionRequest, actionResponse);
+        // updateLatestOrder(actionRequest, actionResponse);
 
         ShoppingCart cart = ShoppingUtil.getCart(actionRequest);
 
@@ -677,7 +685,28 @@ public class ShoppingPortlet extends MVCPortlet {
             ShoppingOrderLocalServiceUtil.saveLatestOrder(cart);
 
         actionRequest.setAttribute(WebKeys.SHOPPING_ORDER, order);
-        actionResponse.setRenderParameter("jspPage","/checkout_third.jsp");
+
+        ShoppingPreferences preferences = ShoppingPreferences.getInstance(
+            themeDisplay.getCompanyId(), themeDisplay.getScopeGroupId());
+
+        if (preferences.usePayPal()) {
+            String returnURL = ShoppingUtil.getPayPalReturnURL(
+                liferayPortletResponse.createActionURL(), order);
+            String notifyURL = ShoppingUtil.getPayPalNotifyURL(themeDisplay);
+
+            double total = ShoppingUtil.calculateTotal(
+                cart.getItems(), order.getBillingState(), cart.getCoupon(),
+                cart.getAltShipping(), cart.isInsure());
+
+            String redirectURL = ShoppingUtil.getPayPalRedirectURL(
+                preferences, order, total, returnURL, notifyURL);
+
+            _log.error(redirectURL);
+            actionResponse.sendRedirect(redirectURL);
+        } else {
+            ShoppingOrderLocalServiceUtil.sendEmail(order, "confirmation");
+            actionResponse.setRenderParameter("jspPage","/checkout_third.jsp");
+        }
     }
 
     public void editOrder(

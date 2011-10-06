@@ -368,7 +368,8 @@ ShoppingOrder order = (ShoppingOrder)request.getAttribute(WebKeys.SHOPPING_ORDER
 
 		PortletURL rowURL = renderResponse.createRenderURL();
 
-		rowURL.setParameter("struts_action", "/shopping/view_item");
+		// rowURL.setParameter("struts_action", "/shopping/view_item");
+		rowURL.setParameter("jspPage", "/view_item.jsp");
 		rowURL.setParameter("itemId", String.valueOf(item.getItemId()));
 
 		// SKU
@@ -475,7 +476,8 @@ ShoppingOrder order = (ShoppingOrder)request.getAttribute(WebKeys.SHOPPING_ORDER
 				<%= currencyFormat.format(ShoppingUtil.calculateCouponDiscount(items, order.getBillingState(), coupon)) %>
 
 				<portlet:renderURL var="viewCouponURL" windowState="<%= LiferayWindowState.POP_UP.toString() %>">
-					<portlet:param name="struts_action" value="/shopping/view_coupon" />
+					<%-- <portlet:param name="struts_action" value="/shopping/view_coupon" /> --%>
+					<portlet:param name="jspPage" value="/view_coupon.jsp" />
 					<portlet:param name="couponId" value="<%= String.valueOf(coupon.getCouponId()) %>" />
 				</portlet:renderURL>
 
