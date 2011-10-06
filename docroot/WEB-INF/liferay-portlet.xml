@@ -6,7 +6,10 @@
 		<portlet-name>shopping-plugin</portlet-name>
 		<icon>/icon.png</icon>
         <configuration-action-class>com.liferay.shopping.ConfigurationActionImpl</configuration-action-class> 
-		<instanceable>true</instanceable>
+        <friendly-url-mapper-class>com.liferay.portal.kernel.portlet.DefaultFriendlyURLMapper</friendly-url-mapper-class>
+        <friendly-url-mapping>shopping-plugin</friendly-url-mapping>
+        <friendly-url-routes>com/liferay/shopping/friendly-url-routes.xml</friendly-url-routes>
+		<instanceable>false</instanceable>
 		<header-portlet-css>/css/main.css</header-portlet-css>
 		<footer-portlet-javascript>/js/main.js</footer-portlet-javascript>
 		<css-class-wrapper>shopping-plugin-portlet</css-class-wrapper>
