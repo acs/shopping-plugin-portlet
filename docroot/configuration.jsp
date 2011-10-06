@@ -17,6 +17,8 @@
 <%@ include file="/init.jsp" %>
 
 <%
+String layoutURL = com.liferay.portal.util.PortalUtil.getLayoutURL(layout, themeDisplay);
+
 String tabs2 = ParamUtil.getString(request, "tabs2", "payment-settings");
 String tabs3 = ParamUtil.getString(request, "tabs3", "email-from");
 
@@ -69,7 +71,7 @@ else if (tabs3.equals("shipping-email")) {
 			<div class="portlet-msg-info">
 				<liferay-ui:message key="enter-a-paypal-email-address-to-send-all-payments-to-paypal" />
 
-				<liferay-ui:message arguments='<%= "<strong>" + themeDisplay.getPortalURL() + themeDisplay.getPathMain() + "/notify</strong>" %>' key="go-to-paypal-and-set-up-ipn-to-post-to-x" translateArguments="<%= false %>" />
+				<liferay-ui:message arguments='<%= "<strong>" + themeDisplay.getPortalURL() + layoutURL + "/-/shopping-plugin/notify</strong>" %>' key="go-to-paypal-and-set-up-ipn-to-post-to-x" translateArguments="<%= false %>" />
 			</div>
 
 			<div class="portlet-msg-info">
