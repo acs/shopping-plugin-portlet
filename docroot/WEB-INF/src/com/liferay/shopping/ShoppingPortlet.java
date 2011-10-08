@@ -27,43 +27,11 @@ import com.liferay.portal.kernel.util.HttpUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
-
 import com.liferay.portal.security.auth.PrincipalException;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.ServiceContextFactory;
 import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.portal.util.PortalUtil;
-
-import com.liferay.shopping.CartMinQuantityException;
-import com.liferay.shopping.CouponActiveException;
-import com.liferay.shopping.CouponEndDateException;
-import com.liferay.shopping.CouponStartDateException;
-import com.liferay.shopping.NoSuchCouponException;
-import com.liferay.shopping.NoSuchItemException;
-
-import com.liferay.shopping.BillingCityException;
-import com.liferay.shopping.BillingCountryException;
-import com.liferay.shopping.BillingEmailAddressException;
-import com.liferay.shopping.BillingFirstNameException;
-import com.liferay.shopping.BillingLastNameException;
-import com.liferay.shopping.BillingPhoneException;
-import com.liferay.shopping.BillingStateException;
-import com.liferay.shopping.BillingStreetException;
-import com.liferay.shopping.BillingZipException;
-import com.liferay.shopping.CCExpirationException;
-import com.liferay.shopping.CCNameException;
-import com.liferay.shopping.CCNumberException;
-import com.liferay.shopping.CCTypeException;
-import com.liferay.shopping.ShippingCityException;
-import com.liferay.shopping.ShippingCountryException;
-import com.liferay.shopping.ShippingEmailAddressException;
-import com.liferay.shopping.ShippingFirstNameException;
-import com.liferay.shopping.ShippingLastNameException;
-import com.liferay.shopping.ShippingPhoneException;
-import com.liferay.shopping.ShippingStateException;
-import com.liferay.shopping.ShippingStreetException;
-import com.liferay.shopping.ShippingZipException;
-
 import com.liferay.shopping.model.ShoppingCart;
 import com.liferay.shopping.model.ShoppingCategory;
 import com.liferay.shopping.model.ShoppingCoupon;
@@ -72,19 +40,18 @@ import com.liferay.shopping.model.ShoppingItemField;
 import com.liferay.shopping.model.ShoppingItemPrice;
 import com.liferay.shopping.model.ShoppingItemPriceConstants;
 import com.liferay.shopping.model.ShoppingOrder;
-import com.liferay.shopping.service.persistence.ShoppingItemFieldUtil;
-import com.liferay.shopping.service.persistence.ShoppingItemPriceUtil;
 import com.liferay.shopping.service.ShoppingCartLocalServiceUtil;
 import com.liferay.shopping.service.ShoppingCategoryServiceUtil;
 import com.liferay.shopping.service.ShoppingCouponServiceUtil;
 import com.liferay.shopping.service.ShoppingItemLocalServiceUtil;
 import com.liferay.shopping.service.ShoppingItemServiceUtil;
-import com.liferay.shopping.service.ShoppingOrderServiceUtil;
 import com.liferay.shopping.service.ShoppingOrderLocalServiceUtil;
+import com.liferay.shopping.service.ShoppingOrderServiceUtil;
+import com.liferay.shopping.service.persistence.ShoppingItemFieldUtil;
+import com.liferay.shopping.service.persistence.ShoppingItemPriceUtil;
 import com.liferay.shopping.util.ShoppingPreferences;
 import com.liferay.shopping.util.ShoppingUtil;
 import com.liferay.shopping.util.WebKeys;
-
 import com.liferay.util.bridges.mvc.MVCPortlet;
 
 import java.io.File;
@@ -106,7 +73,6 @@ import javax.portlet.ActionResponse;
  * @author Brian Wing Shun Chan
  * @author Alvaro del Castillo
  */
-
 
 public class ShoppingPortlet extends MVCPortlet {
 
@@ -143,7 +109,6 @@ public class ShoppingPortlet extends MVCPortlet {
         ServiceContext serviceContext = ServiceContextFactory.getInstance(
             ShoppingCategory.class.getName(), actionRequest);
 
-       
         try {
             if (categoryId <= 0) {
 
@@ -296,7 +261,6 @@ public class ShoppingPortlet extends MVCPortlet {
         ServiceContext serviceContext = ServiceContextFactory.getInstance(
             ShoppingItem.class.getName(), actionRequest);
 
-    
         if (itemId <= 0) {
 
             // Add item
@@ -337,7 +301,6 @@ public class ShoppingPortlet extends MVCPortlet {
                 themeDisplay.getScopeGroupId(), deleteCouponIds[i]);
         }
     }
-
 
     public void updateCoupon(
             ActionRequest actionRequest, ActionResponse actionResponse)
@@ -424,7 +387,6 @@ public class ShoppingPortlet extends MVCPortlet {
         throws Exception {
 
         try {
-
 
         String cmd = ParamUtil.getString(actionRequest, Constants.CMD);
 
@@ -750,7 +712,6 @@ public class ShoppingPortlet extends MVCPortlet {
         }
     }
 
-
     // PayPal Notification
     public void paypalNotification(
             ActionRequest request, ActionResponse response)
@@ -898,4 +859,3 @@ public class ShoppingPortlet extends MVCPortlet {
 
     private static Log _log = LogFactoryUtil.getLog(ShoppingPortlet.class);
 }
-

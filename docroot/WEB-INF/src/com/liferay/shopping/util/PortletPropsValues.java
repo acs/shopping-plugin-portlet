@@ -15,7 +15,6 @@
 package com.liferay.shopping.util;
 
 import com.liferay.portal.kernel.util.GetterUtil;
-import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.util.portlet.PortletProps;
 
 /**
@@ -26,4 +25,3 @@ import com.liferay.util.portlet.PortletProps;
     public static final boolean SHOPPING_ORDER_COMMENTS_ENABLED = GetterUtil.getBoolean(
         PortletProps.get(PortletPropsKeys.SHOPPING_ORDER_COMMENTS_ENABLED));
 }
-
