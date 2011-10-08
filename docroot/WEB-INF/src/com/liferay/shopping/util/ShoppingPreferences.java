@@ -14,12 +14,12 @@
 
 package com.liferay.shopping.util;
 
+import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.PropsKeys;
+import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
@@ -27,7 +27,6 @@ import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.service.PortletPreferencesLocalServiceUtil;
 import com.liferay.portal.util.PortletKeys;
 import com.liferay.util.portlet.PortletProps;
-import com.liferay.portal.kernel.util.PropsUtil;
 // import com.liferay.portal.util.PropsUtil;
 // import com.liferay.util.ContentUtil;
 
@@ -349,7 +348,7 @@ public class ShoppingPreferences {
         _log.error(PortletPropsKeys.SHOPPING_EMAIL_ORDER_CONFIRMATION_BODY + " " + emailOrderConfirmationBody);
 
 		if (Validator.isNotNull(emailOrderConfirmationBody)) {
-            return ContentUtil.get(emailOrderConfirmationBody); 
+            return ContentUtil.get(emailOrderConfirmationBody);
 		}
 		else {
 			return ContentUtil.get(PropsUtil.get(
@@ -437,7 +436,6 @@ public class ShoppingPreferences {
 		//	"emailOrderShippingSubject", StringPool.BLANK);
 		String emailOrderShippingSubject = PortletProps.get (
 			PortletPropsKeys.SHOPPING_EMAIL_ORDER_SHIPPING_SUBJECT);
-
 
 		if (Validator.isNotNull(emailOrderShippingSubject)) {
             return ContentUtil.get(emailOrderShippingSubject);

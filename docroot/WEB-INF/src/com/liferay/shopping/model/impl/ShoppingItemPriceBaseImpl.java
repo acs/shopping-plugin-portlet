@@ -15,7 +15,6 @@
 package com.liferay.shopping.model.impl;
 
 import com.liferay.portal.kernel.exception.SystemException;
-
 import com.liferay.shopping.model.ShoppingItemPrice;
 import com.liferay.shopping.service.ShoppingItemPriceLocalServiceUtil;
 
@@ -33,7 +32,7 @@ import com.liferay.shopping.service.ShoppingItemPriceLocalServiceUtil;
  */
 public abstract class ShoppingItemPriceBaseImpl
 	extends ShoppingItemPriceModelImpl implements ShoppingItemPrice {
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a shopping item price model instance should use the {@link ShoppingItemPrice} interface instead.

@@ -18,7 +18,7 @@ package com.liferay.shopping.model.impl;
  * @author Shuyang Zhou
  */
 public interface CacheModel<T> {
-	
+
 	public T toEntityModel();
-	
+
 }

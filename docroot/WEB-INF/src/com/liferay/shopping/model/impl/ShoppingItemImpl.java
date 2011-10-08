@@ -20,11 +20,9 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.shopping.model.ShoppingCategory;
-import com.liferay.shopping.model.ShoppingItem;
 import com.liferay.shopping.model.ShoppingItemPrice;
 import com.liferay.shopping.service.ShoppingCategoryLocalServiceUtil;
 import com.liferay.shopping.service.ShoppingItemPriceLocalServiceUtil;
-import com.liferay.shopping.util.comparator.ItemNameComparator;
 
 import java.util.List;
 

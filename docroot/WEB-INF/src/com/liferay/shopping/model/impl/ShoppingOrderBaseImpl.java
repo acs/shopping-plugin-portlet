@@ -15,7 +15,6 @@
 package com.liferay.shopping.model.impl;
 
 import com.liferay.portal.kernel.exception.SystemException;
-
 import com.liferay.shopping.model.ShoppingOrder;
 import com.liferay.shopping.service.ShoppingOrderLocalServiceUtil;
 
@@ -33,7 +32,7 @@ import com.liferay.shopping.service.ShoppingOrderLocalServiceUtil;
  */
 public abstract class ShoppingOrderBaseImpl extends ShoppingOrderModelImpl
 	implements ShoppingOrder {
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a shopping order model instance should use the {@link ShoppingOrder} interface instead.

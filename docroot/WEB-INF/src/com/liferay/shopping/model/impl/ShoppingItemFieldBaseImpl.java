@@ -15,7 +15,6 @@
 package com.liferay.shopping.model.impl;
 
 import com.liferay.portal.kernel.exception.SystemException;
-
 import com.liferay.shopping.model.ShoppingItemField;
 import com.liferay.shopping.service.ShoppingItemFieldLocalServiceUtil;
 
@@ -33,7 +32,7 @@ import com.liferay.shopping.service.ShoppingItemFieldLocalServiceUtil;
  */
 public abstract class ShoppingItemFieldBaseImpl
 	extends ShoppingItemFieldModelImpl implements ShoppingItemField {
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a shopping item field model instance should use the {@link ShoppingItemField} interface instead.

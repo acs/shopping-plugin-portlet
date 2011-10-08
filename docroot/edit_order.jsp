@@ -21,7 +21,7 @@ String redirect = ParamUtil.getString(request, "redirect");
 
 long orderId = ParamUtil.getLong(request, "orderId");
 
-ShoppingOrder order = ShoppingOrderServiceUtil.getOrder(themeDisplay.getScopeGroupId(), orderId); 
+ShoppingOrder order = ShoppingOrderServiceUtil.getOrder(themeDisplay.getScopeGroupId(), orderId);
 
 order = order.toEscapedModel();
 %>

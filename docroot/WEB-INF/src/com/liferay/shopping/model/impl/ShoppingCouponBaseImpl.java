@@ -15,7 +15,6 @@
 package com.liferay.shopping.model.impl;
 
 import com.liferay.portal.kernel.exception.SystemException;
-
 import com.liferay.shopping.model.ShoppingCoupon;
 import com.liferay.shopping.service.ShoppingCouponLocalServiceUtil;
 
@@ -33,7 +32,7 @@ import com.liferay.shopping.service.ShoppingCouponLocalServiceUtil;
  */
 public abstract class ShoppingCouponBaseImpl extends ShoppingCouponModelImpl
 	implements ShoppingCoupon {
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never modify or reference this class directly. All methods that expect a shopping coupon model instance should use the {@link ShoppingCoupon} interface instead.
