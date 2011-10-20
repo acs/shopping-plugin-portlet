@@ -33,9 +33,9 @@ boolean minQuantityMultiple = GetterUtil.getBoolean(PrefsPropsUtil.getString(com
 
 	function <portlet:namespace />checkout() {
 		if (<%= (ShoppingUtil.meetsMinOrder(shoppingPrefs, items)) ? "true" : "false" %>) {
+			document.<portlet:namespace />fm.<portlet:namespace /><%= Constants.CMD %>.value = "<%= Constants.CHECKOUT %>";
+			document.<portlet:namespace />fm.<portlet:namespace />redirect.value = "<portlet:renderURL><portlet:param name="jspPage" value="/checkout_first.jsp" /></portlet:renderURL>";
 			if (!itemsInStock) {
-				document.<portlet:namespace />fm.<portlet:namespace /><%= Constants.CMD %>.value = "<%= Constants.CHECKOUT %>";
-				document.<portlet:namespace />fm.<portlet:namespace />redirect.value = "<portlet:renderURL><portlet:param name="jspPage" value="/checkout_first.jsp" /></portlet:renderURL>";
 				if (confirm("<%= UnicodeLanguageUtil.get(pageContext, "your-cart-has-items-that-are-out-of-stock") %>")) {
 					<portlet:namespace />updateCart();
 				}
