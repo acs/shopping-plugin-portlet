@@ -120,7 +120,8 @@ long parentCategoryId = BeanParamUtil.getLong(category, request, "parentCategory
 	<aui:button-row>
 		<aui:button type="submit" />
 
-		<aui:button href="<%= redirect %>" type="cancel" />
+		<input type="button" value='<liferay-ui:message key="cancel" />' onClick='location.href = "<%= redirect.toString() %>"' />
+
 	</aui:button-row>
 </aui:form>
 
