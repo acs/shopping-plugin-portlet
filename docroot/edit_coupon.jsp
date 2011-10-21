@@ -105,7 +105,7 @@ String discountType = BeanParamUtil.getString(coupon, request, "discountType");
 	<aui:button-row>
 		<aui:button type="submit" />
 
-		<aui:button href="<%= redirect %>" type="cancel" />
+		<input type="button" value='<liferay-ui:message key="cancel" />' onClick='location.href = "<%= redirect.toString() %>"' />
 	</aui:button-row>
 
 	<liferay-ui:panel-container extended="<%= true %>" id="shoppingEditCouponPanelContainer" persistState="<%= true %>">
