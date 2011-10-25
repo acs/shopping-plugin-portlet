@@ -24,7 +24,9 @@ public class WebServerServletTokenUtil {
 	}
 
 	public static String getToken(long imageId) {
-		return getWebServerServletToken().getToken(imageId);
+
+		String token = _createToken(imageId);
+		return token;
 	}
 
 	public static void resetToken(long imageId) {
@@ -35,6 +37,10 @@ public class WebServerServletTokenUtil {
 		WebServerServletToken webServerServletToken) {
 
 		_webServerServletToken = webServerServletToken;
+	}
+
+	private static String _createToken(long imageId) {
+		return String.valueOf(System.currentTimeMillis());
 	}
 
 	private static WebServerServletToken _webServerServletToken;
