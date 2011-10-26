@@ -106,7 +106,7 @@ long parentCategoryId = BeanParamUtil.getLong(category, request, "parentCategory
 
 		<aui:input cssClass="lfr-input-text-container" name="name" />
 
-		<aui:input cssClass="lfr-textarea-container" name="description" />
+		<aui:input cssClass="lfr-textarea-container" name="description" type="textarea" />
 
 		<c:if test="<%= category == null %>">
 			<aui:field-wrapper label="permissions">
