@@ -75,14 +75,16 @@ long parentCategoryId = BeanParamUtil.getLong(category, request, "parentCategory
 				%>
 
 				<portlet:renderURL var="viewCategoryURL">
-					<portlet:param name="struts_action" value="/shopping/view" />
+					<%-- <portlet:param name="struts_action" value="/shopping/view" /> --%>
+					<portlet:param name="jspPage" value="/view.jsp" />
 					<portlet:param name="categoryId" value="<%= String.valueOf(parentCategoryId) %>" />
 				</portlet:renderURL>
 
 				<aui:a href="<%= viewCategoryURL %>" id="parentCategoryName" label="<%= parentCategoryName %>" />
 
 				<portlet:renderURL var="selectCategoryURL" windowState="<%= LiferayWindowState.POP_UP.toString() %>">
-					<portlet:param name="struts_action" value="/shopping/select_category" />
+					<%-- <portlet:param name="struts_action" value="/shopping/select_category" /> --%>
+					<portlet:param name="jspPage" value="/select_category.jsp" />
 					<portlet:param name="categoryId" value="<%= String.valueOf(parentCategoryId) %>" />
 				</portlet:renderURL>
 
