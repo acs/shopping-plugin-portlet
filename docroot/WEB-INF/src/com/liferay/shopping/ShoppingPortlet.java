@@ -78,12 +78,6 @@ public class ShoppingPortlet extends MVCPortlet {
 
     // CATEGORY
 
-    public void addCategory (
-            ActionRequest actionRequest, ActionResponse actionResponse)
-        throws Exception {
-        updateCategory (actionRequest, actionResponse);
-    }
-
     public void deleteCategory(
             ActionRequest actionRequest, ActionResponse actionResponse)
         throws Exception {
@@ -92,7 +86,7 @@ public class ShoppingPortlet extends MVCPortlet {
         ShoppingCategoryServiceUtil.deleteCategory(categoryId);
     }
 
-    protected void updateCategory (
+    public void updateCategory (
             ActionRequest actionRequest, ActionResponse actionResponse)
         throws Exception {
 

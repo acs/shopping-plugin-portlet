@@ -33,7 +33,7 @@ long parentCategoryId = BeanParamUtil.getLong(category, request, "parentCategory
 
 %>
 
-<portlet:actionURL var="editCategoryURL" name="addCategory">
+<portlet:actionURL var="editCategoryURL" name="updateCategory">
 <%-- <portlet:param name="struts_action" value="/shopping/edit_category" /> --%>
 </portlet:actionURL>
 
