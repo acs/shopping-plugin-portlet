@@ -145,6 +145,9 @@ public class ShoppingPortlet extends MVCPortlet {
     public void updateItem(
             ActionRequest actionRequest, ActionResponse actionResponse)
         throws Exception {
+        
+        try {
+        
         UploadPortletRequest uploadPortletRequest =
             PortalUtil.getUploadPortletRequest(actionRequest);
 
@@ -283,6 +286,34 @@ public class ShoppingPortlet extends MVCPortlet {
                 mediumImageURL, mediumFile, largeImage, largeImageURL,
                 largeFile, itemFields, itemPrices, serviceContext);
         }
+        }
+        catch (Exception e) {
+			if (e instanceof NoSuchCategoryException ||
+				e instanceof NoSuchItemException ||
+				e instanceof PrincipalException) {
+
+				SessionErrors.add(actionRequest, e.getClass().getName());
+
+				// setForward(actionRequest, "portlet.shopping.error");
+				actionResponse.setRenderParameter("jspPage","/error.jsp");
+			}
+			else if (e instanceof DuplicateItemSKUException ||
+					 e instanceof ItemLargeImageNameException ||
+					 e instanceof ItemLargeImageSizeException ||
+					 e instanceof ItemMediumImageNameException ||
+					 e instanceof ItemMediumImageSizeException ||
+					 e instanceof ItemNameException ||
+					 e instanceof ItemSKUException ||
+					 e instanceof ItemSmallImageNameException ||
+					 e instanceof ItemSmallImageSizeException) {
+
+				SessionErrors.add(actionRequest, e.getClass().getName());
+				actionResponse.setRenderParameter("jspPage","/edit_item.jsp");
+			}
+			else {
+				throw e;
+			}
+	}
     }
 
     // COUPONS
