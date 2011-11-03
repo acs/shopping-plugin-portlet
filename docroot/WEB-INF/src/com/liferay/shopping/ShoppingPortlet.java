@@ -76,226 +76,240 @@ import javax.portlet.ActionResponse;
 
 public class ShoppingPortlet extends MVCPortlet {
 
-    // CATEGORY
+	// CATEGORY
 
-    public void deleteCategory(
-            ActionRequest actionRequest, ActionResponse actionResponse)
-        throws Exception {
-        long categoryId = ParamUtil.getLong(actionRequest, "categoryId");
+	public void deleteCategory(
+		ActionRequest actionRequest, ActionResponse actionResponse)
+		throws Exception {
 
-        ShoppingCategoryServiceUtil.deleteCategory(categoryId);
-    }
+		long categoryId = ParamUtil.getLong(actionRequest, "categoryId");
 
-    public void updateCategory (
-            ActionRequest actionRequest, ActionResponse actionResponse)
-        throws Exception {
+		ShoppingCategoryServiceUtil.deleteCategory(categoryId);
+	}
 
-        try {
-        long categoryId = ParamUtil.getLong(actionRequest, "categoryId");
+	public void updateCategory(
+		ActionRequest actionRequest, ActionResponse actionResponse)
+		throws Exception {
 
-        long parentCategoryId = ParamUtil.getLong(
-            actionRequest, "parentCategoryId");
-        String name = ParamUtil.getString(actionRequest, "name");
-        String description = ParamUtil.getString(actionRequest, "description");
+		try {
+			long categoryId = ParamUtil.getLong(actionRequest, "categoryId");
 
-        boolean mergeWithParentCategory = ParamUtil.getBoolean(
-            actionRequest, "mergeWithParentCategory");
+			long parentCategoryId =
+				ParamUtil.getLong(actionRequest, "parentCategoryId");
+			String name = ParamUtil.getString(actionRequest, "name");
+			String description =
+				ParamUtil.getString(actionRequest, "description");
 
-        ServiceContext serviceContext = ServiceContextFactory.getInstance(
-            ShoppingCategory.class.getName(), actionRequest);
+			boolean mergeWithParentCategory =
+				ParamUtil.getBoolean(actionRequest, "mergeWithParentCategory");
 
-            if (categoryId <= 0) {
+			ServiceContext serviceContext =
+				ServiceContextFactory.getInstance(
+					ShoppingCategory.class.getName(), actionRequest);
 
-                // Add category
+			if (categoryId <= 0) {
 
-                ShoppingCategoryServiceUtil.addCategory(
-                    parentCategoryId, name, description, serviceContext);
-            }
-            else {
+				// Add category
 
-                // Update category
+				ShoppingCategoryServiceUtil.addCategory(
+					parentCategoryId, name, description, serviceContext);
+			}
+			else {
 
-                ShoppingCategoryServiceUtil.updateCategory(
-                    categoryId, parentCategoryId, name, description,
-                    mergeWithParentCategory, serviceContext);
-            }                    
-        }
-	catch (Exception e) {
+				// Update category
+
+				ShoppingCategoryServiceUtil.updateCategory(
+					categoryId, parentCategoryId, name, description,
+					mergeWithParentCategory, serviceContext);
+			}
+		}
+		catch (Exception e) {
 			if (e instanceof NoSuchCategoryException ||
 				e instanceof PrincipalException) {
 
 				SessionErrors.add(actionRequest, e.getClass().getName());
 
 				// setForward(actionRequest, "portlet.shopping.error");
-				actionResponse.setRenderParameter("jspPage","/error.jsp");
+				actionResponse.setRenderParameter("jspPage", "/error.jsp");
 			}
 			else if (e instanceof CategoryNameException) {
 				SessionErrors.add(actionRequest, e.getClass().getName());
-				actionResponse.setRenderParameter("jspPage","/edit_category.jsp");
+				actionResponse.setRenderParameter(
+					"jspPage", "/edit_category.jsp");
 			}
 			else {
 				throw e;
 			}
+		}
 	}
-    }
 
-    // ITEM
+	// ITEM
 
-    public void deleteItem (
-            ActionRequest actionRequest, ActionResponse actionResponse)
-        throws Exception {
+	public void deleteItem(
+		ActionRequest actionRequest, ActionResponse actionResponse)
+		throws Exception {
 
-        long itemId = ParamUtil.getLong(actionRequest, "itemId");
+		long itemId = ParamUtil.getLong(actionRequest, "itemId");
 
-        ShoppingItemServiceUtil.deleteItem(itemId);
-    }
+		ShoppingItemServiceUtil.deleteItem(itemId);
+	}
 
-    public void updateItem(
-            ActionRequest actionRequest, ActionResponse actionResponse)
-        throws Exception {
-        
-        try {
-        
-        UploadPortletRequest uploadPortletRequest =
-            PortalUtil.getUploadPortletRequest(actionRequest);
+	public void updateItem(
+		ActionRequest actionRequest, ActionResponse actionResponse)
+		throws Exception {
 
-        ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(
-            WebKeys.THEME_DISPLAY);
+		try {
 
-        long itemId = ParamUtil.getLong(uploadPortletRequest, "itemId");
+			UploadPortletRequest uploadPortletRequest =
+				PortalUtil.getUploadPortletRequest(actionRequest);
 
-        long groupId = themeDisplay.getScopeGroupId();
-        long categoryId = ParamUtil.getLong(uploadPortletRequest, "categoryId");
-        String sku = ParamUtil.getString(uploadPortletRequest, "sku");
-        String name = ParamUtil.getString(uploadPortletRequest, "name");
-        String description = ParamUtil.getString(
-            uploadPortletRequest, "description");
-        String properties = ParamUtil.getString(
-            uploadPortletRequest, "properties");
+			ThemeDisplay themeDisplay =
+				(ThemeDisplay) actionRequest.getAttribute(WebKeys.THEME_DISPLAY);
 
-        int fieldsCount = ParamUtil.getInteger(
-            uploadPortletRequest, "fieldsCount", 1);
+			long itemId = ParamUtil.getLong(uploadPortletRequest, "itemId");
 
-        List<ShoppingItemField> itemFields = new ArrayList<ShoppingItemField>();
+			long groupId = themeDisplay.getScopeGroupId();
+			long categoryId =
+				ParamUtil.getLong(uploadPortletRequest, "categoryId");
+			String sku = ParamUtil.getString(uploadPortletRequest, "sku");
+			String name = ParamUtil.getString(uploadPortletRequest, "name");
+			String description =
+				ParamUtil.getString(uploadPortletRequest, "description");
+			String properties =
+				ParamUtil.getString(uploadPortletRequest, "properties");
 
-        for (int i = 0; i < fieldsCount; i ++) {
-            String fieldName = ParamUtil.getString(
-                uploadPortletRequest, "fieldName" + i);
-            String fieldValues = ParamUtil.getString(
-                uploadPortletRequest, "fieldValues" + i);
-            String fieldDescription = ParamUtil.getString(
-                uploadPortletRequest, "fieldDescription" + i);
+			int fieldsCount =
+				ParamUtil.getInteger(uploadPortletRequest, "fieldsCount", 1);
 
-            ShoppingItemField itemField = ShoppingItemFieldUtil.create(0);
+			List<ShoppingItemField> itemFields =
+				new ArrayList<ShoppingItemField>();
 
-            itemField.setName(fieldName);
-            itemField.setValues(fieldValues);
-            itemField.setDescription(fieldDescription);
+			for (int i = 0; i < fieldsCount; i++) {
+				String fieldName =
+					ParamUtil.getString(uploadPortletRequest, "fieldName" + i);
+				String fieldValues =
+					ParamUtil.getString(uploadPortletRequest, "fieldValues" + i);
+				String fieldDescription =
+					ParamUtil.getString(
+						uploadPortletRequest, "fieldDescription" + i);
 
-            itemFields.add(itemField);
-        }
+				ShoppingItemField itemField = ShoppingItemFieldUtil.create(0);
 
-        String fieldsQuantities = ParamUtil.getString(
-            uploadPortletRequest, "fieldsQuantities");
+				itemField.setName(fieldName);
+				itemField.setValues(fieldValues);
+				itemField.setDescription(fieldDescription);
 
-        int pricesCount = ParamUtil.getInteger(
-            uploadPortletRequest, "pricesCount", 1);
+				itemFields.add(itemField);
+			}
 
-        List<ShoppingItemPrice> itemPrices = new ArrayList<ShoppingItemPrice>();
+			String fieldsQuantities =
+				ParamUtil.getString(uploadPortletRequest, "fieldsQuantities");
 
-        for (int i = 0; i < pricesCount; i ++) {
-            int minQuantity = ParamUtil.getInteger(
-                uploadPortletRequest, "minQuantity" + i);
-            int maxQuantity = ParamUtil.getInteger(
-                uploadPortletRequest, "maxQuantity" + i);
-            double price = ParamUtil.getDouble(
-                uploadPortletRequest, "price" + i);
-            double discount = ParamUtil.getDouble(
-                uploadPortletRequest, "discount" + i) / 100;
-            boolean taxable = ParamUtil.getBoolean(
-                uploadPortletRequest, "taxable" + i);
-            double shipping = ParamUtil.getDouble(
-                uploadPortletRequest, "shipping" + i);
-            boolean useShippingFormula = ParamUtil.getBoolean(
-                uploadPortletRequest, "useShippingFormula" + i);
-            boolean active = ParamUtil.getBoolean(
-                uploadPortletRequest, "active" + i);
-            int defaultPrice = ParamUtil.getInteger(
-                uploadPortletRequest, "defaultPrice");
+			int pricesCount =
+				ParamUtil.getInteger(uploadPortletRequest, "pricesCount", 1);
 
-            int status = ShoppingItemPriceConstants.STATUS_ACTIVE_DEFAULT;
+			List<ShoppingItemPrice> itemPrices =
+				new ArrayList<ShoppingItemPrice>();
 
-            if ((defaultPrice != i) && active) {
-                status = ShoppingItemPriceConstants.STATUS_ACTIVE;
-            }
-            ShoppingItemPrice itemPrice = ShoppingItemPriceUtil.create(0);
+			for (int i = 0; i < pricesCount; i++) {
+				int minQuantity =
+					ParamUtil.getInteger(uploadPortletRequest, "minQuantity" +
+						i);
+				int maxQuantity =
+					ParamUtil.getInteger(uploadPortletRequest, "maxQuantity" +
+						i);
+				double price =
+					ParamUtil.getDouble(uploadPortletRequest, "price" + i);
+				double discount =
+					ParamUtil.getDouble(uploadPortletRequest, "discount" + i) / 100;
+				boolean taxable =
+					ParamUtil.getBoolean(uploadPortletRequest, "taxable" + i);
+				double shipping =
+					ParamUtil.getDouble(uploadPortletRequest, "shipping" + i);
+				boolean useShippingFormula =
+					ParamUtil.getBoolean(
+						uploadPortletRequest, "useShippingFormula" + i);
+				boolean active =
+					ParamUtil.getBoolean(uploadPortletRequest, "active" + i);
+				int defaultPrice =
+					ParamUtil.getInteger(uploadPortletRequest, "defaultPrice");
 
-            itemPrice.setMinQuantity(minQuantity);
-            itemPrice.setMaxQuantity(maxQuantity);
-            itemPrice.setPrice(price);
-            itemPrice.setDiscount(discount);
-            itemPrice.setTaxable(taxable);
-            itemPrice.setShipping(shipping);
-            itemPrice.setUseShippingFormula(useShippingFormula);
-            itemPrice.setStatus(status);
+				int status = ShoppingItemPriceConstants.STATUS_ACTIVE_DEFAULT;
 
-            itemPrices.add(itemPrice);
-        }
+				if ((defaultPrice != i) && active) {
+					status = ShoppingItemPriceConstants.STATUS_ACTIVE;
+				}
+				ShoppingItemPrice itemPrice = ShoppingItemPriceUtil.create(0);
 
-        boolean requiresShipping = ParamUtil.getBoolean(
-            uploadPortletRequest, "requiresShipping");
-        int stockQuantity = ParamUtil.getInteger(
-            uploadPortletRequest, "stockQuantity");
+				itemPrice.setMinQuantity(minQuantity);
+				itemPrice.setMaxQuantity(maxQuantity);
+				itemPrice.setPrice(price);
+				itemPrice.setDiscount(discount);
+				itemPrice.setTaxable(taxable);
+				itemPrice.setShipping(shipping);
+				itemPrice.setUseShippingFormula(useShippingFormula);
+				itemPrice.setStatus(status);
 
-        boolean featured = ParamUtil.getBoolean(
-            uploadPortletRequest, "featured");
-        Boolean sale = null;
+				itemPrices.add(itemPrice);
+			}
 
-        boolean smallImage = ParamUtil.getBoolean(
-            uploadPortletRequest, "smallImage");
-        String smallImageURL = ParamUtil.getString(
-            uploadPortletRequest, "smallImageURL");
-        File smallFile = uploadPortletRequest.getFile("smallFile");
+			boolean requiresShipping =
+				ParamUtil.getBoolean(uploadPortletRequest, "requiresShipping");
+			int stockQuantity =
+				ParamUtil.getInteger(uploadPortletRequest, "stockQuantity");
 
-        boolean mediumImage = ParamUtil.getBoolean(
-            uploadPortletRequest, "mediumImage");
-       String mediumImageURL = ParamUtil.getString(
-            uploadPortletRequest, "mediumImageURL");
-        File mediumFile = uploadPortletRequest.getFile("mediumFile");
+			boolean featured =
+				ParamUtil.getBoolean(uploadPortletRequest, "featured");
+			Boolean sale = null;
 
-        boolean largeImage = ParamUtil.getBoolean(
-            uploadPortletRequest, "largeImage");
-        String largeImageURL = ParamUtil.getString(
-            uploadPortletRequest, "largeImageURL");
-        File largeFile = uploadPortletRequest.getFile("largeFile");
+			boolean smallImage =
+				ParamUtil.getBoolean(uploadPortletRequest, "smallImage");
+			String smallImageURL =
+				ParamUtil.getString(uploadPortletRequest, "smallImageURL");
+			File smallFile = uploadPortletRequest.getFile("smallFile");
 
-        ServiceContext serviceContext = ServiceContextFactory.getInstance(
-            ShoppingItem.class.getName(), actionRequest);
+			boolean mediumImage =
+				ParamUtil.getBoolean(uploadPortletRequest, "mediumImage");
+			String mediumImageURL =
+				ParamUtil.getString(uploadPortletRequest, "mediumImageURL");
+			File mediumFile = uploadPortletRequest.getFile("mediumFile");
 
-        if (itemId <= 0) {
+			boolean largeImage =
+				ParamUtil.getBoolean(uploadPortletRequest, "largeImage");
+			String largeImageURL =
+				ParamUtil.getString(uploadPortletRequest, "largeImageURL");
+			File largeFile = uploadPortletRequest.getFile("largeFile");
 
-            // Add item
+			ServiceContext serviceContext =
+				ServiceContextFactory.getInstance(
+					ShoppingItem.class.getName(), actionRequest);
 
-            ShoppingItemServiceUtil.addItem(
-                groupId, categoryId, sku, name, description, properties,
-                fieldsQuantities, requiresShipping, stockQuantity, featured,
-                sale, smallImage, smallImageURL, smallFile, mediumImage,
-                mediumImageURL, mediumFile, largeImage, largeImageURL,
-                largeFile, itemFields, itemPrices, serviceContext);
-        }
-        else {
+			if (itemId <= 0) {
 
-            // Update item
+				// Add item
 
-            ShoppingItemServiceUtil.updateItem(
-                itemId, groupId, categoryId, sku, name, description, properties,
-                fieldsQuantities, requiresShipping, stockQuantity, featured,
-                sale, smallImage, smallImageURL, smallFile, mediumImage,
-                mediumImageURL, mediumFile, largeImage, largeImageURL,
-                largeFile, itemFields, itemPrices, serviceContext);
-        }
-        }
-        catch (Exception e) {
+				ShoppingItemServiceUtil.addItem(
+					groupId, categoryId, sku, name, description, properties,
+					fieldsQuantities, requiresShipping, stockQuantity,
+					featured, sale, smallImage, smallImageURL, smallFile,
+					mediumImage, mediumImageURL, mediumFile, largeImage,
+					largeImageURL, largeFile, itemFields, itemPrices,
+					serviceContext);
+			}
+			else {
+
+				// Update item
+
+				ShoppingItemServiceUtil.updateItem(
+					itemId, groupId, categoryId, sku, name, description,
+					properties, fieldsQuantities, requiresShipping,
+					stockQuantity, featured, sale, smallImage, smallImageURL,
+					smallFile, mediumImage, mediumImageURL, mediumFile,
+					largeImage, largeImageURL, largeFile, itemFields,
+					itemPrices, serviceContext);
+			}
+		}
+		catch (Exception e) {
 			if (e instanceof NoSuchCategoryException ||
 				e instanceof NoSuchItemException ||
 				e instanceof PrincipalException) {
@@ -303,148 +317,160 @@ public class ShoppingPortlet extends MVCPortlet {
 				SessionErrors.add(actionRequest, e.getClass().getName());
 
 				// setForward(actionRequest, "portlet.shopping.error");
-				actionResponse.setRenderParameter("jspPage","/error.jsp");
+				actionResponse.setRenderParameter("jspPage", "/error.jsp");
 			}
 			else if (e instanceof DuplicateItemSKUException ||
-					 e instanceof ItemLargeImageNameException ||
-					 e instanceof ItemLargeImageSizeException ||
-					 e instanceof ItemMediumImageNameException ||
-					 e instanceof ItemMediumImageSizeException ||
-					 e instanceof ItemNameException ||
-					 e instanceof ItemSKUException ||
-					 e instanceof ItemSmallImageNameException ||
-					 e instanceof ItemSmallImageSizeException) {
+				e instanceof ItemLargeImageNameException ||
+				e instanceof ItemLargeImageSizeException ||
+				e instanceof ItemMediumImageNameException ||
+				e instanceof ItemMediumImageSizeException ||
+				e instanceof ItemNameException ||
+				e instanceof ItemSKUException ||
+				e instanceof ItemSmallImageNameException ||
+				e instanceof ItemSmallImageSizeException) {
 
 				SessionErrors.add(actionRequest, e.getClass().getName());
-				actionResponse.setRenderParameter("jspPage","/edit_item.jsp");
+				actionResponse.setRenderParameter("jspPage", "/edit_item.jsp");
 			}
 			else {
 				throw e;
 			}
+		}
 	}
-    }
 
-    // COUPONS
+	// COUPONS
 
-    public void deleteCoupons(
-            ActionRequest actionRequest, ActionResponse actionResponse)
-        throws Exception {
-        ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(
-            WebKeys.THEME_DISPLAY);
+	public void deleteCoupons(
+		ActionRequest actionRequest, ActionResponse actionResponse)
+		throws Exception {
 
-        long[] deleteCouponIds = StringUtil.split(
-            ParamUtil.getString(actionRequest, "deleteCouponIds"), 0L);
+		ThemeDisplay themeDisplay =
+			(ThemeDisplay) actionRequest.getAttribute(WebKeys.THEME_DISPLAY);
 
-        for (int i = 0; i < deleteCouponIds.length; i++) {
-            ShoppingCouponServiceUtil.deleteCoupon(
-                themeDisplay.getScopeGroupId(), deleteCouponIds[i]);
-        }
-    }
+		long[] deleteCouponIds =
+			StringUtil.split(
+				ParamUtil.getString(actionRequest, "deleteCouponIds"), 0L);
 
-    public void updateCoupon(
-            ActionRequest actionRequest, ActionResponse actionResponse)
-        throws Exception {
-        
-        try {
-        long couponId = ParamUtil.getLong(actionRequest, "couponId");
+		for (int i = 0; i < deleteCouponIds.length; i++) {
+			ShoppingCouponServiceUtil.deleteCoupon(
+				themeDisplay.getScopeGroupId(), deleteCouponIds[i]);
+		}
+	}
 
-        String code = ParamUtil.getString(actionRequest, "code");
-        boolean autoCode = ParamUtil.getBoolean(actionRequest, "autoCode");
+	public void updateCoupon(
+		ActionRequest actionRequest, ActionResponse actionResponse)
+		throws Exception {
 
-        String name = ParamUtil.getString(actionRequest, "name");
-        String description = ParamUtil.getString(actionRequest, "description");
+		try {
+			long couponId = ParamUtil.getLong(actionRequest, "couponId");
 
-        int startDateMonth = ParamUtil.getInteger(
-            actionRequest, "startDateMonth");
-        int startDateDay = ParamUtil.getInteger(actionRequest, "startDateDay");
-        int startDateYear = ParamUtil.getInteger(
-            actionRequest, "startDateYear");
-        int startDateHour = ParamUtil.getInteger(
-            actionRequest, "startDateHour");
-        int startDateMinute = ParamUtil.getInteger(
-            actionRequest, "startDateMinute");
-        int startDateAmPm = ParamUtil.getInteger(
-            actionRequest, "startDateAmPm");
+			String code = ParamUtil.getString(actionRequest, "code");
+			boolean autoCode = ParamUtil.getBoolean(actionRequest, "autoCode");
 
-        if (startDateAmPm == Calendar.PM) {
-            startDateHour += 12;
-        }
+			String name = ParamUtil.getString(actionRequest, "name");
+			String description =
+				ParamUtil.getString(actionRequest, "description");
 
-        int endDateMonth = ParamUtil.getInteger(actionRequest, "endDateMonth");
-        int endDateDay = ParamUtil.getInteger(actionRequest, "endDateDay");
-        int endDateYear = ParamUtil.getInteger(actionRequest, "endDateYear");
-        int endDateHour = ParamUtil.getInteger(actionRequest, "endDateHour");
-        int endDateMinute = ParamUtil.getInteger(
-            actionRequest, "endDateMinute");
-        int endDateAmPm = ParamUtil.getInteger(actionRequest, "endDateAmPm");
-        boolean neverExpire = ParamUtil.getBoolean(
-            actionRequest, "neverExpire");
+			int startDateMonth =
+				ParamUtil.getInteger(actionRequest, "startDateMonth");
+			int startDateDay =
+				ParamUtil.getInteger(actionRequest, "startDateDay");
+			int startDateYear =
+				ParamUtil.getInteger(actionRequest, "startDateYear");
+			int startDateHour =
+				ParamUtil.getInteger(actionRequest, "startDateHour");
+			int startDateMinute =
+				ParamUtil.getInteger(actionRequest, "startDateMinute");
+			int startDateAmPm =
+				ParamUtil.getInteger(actionRequest, "startDateAmPm");
 
-        if (endDateAmPm == Calendar.PM) {
-            endDateHour += 12;
-        }
+			if (startDateAmPm == Calendar.PM) {
+				startDateHour += 12;
+			}
 
-        boolean active = ParamUtil.getBoolean(actionRequest, "active");
-        String limitCategories = ParamUtil.getString(
-            actionRequest, "limitCategories");
-        String limitSkus = ParamUtil.getString(actionRequest, "limitSkus");
-        double minOrder = ParamUtil.getDouble(actionRequest, "minOrder", -1.0);
-        double discount = ParamUtil.getDouble(actionRequest, "discount", -1.0);
-        String discountType = ParamUtil.getString(
-            actionRequest, "discountType");
+			int endDateMonth =
+				ParamUtil.getInteger(actionRequest, "endDateMonth");
+			int endDateDay = ParamUtil.getInteger(actionRequest, "endDateDay");
+			int endDateYear =
+				ParamUtil.getInteger(actionRequest, "endDateYear");
+			int endDateHour =
+				ParamUtil.getInteger(actionRequest, "endDateHour");
+			int endDateMinute =
+				ParamUtil.getInteger(actionRequest, "endDateMinute");
+			int endDateAmPm =
+				ParamUtil.getInteger(actionRequest, "endDateAmPm");
+			boolean neverExpire =
+				ParamUtil.getBoolean(actionRequest, "neverExpire");
 
-        ServiceContext serviceContext = ServiceContextFactory.getInstance(
-            ShoppingCoupon.class.getName(), actionRequest);
+			if (endDateAmPm == Calendar.PM) {
+				endDateHour += 12;
+			}
 
-        if (couponId <= 0) {
+			boolean active = ParamUtil.getBoolean(actionRequest, "active");
+			String limitCategories =
+				ParamUtil.getString(actionRequest, "limitCategories");
+			String limitSkus = ParamUtil.getString(actionRequest, "limitSkus");
+			double minOrder =
+				ParamUtil.getDouble(actionRequest, "minOrder", -1.0);
+			double discount =
+				ParamUtil.getDouble(actionRequest, "discount", -1.0);
+			String discountType =
+				ParamUtil.getString(actionRequest, "discountType");
 
-            // Add coupon
-            _log.error("AA CouponId: " + couponId);
+			ServiceContext serviceContext =
+				ServiceContextFactory.getInstance(
+					ShoppingCoupon.class.getName(), actionRequest);
 
-            ShoppingCouponServiceUtil.addCoupon(
-                code, autoCode, name, description, startDateMonth, startDateDay,
-                startDateYear, startDateHour, startDateMinute, endDateMonth,
-                endDateDay, endDateYear, endDateHour, endDateMinute,
-                neverExpire, active, limitCategories, limitSkus, minOrder,
-                discount, discountType, serviceContext);
-        }
-        else {
+			if (couponId <= 0) {
 
-            // Update coupon
-            _log.error("UPDATE CouponId: " + couponId);
+				// Add coupon
+				_log.error("AA CouponId: " + couponId);
 
-            ShoppingCouponServiceUtil.updateCoupon(
-                couponId, name, description, startDateMonth, startDateDay,
-                startDateYear, startDateHour, startDateMinute, endDateMonth,
-                endDateDay, endDateYear, endDateHour, endDateMinute,
-                neverExpire, active, limitCategories, limitSkus, minOrder,
-                discount, discountType, serviceContext);
-        }
-        }
-        catch (Exception e) {
+				ShoppingCouponServiceUtil.addCoupon(
+					code, autoCode, name, description, startDateMonth,
+					startDateDay, startDateYear, startDateHour,
+					startDateMinute, endDateMonth, endDateDay, endDateYear,
+					endDateHour, endDateMinute, neverExpire, active,
+					limitCategories, limitSkus, minOrder, discount,
+					discountType, serviceContext);
+			}
+			else {
+
+				// Update coupon
+				_log.error("UPDATE CouponId: " + couponId);
+
+				ShoppingCouponServiceUtil.updateCoupon(
+					couponId, name, description, startDateMonth, startDateDay,
+					startDateYear, startDateHour, startDateMinute,
+					endDateMonth, endDateDay, endDateYear, endDateHour,
+					endDateMinute, neverExpire, active, limitCategories,
+					limitSkus, minOrder, discount, discountType, serviceContext);
+			}
+		}
+		catch (Exception e) {
 			if (e instanceof NoSuchCouponException ||
 				e instanceof PrincipalException) {
 
 				SessionErrors.add(actionRequest, e.getClass().getName());
 
 				// setForward(actionRequest, "portlet.shopping.error");
-				actionResponse.setRenderParameter("jspPage","/error.jsp");
+				actionResponse.setRenderParameter("jspPage", "/error.jsp");
 			}
 			else if (e instanceof CouponCodeException ||
-					 e instanceof CouponDateException ||
-					 e instanceof CouponDescriptionException ||
-					 e instanceof CouponDiscountException ||
-					 e instanceof CouponEndDateException ||
-					 e instanceof CouponLimitCategoriesException ||
-					 e instanceof CouponLimitSKUsException ||
-					 e instanceof CouponMinimumOrderException ||
-					 e instanceof CouponNameException ||
-					 e instanceof CouponStartDateException ||
-					 e instanceof DuplicateCouponCodeException) {
+				e instanceof CouponDateException ||
+				e instanceof CouponDescriptionException ||
+				e instanceof CouponDiscountException ||
+				e instanceof CouponEndDateException ||
+				e instanceof CouponLimitCategoriesException ||
+				e instanceof CouponLimitSKUsException ||
+				e instanceof CouponMinimumOrderException ||
+				e instanceof CouponNameException ||
+				e instanceof CouponStartDateException ||
+				e instanceof DuplicateCouponCodeException) {
 
 				if (e instanceof CouponLimitCategoriesException) {
 					CouponLimitCategoriesException clce =
-						(CouponLimitCategoriesException)e;
+						(CouponLimitCategoriesException) e;
 
 					SessionErrors.add(
 						actionRequest, e.getClass().getName(),
@@ -452,517 +478,530 @@ public class ShoppingPortlet extends MVCPortlet {
 				}
 				else if (e instanceof CouponLimitSKUsException) {
 					CouponLimitSKUsException clskue =
-						(CouponLimitSKUsException)e;
+						(CouponLimitSKUsException) e;
 
 					SessionErrors.add(
-						actionRequest, e.getClass().getName(),
-						clskue.getSkus());
+						actionRequest, e.getClass().getName(), clskue.getSkus());
 				}
 				else {
 					SessionErrors.add(actionRequest, e.getClass().getName());
 				}
-				actionResponse.setRenderParameter("jspPage","/edit_coupon.jsp");
+				actionResponse.setRenderParameter("jspPage", "/edit_coupon.jsp");
 			}
 			else {
 				throw e;
 			}
+		}
+
 	}
 
-    }
+	// CART
+	public void updateCart(
+		ActionRequest actionRequest, ActionResponse actionResponse)
+		throws Exception {
 
-    // CART
-    public void updateCart(
-            ActionRequest actionRequest, ActionResponse actionResponse)
-        throws Exception {
+		try {
 
-        try {
+			String cmd = ParamUtil.getString(actionRequest, Constants.CMD);
 
-        String cmd = ParamUtil.getString(actionRequest, Constants.CMD);
+			ShoppingCart cart = ShoppingUtil.getCart(actionRequest);
 
-        ShoppingCart cart = ShoppingUtil.getCart(actionRequest);
+			if (cmd.equals(Constants.ADD)) {
+				long itemId = ParamUtil.getLong(actionRequest, "itemId");
 
-        if (cmd.equals(Constants.ADD)) {
-            long itemId = ParamUtil.getLong(actionRequest, "itemId");
+				String fields = ParamUtil.getString(actionRequest, "fields");
 
-            String fields = ParamUtil.getString(actionRequest, "fields");
+				if (Validator.isNotNull(fields)) {
+					fields = "|" + fields;
+				}
 
-            if (Validator.isNotNull(fields)) {
-                fields = "|" + fields;
-            }
+				ShoppingItem item =
+					ShoppingItemLocalServiceUtil.getItem(itemId);
 
-            ShoppingItem item = ShoppingItemLocalServiceUtil.getItem(itemId);
+				if (item.getMinQuantity() > 0) {
+					for (int i = 0; i < item.getMinQuantity(); i++) {
+						cart.addItemId(itemId, fields);
+					}
+				}
+				else {
+					cart.addItemId(itemId, fields);
+				}
+			}
+			else {
+				String itemIds = ParamUtil.getString(actionRequest, "itemIds");
+				String couponCodes =
+					ParamUtil.getString(actionRequest, "couponCodes");
+				int altShipping =
+					ParamUtil.getInteger(actionRequest, "altShipping");
+				boolean insure = ParamUtil.getBoolean(actionRequest, "insure");
 
-            if (item.getMinQuantity() > 0) {
-                for (int i = 0; i < item.getMinQuantity(); i++) {
-                    cart.addItemId(itemId, fields);
-                }
-            }
-            else {
-                cart.addItemId(itemId, fields);
-            }
-        }
-        else {
-            String itemIds = ParamUtil.getString(actionRequest, "itemIds");
-            String couponCodes = ParamUtil.getString(
-                actionRequest, "couponCodes");
-            int altShipping = ParamUtil.getInteger(
-                actionRequest, "altShipping");
-            boolean insure = ParamUtil.getBoolean(actionRequest, "insure");
+				cart.setItemIds(itemIds);
+				cart.setCouponCodes(couponCodes);
+				cart.setAltShipping(altShipping);
+				cart.setInsure(insure);
+			}
 
-            cart.setItemIds(itemIds);
-            cart.setCouponCodes(couponCodes);
-            cart.setAltShipping(altShipping);
-            cart.setInsure(insure);
-        }
+			ShoppingCartLocalServiceUtil.updateCart(
+				cart.getUserId(), cart.getGroupId(), cart.getItemIds(),
+				cart.getCouponCodes(), cart.getAltShipping(), cart.isInsure());
 
-        ShoppingCartLocalServiceUtil.updateCart(
-            cart.getUserId(), cart.getGroupId(), cart.getItemIds(),
-            cart.getCouponCodes(), cart.getAltShipping(), cart.isInsure());
+			if (cmd.equals(Constants.ADD) || cmd.equals(Constants.UPDATE)) {
+				addSuccessMessage(actionRequest, actionResponse);
+				actionResponse.setRenderParameter("jspPage", "/cart.jsp");
+			}
 
-        if (cmd.equals(Constants.ADD) || cmd.equals(Constants.UPDATE)) {
-            addSuccessMessage(actionRequest, actionResponse);
-            actionResponse.setRenderParameter("jspPage","/cart.jsp");
-        }
+		}
+		catch (Exception e) {
+			if (e instanceof NoSuchItemException ||
+				e instanceof PrincipalException) {
 
-        } catch (Exception e) {
-            if (e instanceof NoSuchItemException ||
-                e instanceof PrincipalException) {
+				SessionErrors.add(actionRequest, e.getClass().getName());
 
-                SessionErrors.add(actionRequest, e.getClass().getName());
+				// setForward(actionRequest, "portlet.shopping.error");
+			}
+			else if (e instanceof CartMinQuantityException ||
+				e instanceof CouponActiveException ||
+				e instanceof CouponEndDateException ||
+				e instanceof CouponStartDateException ||
+				e instanceof NoSuchCouponException) {
 
-                // setForward(actionRequest, "portlet.shopping.error");
-            }
-            else if (e instanceof CartMinQuantityException ||
-                     e instanceof CouponActiveException ||
-                     e instanceof CouponEndDateException ||
-                     e instanceof CouponStartDateException ||
-                     e instanceof NoSuchCouponException) {
+				_log.error("Cart Exception: " + e.getClass().getName());
+				SessionErrors.add(actionRequest, e.getClass().getName(), e);
+			}
+			else {
+				throw e;
+			}
+		}
 
-                _log.error ("Cart Exception: " + e.getClass().getName());
-                SessionErrors.add(actionRequest, e.getClass().getName(), e);
-            }
-            else {
-                throw e;
-            }
-        }
+	}
 
-    }
+	// ORDERS
 
-    // ORDERS
+	public void deleteOrders(
+		ActionRequest actionRequest, ActionResponse actionResponse)
+		throws Exception {
 
-   public void deleteOrders(
-            ActionRequest actionRequest, ActionResponse actionResponse)
-        throws Exception {
-        ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(
-            WebKeys.THEME_DISPLAY);
+		ThemeDisplay themeDisplay =
+			(ThemeDisplay) actionRequest.getAttribute(WebKeys.THEME_DISPLAY);
 
-        long[] deleteOrderIds = StringUtil.split(
-            ParamUtil.getString(actionRequest, "deleteOrderIds"), 0L);
+		long[] deleteOrderIds =
+			StringUtil.split(
+				ParamUtil.getString(actionRequest, "deleteOrderIds"), 0L);
 
-        for (int i = 0; i < deleteOrderIds.length; i++) {
-            ShoppingOrderServiceUtil.deleteOrder(
-                themeDisplay.getScopeGroupId(), deleteOrderIds[i]);
-        }
-    }
+		for (int i = 0; i < deleteOrderIds.length; i++) {
+			ShoppingOrderServiceUtil.deleteOrder(
+				themeDisplay.getScopeGroupId(), deleteOrderIds[i]);
+		}
+	}
 
-    public void sendEmail(
-            ActionRequest actionRequest, ActionResponse actionResponse)
-        throws Exception {
-        ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(
-            WebKeys.THEME_DISPLAY);
+	public void sendEmail(
+		ActionRequest actionRequest, ActionResponse actionResponse)
+		throws Exception {
 
-        long orderId = ParamUtil.getLong(actionRequest, "orderId");
+		ThemeDisplay themeDisplay =
+			(ThemeDisplay) actionRequest.getAttribute(WebKeys.THEME_DISPLAY);
 
-        String emailType = ParamUtil.getString(actionRequest, "emailType");
+		long orderId = ParamUtil.getLong(actionRequest, "orderId");
 
-        ShoppingOrderServiceUtil.sendEmail(
-            themeDisplay.getScopeGroupId(), orderId, emailType);
-    }
+		String emailType = ParamUtil.getString(actionRequest, "emailType");
 
-    public void updateOrder(
-            ActionRequest actionRequest, ActionResponse actionResponse)
-        throws Exception {
-        
-        try {
-        
-        ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(
-            WebKeys.THEME_DISPLAY);
+		ShoppingOrderServiceUtil.sendEmail(
+			themeDisplay.getScopeGroupId(), orderId, emailType);
+	}
 
-        String number = ParamUtil.getString(actionRequest, "number");
-        String ppTxnId = ParamUtil.getString(actionRequest, "ppTxnId");
-        String ppPaymentStatus = ShoppingUtil.getPpPaymentStatus(
-            ParamUtil.getString(actionRequest, "ppPaymentStatus"));
-        double ppPaymentGross = ParamUtil.getDouble(
-            actionRequest, "ppPaymentGross");
-        String ppReceiverEmail = ParamUtil.getString(
-            actionRequest, "ppReceiverEmail");
-        String ppPayerEmail = ParamUtil.getString(
-            actionRequest, "ppPayerEmail");
+	public void updateOrder(
+		ActionRequest actionRequest, ActionResponse actionResponse)
+		throws Exception {
 
-        ShoppingOrderServiceUtil.completeOrder(
-            themeDisplay.getScopeGroupId(), number, ppTxnId, ppPaymentStatus,
-            ppPaymentGross, ppReceiverEmail, ppPayerEmail);
-        }    
-        catch (Exception e) {
+		try {
+
+			ThemeDisplay themeDisplay =
+				(ThemeDisplay) actionRequest.getAttribute(WebKeys.THEME_DISPLAY);
+
+			String number = ParamUtil.getString(actionRequest, "number");
+			String ppTxnId = ParamUtil.getString(actionRequest, "ppTxnId");
+			String ppPaymentStatus =
+				ShoppingUtil.getPpPaymentStatus(ParamUtil.getString(
+					actionRequest, "ppPaymentStatus"));
+			double ppPaymentGross =
+				ParamUtil.getDouble(actionRequest, "ppPaymentGross");
+			String ppReceiverEmail =
+				ParamUtil.getString(actionRequest, "ppReceiverEmail");
+			String ppPayerEmail =
+				ParamUtil.getString(actionRequest, "ppPayerEmail");
+
+			ShoppingOrderServiceUtil.completeOrder(
+				themeDisplay.getScopeGroupId(), number, ppTxnId,
+				ppPaymentStatus, ppPaymentGross, ppReceiverEmail, ppPayerEmail);
+		}
+		catch (Exception e) {
 			if (e instanceof NoSuchOrderException ||
 				e instanceof PrincipalException) {
 
 				SessionErrors.add(actionRequest, e.getClass().getName());
-				actionResponse.setRenderParameter("jspPage","/error.jsp");
+				actionResponse.setRenderParameter("jspPage", "/error.jsp");
 				// return mapping.findForward("portlet.shopping.error");
 			}
 			else {
 				throw e;
 			}
+		}
+
 	}
 
-            
-    }
-
-    // CHECKOUT
-
-    public void updateLatestOrder(
-            ActionRequest actionRequest, ActionResponse actionResponse)
-        throws Exception {
-
-        ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(
-            WebKeys.THEME_DISPLAY);
-
-        String billingFirstName = ParamUtil.getString(
-            actionRequest, "billingFirstName");
-        String billingLastName = ParamUtil.getString(
-            actionRequest, "billingLastName");
-        String billingEmailAddress = ParamUtil.getString(
-            actionRequest, "billingEmailAddress");
-        String billingCompany = ParamUtil.getString(
-            actionRequest, "billingCompany");
-        String billingStreet = ParamUtil.getString(
-            actionRequest, "billingStreet");
-        String billingCity = ParamUtil.getString(actionRequest, "billingCity");
-
-        String billingStateSel = ParamUtil.getString(
-            actionRequest, "billingStateSel");
-        String billingState = billingStateSel;
-        if (Validator.isNull(billingStateSel)) {
-            billingState = ParamUtil.getString(actionRequest, "billingState");
-        }
-
-        String billingZip = ParamUtil.getString(actionRequest, "billingZip");
-        String billingCountry = ParamUtil.getString(
-            actionRequest, "billingCountry");
-        String billingPhone = ParamUtil.getString(
-            actionRequest, "billingPhone");
-
-        boolean shipToBilling = ParamUtil.getBoolean(
-            actionRequest, "shipToBilling");
-        String shippingFirstName = ParamUtil.getString(
-            actionRequest, "shippingFirstName");
-        String shippingLastName = ParamUtil.getString(
-            actionRequest, "shippingLastName");
-        String shippingEmailAddress = ParamUtil.getString(
-            actionRequest, "shippingEmailAddress");
-        String shippingCompany = ParamUtil.getString(
-            actionRequest, "shippingCompany");
-        String shippingStreet = ParamUtil.getString(
-            actionRequest, "shippingStreet");
-        String shippingCity = ParamUtil.getString(
-            actionRequest, "shippingCity");
-
-        String shippingStateSel = ParamUtil.getString(
-            actionRequest, "shippingStateSel");
-        String shippingState = shippingStateSel;
-        if (Validator.isNull(shippingStateSel)) {
-            shippingState = ParamUtil.getString(actionRequest, "shippingState");
-        }
-
-        String shippingZip = ParamUtil.getString(actionRequest, "shippingZip");
-        String shippingCountry = ParamUtil.getString(
-            actionRequest, "shippingCountry");
-        String shippingPhone = ParamUtil.getString(
-            actionRequest, "shippingPhone");
-
-        String ccName = ParamUtil.getString(actionRequest, "ccName");
-        String ccType = ParamUtil.getString(actionRequest, "ccType");
-        String ccNumber = ParamUtil.getString(actionRequest, "ccNumber");
-        int ccExpMonth = ParamUtil.getInteger(actionRequest, "ccExpMonth");
-        int ccExpYear = ParamUtil.getInteger(actionRequest, "ccExpYear");
-        String ccVerNumber = ParamUtil.getString(actionRequest, "ccVerNumber");
-
-        String comments = ParamUtil.getString(actionRequest, "comments");
-
-        try {
-        ShoppingOrder order = ShoppingOrderLocalServiceUtil.updateLatestOrder(
-            themeDisplay.getUserId(), themeDisplay.getScopeGroupId(),
-            billingFirstName, billingLastName, billingEmailAddress,
-            billingCompany, billingStreet, billingCity, billingState,
-            billingZip, billingCountry, billingPhone, shipToBilling,
-            shippingFirstName, shippingLastName, shippingEmailAddress,
-            shippingCompany, shippingStreet, shippingCity, shippingState,
-            shippingZip, shippingCountry, shippingPhone, ccName, ccType,
-            ccNumber, ccExpMonth, ccExpYear, ccVerNumber, comments);
-
-        actionRequest.setAttribute(WebKeys.SHOPPING_ORDER, order);
-        actionResponse.setRenderParameter("jspPage","/checkout_second.jsp");
-        }
-        catch (Exception e) {
-                if (e instanceof BillingCityException ||
-                    e instanceof BillingCountryException ||
-                    e instanceof BillingEmailAddressException ||
-                    e instanceof BillingFirstNameException ||
-                    e instanceof BillingLastNameException ||
-                    e instanceof BillingPhoneException ||
-                    e instanceof BillingStateException ||
-                    e instanceof BillingStreetException ||
-                    e instanceof BillingZipException ||
-                    e instanceof CCExpirationException ||
-                    e instanceof CCNameException ||
-                    e instanceof CCNumberException ||
-                    e instanceof CCTypeException ||
-                    e instanceof ShippingCityException ||
-                    e instanceof ShippingCountryException ||
-                    e instanceof ShippingEmailAddressException ||
-                    e instanceof ShippingFirstNameException ||
-                    e instanceof ShippingLastNameException ||
-                    e instanceof ShippingPhoneException ||
-                    e instanceof ShippingStateException ||
-                    e instanceof ShippingStreetException ||
-                    e instanceof ShippingZipException) {
-
-                    SessionErrors.add(actionRequest, e.getClass().getName());
-                    actionResponse.setRenderParameter("jspPage","/checkout_first.jsp");
-
-                    //setForward(
-                    //    actionRequest, "portlet.shopping.checkout_first");
-                }
-                //else if (e instanceof PrincipalException) {
-                    // setForward(actionRequest, "portlet.shopping.error");
-                //}
-                else {
-                    throw e;
-                }
-        }
-    }
-
-    public void saveLatestOrder(
-            ActionRequest actionRequest, ActionResponse actionResponse)
-        throws Exception {
-
-        ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(
-            WebKeys.THEME_DISPLAY);
-
-        LiferayPortletResponse liferayPortletResponse =
-            (LiferayPortletResponse)actionResponse;
-
-        // updateCart(actionRequest, actionResponse);
-        // updateLatestOrder(actionRequest, actionResponse);
-
-        ShoppingCart cart = ShoppingUtil.getCart(actionRequest);
-
-        ShoppingOrder order =
-            ShoppingOrderLocalServiceUtil.saveLatestOrder(cart);
-
-        actionRequest.setAttribute(WebKeys.SHOPPING_ORDER, order);
-
-        ShoppingPreferences preferences = ShoppingPreferences.getInstance(
-            themeDisplay.getCompanyId(), themeDisplay.getScopeGroupId());
-
-        if (preferences.usePayPal()) {
-            String returnURL = ShoppingUtil.getPayPalReturnURL(
-                liferayPortletResponse.createActionURL(), order);
-            String notifyURL = ShoppingUtil.getPayPalNotifyURL(themeDisplay);
-
-            double total = ShoppingUtil.calculateTotal(
-                cart.getItems(), order.getBillingState(), cart.getCoupon(),
-                cart.getAltShipping(), cart.isInsure());
-
-            String redirectURL = ShoppingUtil.getPayPalRedirectURL(
-                preferences, order, total, returnURL, notifyURL);
-
-            _log.error(redirectURL);
-            actionResponse.sendRedirect(redirectURL);
-        } else {
-            ShoppingOrderLocalServiceUtil.sendEmail(order, "confirmation");
-            actionResponse.setRenderParameter("jspPage","/checkout_third.jsp");
-        }
-    }
-
-    public void editOrder(
-            ActionRequest actionRequest, ActionResponse actionResponse)
-        throws Exception {
-
-        String cmd = ParamUtil.getString(actionRequest, Constants.CMD);
-
-        try {
-            if (cmd.equals(Constants.ADD) || cmd.equals(Constants.UPDATE)) {
-                updateOrder(actionRequest, actionResponse);
-            }
-            else if (cmd.equals(Constants.DELETE)) {
-                deleteOrders(actionRequest, actionResponse);
-            }
-            else if (cmd.equals("sendEmail")) {
-                sendEmail(actionRequest, actionResponse);
-            }
-
-            sendRedirect(actionRequest, actionResponse);
-        }
-        catch (Exception e) {
-            if (e instanceof NoSuchOrderException ||
-                e instanceof PrincipalException) {
-
-                SessionErrors.add(actionRequest, e.getClass().getName());
-
-                // setForward(actionRequest, "portlet.shopping.error");
-            }
-            else {
-                throw e;
-            }
-        }
-    }
-
-    // PayPal Notification
-    public void paypalNotification(
-            ActionRequest request, ActionResponse response)
-        throws Exception {
-        String invoice = null;
-
-        _log.error("Receiving notification from PayPal");
-
-        try {
-            if (_log.isDebugEnabled()) {
-                _log.debug("Receiving notification from PayPal");
-            }
-
-            String query = "cmd=_notify-validate";
-
-            Enumeration<String> enu = request.getParameterNames();
-
-            while (enu.hasMoreElements()) {
-                String name = enu.nextElement();
-
-                String value = request.getParameter(name);
-
-                query = query + "&" + name + "=" + HttpUtil.encodeURL(value);
-            }
-
-            if (_log.isDebugEnabled()) {
-                _log.debug("Sending response to PayPal " + query);
-            }
-
-            URL url = new URL("https://www.paypal.com/cgi-bin/webscr");
-
-            URLConnection urlc = url.openConnection();
+	// CHECKOUT
+
+	public void updateLatestOrder(
+		ActionRequest actionRequest, ActionResponse actionResponse)
+		throws Exception {
+
+		ThemeDisplay themeDisplay =
+			(ThemeDisplay) actionRequest.getAttribute(WebKeys.THEME_DISPLAY);
+
+		String billingFirstName =
+			ParamUtil.getString(actionRequest, "billingFirstName");
+		String billingLastName =
+			ParamUtil.getString(actionRequest, "billingLastName");
+		String billingEmailAddress =
+			ParamUtil.getString(actionRequest, "billingEmailAddress");
+		String billingCompany =
+			ParamUtil.getString(actionRequest, "billingCompany");
+		String billingStreet =
+			ParamUtil.getString(actionRequest, "billingStreet");
+		String billingCity = ParamUtil.getString(actionRequest, "billingCity");
+
+		String billingStateSel =
+			ParamUtil.getString(actionRequest, "billingStateSel");
+		String billingState = billingStateSel;
+		if (Validator.isNull(billingStateSel)) {
+			billingState = ParamUtil.getString(actionRequest, "billingState");
+		}
+
+		String billingZip = ParamUtil.getString(actionRequest, "billingZip");
+		String billingCountry =
+			ParamUtil.getString(actionRequest, "billingCountry");
+		String billingPhone =
+			ParamUtil.getString(actionRequest, "billingPhone");
+
+		boolean shipToBilling =
+			ParamUtil.getBoolean(actionRequest, "shipToBilling");
+		String shippingFirstName =
+			ParamUtil.getString(actionRequest, "shippingFirstName");
+		String shippingLastName =
+			ParamUtil.getString(actionRequest, "shippingLastName");
+		String shippingEmailAddress =
+			ParamUtil.getString(actionRequest, "shippingEmailAddress");
+		String shippingCompany =
+			ParamUtil.getString(actionRequest, "shippingCompany");
+		String shippingStreet =
+			ParamUtil.getString(actionRequest, "shippingStreet");
+		String shippingCity =
+			ParamUtil.getString(actionRequest, "shippingCity");
+
+		String shippingStateSel =
+			ParamUtil.getString(actionRequest, "shippingStateSel");
+		String shippingState = shippingStateSel;
+		if (Validator.isNull(shippingStateSel)) {
+			shippingState = ParamUtil.getString(actionRequest, "shippingState");
+		}
+
+		String shippingZip = ParamUtil.getString(actionRequest, "shippingZip");
+		String shippingCountry =
+			ParamUtil.getString(actionRequest, "shippingCountry");
+		String shippingPhone =
+			ParamUtil.getString(actionRequest, "shippingPhone");
+
+		String ccName = ParamUtil.getString(actionRequest, "ccName");
+		String ccType = ParamUtil.getString(actionRequest, "ccType");
+		String ccNumber = ParamUtil.getString(actionRequest, "ccNumber");
+		int ccExpMonth = ParamUtil.getInteger(actionRequest, "ccExpMonth");
+		int ccExpYear = ParamUtil.getInteger(actionRequest, "ccExpYear");
+		String ccVerNumber = ParamUtil.getString(actionRequest, "ccVerNumber");
+
+		String comments = ParamUtil.getString(actionRequest, "comments");
+
+		try {
+			ShoppingOrder order =
+				ShoppingOrderLocalServiceUtil.updateLatestOrder(
+					themeDisplay.getUserId(), themeDisplay.getScopeGroupId(),
+					billingFirstName, billingLastName, billingEmailAddress,
+					billingCompany, billingStreet, billingCity, billingState,
+					billingZip, billingCountry, billingPhone, shipToBilling,
+					shippingFirstName, shippingLastName, shippingEmailAddress,
+					shippingCompany, shippingStreet, shippingCity,
+					shippingState, shippingZip, shippingCountry, shippingPhone,
+					ccName, ccType, ccNumber, ccExpMonth, ccExpYear,
+					ccVerNumber, comments);
+
+			actionRequest.setAttribute(WebKeys.SHOPPING_ORDER, order);
+			actionResponse.setRenderParameter("jspPage", "/checkout_second.jsp");
+		}
+		catch (Exception e) {
+			if (e instanceof BillingCityException ||
+				e instanceof BillingCountryException ||
+				e instanceof BillingEmailAddressException ||
+				e instanceof BillingFirstNameException ||
+				e instanceof BillingLastNameException ||
+				e instanceof BillingPhoneException ||
+				e instanceof BillingStateException ||
+				e instanceof BillingStreetException ||
+				e instanceof BillingZipException ||
+				e instanceof CCExpirationException ||
+				e instanceof CCNameException ||
+				e instanceof CCNumberException ||
+				e instanceof CCTypeException ||
+				e instanceof ShippingCityException ||
+				e instanceof ShippingCountryException ||
+				e instanceof ShippingEmailAddressException ||
+				e instanceof ShippingFirstNameException ||
+				e instanceof ShippingLastNameException ||
+				e instanceof ShippingPhoneException ||
+				e instanceof ShippingStateException ||
+				e instanceof ShippingStreetException ||
+				e instanceof ShippingZipException) {
+
+				SessionErrors.add(actionRequest, e.getClass().getName());
+				actionResponse.setRenderParameter(
+					"jspPage", "/checkout_first.jsp");
+
+				// setForward(
+				// actionRequest, "portlet.shopping.checkout_first");
+			}
+			// else if (e instanceof PrincipalException) {
+			// setForward(actionRequest, "portlet.shopping.error");
+			// }
+			else {
+				throw e;
+			}
+		}
+	}
+
+	public void saveLatestOrder(
+		ActionRequest actionRequest, ActionResponse actionResponse)
+		throws Exception {
+
+		ThemeDisplay themeDisplay =
+			(ThemeDisplay) actionRequest.getAttribute(WebKeys.THEME_DISPLAY);
+
+		LiferayPortletResponse liferayPortletResponse =
+			(LiferayPortletResponse) actionResponse;
+
+		// updateCart(actionRequest, actionResponse);
+		// updateLatestOrder(actionRequest, actionResponse);
+
+		ShoppingCart cart = ShoppingUtil.getCart(actionRequest);
+
+		ShoppingOrder order =
+			ShoppingOrderLocalServiceUtil.saveLatestOrder(cart);
+
+		actionRequest.setAttribute(WebKeys.SHOPPING_ORDER, order);
+
+		ShoppingPreferences preferences =
+			ShoppingPreferences.getInstance(
+				themeDisplay.getCompanyId(), themeDisplay.getScopeGroupId());
+
+		if (preferences.usePayPal()) {
+			String returnURL =
+				ShoppingUtil.getPayPalReturnURL(
+					liferayPortletResponse.createActionURL(), order);
+			String notifyURL = ShoppingUtil.getPayPalNotifyURL(themeDisplay);
+
+			double total =
+				ShoppingUtil.calculateTotal(
+					cart.getItems(), order.getBillingState(), cart.getCoupon(),
+					cart.getAltShipping(), cart.isInsure());
+
+			String redirectURL =
+				ShoppingUtil.getPayPalRedirectURL(
+					preferences, order, total, returnURL, notifyURL);
+
+			_log.error(redirectURL);
+			actionResponse.sendRedirect(redirectURL);
+		}
+		else {
+			ShoppingOrderLocalServiceUtil.sendEmail(order, "confirmation");
+			actionResponse.setRenderParameter("jspPage", "/checkout_third.jsp");
+		}
+	}
+
+	public void editOrder(
+		ActionRequest actionRequest, ActionResponse actionResponse)
+		throws Exception {
+
+		String cmd = ParamUtil.getString(actionRequest, Constants.CMD);
+
+		try {
+			if (cmd.equals(Constants.ADD) || cmd.equals(Constants.UPDATE)) {
+				updateOrder(actionRequest, actionResponse);
+			}
+			else if (cmd.equals(Constants.DELETE)) {
+				deleteOrders(actionRequest, actionResponse);
+			}
+			else if (cmd.equals("sendEmail")) {
+				sendEmail(actionRequest, actionResponse);
+			}
+
+			sendRedirect(actionRequest, actionResponse);
+		}
+		catch (Exception e) {
+			if (e instanceof NoSuchOrderException ||
+				e instanceof PrincipalException) {
+
+				SessionErrors.add(actionRequest, e.getClass().getName());
+
+				// setForward(actionRequest, "portlet.shopping.error");
+			}
+			else {
+				throw e;
+			}
+		}
+	}
+
+	// PayPal Notification
+	public void paypalNotification(
+		ActionRequest request, ActionResponse response)
+		throws Exception {
+
+		String invoice = null;
+
+		_log.error("Receiving notification from PayPal");
+
+		try {
+			if (_log.isDebugEnabled()) {
+				_log.debug("Receiving notification from PayPal");
+			}
+
+			String query = "cmd=_notify-validate";
+
+			Enumeration<String> enu = request.getParameterNames();
+
+			while (enu.hasMoreElements()) {
+				String name = enu.nextElement();
+
+				String value = request.getParameter(name);
+
+				query = query + "&" + name + "=" + HttpUtil.encodeURL(value);
+			}
+
+			if (_log.isDebugEnabled()) {
+				_log.debug("Sending response to PayPal " + query);
+			}
+
+			URL url = new URL("https://www.paypal.com/cgi-bin/webscr");
+
+			URLConnection urlc = url.openConnection();
+
+			urlc.setDoOutput(true);
+			urlc.setRequestProperty(
+				"Content-Type", "application/x-www-form-urlencoded");
+
+			PrintWriter pw = new UnsyncPrintWriter(urlc.getOutputStream());
 
-            urlc.setDoOutput(true);
-            urlc.setRequestProperty(
-                "Content-Type","application/x-www-form-urlencoded");
+			pw.println(query);
+
+			pw.close();
 
-            PrintWriter pw = new UnsyncPrintWriter(urlc.getOutputStream());
+			UnsyncBufferedReader unsyncBufferedReader =
+				new UnsyncBufferedReader(new InputStreamReader(
+					urlc.getInputStream()));
 
-            pw.println(query);
+			String payPalStatus = unsyncBufferedReader.readLine();
 
-            pw.close();
+			unsyncBufferedReader.close();
+			String itemName = ParamUtil.getString(request, "item_name");
+			String itemNumber = ParamUtil.getString(request, "item_number");
+			invoice = ParamUtil.getString(request, "invoice");
+			String txnId = ParamUtil.getString(request, "txn_id");
+			String paymentStatus =
+				ParamUtil.getString(request, "payment_status");
+			double paymentGross = ParamUtil.getDouble(request, "mc_gross");
+			String receiverEmail =
+				ParamUtil.getString(request, "receiver_email");
+			String payerEmail = ParamUtil.getString(request, "payer_email");
 
-            UnsyncBufferedReader unsyncBufferedReader =
-                new UnsyncBufferedReader(
-                    new InputStreamReader(urlc.getInputStream()));
+			_log.error("Receiving response from PayPal " + payPalStatus);
+			if (_log.isDebugEnabled()) {
+				_log.debug("Receiving response from PayPal");
+				_log.debug("Item name " + itemName);
+				_log.debug("Item number " + itemNumber);
+				_log.debug("Invoice " + invoice);
+				_log.debug("Transaction ID " + txnId);
+				_log.debug("Payment status " + paymentStatus);
+				_log.debug("Payment gross " + paymentGross);
+				_log.debug("Receiver email " + receiverEmail);
+				_log.debug("Payer email " + payerEmail);
+			}
 
-            String payPalStatus = unsyncBufferedReader.readLine();
+			if (payPalStatus.equals("VERIFIED") && validate(request)) {
+				ShoppingOrderLocalServiceUtil.completeOrder(
+					invoice, txnId, paymentStatus, paymentGross, receiverEmail,
+					payerEmail, true);
+			}
+			else if (payPalStatus.equals("INVALID")) {
+			}
+		}
+		catch (Exception e) {
+			PortalUtil.sendError(e, request, response);
+		}
+	}
 
-            unsyncBufferedReader.close();
-            String itemName = ParamUtil.getString(request, "item_name");
-            String itemNumber = ParamUtil.getString(request, "item_number");
-            invoice = ParamUtil.getString(request, "invoice");
-            String txnId = ParamUtil.getString(request, "txn_id");
-            String paymentStatus = ParamUtil.getString(
-                request, "payment_status");
-            double paymentGross = ParamUtil.getDouble(request, "mc_gross");
-            String receiverEmail = ParamUtil.getString(
-                request, "receiver_email");
-            String payerEmail = ParamUtil.getString(request, "payer_email");
+	protected boolean validate(ActionRequest request)
+		throws Exception {
 
-            _log.error("Receiving response from PayPal " + payPalStatus);
-            if (_log.isDebugEnabled()) {
-                _log.debug("Receiving response from PayPal");
-                _log.debug("Item name " + itemName);
-                _log.debug("Item number " + itemNumber);
-                _log.debug("Invoice " + invoice);
-                _log.debug("Transaction ID " + txnId);
-                _log.debug("Payment status " + paymentStatus);
-                _log.debug("Payment gross " + paymentGross);
-                _log.debug("Receiver email " + receiverEmail);
-                _log.debug("Payer email " + payerEmail);
-            }
+		// Invoice
 
-            if (payPalStatus.equals("VERIFIED") && validate(request)) {
-                ShoppingOrderLocalServiceUtil.completeOrder(
-                    invoice, txnId, paymentStatus, paymentGross, receiverEmail,
-                    payerEmail, true);
-            }
-            else if (payPalStatus.equals("INVALID")) {
-            }
-        }
-        catch (Exception e) {
-            PortalUtil.sendError(e, request, response);
-        }
-    }
+		String ppInvoice = ParamUtil.getString(request, "invoice");
 
-    protected boolean validate(ActionRequest request) throws Exception {
+		ShoppingOrder order = ShoppingOrderLocalServiceUtil.getOrder(ppInvoice);
 
-        // Invoice
+		ShoppingPreferences shoppingPrefs =
+			ShoppingPreferences.getInstance(
+				order.getCompanyId(), order.getGroupId());
 
-        String ppInvoice = ParamUtil.getString(request, "invoice");
+		// Receiver email address
 
-        ShoppingOrder order = ShoppingOrderLocalServiceUtil.getOrder(
-            ppInvoice);
+		String ppReceiverEmail = ParamUtil.getString(request, "receiver_email");
 
-        ShoppingPreferences shoppingPrefs = ShoppingPreferences.getInstance(
-            order.getCompanyId(), order.getGroupId());
+		String payPalEmailAddress = shoppingPrefs.getPayPalEmailAddress();
 
-        // Receiver email address
+		if (!payPalEmailAddress.equals(ppReceiverEmail)) {
+			return false;
+		}
 
-        String ppReceiverEmail = ParamUtil.getString(
-            request, "receiver_email");
+		// Payment gross
 
-        String payPalEmailAddress = shoppingPrefs.getPayPalEmailAddress();
+		double ppGross = ParamUtil.getDouble(request, "mc_gross");
 
-        if (!payPalEmailAddress.equals(ppReceiverEmail)) {
-            return false;
-        }
+		double orderTotal = ShoppingUtil.calculateTotal(order);
 
-        // Payment gross
+		if (orderTotal != ppGross) {
+			return false;
+		}
 
-        double ppGross = ParamUtil.getDouble(request, "mc_gross");
+		// Payment currency
 
-        double orderTotal = ShoppingUtil.calculateTotal(order);
+		String ppCurrency = ParamUtil.getString(request, "mc_currency");
 
-        if (orderTotal != ppGross) {
-            return false;
-        }
+		String currencyId = shoppingPrefs.getCurrencyId();
 
-        // Payment currency
+		if (!currencyId.equals(ppCurrency)) {
+			return false;
+		}
 
-        String ppCurrency = ParamUtil.getString(request, "mc_currency");
+		// Transaction ID
 
-        String currencyId = shoppingPrefs.getCurrencyId();
+		String ppTxnId = ParamUtil.getString(request, "txn_id");
 
-        if (!currencyId.equals(ppCurrency)) {
-            return false;
-        }
+		try {
+			ShoppingOrderLocalServiceUtil.getPayPalTxnIdOrder(ppTxnId);
 
-        // Transaction ID
+			return false;
+		}
+		catch (NoSuchOrderException nsoe) {
+		}
 
-        String ppTxnId = ParamUtil.getString(request, "txn_id");
+		return true;
+	}
 
-        try {
-            ShoppingOrderLocalServiceUtil.getPayPalTxnIdOrder(ppTxnId);
-
-            return false;
-        }
-        catch (NoSuchOrderException nsoe) {
-        }
-
-        return true;
-    }
-
-    private static Log _log = LogFactoryUtil.getLog(ShoppingPortlet.class);
+	private static Log _log = LogFactoryUtil.getLog(ShoppingPortlet.class);
 }
