@@ -96,6 +96,7 @@ public class ShoppingPortlet extends MVCPortlet {
             ActionRequest actionRequest, ActionResponse actionResponse)
         throws Exception {
 
+        try {
         long categoryId = ParamUtil.getLong(actionRequest, "categoryId");
 
         long parentCategoryId = ParamUtil.getLong(
@@ -109,7 +110,6 @@ public class ShoppingPortlet extends MVCPortlet {
         ServiceContext serviceContext = ServiceContextFactory.getInstance(
             ShoppingCategory.class.getName(), actionRequest);
 
-        try {
             if (categoryId <= 0) {
 
                 // Add category
@@ -124,11 +124,25 @@ public class ShoppingPortlet extends MVCPortlet {
                 ShoppingCategoryServiceUtil.updateCategory(
                     categoryId, parentCategoryId, name, description,
                     mergeWithParentCategory, serviceContext);
-            }
-        } catch (Exception ex) {
-            actionResponse.setRenderParameter("jspPage","/edit_category.jsp");
-            throw ex;
+            }                    
         }
+	catch (Exception e) {
+			if (e instanceof NoSuchCategoryException ||
+				e instanceof PrincipalException) {
+
+				SessionErrors.add(actionRequest, e.getClass().getName());
+
+				// setForward(actionRequest, "portlet.shopping.error");
+				actionResponse.setRenderParameter("jspPage","/error.jsp");
+			}
+			else if (e instanceof CategoryNameException) {
+				SessionErrors.add(actionRequest, e.getClass().getName());
+				actionResponse.setRenderParameter("jspPage","/edit_category.jsp");
+			}
+			else {
+				throw e;
+			}
+	}
     }
 
     // ITEM
@@ -336,6 +350,8 @@ public class ShoppingPortlet extends MVCPortlet {
     public void updateCoupon(
             ActionRequest actionRequest, ActionResponse actionResponse)
         throws Exception {
+        
+        try {
         long couponId = ParamUtil.getLong(actionRequest, "couponId");
 
         String code = ParamUtil.getString(actionRequest, "code");
@@ -410,6 +426,54 @@ public class ShoppingPortlet extends MVCPortlet {
                 neverExpire, active, limitCategories, limitSkus, minOrder,
                 discount, discountType, serviceContext);
         }
+        }
+        catch (Exception e) {
+			if (e instanceof NoSuchCouponException ||
+				e instanceof PrincipalException) {
+
+				SessionErrors.add(actionRequest, e.getClass().getName());
+
+				// setForward(actionRequest, "portlet.shopping.error");
+				actionResponse.setRenderParameter("jspPage","/error.jsp");
+			}
+			else if (e instanceof CouponCodeException ||
+					 e instanceof CouponDateException ||
+					 e instanceof CouponDescriptionException ||
+					 e instanceof CouponDiscountException ||
+					 e instanceof CouponEndDateException ||
+					 e instanceof CouponLimitCategoriesException ||
+					 e instanceof CouponLimitSKUsException ||
+					 e instanceof CouponMinimumOrderException ||
+					 e instanceof CouponNameException ||
+					 e instanceof CouponStartDateException ||
+					 e instanceof DuplicateCouponCodeException) {
+
+				if (e instanceof CouponLimitCategoriesException) {
+					CouponLimitCategoriesException clce =
+						(CouponLimitCategoriesException)e;
+
+					SessionErrors.add(
+						actionRequest, e.getClass().getName(),
+						clce.getCategoryIds());
+				}
+				else if (e instanceof CouponLimitSKUsException) {
+					CouponLimitSKUsException clskue =
+						(CouponLimitSKUsException)e;
+
+					SessionErrors.add(
+						actionRequest, e.getClass().getName(),
+						clskue.getSkus());
+				}
+				else {
+					SessionErrors.add(actionRequest, e.getClass().getName());
+				}
+				actionResponse.setRenderParameter("jspPage","/edit_coupon.jsp");
+			}
+			else {
+				throw e;
+			}
+	}
+
     }
 
     // CART
@@ -524,6 +588,9 @@ public class ShoppingPortlet extends MVCPortlet {
     public void updateOrder(
             ActionRequest actionRequest, ActionResponse actionResponse)
         throws Exception {
+        
+        try {
+        
         ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(
             WebKeys.THEME_DISPLAY);
 
@@ -541,6 +608,21 @@ public class ShoppingPortlet extends MVCPortlet {
         ShoppingOrderServiceUtil.completeOrder(
             themeDisplay.getScopeGroupId(), number, ppTxnId, ppPaymentStatus,
             ppPaymentGross, ppReceiverEmail, ppPayerEmail);
+        }    
+        catch (Exception e) {
+			if (e instanceof NoSuchOrderException ||
+				e instanceof PrincipalException) {
+
+				SessionErrors.add(actionRequest, e.getClass().getName());
+				actionResponse.setRenderParameter("jspPage","/error.jsp");
+				// return mapping.findForward("portlet.shopping.error");
+			}
+			else {
+				throw e;
+			}
+	}
+
+            
     }
 
     // CHECKOUT
