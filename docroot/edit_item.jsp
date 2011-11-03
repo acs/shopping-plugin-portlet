@@ -130,14 +130,16 @@ int priceId = ParamUtil.getInteger(request, "priceId", -1);
 				%>
 
 				<portlet:renderURL var="viewCategoryURL">
-					<portlet:param name="struts_action" value="/shopping/view" />
+					<%-- <portlet:param name="struts_action" value="/shopping/view" /> --%>
+					<portlet:param name="jspPage" value="/view.jsp" />
 					<portlet:param name="categoryId" value="<%= String.valueOf(categoryId) %>" />
 				</portlet:renderURL>
 
 				<aui:a href="<%= viewCategoryURL %>" id="categoryName" label="<%= categoryName %>" />
 
 				<portlet:renderURL var="selectCateforyURL" windowState="<%= LiferayWindowState.POP_UP.toString() %>">
-					<portlet:param name="struts_action" value="/shopping/select_category" />
+					<%-- <portlet:param name="struts_action" value="/shopping/select_category" /> --%>
+					<portlet:param name="jspPage" value="/select_category.jsp" />
 					<portlet:param name="categoryId" value="<%= String.valueOf(categoryId) %>" />
 				</portlet:renderURL>
 
