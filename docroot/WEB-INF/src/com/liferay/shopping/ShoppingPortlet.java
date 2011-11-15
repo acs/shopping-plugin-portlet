@@ -873,6 +873,22 @@ public class ShoppingPortlet extends MVCPortlet {
 
 			String Authorization_Key =
 				"ODY5Mzg3NDY4ODAzMzgwOkxudU5rTnlZTk5pU0dpR2hYMHNXdHc";
+			
+			String couponDiscountName = null;
+			String couponDiscountDescription = null;
+			double couponDiscount = 0;
+			
+			if (cart.getCoupon()!=null)
+			{
+				couponDiscountName = 
+						cart.getCoupon().getName();
+		        
+				couponDiscountDescription = 
+						cart.getCoupon().getDescription();
+		        
+				couponDiscount = 
+						ShoppingUtil.calculateCouponDiscount(cart.getItems(), cart.getCoupon());
+			}
 
 			// Build parameter string
 
@@ -909,6 +925,19 @@ public class ShoppingPortlet extends MVCPortlet {
 						item.getPrice() + "</unit-price>" + " <quantity>" +
 						count + "</quantity>" + " </item>";
 			}
+			
+			
+			if (cart.getCoupon()!=null && couponDiscountName!=null && couponDiscount>0)
+            {
+            	_log.error("Añadimos descuento: "+couponDiscountName+" cuyo valor total es: "+couponDiscount);
+            	data = data+ "  <item>"+
+                        "   <item-name>"+couponDiscountName+"</item-name>";
+            	 data = data+" <item-description>"+couponDiscountDescription+"</item-description>";
+            	 data = data+   " <unit-price currency=\""+currencyId+"\">-"+couponDiscount+"</unit-price>"+
+                          " <quantity>1</quantity>"+
+                        " </item>";
+            }
+			
 
 			data =
 				data + " </items>" + "<merchant-private-data>" +
