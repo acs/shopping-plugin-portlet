@@ -48,8 +48,9 @@ public class ShoppingPreferences {
 
 	public static final String CC_NONE = "none";
 
-	public static final String[] CC_TYPES =
-		new String[] {"visa", "mastercard", "discover", "amex"};
+	public static final String[] CC_TYPES = new String[] {
+		"visa", "mastercard", "discover", "amex"
+	};
 
 	public static final String[] CURRENCY_IDS;
 
@@ -76,7 +77,9 @@ public class ShoppingPreferences {
 			ids = set.toArray(new String[set.size()]);
 		}
 		catch (Exception e) {
-			ids = new String[] {"USD", "CAD", "EUR", "GBP", "JPY"};
+			ids = new String[] {
+				"USD", "CAD", "EUR", "GBP", "JPY"
+			};
 		}
 		finally {
 			CURRENCY_IDS = ids;
@@ -100,6 +103,7 @@ public class ShoppingPreferences {
 	}
 
 	public String getPayPalEmailAddress() {
+
 		return _portletPreferences.getValue(
 			"paypalEmailAddress", StringPool.BLANK);
 	}
@@ -111,20 +115,42 @@ public class ShoppingPreferences {
 	}
 
 	public boolean usePayPal() {
+
 		return Validator.isNotNull(getPayPalEmailAddress());
 	}
 
+	public String getGoogleCheckoutMerchantId() {
+
+		return _portletPreferences.getValue("GCMerchantId", StringPool.BLANK);
+	}
+
+	public void setGoogleCheckoutMerchantId(String GCMerchantId)
+		throws ReadOnlyException {
+
+		_portletPreferences.setValue("GCMerchantId", GCMerchantId);
+
+	}
+
+	public boolean useGoogleCheckout() {
+
+		return Validator.isNotNull(getGoogleCheckoutMerchantId());
+	}
+
 	public String getCurrencyId() {
+
 		return _portletPreferences.getValue("currencyId", "USD");
 	}
 
-	public void setCurrencyId(String currencyId) throws ReadOnlyException {
+	public void setCurrencyId(String currencyId)
+		throws ReadOnlyException {
+
 		_portletPreferences.setValue("currencyId", currencyId);
 	}
 
 	public String[] getCcTypes() {
-		String ccTypes = _portletPreferences.getValue(
-			"ccTypes", StringUtil.merge(CC_TYPES));
+
+		String ccTypes =
+			_portletPreferences.getValue("ccTypes", StringUtil.merge(CC_TYPES));
 
 		if (ccTypes.equals(CC_NONE)) {
 			return new String[0];
@@ -134,7 +160,9 @@ public class ShoppingPreferences {
 		}
 	}
 
-	public void setCcTypes(String[] ccTypes) throws ReadOnlyException {
+	public void setCcTypes(String[] ccTypes)
+		throws ReadOnlyException {
+
 		if (ccTypes.length == 0) {
 			_portletPreferences.setValue("ccTypes", CC_NONE);
 		}
@@ -144,23 +172,30 @@ public class ShoppingPreferences {
 	}
 
 	public String getTaxState() {
+
 		return _portletPreferences.getValue("taxState", "CA");
 	}
 
-	public void setTaxState(String taxState) throws ReadOnlyException {
+	public void setTaxState(String taxState)
+		throws ReadOnlyException {
+
 		_portletPreferences.setValue("taxState", taxState);
 	}
 
 	public double getTaxRate() {
-		return GetterUtil.getDouble(
-			_portletPreferences.getValue("taxRate", StringPool.BLANK));
+
+		return GetterUtil.getDouble(_portletPreferences.getValue(
+			"taxRate", StringPool.BLANK));
 	}
 
-	public void setTaxRate(double taxRate) throws ReadOnlyException {
+	public void setTaxRate(double taxRate)
+		throws ReadOnlyException {
+
 		_portletPreferences.setValue("taxRate", String.valueOf(taxRate));
 	}
 
 	public String getShippingFormula() {
+
 		return _portletPreferences.getValue("shippingFormula", "flat");
 	}
 
@@ -171,6 +206,7 @@ public class ShoppingPreferences {
 	}
 
 	public String[] getShipping() {
+
 		String value = _portletPreferences.getValue("shipping", null);
 
 		if (value == null) {
@@ -181,13 +217,16 @@ public class ShoppingPreferences {
 		}
 	}
 
-	public void setShipping(String[] shipping) throws ReadOnlyException {
+	public void setShipping(String[] shipping)
+		throws ReadOnlyException {
+
 		_portletPreferences.setValue("shipping", StringUtil.merge(shipping));
 	}
 
 	public String[][] getAlternativeShipping() {
-		String value = _portletPreferences.getValue(
-			"alternativeShipping", null);
+
+		String value =
+			_portletPreferences.getValue("alternativeShipping", null);
 
 		if (value == null) {
 			return new String[0][0];
@@ -214,8 +253,8 @@ public class ShoppingPreferences {
 				"alternativeShipping", StringPool.BLANK);
 		}
 
-		StringBundler sb = new StringBundler(
-			alternativeShipping.length * 2 - 1);
+		StringBundler sb =
+			new StringBundler(alternativeShipping.length * 2 - 1);
 
 		for (int i = 0; i < alternativeShipping.length; i++) {
 			sb.append(StringUtil.merge(alternativeShipping[i]));
@@ -229,6 +268,7 @@ public class ShoppingPreferences {
 	}
 
 	public boolean useAlternativeShipping() {
+
 		String[][] alternativeShipping = getAlternativeShipping();
 
 		try {
@@ -247,6 +287,7 @@ public class ShoppingPreferences {
 	}
 
 	public String getAlternativeShippingName(int altShipping) {
+
 		String altShippingName = StringPool.BLANK;
 
 		try {
@@ -259,6 +300,7 @@ public class ShoppingPreferences {
 	}
 
 	public String getInsuranceFormula() {
+
 		return _portletPreferences.getValue("insuranceFormula", "flat");
 	}
 
@@ -269,6 +311,7 @@ public class ShoppingPreferences {
 	}
 
 	public String[] getInsurance() {
+
 		String value = _portletPreferences.getValue("insurance", null);
 
 		if (value == null) {
@@ -279,22 +322,28 @@ public class ShoppingPreferences {
 		}
 	}
 
-	public void setInsurance(String[] insurance) throws ReadOnlyException {
+	public void setInsurance(String[] insurance)
+		throws ReadOnlyException {
+
 		_portletPreferences.setValue("insurance", StringUtil.merge(insurance));
 	}
 
 	public double getMinOrder() {
+
 		return GetterUtil.getDouble(_portletPreferences.getValue(
 			"min-order", StringPool.BLANK));
 	}
 
-	public void setMinOrder(double minOrder) throws ReadOnlyException {
+	public void setMinOrder(double minOrder)
+		throws ReadOnlyException {
+
 		_portletPreferences.setValue("min-order", String.valueOf(minOrder));
 	}
 
 	public String getEmailFromAddress() {
-		String emailFromAddress = PropsUtil.get(
-			PropsKeys.SHOPPING_EMAIL_FROM_ADDRESS);
+
+		String emailFromAddress =
+			PropsUtil.get(PropsKeys.SHOPPING_EMAIL_FROM_ADDRESS);
 
 		return _portletPreferences.getValue(
 			"emailFromAddress", emailFromAddress);
@@ -307,8 +356,9 @@ public class ShoppingPreferences {
 	}
 
 	public String getEmailFromName() {
-		String emailFromName = PropsUtil.get(
-			PropsKeys.SHOPPING_EMAIL_FROM_NAME);
+
+		String emailFromName =
+			PropsUtil.get(PropsKeys.SHOPPING_EMAIL_FROM_NAME);
 
 		return _portletPreferences.getValue("emailFromName", emailFromName);
 	}
@@ -320,20 +370,21 @@ public class ShoppingPreferences {
 	}
 
 	public boolean getEmailOrderConfirmationEnabled() {
-		String emailOrderConfirmationEnabled = _portletPreferences.getValue(
-			"emailOrderConfirmationEnabled", StringPool.BLANK);
+
+		String emailOrderConfirmationEnabled =
+			_portletPreferences.getValue(
+				"emailOrderConfirmationEnabled", StringPool.BLANK);
 
 		if (Validator.isNotNull(emailOrderConfirmationEnabled)) {
 			return GetterUtil.getBoolean(emailOrderConfirmationEnabled);
 		}
 		else {
-			return GetterUtil.getBoolean(PropsUtil.get(
-				PropsKeys.SHOPPING_EMAIL_ORDER_CONFIRMATION_ENABLED));
+			return GetterUtil.getBoolean(PropsUtil.get(PropsKeys.SHOPPING_EMAIL_ORDER_CONFIRMATION_ENABLED));
 		}
 	}
 
 	public void setEmailOrderConfirmationEnabled(
-			boolean emailOrderConfirmationEnabled)
+		boolean emailOrderConfirmationEnabled)
 		throws ReadOnlyException {
 
 		_portletPreferences.setValue(
@@ -342,17 +393,18 @@ public class ShoppingPreferences {
 	}
 
 	public String getEmailOrderConfirmationBody() {
-		String emailOrderConfirmationBody = PortletProps.get(
-	        PortletPropsKeys.SHOPPING_EMAIL_ORDER_CONFIRMATION_BODY);
 
-        _log.error(PortletPropsKeys.SHOPPING_EMAIL_ORDER_CONFIRMATION_BODY + " " + emailOrderConfirmationBody);
+		String emailOrderConfirmationBody =
+			PortletProps.get(PortletPropsKeys.SHOPPING_EMAIL_ORDER_CONFIRMATION_BODY);
+
+		_log.error(PortletPropsKeys.SHOPPING_EMAIL_ORDER_CONFIRMATION_BODY +
+			" " + emailOrderConfirmationBody);
 
 		if (Validator.isNotNull(emailOrderConfirmationBody)) {
-            return ContentUtil.get(emailOrderConfirmationBody);
+			return ContentUtil.get(emailOrderConfirmationBody);
 		}
 		else {
-			return ContentUtil.get(PropsUtil.get(
-				PropsKeys.SHOPPING_EMAIL_ORDER_CONFIRMATION_BODY));
+			return ContentUtil.get(PropsUtil.get(PropsKeys.SHOPPING_EMAIL_ORDER_CONFIRMATION_BODY));
 		}
 	}
 
@@ -364,22 +416,23 @@ public class ShoppingPreferences {
 	}
 
 	public String getEmailOrderConfirmationSubject() {
-		String emailOrderConfirmationSubject = PortletProps.get(
-			PortletPropsKeys.SHOPPING_EMAIL_ORDER_CONFIRMATION_SUBJECT);
 
-        _log.error(PortletPropsKeys.SHOPPING_EMAIL_ORDER_CONFIRMATION_SUBJECT + " " + emailOrderConfirmationSubject);
+		String emailOrderConfirmationSubject =
+			PortletProps.get(PortletPropsKeys.SHOPPING_EMAIL_ORDER_CONFIRMATION_SUBJECT);
+
+		_log.error(PortletPropsKeys.SHOPPING_EMAIL_ORDER_CONFIRMATION_SUBJECT +
+			" " + emailOrderConfirmationSubject);
 
 		if (Validator.isNotNull(emailOrderConfirmationSubject)) {
-            return ContentUtil.get(emailOrderConfirmationSubject);
+			return ContentUtil.get(emailOrderConfirmationSubject);
 		}
 		else {
-			return ContentUtil.get(PropsUtil.get(
-				PropsKeys.SHOPPING_EMAIL_ORDER_CONFIRMATION_SUBJECT));
+			return ContentUtil.get(PropsUtil.get(PropsKeys.SHOPPING_EMAIL_ORDER_CONFIRMATION_SUBJECT));
 		}
 	}
 
 	public void setEmailOrderConfirmationSubject(
-			String emailOrderConfirmationSubject)
+		String emailOrderConfirmationSubject)
 		throws ReadOnlyException {
 
 		_portletPreferences.setValue(
@@ -387,17 +440,17 @@ public class ShoppingPreferences {
 	}
 
 	public boolean getEmailOrderShippingEnabled() {
-		//String emailOrderShippingEnabled = _portletPreferences.getValue(
-		//	"emailOrderShippingEnabled", StringPool.BLANK);
-		String emailOrderShippingEnabled = PortletProps.get(
-			PortletPropsKeys.SHOPPING_EMAIL_ORDER_SHIPPING_ENABLED);
+
+		// String emailOrderShippingEnabled = _portletPreferences.getValue(
+		// "emailOrderShippingEnabled", StringPool.BLANK);
+		String emailOrderShippingEnabled =
+			PortletProps.get(PortletPropsKeys.SHOPPING_EMAIL_ORDER_SHIPPING_ENABLED);
 
 		if (Validator.isNotNull(emailOrderShippingEnabled)) {
 			return GetterUtil.getBoolean(emailOrderShippingEnabled);
 		}
 		else {
-			return GetterUtil.getBoolean(PropsUtil.get(
-				PropsKeys.SHOPPING_EMAIL_ORDER_SHIPPING_ENABLED));
+			return GetterUtil.getBoolean(PropsUtil.get(PropsKeys.SHOPPING_EMAIL_ORDER_SHIPPING_ENABLED));
 		}
 	}
 
@@ -410,17 +463,17 @@ public class ShoppingPreferences {
 	}
 
 	public String getEmailOrderShippingBody() {
-		//String emailOrderShippingBody = _portletPreferences.getValue(
-		//	"emailOrderShippingBody", StringPool.BLANK);
-		String emailOrderShippingBody = PortletProps.get (
-			PortletPropsKeys.SHOPPING_EMAIL_ORDER_SHIPPING_BODY);
+
+		// String emailOrderShippingBody = _portletPreferences.getValue(
+		// "emailOrderShippingBody", StringPool.BLANK);
+		String emailOrderShippingBody =
+			PortletProps.get(PortletPropsKeys.SHOPPING_EMAIL_ORDER_SHIPPING_BODY);
 
 		if (Validator.isNotNull(emailOrderShippingBody)) {
-            return ContentUtil.get(emailOrderShippingBody);
+			return ContentUtil.get(emailOrderShippingBody);
 		}
 		else {
-			return ContentUtil.get(PropsUtil.get(
-				PropsKeys.SHOPPING_EMAIL_ORDER_SHIPPING_BODY));
+			return ContentUtil.get(PropsUtil.get(PropsKeys.SHOPPING_EMAIL_ORDER_SHIPPING_BODY));
 		}
 	}
 
@@ -432,17 +485,17 @@ public class ShoppingPreferences {
 	}
 
 	public String getEmailOrderShippingSubject() {
-		//String emailOrderShippingSubject = _portletPreferences.getValue(
-		//	"emailOrderShippingSubject", StringPool.BLANK);
-		String emailOrderShippingSubject = PortletProps.get (
-			PortletPropsKeys.SHOPPING_EMAIL_ORDER_SHIPPING_SUBJECT);
+
+		// String emailOrderShippingSubject = _portletPreferences.getValue(
+		// "emailOrderShippingSubject", StringPool.BLANK);
+		String emailOrderShippingSubject =
+			PortletProps.get(PortletPropsKeys.SHOPPING_EMAIL_ORDER_SHIPPING_SUBJECT);
 
 		if (Validator.isNotNull(emailOrderShippingSubject)) {
-            return ContentUtil.get(emailOrderShippingSubject);
+			return ContentUtil.get(emailOrderShippingSubject);
 		}
 		else {
-			return ContentUtil.get(PropsUtil.get(
-				PropsKeys.SHOPPING_EMAIL_ORDER_SHIPPING_SUBJECT));
+			return ContentUtil.get(PropsUtil.get(PropsKeys.SHOPPING_EMAIL_ORDER_SHIPPING_SUBJECT));
 		}
 	}
 
@@ -453,7 +506,9 @@ public class ShoppingPreferences {
 			"emailOrderShippingSubject", emailOrderShippingSubject);
 	}
 
-	public void store() throws IOException, ValidatorException {
+	public void store()
+		throws IOException, ValidatorException {
+
 		_portletPreferences.store();
 	}
 
@@ -465,11 +520,12 @@ public class ShoppingPreferences {
 		long plid = PortletKeys.PREFS_PLID_SHARED;
 		String portletId = PortletKeys.SHOPPING;
 
-		_portletPreferences = PortletPreferencesLocalServiceUtil.getPreferences(
-			companyId, ownerId, ownerType, plid, portletId);
+		_portletPreferences =
+			PortletPreferencesLocalServiceUtil.getPreferences(
+				companyId, ownerId, ownerType, plid, portletId);
 	}
 
 	private PortletPreferences _portletPreferences;
 
-    private static Log _log = LogFactoryUtil.getLog(ShoppingPreferences.class);
+	private static Log _log = LogFactoryUtil.getLog(ShoppingPreferences.class);
 }

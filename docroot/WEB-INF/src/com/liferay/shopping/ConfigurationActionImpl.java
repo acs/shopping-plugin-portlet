@@ -38,8 +38,8 @@ import javax.portlet.RenderResponse;
 public class ConfigurationActionImpl extends BaseConfigurationAction {
 
 	public void processAction(
-			PortletConfig portletConfig, ActionRequest actionRequest,
-			ActionResponse actionResponse)
+		PortletConfig portletConfig, ActionRequest actionRequest,
+		ActionResponse actionResponse)
 		throws Exception {
 
 		String cmd = ParamUtil.getString(actionRequest, Constants.CMD);
@@ -48,11 +48,12 @@ public class ConfigurationActionImpl extends BaseConfigurationAction {
 			return;
 		}
 
-		ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(
-			WebKeys.THEME_DISPLAY);
+		ThemeDisplay themeDisplay =
+			(ThemeDisplay) actionRequest.getAttribute(WebKeys.THEME_DISPLAY);
 
-		ShoppingPreferences preferences = ShoppingPreferences.getInstance(
-			themeDisplay.getCompanyId(), themeDisplay.getScopeGroupId());
+		ShoppingPreferences preferences =
+			ShoppingPreferences.getInstance(
+				themeDisplay.getCompanyId(), themeDisplay.getScopeGroupId());
 
 		String tabs2 = ParamUtil.getString(actionRequest, "tabs2");
 		String tabs3 = ParamUtil.getString(actionRequest, "tabs3");
@@ -81,27 +82,27 @@ public class ConfigurationActionImpl extends BaseConfigurationAction {
 		if (SessionErrors.isEmpty(actionRequest)) {
 			preferences.store();
 
-			SessionMessages.add(
-				actionRequest, portletConfig.getPortletName() + ".doConfigure");
+			SessionMessages.add(actionRequest, portletConfig.getPortletName() +
+				".doConfigure");
 		}
 	}
 
 	public String render(
-			PortletConfig portletConfig, RenderRequest renderRequest,
-			RenderResponse renderResponse)
+		PortletConfig portletConfig, RenderRequest renderRequest,
+		RenderResponse renderResponse)
 		throws Exception {
 
 		return "/configuration.jsp";
 	}
 
 	protected void updateEmailFrom(
-			ActionRequest actionRequest, ShoppingPreferences preferences)
+		ActionRequest actionRequest, ShoppingPreferences preferences)
 		throws Exception {
 
-		String emailFromName = ParamUtil.getString(
-			actionRequest, "emailFromName");
-		String emailFromAddress = ParamUtil.getString(
-			actionRequest, "emailFromAddress");
+		String emailFromName =
+			ParamUtil.getString(actionRequest, "emailFromName");
+		String emailFromAddress =
+			ParamUtil.getString(actionRequest, "emailFromAddress");
 
 		if (Validator.isNull(emailFromName)) {
 			SessionErrors.add(actionRequest, "emailFromName");
@@ -116,15 +117,15 @@ public class ConfigurationActionImpl extends BaseConfigurationAction {
 	}
 
 	protected void updateEmailOrderConfirmation(
-			ActionRequest actionRequest, ShoppingPreferences preferences)
+		ActionRequest actionRequest, ShoppingPreferences preferences)
 		throws Exception {
 
-		boolean emailOrderConfirmationEnabled = ParamUtil.getBoolean(
-			actionRequest, "emailOrderConfirmationEnabled");
-		String emailOrderConfirmationSubject = ParamUtil.getString(
-			actionRequest, "emailOrderConfirmationSubject");
-		String emailOrderConfirmationBody = ParamUtil.getString(
-			actionRequest, "emailOrderConfirmationBody");
+		boolean emailOrderConfirmationEnabled =
+			ParamUtil.getBoolean(actionRequest, "emailOrderConfirmationEnabled");
+		String emailOrderConfirmationSubject =
+			ParamUtil.getString(actionRequest, "emailOrderConfirmationSubject");
+		String emailOrderConfirmationBody =
+			ParamUtil.getString(actionRequest, "emailOrderConfirmationBody");
 
 		if (Validator.isNull(emailOrderConfirmationSubject)) {
 			SessionErrors.add(actionRequest, "emailOrderConfirmationSubject");
@@ -133,25 +134,22 @@ public class ConfigurationActionImpl extends BaseConfigurationAction {
 			SessionErrors.add(actionRequest, "emailOrderConfirmationBody");
 		}
 		else {
-			preferences.setEmailOrderConfirmationEnabled(
-				emailOrderConfirmationEnabled);
-			preferences.setEmailOrderConfirmationSubject(
-				emailOrderConfirmationSubject);
-			preferences.setEmailOrderConfirmationBody(
-				emailOrderConfirmationBody);
+			preferences.setEmailOrderConfirmationEnabled(emailOrderConfirmationEnabled);
+			preferences.setEmailOrderConfirmationSubject(emailOrderConfirmationSubject);
+			preferences.setEmailOrderConfirmationBody(emailOrderConfirmationBody);
 		}
 	}
 
 	protected void updateEmailOrderShipping(
-			ActionRequest actionRequest, ShoppingPreferences preferences)
+		ActionRequest actionRequest, ShoppingPreferences preferences)
 		throws Exception {
 
-		boolean emailOrderShippingEnabled = ParamUtil.getBoolean(
-			actionRequest, "emailOrderShippingEnabled");
-		String emailOrderShippingSubject = ParamUtil.getString(
-			actionRequest, "emailOrderShippingSubject");
-		String emailOrderShippingBody = ParamUtil.getString(
-			actionRequest, "emailOrderShippingBody");
+		boolean emailOrderShippingEnabled =
+			ParamUtil.getBoolean(actionRequest, "emailOrderShippingEnabled");
+		String emailOrderShippingSubject =
+			ParamUtil.getString(actionRequest, "emailOrderShippingSubject");
+		String emailOrderShippingBody =
+			ParamUtil.getString(actionRequest, "emailOrderShippingBody");
 
 		if (Validator.isNull(emailOrderShippingSubject)) {
 			SessionErrors.add(actionRequest, "emailOrderShippingSubject");
@@ -167,17 +165,18 @@ public class ConfigurationActionImpl extends BaseConfigurationAction {
 	}
 
 	protected void updateInsuranceCalculation(
-			ActionRequest actionRequest, ShoppingPreferences preferences)
+		ActionRequest actionRequest, ShoppingPreferences preferences)
 		throws Exception {
 
-		String insuranceFormula = ParamUtil.getString(
-			actionRequest, "insuranceFormula");
+		String insuranceFormula =
+			ParamUtil.getString(actionRequest, "insuranceFormula");
 
 		String[] insurance = new String[5];
 
 		for (int i = 0; i < insurance.length; i++) {
-			insurance[i] = String.valueOf(
-				ParamUtil.getDouble(actionRequest, "insurance" + i));
+			insurance[i] =
+				String.valueOf(ParamUtil.getDouble(actionRequest, "insurance" +
+					i));
 		}
 
 		preferences.setInsuranceFormula(insuranceFormula);
@@ -185,19 +184,24 @@ public class ConfigurationActionImpl extends BaseConfigurationAction {
 	}
 
 	protected void updatePayment(
-			ActionRequest actionRequest, ShoppingPreferences preferences)
+		ActionRequest actionRequest, ShoppingPreferences preferences)
 		throws Exception {
 
-		String payPalEmailAddress = ParamUtil.getString(
-			actionRequest, "payPalEmailAddress");
-		String[] ccTypes = StringUtil.split(
-			ParamUtil.getString(actionRequest, "ccTypes"));
+		String payPalEmailAddress =
+			ParamUtil.getString(actionRequest, "payPalEmailAddress");
+		String GCMerchantId =
+			ParamUtil.getString(actionRequest, "GoogleCheckoutMerchantId");
+
+		String[] ccTypes =
+			StringUtil.split(ParamUtil.getString(actionRequest, "ccTypes"));
 		String currencyId = ParamUtil.getString(actionRequest, "currencyId");
 		String taxState = ParamUtil.getString(actionRequest, "taxState");
 		double taxRate = ParamUtil.getDouble(actionRequest, "taxRate") / 100;
 		double minOrder = ParamUtil.getDouble(actionRequest, "minOrder");
 
 		preferences.setPayPalEmailAddress(payPalEmailAddress);
+		preferences.setGoogleCheckoutMerchantId(GCMerchantId);
+
 		preferences.setCcTypes(ccTypes);
 		preferences.setCurrencyId(currencyId);
 		preferences.setTaxState(taxState);
@@ -206,21 +210,21 @@ public class ConfigurationActionImpl extends BaseConfigurationAction {
 	}
 
 	protected void updateShippingCalculation(
-			ActionRequest actionRequest, ShoppingPreferences preferences)
+		ActionRequest actionRequest, ShoppingPreferences preferences)
 		throws Exception {
 
-		String shippingFormula = ParamUtil.getString(
-			actionRequest, "shippingFormula");
+		String shippingFormula =
+			ParamUtil.getString(actionRequest, "shippingFormula");
 
 		String[] shipping = new String[5];
 
 		for (int i = 0; i < shipping.length; i++) {
-			shipping[i] = String.valueOf(
-				ParamUtil.getDouble(actionRequest, "shipping" + i));
+			shipping[i] =
+				String.valueOf(ParamUtil.getDouble(actionRequest, "shipping" +
+					i));
 		}
 
 		preferences.setShippingFormula(shippingFormula);
 		preferences.setShipping(shipping);
 	}
-
 }

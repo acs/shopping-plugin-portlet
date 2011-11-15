@@ -54,8 +54,10 @@ import com.liferay.shopping.util.ShoppingUtil;
 import com.liferay.shopping.util.WebKeys;
 import com.liferay.util.bridges.mvc.MVCPortlet;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 
 import java.net.URL;
@@ -68,6 +70,36 @@ import java.util.List;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
+
+import java.text.NumberFormat;
+import java.util.Locale;
+
+import java.util.Iterator;
+import java.util.Map;
+import java.util.LinkedHashMap;
+import com.liferay.shopping.model.ShoppingCartItem;
+
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.google.checkout.sdk.commands.ApiContext;
+import com.google.checkout.sdk.commands.Environment;
+import com.google.checkout.sdk.domain.AuthorizationAmountNotification;
+import com.google.checkout.sdk.notifications.BaseNotificationDispatcher;
+import com.google.checkout.sdk.notifications.Notification;
+
+import com.google.checkout.sdk.domain.FinancialOrderState;
+import com.google.checkout.sdk.domain.NewOrderNotification;
+import com.google.checkout.sdk.domain.OrderStateChangeNotification;
+import com.google.checkout.sdk.domain.OrderSummary;
+import com.google.checkout.sdk.notifications.JDBCNotificationDispatcher;
+import com.google.checkout.sdk.notifications.NamedDatabaseNotificationDispatcher;
+
+import com.google.checkout.sdk.commands.OrderCommands;
+import com.google.checkout.sdk.domain.ChargeAmountNotification;
+
+import java.math.BigDecimal;
 
 /**
  * @author Brian Wing Shun Chan
@@ -818,6 +850,133 @@ public class ShoppingPortlet extends MVCPortlet {
 			_log.error(redirectURL);
 			actionResponse.sendRedirect(redirectURL);
 		}
+		else if (preferences.useGoogleCheckout()) {
+
+			_log.error("Using GoogleCheckout to pay this order...");
+
+			String returnURL =
+				ShoppingUtil.getGoogleCheckoutReturnURL(
+					liferayPortletResponse.createActionURL(), order);
+			String notifyURL =
+				ShoppingUtil.getGoogleCheckoutNotifyURL(themeDisplay);
+
+			double total =
+				ShoppingUtil.calculateTotal(
+					cart.getItems(), order.getBillingState(), cart.getCoupon(),
+					cart.getAltShipping(), cart.isInsure());
+
+			String currencyId = preferences.getCurrencyId();
+
+			String redirectURL = ShoppingUtil.getGoogleCheckoutRedirectURL();
+
+			_log.error(redirectURL);
+
+			String Authorization_Key =
+				"ODY5Mzg3NDY4ODAzMzgwOkxudU5rTnlZTk5pU0dpR2hYMHNXdHc";
+
+			// Build parameter string
+
+			Map<ShoppingCartItem, Integer> items = cart.getItems();
+			Iterator<Map.Entry<ShoppingCartItem, Integer>> itr =
+				items.entrySet().iterator();
+
+			String data =
+				" <?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+					+ "<checkout-shopping-cart xmlns=\"http://checkout.google.com/schema/2\">"
+					+ "<shopping-cart>" + " <items>";
+
+			while (itr.hasNext()) {
+				Map.Entry<ShoppingCartItem, Integer> entry = itr.next();
+
+				ShoppingCartItem cartItem = entry.getKey();
+				Integer count = entry.getValue();
+
+				ShoppingItem item = cartItem.getItem();
+
+				data =
+					data + "  <item>" + "   <item-name>" + item.getName() +
+						"</item-name>";
+
+				if (item.getDescription() != null &&
+					!item.getDescription().equals("")) {
+					data =
+						data + " <item-description>" + item.getDescription() +
+							"</item-description>";
+				}
+
+				data =
+					data + " <unit-price currency=\"" + currencyId + "\">" +
+						item.getPrice() + "</unit-price>" + " <quantity>" +
+						count + "</quantity>" + " </item>";
+			}
+
+			data =
+				data + " </items>" + "<merchant-private-data>" +
+					"<merchant-note>" + order.getNumber() + "</merchant-note>" +
+					"</merchant-private-data>" + " </shopping-cart>" +
+					" </checkout-shopping-cart>";
+
+			_log.error(data);
+
+			OutputStreamWriter writer = null;
+			BufferedReader reader = null;
+
+			try {
+
+				// Send the request
+				URL url = new URL(redirectURL);
+				URLConnection conn = url.openConnection();
+				conn.setDoOutput(true);
+
+				conn.setRequestProperty("Authorization", "Basic " +
+					Authorization_Key);
+				conn.setRequestProperty(
+					"Content-Type", "application/xml; charset=UTF-8");
+				conn.setRequestProperty(
+					"Accept", "application/xml; charset=UTF-8");
+
+				writer = new OutputStreamWriter(conn.getOutputStream());
+
+				// write parameters
+				writer.write(data);
+				writer.flush();
+
+				// Get the response
+				StringBuffer answer = new StringBuffer();
+				reader =
+					new BufferedReader(new InputStreamReader(
+						conn.getInputStream()));
+				String line;
+				while ((line = reader.readLine()) != null) {
+					answer.append(line);
+				}
+
+				String sAnswer = answer.toString();
+
+				// Output the response
+				_log.error("ANSWER FROM SERVER: " + sAnswer);
+
+				String GCredirectURL =
+					sAnswer.substring(
+						sAnswer.indexOf("<redirect-url>") + 14,
+						sAnswer.indexOf("</redirect-url>"));
+				GCredirectURL = GCredirectURL.replaceAll("amp;", "");
+
+				_log.error("redirectUrl: " + GCredirectURL);
+
+				actionResponse.sendRedirect(GCredirectURL);
+
+			}
+			catch (Exception ex) {
+				ex.printStackTrace();
+			}
+			finally {
+				writer.close();
+				reader.close();
+			}
+
+		}
+
 		else {
 			ShoppingOrderLocalServiceUtil.sendEmail(order, "confirmation");
 			actionResponse.setRenderParameter("jspPage", "/checkout_third.jsp");
@@ -943,6 +1102,181 @@ public class ShoppingPortlet extends MVCPortlet {
 		catch (Exception e) {
 			PortalUtil.sendError(e, request, response);
 		}
+	}
+
+	// GoogleCheckout Notification
+	public void GoogleCheckoutNotification(
+		ActionRequest actionRequest, ActionResponse actionResponse)
+		throws Exception {
+
+		_log.error("Receiving notification from GoogleCheckout");
+
+		ThemeDisplay themeDisplay =
+			(ThemeDisplay) actionRequest.getAttribute(WebKeys.THEME_DISPLAY);
+		ShoppingPreferences preferences =
+			ShoppingPreferences.getInstance(
+				themeDisplay.getCompanyId(), themeDisplay.getScopeGroupId());
+		String currencyId = preferences.getCurrencyId();
+
+		final ApiContext api =
+			new ApiContext(
+				Environment.SANDBOX, "869387468803380",
+				"LnuNkNyYNNiSGiGhX0sWtw", currencyId);
+
+		try {
+
+			HttpServletRequest request =
+				PortalUtil.getHttpServletRequest(actionRequest);
+			HttpServletResponse response =
+				PortalUtil.getHttpServletResponse(actionResponse);
+
+			api.handleNotification(new BaseNotificationDispatcher(
+				request, response) {
+
+				Map<String, OrderSummary> orders =
+					new LinkedHashMap<String, OrderSummary>();
+
+				@Override
+				public void onAllNotifications(
+					OrderSummary orderSummary, Notification notification)
+					throws Exception {
+
+					try {
+						String GCorderId = orderSummary.getGoogleOrderNumber();
+						String sNotification = notification.toString();
+						String OrderNumber =
+							sNotification.substring(
+								sNotification.indexOf("<merchant-note>") + 15,
+								sNotification.indexOf("</merchant-note>"));
+
+						_log.error("Processing notification of OrderNumber " +
+							OrderNumber + " and GCorderId " + GCorderId);
+						_log.error(sNotification);
+
+						ArrayList<String> GCorderIds = new ArrayList<String>();
+						GCorderIds.add(GCorderId);
+						List<OrderSummary> oss =
+							api.reportsRequester().requestOrderSummaries(
+								GCorderIds);
+
+						FinancialOrderState status = null;
+
+						for (OrderSummary os : oss) {
+
+							BigDecimal orderTotal = null;
+							BigDecimal chargedTotal = null;
+
+							status = os.getFinancialOrderState();
+							String sStatus = status.value();
+
+							_log.error("Fulfilment state: " +
+								os.getFulfillmentOrderState());
+							_log.error("Financial state: " + sStatus);
+
+							// Order is ready to be charged
+							if (sStatus.equals("CHARGEABLE")) {
+								_log.error("Charging ordernumber " + GCorderId);
+
+								OrderCommands oc = api.orderCommands(GCorderId);
+								ChargeAmountNotification can =
+									oc.chargeAndShipOrder();
+
+								boolean result = false;
+
+								try {
+									orderTotal =
+										can.getOrderSummary().getOrderTotal().getValue();
+									chargedTotal =
+										can.getTotalChargeAmount().getValue();
+									result = orderTotal.equals(chargedTotal);
+								}
+								catch (Exception e) {
+									result = false;
+								}
+								_log.error("result of Charging OrderNumber " +
+									OrderNumber + " and GCorderId " +
+									GCorderId + ": " + result);
+
+								// Order has been charged, so now we can
+								// activate services or ship items
+							}
+							else if (sStatus.equals("CHARGED")) {
+								_log.error("Activating services and shipping items associated to OrderNumber " +
+									OrderNumber + " and GCorderId " + GCorderId);
+
+								String invoice = OrderNumber;
+								String txnId = GCorderId;
+								String paymentStatus = "CHARGED";
+								double paymentGross =
+									Double.valueOf(sNotification.substring(
+										sNotification.indexOf("<order-total currency=") + 28,
+										sNotification.indexOf("</order-total>")));
+								_log.error("paymentGross: " + paymentGross);
+								String receiverEmail = "seller.csp@gmail.com";
+								String payerEmail =
+									sNotification.substring(
+										sNotification.indexOf("<email>") + 7,
+										sNotification.indexOf("</email>"));
+								_log.error("Updating order status in BBDD");
+								ShoppingOrderLocalServiceUtil.completeOrder(
+									invoice, txnId, paymentStatus,
+									paymentGross, receiverEmail, payerEmail,
+									true);
+
+							}
+
+							orders.put(
+								orderSummary.getGoogleOrderNumber(),
+								orderSummary);
+
+						}
+
+					}
+					catch (Exception e) {
+						_log.error("error in onAllNotifications: " +
+							e.getMessage());
+						throw e;
+					}
+
+				}
+
+				@Override
+				public void onAuthorizationAmountNotification(
+					OrderSummary orderSummary,
+					AuthorizationAmountNotification notification) {
+
+					_log.error("Order " + notification.getGoogleOrderNumber() +
+						" authorized and ready to ship to:" +
+						orderSummary.getBuyerShippingAddress().getContactName());
+				}
+
+				@Override
+				protected void rememberSerialNumber(
+					String serialNumber, OrderSummary orderSummary,
+					Notification notification) {
+
+					// NOTE: We'll have to remember serial numbers in our
+					// database,
+					// before using this for real
+				}
+
+				@Override
+				public boolean hasAlreadyHandled(
+					String serialNumber, OrderSummary orderSummary,
+					Notification notification) {
+
+					// NOTE: We'll have to look up serial numbers in our
+					// database
+					// before using this for real
+					return false;
+				}
+			});
+
+		}
+		catch (Exception e) {
+			PortalUtil.sendError(e, actionRequest, actionResponse);
+		}
+
 	}
 
 	protected boolean validate(ActionRequest request)

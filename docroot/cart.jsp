@@ -493,8 +493,16 @@ boolean minQuantityMultiple = GetterUtil.getBoolean(PrefsPropsUtil.getString(com
 		<br /><br />
 
 	<%
+	} else if (shoppingPrefs.useGoogleCheckout()) {
+	%>
+
+		<img alt="GoogleCheckout" src="<%= themeDisplay.getPathThemeImages() %>/shopping/google_checkout.png" />
+
+		<br /><br />
+
+	<%
 	}
-	else if (!shoppingPrefs.usePayPal() && (ccTypes.length > 0)) {
+	else if (!shoppingPrefs.useGoogleCheckout() && !shoppingPrefs.usePayPal() && (ccTypes.length > 0)) {
 		for (int i = 0; i < ccTypes.length; i++) {
 	%>
 

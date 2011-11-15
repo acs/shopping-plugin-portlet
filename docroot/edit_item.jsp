@@ -157,7 +157,7 @@ int priceId = ParamUtil.getInteger(request, "priceId", -1);
 
 		<aui:input bean="<%= item %>" model="<%= ShoppingItem.class %>" name="name" />
 
-		<aui:input bean="<%= item %>" model="<%= ShoppingItem.class %>" name="description" />
+		<aui:input bean="<%= item %>" model="<%= ShoppingItem.class %>" name="description" type="textarea" />
 
 		<aui:input bean="<%= item %>" model="<%= ShoppingItem.class %>" name="properties" />
 

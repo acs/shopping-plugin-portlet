@@ -7,4 +7,11 @@
 		<generated-parameter name="javax.portlet.action">paypalNotification</generated-parameter>
 		<implicit-parameter name="p_p_lifecycle">1</implicit-parameter>
 	</route>
+
+        <route>
+            <pattern>/notifyGC</pattern>
+            <generated-parameter name="javax.portlet.action">GoogleCheckoutNotification</generated-parameter>
+	    <implicit-parameter name="p_p_lifecycle">1</implicit-parameter>
+       </route>
+
 </routes>

@@ -249,7 +249,7 @@ ShoppingOrder order = (ShoppingOrder)request.getAttribute(WebKeys.SHOPPING_ORDER
 	</tr>
 	</table>
 
-	<c:if test="<%= !shoppingPrefs.usePayPal() %>">
+	<c:if test="<%= !shoppingPrefs.useGoogleCheckout() && !shoppingPrefs.usePayPal() %>">
 		<br />
 
 		<strong><liferay-ui:message key="credit-card" /></strong>
@@ -501,6 +501,6 @@ ShoppingOrder order = (ShoppingOrder)request.getAttribute(WebKeys.SHOPPING_ORDER
 	</table>
 
 	<aui:button-row>
-		<aui:button type="submit" value='<%= shoppingPrefs.usePayPal() ? "continue" : "finished" %>' />
+		<aui:button type="submit" value='<%= shoppingPrefs.usePayPal() || shoppingPrefs.useGoogleCheckout() ? "continue" : "finished" %>' />
 	</aui:button-row>
 </aui:form>
