@@ -49,6 +49,7 @@ import com.liferay.shopping.service.ShoppingOrderLocalServiceUtil;
 import com.liferay.shopping.service.ShoppingOrderServiceUtil;
 import com.liferay.shopping.service.persistence.ShoppingItemFieldUtil;
 import com.liferay.shopping.service.persistence.ShoppingItemPriceUtil;
+//import com.liferay.shopping.util.ContentUtil;
 import com.liferay.shopping.util.ShoppingPreferences;
 import com.liferay.shopping.util.ShoppingUtil;
 import com.liferay.shopping.util.WebKeys;
@@ -100,6 +101,9 @@ import com.google.checkout.sdk.commands.OrderCommands;
 import com.google.checkout.sdk.domain.ChargeAmountNotification;
 
 import java.math.BigDecimal;
+
+import com.liferay.shopping.util.PortletPropsKeys;
+import com.liferay.util.portlet.PortletProps;
 
 /**
  * @author Brian Wing Shun Chan
@@ -865,14 +869,16 @@ public class ShoppingPortlet extends MVCPortlet {
 					cart.getItems(), order.getBillingState(), cart.getCoupon(),
 					cart.getAltShipping(), cart.isInsure());
 
-			String currencyId = preferences.getCurrencyId();
+			String currencyId = 
+					preferences.getCurrencyId();
 
-			String redirectURL = ShoppingUtil.getGoogleCheckoutRedirectURL();
+			String redirectURL = 
+					ShoppingUtil.getGoogleCheckoutRedirectURL();
 
-			_log.error(redirectURL);
-
+			_log.error(redirectURL);			
+			
 			String Authorization_Key =
-				"ODY5Mzg3NDY4ODAzMzgwOkxudU5rTnlZTk5pU0dpR2hYMHNXdHc";
+					PortletProps.get(PortletPropsKeys.GOOGLE_CHECKOUT_AUTHORIZATION_KEY);
 			
 			String couponDiscountName = null;
 			String couponDiscountDescription = null;

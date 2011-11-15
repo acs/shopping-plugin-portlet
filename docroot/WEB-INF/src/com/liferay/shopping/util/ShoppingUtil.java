@@ -14,6 +14,11 @@
 
 package com.liferay.shopping.util;
 
+
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+
+
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.language.LanguageUtil;
@@ -31,6 +36,7 @@ import com.liferay.portal.theme.ThemeDisplay;
 // import com.liferay.portal.util.WebKeys;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.shopping.NoSuchCartException;
+import com.liferay.shopping.ShoppingPortlet;
 import com.liferay.shopping.model.ShoppingCart;
 import com.liferay.shopping.model.ShoppingCartItem;
 import com.liferay.shopping.model.ShoppingCategory;
@@ -73,6 +79,9 @@ import javax.portlet.RenderResponse;
 import javax.portlet.WindowState;
 
 import javax.servlet.jsp.PageContext;
+
+import com.liferay.shopping.util.PortletPropsKeys;
+import com.liferay.util.portlet.PortletProps;
 
 /**
  * @author Brian Wing Shun Chan
@@ -974,16 +983,12 @@ public class ShoppingUtil {
 	}
 
 	public static String getGoogleCheckoutRedirectURL() {
-
-		// Sandbox GoogleCheckout Merchant Account
-		// Account: csp.seller@gmail.com
-		// Google merchant ID: 869387468803380
-		// Google merchant key: LnuNkNyYNNiSGiGhX0sWtw
-		// Authorization_Key:
-		// ODY5Mzg3NDY4ODAzMzgwOkxudU5rTnlZTk5pU0dpR2hYMHNXdHc=
+				
+		String googleCheckoutMerchantId =
+				PortletProps.get(PortletPropsKeys.GOOGLE_CHECKOUT_MERCHANT_ID);
 
 		String urlGC =
-			"https://sandbox.google.com/checkout/api/checkout/v2/merchantCheckout/Merchant/869387468803380";
+			"https://sandbox.google.com/checkout/api/checkout/v2/merchantCheckout/Merchant/"+googleCheckoutMerchantId;
 		return urlGC;
 	}
 

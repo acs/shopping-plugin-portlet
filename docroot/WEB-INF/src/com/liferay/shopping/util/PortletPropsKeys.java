@@ -19,6 +19,10 @@ package com.liferay.shopping.util;
  * @author Brian Wing Shun Chan
  */
 public interface PortletPropsKeys {
+	
+	public static final String GOOGLE_CHECKOUT_MERCHANT_ID = "google-checkout.merchant.id";
+	
+	public static final String GOOGLE_CHECKOUT_AUTHORIZATION_KEY = "google-checkout.authorization.key";
 
     public static final String SHOPPING_CART_MIN_QTY_MULTIPLE = "shopping-plugin.cart.min.qty.multiple";
 
