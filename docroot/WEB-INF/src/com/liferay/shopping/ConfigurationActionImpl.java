@@ -189,8 +189,12 @@ public class ConfigurationActionImpl extends BaseConfigurationAction {
 
 		String payPalEmailAddress =
 			ParamUtil.getString(actionRequest, "payPalEmailAddress");
+		
 		String GCMerchantId =
 			ParamUtil.getString(actionRequest, "GoogleCheckoutMerchantId");
+		
+		String GCAuthorizationKey =
+				ParamUtil.getString(actionRequest, "GoogleCheckoutAuthorizationKey");
 
 		String[] ccTypes =
 			StringUtil.split(ParamUtil.getString(actionRequest, "ccTypes"));
@@ -201,6 +205,7 @@ public class ConfigurationActionImpl extends BaseConfigurationAction {
 
 		preferences.setPayPalEmailAddress(payPalEmailAddress);
 		preferences.setGoogleCheckoutMerchantId(GCMerchantId);
+		preferences.setGoogleCheckoutAuthorizationKey(GCAuthorizationKey);
 
 		preferences.setCcTypes(ccTypes);
 		preferences.setCurrencyId(currencyId);

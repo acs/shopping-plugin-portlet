@@ -111,7 +111,8 @@ public class ShoppingPreferences {
 	public void setPayPalEmailAddress(String payPalEmailAddress)
 		throws ReadOnlyException {
 
-		_portletPreferences.setValue("paypalEmailAddress", payPalEmailAddress);
+		_portletPreferences.setValue(
+				"paypalEmailAddress", payPalEmailAddress);
 	}
 
 	public boolean usePayPal() {
@@ -121,19 +122,38 @@ public class ShoppingPreferences {
 
 	public String getGoogleCheckoutMerchantId() {
 
-		return _portletPreferences.getValue("GCMerchantId", StringPool.BLANK);
+		return _portletPreferences.getValue(
+				"GCMerchantId", StringPool.BLANK);
 	}
 
 	public void setGoogleCheckoutMerchantId(String GCMerchantId)
 		throws ReadOnlyException {
 
-		_portletPreferences.setValue("GCMerchantId", GCMerchantId);
+		_portletPreferences.setValue(
+				"GCMerchantId", GCMerchantId);
 
 	}
+	
+	
+	public String getGoogleCheckoutAuthorizationKey() {
+
+		return _portletPreferences.getValue(
+				"GCAuthorizationKey", StringPool.BLANK);
+	}
+
+	public void setGoogleCheckoutAuthorizationKey(String GCAuthorizationKey)
+		throws ReadOnlyException {
+
+		_portletPreferences.setValue(
+				"GCAuthorizationKey", GCAuthorizationKey);
+
+	}
+	
 
 	public boolean useGoogleCheckout() {
 
-		return Validator.isNotNull(getGoogleCheckoutMerchantId());
+		return Validator.isNotNull(
+				getGoogleCheckoutMerchantId());
 	}
 
 	public String getCurrencyId() {

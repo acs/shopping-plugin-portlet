@@ -82,6 +82,7 @@ else if (tabs3.equals("shipping-email")) {
 				<aui:input cssClass="lfr-input-text-container" label="paypal-email-address" name="payPalEmailAddress" type="text" value="<%= shoppingPrefs.getPayPalEmailAddress() %>" />
 
 				<aui:input cssClass="lfr-input-text-container" label="GoogleCheckout-merchantId" name="GoogleCheckoutMerchantId" type="text" value="<%= shoppingPrefs.getGoogleCheckoutMerchantId() %>" />
+				<aui:input cssClass="lfr-input-text-container" label="GoogleCheckout-authorizationKey" name="GoogleCheckoutAuthorizationKey" type="text" value="<%= shoppingPrefs.getGoogleCheckoutAuthorizationKey() %>" />
 
 				<aui:field-wrapper label="credit-cards">
 

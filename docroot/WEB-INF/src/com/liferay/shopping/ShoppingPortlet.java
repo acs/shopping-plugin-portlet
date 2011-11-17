@@ -102,9 +102,6 @@ import com.google.checkout.sdk.domain.ChargeAmountNotification;
 
 import java.math.BigDecimal;
 
-import com.liferay.shopping.util.PortletPropsKeys;
-import com.liferay.util.portlet.PortletProps;
-
 /**
  * @author Brian Wing Shun Chan
  * @author Alvaro del Castillo
@@ -873,12 +870,12 @@ public class ShoppingPortlet extends MVCPortlet {
 					preferences.getCurrencyId();
 
 			String redirectURL = 
-					ShoppingUtil.getGoogleCheckoutRedirectURL();
+					ShoppingUtil.getGoogleCheckoutRedirectURL(preferences);
 
 			_log.error(redirectURL);			
 			
-			String Authorization_Key =
-					PortletProps.get(PortletPropsKeys.GOOGLE_CHECKOUT_AUTHORIZATION_KEY);
+			String Authorization_Key = 
+					preferences.getGoogleCheckoutAuthorizationKey();
 			
 			String couponDiscountName = null;
 			String couponDiscountDescription = null;

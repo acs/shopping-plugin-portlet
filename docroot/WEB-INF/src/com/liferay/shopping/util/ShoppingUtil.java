@@ -80,9 +80,6 @@ import javax.portlet.WindowState;
 
 import javax.servlet.jsp.PageContext;
 
-import com.liferay.shopping.util.PortletPropsKeys;
-import com.liferay.util.portlet.PortletProps;
-
 /**
  * @author Brian Wing Shun Chan
  */
@@ -982,10 +979,10 @@ public class ShoppingUtil {
 			"/notifyGC";
 	}
 
-	public static String getGoogleCheckoutRedirectURL() {
+	public static String getGoogleCheckoutRedirectURL(ShoppingPreferences preferences) {
 				
-		String googleCheckoutMerchantId =
-				PortletProps.get(PortletPropsKeys.GOOGLE_CHECKOUT_MERCHANT_ID);
+		String googleCheckoutMerchantId = 
+				preferences.getGoogleCheckoutMerchantId();
 
 		String urlGC =
 			"https://sandbox.google.com/checkout/api/checkout/v2/merchantCheckout/Merchant/"+googleCheckoutMerchantId;
