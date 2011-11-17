@@ -74,7 +74,7 @@ String keywords = ParamUtil.getString(request, "keywords");
 
 	headerNames.add("sku");
 	headerNames.add("description");
-	headerNames.add("min-qty");
+	//headerNames.add("min-qty");
 	headerNames.add("price");
 	headerNames.add(StringPool.BLANK);
 
@@ -164,7 +164,7 @@ String keywords = ParamUtil.getString(request, "keywords");
 
 		// Minimum quantity
 
-		row.addText(String.valueOf(item.getMinQuantity()), rowURL);
+		//row.addText(String.valueOf(item.getMinQuantity()), rowURL);
 
 		// Price
 
